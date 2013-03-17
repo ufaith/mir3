@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{a7ec987e-68a8-41db-ad6a-c8cc097b00bd}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>..\..\..\..\release\server\Mir3Server\Gate\LoginGate.exe</DCC_DependencyCheckOutputName>
+    <MainSource>LoginGate.dpr</MainSource>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Hints>False</DCC_Hints>
+    <DCC_Warnings>False</DCC_Warnings>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_UnitSearchPath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\Source;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\SDBurn;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\SDXOther;C:\Programme\CodeGear\RAD Studio\5.0\source\DirectX9;C:\Programme\CodeGear\RAD Studio\5.0\source\TMS VCL;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\XP Theme Manager\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressBars 6\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressCommon Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDataController\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDBTree Suite\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDocking Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressEditors Library 5\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressExport Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressFlowChart\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressGDI+ Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressLayout Control\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressLibrary\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressMasterView\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressMemData\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressNavBar\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressOrgChart\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPageControl 2\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPivotGrid\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPrinting System\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressQuantumTreeList 4\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressScript Engine\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSideBar\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSkins Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSpreadSheet\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressVerticalGrid\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressWeb Framework\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\Innerfuse Pascal Script\Sources;G:\World Of Illusion Environment V5\Dev Section\Base Source;G:\World Of Illusion Environment V5\Dev Section\MapEditor;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\pngimage</DCC_UnitSearchPath>
+    <DCC_ResourcePath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\Source;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\SDBurn;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\SDXOther;C:\Programme\CodeGear\RAD Studio\5.0\source\DirectX9;C:\Programme\CodeGear\RAD Studio\5.0\source\TMS VCL;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\XP Theme Manager\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressBars 6\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressCommon Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDataController\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDBTree Suite\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDocking Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressEditors Library 5\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressExport Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressFlowChart\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressGDI+ Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressLayout Control\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressLibrary\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressMasterView\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressMemData\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressNavBar\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressOrgChart\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPageControl 2\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPivotGrid\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPrinting System\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressQuantumTreeList 4\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressScript Engine\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSideBar\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSkins Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSpreadSheet\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressVerticalGrid\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressWeb Framework\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\Innerfuse Pascal Script\Sources;G:\World Of Illusion Environment V5\Dev Section\Base Source;G:\World Of Illusion Environment V5\Dev Section\MapEditor;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\pngimage</DCC_ResourcePath>
+    <DCC_ObjPath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\Source;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\SDBurn;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\SDXOther;C:\Programme\CodeGear\RAD Studio\5.0\source\DirectX9;C:\Programme\CodeGear\RAD Studio\5.0\source\TMS VCL;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\XP Theme Manager\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressBars 6\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressCommon Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDataController\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDBTree Suite\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDocking Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressEditors Library 5\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressExport Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressFlowChart\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressGDI+ Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressLayout Control\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressLibrary\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressMasterView\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressMemData\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressNavBar\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressOrgChart\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPageControl 2\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPivotGrid\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPrinting System\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressQuantumTreeList 4\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressScript Engine\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSideBar\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSkins Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSpreadSheet\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressVerticalGrid\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressWeb Framework\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\Innerfuse Pascal Script\Sources;G:\World Of Illusion Environment V5\Dev Section\Base Source;G:\World Of Illusion Environment V5\Dev Section\MapEditor;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\pngimage</DCC_ObjPath>
+    <DCC_IncludePath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\Source;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\SDBurn;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\SDXOther;C:\Programme\CodeGear\RAD Studio\5.0\source\DirectX9;C:\Programme\CodeGear\RAD Studio\5.0\source\TMS VCL;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\XP Theme Manager\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressBars 6\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressCommon Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDataController\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDBTree Suite\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressDocking Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressEditors Library 5\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressExport Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressFlowChart\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressGDI+ Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressLayout Control\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressLibrary\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressMasterView\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressMemData\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressNavBar\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressOrgChart\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPageControl 2\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPivotGrid\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressPrinting System\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressQuantumTreeList 4\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressScript Engine\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSideBar\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSkins Library\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressSpreadSheet\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressVerticalGrid\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\ExpressWeb Framework\Sources;C:\Programme\CodeGear\RAD Studio\5.0\source\DevExpress Full Installation\Innerfuse Pascal Script\Sources;G:\World Of Illusion Environment V5\Dev Section\Base Source;G:\World Of Illusion Environment V5\Dev Section\MapEditor;C:\Programme\CodeGear\RAD Studio\5.0\source\SelectDesign\pngimage</DCC_IncludePath>
+    <DCC_Define>DEBUG;DEBUG;DEBUG;RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_WriteableConstants>True</DCC_WriteableConstants>
+    <DCC_SymbolReferenceInfo>2</DCC_SymbolReferenceInfo>
+    <DCC_Hints>False</DCC_Hints>
+    <DCC_Warnings>False</DCC_Warnings>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_UnitSearchPath>..\..\..\Common</DCC_UnitSearchPath>
+    <DCC_ResourcePath>..\..\..\Common</DCC_ResourcePath>
+    <DCC_ObjPath>..\..\..\Common</DCC_ObjPath>
+    <DCC_IncludePath>..\..\..\Common</DCC_IncludePath>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_ExeOutput>..\..\..\..\release\server\Mir3Server\Gate</DCC_ExeOutput>
+    <DCC_DcuOutput>..\..\..\dcu</DCC_DcuOutput>
+    <DCC_ObjOutput>..\..\..\dcu</DCC_ObjOutput>
+    <DCC_HppOutput>..\..\..\dcu</DCC_HppOutput>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">0</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">19</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1033</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">LomCN Mir3 Team</VersionInfoKeys><VersionInfoKeys Name="FileDescription">LomCN Mir3 Login Gate</VersionInfoKeys><VersionInfoKeys Name="FileVersion">0.0.0.19</VersionInfoKeys><VersionInfoKeys Name="InternalName">mir3 login gate</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright">© LomCN Mir3 Team</VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">LomCN Login Gate</VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">0.0.0.7</VersionInfoKeys><VersionInfoKeys Name="Comments">Recreate by Coly</VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\Mir3Components2012.bpl">LomCN Map Editor Komponenten Pack 2012</Excluded_Packages>
+      <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\D7WinNetworkSocket.bpl">WinSocket Server / Client</Excluded_Packages>
+      <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dclsdac105.bpl">SQL Server Data Access Components</Excluded_Packages>
+      <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dcldac105.bpl">Devart Data Access Components</Excluded_Packages>
+    </Excluded_Packages><Source><Source Name="MainSource">LoginGate.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <PropertyGroup>
+    <PostBuildEvent>clean_release.bat</PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <DelphiCompile Include="LoginGate.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\..\..\Common\mir3_global_config.pas" />
+    <DCCReference Include="..\..\..\Common\mir3_server_global.pas" />
+    <DCCReference Include="unConfigEngine.pas" />
+    <DCCReference Include="unGateConfig.pas">
+      <Form>frmGateConfig</Form>
+    </DCCReference>
+    <DCCReference Include="unLoginMain.pas">
+      <Form>frmLoginGate</Form>
+    </DCCReference>
+  </ItemGroup>
+</Project>

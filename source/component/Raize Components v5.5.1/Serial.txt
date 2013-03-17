@@ -1,0 +1,5 @@
+// Register Info
+
+1. Enter the following serial during installation:
+
+Serial: 349-999179

@@ -1,0 +1,294 @@
+unit mir3_game_scene_logon;
+
+interface
+
+uses
+{Delphi }  Windows, SysUtils, Classes, JSocket,
+{DirectX}  DXTypes, Direct3D9, D3DX9,
+{Game   }  mir3_game_en_decode, mir3_game_language_engine,
+{Game   }  mir3_game_gui_defination, mir3_core_controls, mir3_global_config, mir3_game_sound,
+{Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils;
+
+{ Callback Functions }
+procedure LoginGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: TMIR3_GUI_Default); stdcall;
+procedure LoginGUIHotKeyEvent(AChar: LongWord); stdcall;
+
+
+type
+  TMir3GameSceneLogon = class(TMIR3_GUI_Manager)
+  strict private
+    FLastMessageError : Integer;
+  public
+    constructor Create;
+    destructor Destroy; override;
+  public
+    procedure ResetScene;
+    procedure ReceiveMessagePacket(AReceiveData: String);
+    procedure SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+    {Event Function}
+    procedure Event_Logon_Check_Login_Data;
+    procedure Event_System_Ok;
+    procedure Event_System_Yes;
+    procedure Event_System_No;
+  end;
+
+implementation
+
+uses mir3_game_backend;
+
+  {$REGION ' - TMir3GameSceneLogon :: constructor / destructor   '}
+    constructor TMir3GameSceneLogon.Create;
+    var
+      FSystemForm : TMIR3_GUI_Form;
+      FLoginForm  : TMIR3_GUI_Form;
+    begin
+      inherited Create;
+      Self.DebugMode := False;
+      Self.SetEventCallback(@LoginGUIEvent);
+      Self.SetHotKeyEventCallback(@LoginGUIHotKeyEvent);
+
+      { Create Login Forms and Controls }
+      FLoginForm  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_Login.FLogin_Background, True));
+      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_BackPanel_1       , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_BackPanel_2       , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_EditField_User    , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_EditField_Password, True);
+      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_Button_Exit       , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_Button_Login      , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_Button_URL_1      , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_Button_URL_2      , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_Information_Field , True);
+
+      { Create System Forms and Controls }
+      FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_System.FSys_Dialog_Info, False));
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Dialog_Text , True);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Ok   , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Yes  , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_No   , False);
+      
+      // later use Config file
+      TMIR3_GUI_Panel(GetComponentByID(GUI_ID_LOGIN_BUTTON_INFO)).Caption := 'Hello'+#10#13+
+                                                                             'this is the new LomCN Mir3 client...'+#10#13+
+                                                                             'Completely re-created from begin...'+#10#13+
+                                                                             ' '+#10#13+
+                                                                             'Create by Coly and Azura'+#10#13+
+                                                                             ' '+#10#13+
+                                                                             ' Thank you LomCN staff, for all the help...'+#10#13+
+                                                                             ' '+#10#13+
+                                                                             ' Thank you WeMade, for this very nice game...';                                                                             ;
+    end;
+    
+    destructor TMir3GameSceneLogon.Destroy;
+    begin
+    
+      inherited;
+    end;
+
+    procedure TMir3GameSceneLogon.ResetScene;
+    begin
+      GGameEngine.SoundManager.StopBackgroundMusic;
+      GGameEngine.SoundManager.PlayBackgroundMusic('opening.wav');
+      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_USER)).SetFocus;
+    end;
+  {$ENDREGION}
+
+  {$REGION ' - TMir3GameSceneLogon :: Scene Funtions   '}
+  procedure TMir3GameSceneLogon.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+  begin
+    if mbOK in AButtons then
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_OK)).Visible := True
+    else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_OK)).Visible := False;
+
+    if mbYes in AButtons then
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_YES)).Visible := True
+    else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_YES)).Visible := False;
+
+    if mbNo in AButtons then
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_NO)).Visible := True
+    else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_NO)).Visible := False;
+
+    SetZOrder(TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)));
+    TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SYSINFO_PANEL)).Caption := AMessage;
+    TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID  := AEventType;
+    TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := True;
+  end;
+  {$ENDREGION}
+
+  {$REGION ' - TMir3GameSceneLogon :: Login Message Decoder   '}
+    procedure TMir3GameSceneLogon.ReceiveMessagePacket(AReceiveData: String);
+    var
+      FAvailIDDay  : Word;
+      FAvailIDHour : Word;
+      FAvailIPDay  : Word;
+      FAvailIPHour : Word;
+      FNetPort     : String;
+      FNetHost     : String;
+      FUserCert    : String;
+      FTempBody    : String;
+      FMessageHead : String;
+      FMessageBody : String;
+      FMessage     : TDefaultMessage;
+    begin
+      FMessageHead := Copy(AReceiveData, 1, DEFBLOCKSIZE);
+      FMessageBody := Copy(AReceiveData, DEFBLOCKSIZE + 1, Length(AReceiveData) - DEFBLOCKSIZE);
+      FMessage     := DecodeMessage(FMessageHead);
+
+      case FMessage.Ident of
+        SM_OUTOFCONNECTION    : begin
+          SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(50), [mbOK],0);
+        end;
+        SM_LOGIN_PASSWORD_FAIL: begin
+          FLastMessageError := FMessage.Recog;
+          case FLastMessageError of
+            -1:  SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(16),[mbOK], 0);
+            -2:  SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(17),[mbOK], 0);
+            -3:  SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(18),[mbOK], 0);
+            -4:  SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(19),[mbOK], 0);
+            -5:  SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(20),[mbOK], 0);
+            else SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(21),[mbOK], 0);
+          end;
+        end;
+        SM_LOGIN_PASSWORD_OK  : begin
+          FAvailIDDay  := Loword(FMessage.Recog);
+          FAvailIDHour := Hiword(FMessage.Recog);
+          FAvailIPDay  := FMessage.Param;
+          FAvailIPHour := FMessage.Tag;
+
+          if FAvailIDDay > 0 then
+          begin
+            if FAvailIDDay = 1 then
+              SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(26),[mbOK], 0)
+            else if FAvailIDDay <= 3 then
+                   SystemMessage(Format(GGameEngine.GameLanguage.GetTextFromLangSystem(27), [IntToStr(FAvailIDDay)]),[mbOK], 0);
+          end else if FAvailIPDay > 0 then
+                   begin
+                     if FAvailIPDay = 1 then
+                        SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(29),[mbOK], 0)
+                     else if FAvailIPDay <= 3 then
+                            SystemMessage(Format(GGameEngine.GameLanguage.GetTextFromLangSystem(28), [IntToStr(FAvailIPDay)]),[mbOK], 0);
+                   end else if FAvailIPHour > 0 then
+                            begin
+                              if FAvailIPHour <= 100 then
+                                 SystemMessage(Format(GGameEngine.GameLanguage.GetTextFromLangSystem(30), [IntToStr(FAvailIPHour)]),[mbOK], 0);
+                            end else if FAvailIDHour > 0 then
+                                     begin
+                                       SystemMessage(Format(GGameEngine.GameLanguage.GetTextFromLangSystem(31), [IntToStr(FAvailIDHour)]),[mbOK], 0);
+                                     end;
+
+          GGameEngine.Send_Select_Server(DeCodeString(GGameEngine.GameLauncherSetting.FServer_1_Name));
+        end;
+        SM_SELECTSERVER_OK    : begin
+          Self.HideAllForms;
+          { Hide Login Scene (later with fadeout) }
+          FTempBody := DecodeString(FMessageBody);
+          FTempBody := GetValidStr3(FTempBody, FNetHost , ['/']);
+          FTempBody := GetValidStr3(FTempBody, FNetPort , ['/']);
+          FTempBody := GetValidStr3(FTempBody, FUserCert, ['/']);
+          GGameEngine.Certification := StrToIntDef(FUserCert, 0);
+          GGameEngine.GameSceneStep := gsScene_SelChar;
+          with GGameEngine.GameNetwork do
+          begin
+            Active  := False;
+            Address := FNetHost;
+            Port    := StrToIntDef(FNetPort, 0);
+            Active  := True;
+          end;
+        end;
+        SM_VERSION_FAIL       : begin // Client Version Fail
+         //      LoginScene.HideLoginBox;
+         //      FrmDlg.DMessageDlg ('Wrong version. Please download latest version. (http://www.mir2.com.ph)', [mbOk]);
+         //      FrmMain.Close
+        end;        
+      end;
+    end;
+  {$ENDREGION}
+
+  {$REGION ' - TMir3GameSceneLogon :: Event Funktion   '}
+    procedure TMir3GameSceneLogon.Event_Logon_Check_Login_Data;
+    var
+      FUserName : String;
+      FPassword : String;
+    begin
+      FUserName := TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_USER)).Text;
+      FPassword := TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_PASSWORD)).Text;
+      if (Trim(FUserName) <> '') and (Trim(FPassword) <> '') then
+      begin
+        GGameEngine.Send_Login(FUserName, FPassword);
+      end else if (Trim(FUserName) = '') then
+               begin
+                 TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_USER)).SetFocus;
+               end else if (Trim(FPassword) = '') then
+                        begin
+                          TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_PASSWORD)).SetFocus;
+                        end;
+    end;
+
+    procedure TMir3GameSceneLogon.Event_System_Ok;
+    begin
+      case TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID of
+        0:;
+        1: SendMessage(GRenderEngine.GetGameHWND, $0010, 0, 0);
+      end;
+      case FLastMessageError of
+        0:; // TODO : we can handle error better here
+      end;
+      TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := False;
+    end;
+
+    procedure TMir3GameSceneLogon.Event_System_Yes;
+    begin
+      case TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID of
+        0:;
+        1:;
+        2: SendMessage(GRenderEngine.GetGameHWND, $0010, 0, 0);
+      end;
+      TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := False;
+    end;
+
+    procedure TMir3GameSceneLogon.Event_System_No;
+    begin
+      TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := False;
+    end;
+
+  {$ENDREGION}
+
+
+  {$REGION ' - Callback Event Function   '}
+    procedure LoginGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: TMIR3_GUI_Default); stdcall;
+    begin
+      case AEventID of
+        EVENT_BUTTON_UP : begin
+          {$REGION ' - EVENT_BUTTON_CLICKED '}
+          case AControl.ControlIdentifier of
+            GUI_ID_LOGIN_BUTTON_EXIT   : GGameEngine.SceneLogon.SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(13),[mbYes, mbNo], 2);
+            GUI_ID_LOGIN_BUTTON_LOGIN  : GGameEngine.SceneLogon.Event_Logon_Check_Login_Data;
+            GUI_ID_LOGIN_BUTTON_URL_1  : BrowseURL(DeCodeString(GGameEngine.GameLauncherSetting.FRegister_URL));
+            GUI_ID_LOGIN_BUTTON_URL_2  : BrowseURL(DeCodeString(GGameEngine.GameLauncherSetting.FAccount_URL));
+            (* System Buttons *)
+            GUI_ID_SYSINFO_BUTTON_OK   : GGameEngine.SceneLogon.Event_System_Ok;
+            GUI_ID_SYSINFO_BUTTON_YES  : GGameEngine.SceneLogon.Event_System_Yes;
+            GUI_ID_SYSINFO_BUTTON_NO   : GGameEngine.SceneLogon.Event_System_No;
+          end;
+
+          {$ENDREGION}           
+        end;
+        EVENT_EDITBOX_RETURN  : begin
+          {$REGION ' - EVENT_EDITBOX_RETURN '}
+           GGameEngine.SceneLogon.Event_Logon_Check_Login_Data;
+          {$ENDREGION}
+        end;
+	  end;
+    end;
+
+    procedure LoginGUIHotKeyEvent(AChar: LongWord); stdcall;
+    begin
+      case Chr(AChar) of
+        'N' : BrowseURL(DeCodeString(GGameEngine.GameLauncherSetting.FRegister_URL));
+        'P' : BrowseURL(DeCodeString(GGameEngine.GameLauncherSetting.FAccount_URL));
+        'L' : GGameEngine.SceneLogon.Event_Logon_Check_Login_Data;
+        'X' : GGameEngine.SceneLogon.SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(13),[mbYes, mbNo], 2);
+      end;
+    end;
+  {$ENDREGION}
+  
+end.
