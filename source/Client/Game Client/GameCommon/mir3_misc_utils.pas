@@ -42,6 +42,9 @@ function ArrestStringEx (Source, SearchAfter, ArrestBefore: string; var ArrestSt
 function GetValidStr3(Str: String; var Dest: String; const Divider: Array of Char): String;
 function GetClassAsString(AClass: Integer): String;
 
+function _MIN(n1, n2: Integer): Integer;
+function _MAX(n1, n2: Integer): Integer;
+
 
 implementation
 
@@ -380,6 +383,18 @@ begin
     2: Result := 'Taoist';
     3: Result := 'Assassin';
   end;
+end;
+
+function _MIN(n1, n2: Integer): Integer;
+begin
+  if n1 < n2 then Result := n1
+  else Result := n2;
+end;
+
+function _MAX(n1, n2: Integer): Integer;
+begin
+  if n1 > n2 then Result := n1
+  else Result := n2;
 end;
 
 end.

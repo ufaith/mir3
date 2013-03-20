@@ -278,7 +278,7 @@ type
 
   (* Callback Functions *)
   PCallbackHotKeyEvent    = procedure (AChar: LongWord); stdcall;
-  PCallBackEventNotify    = procedure (AEventID: LongWord; AControlID: Cardinal; AControl: TMIR3_GUI_Default); stdcall;
+  PCallBackEventNotify    = procedure (AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
   PCallBackPreProcessing  = function (AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
   PCallBackPostProcessing = function (AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
   
@@ -360,14 +360,14 @@ type
     procedure SetEventCallback(ACallback: PCallBackEventNotify);
     procedure SetPreProcessingCallback(ACallback: PCallBackPreProcessing);
     procedure SetPostProcessingCallback(ACallback: PCallBackPostProcessing);    
-    procedure SendEvent(AEvent: LongWord; ATriggerByUser: Boolean; AControl: TMIR3_GUI_Default);
+    procedure SendEvent(AEvent: LongWord; ATriggerByUser: Boolean; AControl: PMIR3_GUI_Default);
     procedure SetZOrder(AGUIForm: TObject);
     function OnRender(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single): HRESULT;
     function OnMsgProc(hWnd: HWND; uMsg: LongWord; wParam: WPARAM; lParam: LPARAM): Boolean;
     procedure OnKeyboardProc(AChar: LongWord; AKeyDown, AAltDown: Boolean);
     procedure DeleteAllControls;
     procedure HideAllForms;
-    procedure RequestFocus(AControl: TMIR3_GUI_Default);
+    procedure RequestFocus(AControl: PMIR3_GUI_Default);
     function GetComponentByID(ACompID: Cardinal): TObject;
     function GetFormByID(ACompID: Cardinal): TObject;
     // Add Forms
@@ -995,7 +995,7 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Manager Send Control Event to the given Event callback
     //..............................................................................    
-    procedure TMIR3_GUI_Manager.SendEvent(AEvent: LongWord; ATriggerByUser: Boolean; AControl: TMIR3_GUI_Default);
+    procedure TMIR3_GUI_Manager.SendEvent(AEvent: LongWord; ATriggerByUser: Boolean; AControl: PMIR3_GUI_Default);
     begin
       // If no callback has been registered there's nowhere to send the event to
       if (@FCallbackEventNotify = nil) then Exit;
@@ -1049,7 +1049,7 @@ var
       begin
         G_MousePoint := Mouse.CursorPos;
         ScreenToClient(GRenderEngine.GetGameHWND, G_MousePoint);
-        GGameEngine.FontManager.DrawHint(G_MousePoint.X, G_MousePoint.Y ,FHintMessage.Caption, FHintMessage.DrawSetting);
+        GGameEngine.FontManager.DrawHint(G_MousePoint.X, G_MousePoint.Y ,PChar(String(FHintMessage.Caption)), @FHintMessage.DrawSetting);
         ZeroMemory(@FHintMessage, sizeOf(THintMessage));
       end;
     end;
@@ -1086,15 +1086,11 @@ var
           not (FTempForm.FMinimized) and
               (FTempForm.FEnabled)   then
           begin
-//            if (FMousePoint.x >= FTempForm.FLeft) and (FMousePoint.x < FTempForm.FLeft + FTempForm.FWidth ) and
-//               (FMousePoint.y >= FTempForm.FTop)  and (FMousePoint.y < FTempForm.FTop  + FTempForm.FHeight) then
-//            begin
             Result := FTempForm.OnMsgProc(hWnd, uMsg, wParam, lParam);
             if Result then
               Exit;
             if FTempForm.FGUI_Defination.gui_Modal_Event then
               Break;
-//            end else if FTempForm.FGUI_Defination.gui_Modal_Event then Break;
           end;
       end;
     end;
@@ -1151,14 +1147,14 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Manager Requst Focus for given Control
     //..............................................................................    
-    procedure TMIR3_GUI_Manager.RequestFocus(AControl: TMIR3_GUI_Default);
+    procedure TMIR3_GUI_Manager.RequestFocus(AControl: PMIR3_GUI_Default);
     begin
-      if G_FControlFocus = AControl then Exit;
+      if G_FControlFocus = @AControl then Exit;
       if (G_FControlFocus <> nil)   then
         G_FControlFocus.OnFocusOut;
 
       AControl.OnFocusIn;
-      G_FControlFocus := AControl;
+      G_FControlFocus := AControl^;
     end;
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -2168,9 +2164,9 @@ var
       //////////////////////////////////////////////////////////////////////////////////////
       // If a control is in focus, it belongs to this dialog, and it's enabled,
       // then give it the first chance at handling the message.
-      if (G_FControlFocus <> nil)                and
+      if (G_FControlFocus <> nil)   then//             and
          //(G_FControlFocus.FParentGUIForm = Self) and
-         (G_FControlFocus.Enabled)               then
+        // (G_FControlFocus.Enabled)               then
       begin
         // If the control MsgProc handles it, then we don't.
         if (G_FControlFocus.MsgProc(uMsg, wParam, lParam)) then
@@ -2713,7 +2709,7 @@ var
                                FAnimationCount := 0
                              else Inc(FAnimationCount, 1);
                            end;
-                           DrawMoveV(FAnimationCount, GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), FDrawSetting);
+                           DrawMoveV(FAnimationCount, GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
                          end else begin
                            if GetTickCount - FAnimationTime > 36 then
                            begin
@@ -2722,7 +2718,7 @@ var
                                FAnimationCount := 0
                              else Inc(FAnimationCount, 1);
                            end;
-                           DrawMoveV(FAnimationCount , FCaption, FDrawSetting);
+                           DrawMoveV(FAnimationCount , FCaption, @FDrawSetting);
                          end;
                        end;
                        False : begin
@@ -2741,9 +2737,9 @@ var
                          end;
                          if gui_CaptionID > 0 then
                          begin
-                           DrawText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), FDrawSetting);
+                           DrawText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
                          end else begin
-                           DrawText(FCaption, FDrawSetting);
+                           DrawText(FCaption, @FDrawSetting);
                          end;
                        end;
                      end;
@@ -2766,8 +2762,8 @@ var
           if ContainsPoint(AMousePoint) then
           begin
             if (not FFocus) then
-              FParentGUIContainer.RequestFocus(Self);
-            FParentGUIContainer.SendEvent(EVENT_BUTTON_DOWN, True, Self);
+              FParentGUIContainer.RequestFocus(@Self);
+            FParentGUIContainer.SendEvent(EVENT_BUTTON_DOWN, True, @Self);
             Exit;
           end;
         end;
@@ -2775,15 +2771,15 @@ var
           if ContainsPoint(AMousePoint) then
           begin
             if (not FFocus) then
-              FParentGUIContainer.RequestFocus(Self);
-            FParentGUIContainer.SendEvent(EVENT_BUTTON_DBCLICKED, True, Self);
+              FParentGUIContainer.RequestFocus(@Self);
+            FParentGUIContainer.SendEvent(EVENT_BUTTON_DBCLICKED, True, @Self);
             Exit;
           end;
         end;
         WM_LBUTTONUP:
         begin
           if ContainsPoint(AMousePoint) then
-            FParentGUIContainer.SendEvent(EVENT_BUTTON_UP, True, Self);
+            FParentGUIContainer.SendEvent(EVENT_BUTTON_UP, True, @Self);
           Exit;
         end;
       end;
@@ -2897,9 +2893,9 @@ var
           if gui_Password_Char <> '' then
           begin
             FTextPW := StringOfChar(gui_Password_Char[1] , FStringBuffer.TextSize);
-            DrawTextRect(FTextPW, FFirstVisibleChar, FDrawSetting);
+            DrawTextRect(FTextPW, FFirstVisibleChar, @FDrawSetting);
             GGameEngine.FontManager.GetFirstVisibleChar(gui_Font_Use_ID, FTextPW, FCaretPos, FCaretX);
-          end else DrawTextRect(FStringBuffer.Buffer, FFirstVisibleChar, FDrawSetting);
+          end else DrawTextRect(FStringBuffer.Buffer, FFirstVisibleChar, @FDrawSetting);
 
           // Render the selection rectangle
           if (FCaretPos <> FSelectStartPos) then
@@ -3025,13 +3021,13 @@ var
                 if (FCaretPos <> FSelectStartPos) then
                 begin
                   DeleteSelectionText;
-                  FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, Self);
+                  FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, @Self);
                 end else if (FCaretPos > 0) then  // Move the caret, then delete the char.
                          begin
                            PlaceCaret(FCaretPos - 1);
                            FSelectStartPos := FCaretPos;
                            FStringBuffer.RemoveChar(FCaretPos);
-                           FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, Self);
+                           FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, @Self);
                          end;
                 ResetCaretBlink;
               end;
@@ -3042,12 +3038,12 @@ var
                 if (wParam = MIR3_VK_CTRL_X) then
                 begin
                   DeleteSelectionText;
-                  FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, Self);
+                  FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, @Self);
                 end;
               end;
               MIR3_VK_CTRL_V : begin  // Ctrl-V Paste
                 PasteFromClipboard;
-                FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, Self);
+                FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, @Self);
               end;
               MIR3_VK_CTRL_A : begin  // Ctrl-A Select All
                 if (FSelectStartPos = FCaretPos) then
@@ -3059,7 +3055,7 @@ var
               VK_RETURN     ,
               VK_TAB        : begin
                 // Invoke the callback when the user presses Enter or Tab.
-                FParentGUIContainer.SendEvent(EVENT_EDITBOX_RETURN, True, Self);
+                FParentGUIContainer.SendEvent(EVENT_EDITBOX_RETURN, True, @Self);
               end;
               // Junk characters we don't want in the string
               MIR3_VK_CTRL_B,
@@ -3116,7 +3112,7 @@ var
                 end;
               end;
               ResetCaretBlink;
-              FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, Self);
+              FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, @Self);
             end;
           Result := True;
           Exit;
@@ -3147,7 +3143,7 @@ var
           {$REGION ' - Mouse Handling BUTTON DOWN / DBClick '}
           if (not FFocus) then
           begin
-            FParentGUIContainer.RequestFocus(Self);
+            FParentGUIContainer.RequestFocus(@Self);
           end;
 
           if not ContainsPoint(AMousePoint) then
@@ -3207,7 +3203,7 @@ var
           case wParam of
             VK_TAB    : begin
              // Invoke the callback when the user presses Tab.
-             FParentGUIContainer.SendEvent(EVENT_EDITBOX_RETURN, True, Self);
+             FParentGUIContainer.SendEvent(EVENT_EDITBOX_RETURN, True, @Self);
             end;
             VK_HOME   : begin
               PlaceCaret(0);
@@ -3245,10 +3241,10 @@ var
               if (FCaretPos <> FSelectStartPos) then
               begin
                 DeleteSelectionText;
-                FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, Self);
+                FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, @Self);
               end else begin // Deleting one character
                 if (FStringBuffer.RemoveChar(FCaretPos)) then
-                  FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, Self);
+                  FParentGUIContainer.SendEvent(EVENT_EDITBOX_CHANGE, True, @Self);
               end;
               ResetCaretBlink;
               bHandled := True;
@@ -3333,7 +3329,7 @@ var
     begin
       if (not FFocus) then
       begin
-        FParentGUIContainer.RequestFocus(Self);
+        FParentGUIContainer.RequestFocus(@Self);
       end;
     end;
 
@@ -3665,7 +3661,7 @@ var
               dsHAlign        := gui_Font_Text_HAlign;
               dsVAlign        := gui_Font_Text_VAlign;
             end;
-            GGameEngine.FontManager.DrawText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), FDrawSetting);
+            GGameEngine.FontManager.DrawText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
           end;
 
           (* Hint Render System *)
@@ -3712,9 +3708,9 @@ var
             FButtonState := bsPress;
             SetCapture(GRenderEngine.GetGameHWND);
             if (not FFocus) then
-              FParentGUIContainer.RequestFocus(Self);
+              FParentGUIContainer.RequestFocus(@Self);
 
-            FParentGUIContainer.SendEvent(EVENT_BUTTON_DOWN, True, Self);
+            FParentGUIContainer.SendEvent(EVENT_BUTTON_DOWN, True, @Self);
             Exit;
           end;
         end;
@@ -3724,9 +3720,9 @@ var
             FButtonState := bsPress;
             SetCapture(GRenderEngine.GetGameHWND);
             if (not FFocus) then
-              FParentGUIContainer.RequestFocus(Self);
+              FParentGUIContainer.RequestFocus(@Self);
 
-            FParentGUIContainer.SendEvent(EVENT_BUTTON_DBCLICKED, True, Self);
+            FParentGUIContainer.SendEvent(EVENT_BUTTON_DBCLICKED, True, @Self);
             Exit;
           end;
         end;
@@ -3735,7 +3731,7 @@ var
           FButtonState := bsBase;
           ReleaseCapture;
           if ContainsPoint(AMousePoint) then
-            FParentGUIContainer.SendEvent(EVENT_BUTTON_UP, True, Self);
+            FParentGUIContainer.SendEvent(EVENT_BUTTON_UP, True, @Self);
           Exit;
         end;
       end;
@@ -4425,8 +4421,7 @@ var
             dsHAlign        := gui_Font_Text_HAlign;
             dsVAlign        := gui_Font_Text_VAlign;
           end;
-          GGameEngine.FontManager.DrawText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), FDrawSetting);
-
+          GGameEngine.FontManager.DrawControlText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
           (* Render Hint *)
           if ((FButtonState = bsMouseOver) or (FButtonState = bsPress)) and (gui_HintID <> 0) then
           begin
@@ -4498,7 +4493,7 @@ var
                 dsHAlign        := gui_Font_Text_HAlign;
                 dsVAlign        := gui_Font_Text_VAlign;
               end;
-              GGameEngine.FontManager.DrawText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), FDrawSetting);
+              GGameEngine.FontManager.DrawControlText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
             end else begin
               with FDrawSetting do
               begin
@@ -4513,7 +4508,7 @@ var
                 dsHAlign        := gui_Font_Text_HAlign;
                 dsVAlign        := gui_Font_Text_VAlign;
               end;
-              GGameEngine.FontManager.DrawText(FCaption, FDrawSetting);
+              GGameEngine.FontManager.DrawControlText(FCaption, @FDrawSetting);
             end;
           end;
         end;
@@ -4637,7 +4632,7 @@ var
             FDragX      := AMousePoint.x;
             FDragOffset := FButtonX - FDragX;
 
-            if not FFocus then FParentGUIContainer.RequestFocus(Self);
+            if not FFocus then FParentGUIContainer.RequestFocus(@Self);
             Exit;
           end;
 
@@ -4647,7 +4642,7 @@ var
             FDragOffset := 0;
             FPressed    := True;
 
-            if not FFocus then FParentGUIContainer.RequestFocus(Self);
+            if not FFocus then FParentGUIContainer.RequestFocus(@Self);
 
             if (AMousePoint.x > FButtonX) then
             begin
@@ -4668,7 +4663,7 @@ var
           begin
             FPressed := False;
             ReleaseCapture;
-            FParentGUIContainer.SendEvent(EVENT_SLIDER_VALUE_CHANGED, True, Self);
+            FParentGUIContainer.SendEvent(EVENT_SLIDER_VALUE_CHANGED, True, @Self);
             Exit;
           end;
         end;
@@ -4736,7 +4731,7 @@ var
       if (AValue = FValue) then Exit;
       FValue := AValue;
       UpdateRects;
-      FParentGUIContainer.SendEvent(EVENT_SLIDER_VALUE_CHANGED, AFromInput, Self);
+      FParentGUIContainer.SendEvent(EVENT_SLIDER_VALUE_CHANGED, AFromInput, @Self);
     end;
 
     function TMIR3_GUI_Slider.ValueFromPos(AValue: Integer): Integer;
@@ -4820,6 +4815,7 @@ var
                   dsUseKerning    := False;
                   dsColor         := $FFe9e9d9;
                 end;
+                //TODO : Fix me
                 FParentGUIContainer.AddHintMessage('Bag Size : 100/140', FDrawSetting);
               end;
             end;
@@ -4968,6 +4964,7 @@ var
           // need some Checks if it external Text or is it % Rate of them etc.
           // We need one for Exp Hint info
 
+          //FAKE  Text atm
          with FDrawSetting do
          begin
            dsControlWidth  := FWidth;
@@ -4981,7 +4978,7 @@ var
            dsHAlign        := gui_Font_Text_HAlign;
            dsVAlign        := gui_Font_Text_VAlign;
          end;
-         GGameEngine.FontManager.DrawText(FCaption, FDrawSetting);
+         GGameEngine.FontManager.DrawControlText(FCaption, @FDrawSetting);
         end;
       end;
 	  end;

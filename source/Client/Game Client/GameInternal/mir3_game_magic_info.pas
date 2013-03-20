@@ -65,7 +65,7 @@ begin
               + 'Level 5 requirement: Quest\'
               + '- skill points required: 800\\'
               + 'The very basic fire spell.\'
-              + 'As you become more skilful,\'
+              + 'As you become more skillfull,\'
               + 'it will get more lethal.\\';
       {$ENDREGION}
     end;

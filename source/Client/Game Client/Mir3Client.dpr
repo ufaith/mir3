@@ -21,7 +21,9 @@ uses
   mir3_game_font_engine in 'GameEngine\mir3_game_font_engine.pas',
   JSocket in '..\..\Common\JSocket.pas',
   mir3_game_en_decode in '..\..\Common\mir3_game_en_decode.pas',
-  mir3_global_config in '..\..\Common\mir3_global_config.pas';
+  mir3_global_config in '..\..\Common\mir3_global_config.pas',
+  mir3_game_map_framework in 'GameInternal\mir3_game_map_framework.pas',
+  mir3_misc_ingame in 'GameCommon\mir3_misc_ingame.pas';
 
 {$R Mir3Client.res}
 

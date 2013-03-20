@@ -27126,15 +27126,6 @@ object frmControlCenter: TfrmControlCenter
           OnMouseEnter = laStart_LoginGateMouseEnter
           OnMouseLeave = laStart_LoginGateMouseLeave
         end
-        object Panel1: TPanel
-          Left = 0
-          Top = 57
-          Width = 49
-          Height = 41
-          Color = 6925777
-          ParentBackground = False
-          TabOrder = 0
-        end
       end
       object gbAdmin: TRzGroupBox
         Left = 16

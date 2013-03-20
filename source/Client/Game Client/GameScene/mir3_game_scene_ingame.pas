@@ -5,12 +5,14 @@ interface
 uses
 {Delphi }  Windows, SysUtils, Classes, JSocket,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
-{Game   }  mir3_game_en_decode, mir3_game_language_engine,
+{Game   }  mir3_game_en_decode, mir3_game_language_engine, mir3_game_map_framework,
 {Game   }  mir3_game_gui_defination, mir3_core_controls, mir3_global_config, mir3_game_sound,
-{Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils;
+{Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils,
+{Game   }  mir3_game_actor;
+
 
 { Callback Functions }
-    procedure InGameGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: TMIR3_GUI_Default); stdcall;
+    procedure InGameGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
     function GamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
     function GamePostProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
 
@@ -27,7 +29,7 @@ uses
 
 type
   TMir3GameSceneInGame = class(TMIR3_GUI_Manager)
-  strict private  
+  strict private
 	{ .... }
     FTextureListNPC     : TList;   // 
     FTextureListBag     : TList;   // 
@@ -35,7 +37,7 @@ type
     FTextureListEquip   : TList;   // 
     FTextureListWeapon  : TList;   // 
     FTextureListHuman   : TList;   //
-    FLastMessageError   : Integer;  
+    FLastMessageError   : Integer;
   strict private
     procedure Create_ExitWindow_UI_Interface;
     procedure Create_Bottm_UI_Interface;
@@ -47,6 +49,8 @@ type
     procedure Create_GameSetting_UI_Interface;
     procedure Create_Trade_UI_Interface;
     procedure Create_Group_UI_Interface;
+  public
+    FGameMap            : IMapFramework;
   public
     constructor Create;
     destructor Destroy; override;
@@ -67,12 +71,12 @@ type
     procedure EventBodyWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventBodyShowWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventMagicWindowWindow(AEventType: Integer; AEventControl: Integer);
+
   end;
 
 implementation
 
-uses mir3_game_backend;
-
+uses mir3_misc_ingame, mir3_game_backend;
 
   {$REGION ' - TMir3GameSceneInGame :: InGame Forms and Controls Constructor '}
     procedure TMir3GameSceneInGame.Create_ExitWindow_UI_Interface;
@@ -364,11 +368,17 @@ uses mir3_game_backend;
       Self.SetEventCallback(@InGameGUIEvent);
       Self.SetPreProcessingCallback(@GamePreProcessing);
       Self.SetPostProcessingCallback(@GamePostProcessing);
-      
+
+      GGameActor                := TActorHuman.Create;
+      FGameMap                  := TMapFramework.Create;
+      FGameMap.LoadGameMap(ExtractFilePath(ParamStr(0))+ '\map\0.map', 165, 264);
+      GGameActor.ActorTempCurrent_X  := 165;
+      GGameActor.ActorTempCurrent_Y  := 264;
+
 	  {Declare Game Lists}
-      FTextureListNPC           := TList.Create;   // 
-      FTextureListBag           := TList.Create;   // 
-      FTextureListGround        := TList.Create;   // 
+      FTextureListNPC           := TList.Create;   //
+      FTextureListBag           := TList.Create;   //
+      FTextureListGround        := TList.Create;   //
       FTextureListEquip         := TList.Create;   // 
       FTextureListWeapon        := TList.Create;   // 
       FTextureListHuman         := TList.Create;   //        
@@ -900,7 +910,7 @@ uses mir3_game_backend;
     ////////////////////////////////////////////////////////////////////////////////
     // Events coming from inside the Control System, we move the Event to a own sys
     //..............................................................................
-    procedure InGameGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: TMIR3_GUI_Default); stdcall;
+    procedure InGameGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
     begin
       case AEventID of
         EVENT_BUTTON_UP   : begin
@@ -941,6 +951,17 @@ uses mir3_game_backend;
     function GamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
     begin
       Result := S_OK;
+
+      with FGameEngine.SceneInGame do
+      begin
+
+        FGameMap.CalculateAniamtionTime;
+        FGameMap.CalculateMapRect(C_GAME_800_600, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
+        //FGameMap.UpdateMapPos(GGameActor.ActorTempCurrent_X - 1, GGameActor.ActorTempCurrent_Y - 20);
+        FGameMap.DrawTileMap;
+        FGameMap.DrawCellMap;
+        
+      end;
       //Render Ingame things before Controls rendered
       //Render Tile Map
       //Render Object Map and all other ingame things

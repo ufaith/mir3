@@ -150,7 +150,7 @@ type
   private
     FWindowHandle        : HWND;
     WaveFmtSize          : Integer;
-    procedure AudioCallBack(var Msg: TMessage); export;
+    //procedure AudioCallBack(var Msg: TMessage); export;
   public
     ErrorMessage         : string;
     constructor Create(AOwner: TComponent); override;
@@ -181,25 +181,25 @@ function CorrectedwaveInClose; external 'MMSYSTEM' index 505;
 
 {------------- WinAPI CallBack routines --------------------------------}
 { Callback routine used for CALLBACK_WINDOW in waveInOpen and waveOutOpen    }
-procedure TAudioOut.AudioCallBack(var Msg: TMessage);
-begin
-  case Msg.Msg of
-    mm_wom_OPEN  : FPlayer.Active := true;
-    mm_wom_CLOSE : FPlayer.Active := false;
-    mm_wom_DONE  : if FPlayer.Active then
-                   begin
-                      dec(FPlayer.FQueuedBuffers);
-                      if not FPlayer.ContinueProcessing then
-                      begin
-                        if FPlayer.FQueuedBuffers = 0 then
-                           PostMessage(FPlayer.MessageHandle, mm_wom_CLOSE, 0, 0);
-                      end else
-                        PostMessage(FPlayer.MessageHandle, wom_DONE, 0, 0);
-                   end;
-
-    wm_QueryEndSession : Destroy;    { only called if Callback_Window is used }
-  end;
-end;
+//procedure TAudioOut.AudioCallBack(var Msg: TMessage);
+//begin
+//  case Msg.Msg of
+//    mm_wom_OPEN  : FPlayer.Active := true;
+//    mm_wom_CLOSE : FPlayer.Active := false;
+//    mm_wom_DONE  : if FPlayer.Active then
+//                   begin
+//                      dec(FPlayer.FQueuedBuffers);
+//                      if not FPlayer.ContinueProcessing then
+//                      begin
+//                        if FPlayer.FQueuedBuffers = 0 then
+//                           PostMessage(FPlayer.MessageHandle, mm_wom_CLOSE, 0, 0);
+//                      end else
+//                        PostMessage(FPlayer.MessageHandle, wom_DONE, 0, 0);
+//                   end;
+//
+//    wm_QueryEndSession : Destroy;    { only called if Callback_Window is used }
+//  end;
+//end;
 {------------- Internal/Private routines -------------------------------}
 
 procedure TAudioSettings.InitWaveHeaders;

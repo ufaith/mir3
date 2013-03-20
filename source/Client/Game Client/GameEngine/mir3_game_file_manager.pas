@@ -1379,7 +1379,7 @@ begin
       FFileInfo.fiImageList[AImageID].ihUseTime := GetTickCount;
       FFileInfo.fiLastUseTick                   := GetTickCount;
       Inc(FFileInfo.fiImageOpenCount);
-      IncExtended(FFileInfo.fiImageMemoryUsag, ((FFileInfo.fiImageList[AImageID].ihPO2_Width * FFileInfo.fiImageList[AImageID].ihPO2_Height) * 4));
+      //IncExtended(FFileInfo.fiImageMemoryUsag, ((FFileInfo.fiImageList[AImageID].ihPO2_Width * FFileInfo.fiImageList[AImageID].ihPO2_Height) * 4));
     end;
     Result := FFileInfo.fiImageList[AImageID];
   end;
@@ -1442,7 +1442,7 @@ end;
 
 procedure TMir3_FileManager.Draw(Image: TMir3_Texture; X, y: integer; Drawmode: word; Alpha: Byte);
 var
-  OldQuad           : THGEQuad;
+  OldQuad : THGEQuad;
 begin
   If Image <> nil then
   begin
@@ -1462,7 +1462,6 @@ begin
     image.FQuad.Blend := Drawmode;
     GRenderEngine.Gfx_RenderQuad(Image.FQuad);
     Image.FQuad := OldQuad;
-    OldQuad.Tex := nil;
   end;
 end;
 
@@ -1761,7 +1760,7 @@ begin
                      if Assigned(FF.fiImageList[I3].ihD3DTexture) then
                      begin
                        //CS
-                       DecExtended(FF.fiImageMemoryUsag, ((FF.fiImageList[I3].ihPO2_Width * FF.fiImageList[I3].ihPO2_Height) * 4));
+                       //DecExtended(FF.fiImageMemoryUsag, ((FF.fiImageList[I3].ihPO2_Width * FF.fiImageList[I3].ihPO2_Height) * 4));
                        FreeAndNil(FF.fiImageList[I3].ihD3DTexture);
                        FF.fiImageList[I3].ihUseTime    := 0;
                        Dec(FF.fiImageOpenCount);

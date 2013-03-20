@@ -1,13 +1,11 @@
 (*******************************************************************
- *   LomCN Mir3 Frontend game File 2012                            *
+ *   LomCN Mir3 backend game File 2012                            *
  *                                                                 *
  *   Web       : http://www.lomcn.co.uk                            *
  *   Version   : 0.0.0.4                                           *
  *                                                                 *
  *   - File Info -                                                 *
  *                                                                 *
- *   This file holds all Game Internal Windows, Controls etc.      *
- *   like Option Window, Minimap Window, Stats Window, etc...      *
  *                                                                 *
  *******************************************************************
  * Change History                                                  *
@@ -521,7 +519,7 @@ implementation
           end;
 
           SceneLogon.OnRender(PD3dDevice, AElapsedTime);
-          FontManager.DrawText('FPS: ' + GRenderEngine.Timer_GetFPSStr, FDrawSetting);
+          FontManager.DrawText(PChar('FPS: ' + GRenderEngine.Timer_GetFPSStr), @FDrawSetting);
         end;
         gsScene_SelChar    : begin
           if (FServerConnecting) and not(FServerConnected) then
@@ -530,7 +528,7 @@ implementation
           end;
 
           SceneSelectChar.OnRender(PD3dDevice, AElapsedTime);
-          FontManager.DrawText('FPS: ' + GRenderEngine.Timer_GetFPSStr, FDrawSetting);
+          FontManager.DrawText(PChar('FPS: ' + GRenderEngine.Timer_GetFPSStr), @FDrawSetting);
         end;
         gsScene_PlayGame   : begin
         {$IFNDEF DEVELOP_INGAME}
@@ -542,7 +540,7 @@ implementation
         {$ENDIF}
 
           SceneInGame.OnRender(PD3dDevice, AElapsedTime);
-          FontManager.DrawText('FPS: ' + GRenderEngine.Timer_GetFPSStr, FDrawSetting);
+          FontManager.DrawText(PChar('FPS: ' + GRenderEngine.Timer_GetFPSStr), @FDrawSetting);
         end;
       end;
       Result := S_OK;

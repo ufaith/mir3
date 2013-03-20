@@ -76,13 +76,16 @@ const
   STATE_OPENHEATH                = 1;
   POISON_68                      = 68;
   STATE_STONE_MODE               = 1;
-  UNITX                          = 48;
-  UNITY                          = 32;
-  HALFX                          = 24;
-  HALFY                          = 16;
+  UNIT_BIG_X                     = 96;
+  UNIT_BIG_Y                     = 64;
+  UNIT_X                         = 48;
+  UNIT_Y                         = 32;
+  HALF_X                         = 24;
+  HALF_Y                         = 16;
   MAXMAGIC                       = 20;
   MAXSTORAGEITEM                 = 50;
   LOGICALMAPUNIT                 = 40;
+  LONG_HEIGHT_IMAGE              = 35;
 
  (****************************************************
   *        Server Control Center Consts              *
@@ -304,6 +307,12 @@ const
   *        ... Consts                          *
   ****************************************************)
   ISM_WHISPER                    = 1234;
+
+ (****************************************************
+  *        ... Consts                          *
+  ****************************************************)
+  C_GAME_800_600                 = 1;
+  C_GAME_1024_768                = 2;
 
 {$REGION ' - Server Message Protocol Consts     '}
  (****************************************************

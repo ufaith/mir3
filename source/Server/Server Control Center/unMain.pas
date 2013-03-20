@@ -108,7 +108,6 @@ type
     laStopFullGameServerSystem: TRzLabel;
     CheckStatus: TTimer;
     StartServerSystem: TTimer;
-    Panel1: TPanel;
     procedure laStart_LoginGateMouseEnter(Sender: TObject);
     procedure laStart_LoginGateMouseLeave(Sender: TObject);
     procedure laStart_LoginGateClick(Sender: TObject);

@@ -48,30 +48,6 @@
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\D7WinNetworkSocket.bpl">WinSocket Server / Client</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dclsdac105.bpl">SQL Server Data Access Components</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dcldac105.bpl">Devart Data Access Components</Excluded_Packages>
@@ -88,6 +64,7 @@
     <DCCReference Include="..\..\Common\JSocket.pas" />
     <DCCReference Include="..\..\Common\mir3_game_en_decode.pas" />
     <DCCReference Include="..\..\Common\mir3_global_config.pas" />
+    <DCCReference Include="GameCommon\mir3_misc_ingame.pas" />
     <DCCReference Include="GameCommon\mir3_misc_utils.pas" />
     <DCCReference Include="GameControls\mir3_core_controls.pas" />
     <DCCReference Include="GameControls\mir3_game_gui_defination.pas" />
@@ -101,6 +78,7 @@
     <DCCReference Include="GameInternal\mir3_game_actor.pas" />
     <DCCReference Include="GameInternal\mir3_game_actor_action.pas" />
     <DCCReference Include="GameInternal\mir3_game_language_engine.pas" />
+    <DCCReference Include="GameInternal\mir3_game_map_framework.pas" />
     <DCCReference Include="GameScene\mir3_game_scene_ingame.pas" />
     <DCCReference Include="GameScene\mir3_game_scene_logon.pas" />
     <DCCReference Include="GameScene\mir3_game_scene_selectchar.pas" />

@@ -271,7 +271,7 @@ type
     procedure PreparePlay;
     procedure PausePlay;
     procedure ResumePlay;
-    procedure NewFFTData(Sender: TObject; BandOut : TBandOut; var PostFlag : boolean);
+    //procedure NewFFTData(Sender: TObject; BandOut : TBandOut; var PostFlag : boolean); virtual;
     procedure ProcMessage(var Msg: TMessage);
     procedure AudioOut1Stop(Sender: TObject);
     function  AudioOut1BufferPlayed(Buffer: PChar; var Size: Word): Boolean;
@@ -974,12 +974,12 @@ uses mir3_game_backend;
     if tmpPaused              then Play;
   end;
   
-  procedure TOggPlayer.NewFFTData(Sender: TObject; BandOut : TBandOut;
-                                               var PostFlag : boolean);
-  begin
-    if Assigned(FOnNewFFTData) then
-       FOnNewFFTData(Sender, BandOut, PostFlag);
-  end;
+//  procedure TOggPlayer.NewFFTData(Sender: TObject; BandOut : TBandOut;
+//                                               var PostFlag : boolean);
+//  begin
+//    if Assigned(FOnNewFFTData) then
+//       FOnNewFFTData(Sender, BandOut, PostFlag);
+//  end;
   
   procedure TOggPlayer.ProcMessage(var Msg: TMessage);
   begin

@@ -35,20 +35,36 @@ unit mir3_game_actor;
 
 interface
 
-uses Windows, Messages, SysUtils,
-     mir3_misc_utils, mir3_game_actor_action, mir3_global_config;
+uses 
+{Delphi }  Windows, Messages, SysUtils,
+{Game   }  mir3_misc_utils, mir3_game_actor_action, mir3_global_config;
 
 type
   IActor = interface
   ['{F6AB6125-B91D-4B96-AE63-C181E083EDB2}']
+    (* Getter / Setter *)
+    function GetActorTempCurrent_X: Integer;
+    procedure SetActorTempCurrent_X(AValue: Integer);
+    function GetActorTempCurrent_Y: Integer;
+    procedure SetActorTempCurrent_Y(AValue: Integer);
+    function GetActorShiftX: Integer;
+    procedure SetActorShiftX(AValue: Integer);
+    function GetActorShiftY: Integer;
+    procedure SetActorShiftY(AValue: Integer);
+    (* Public *)
     function GetMessage(AMessage: PActorMessage): Boolean;
     procedure ProcessActor;
   	procedure RenderActor(AX, AY: Integer; ABlend: Boolean; AFlag: Boolean);
+    (* Propertys *)
+    property ActorTempCurrent_X : Integer read GetActorTempCurrent_X write SetActorTempCurrent_X;
+    property ActorTempCurrent_Y : Integer read GetActorTempCurrent_Y write SetActorTempCurrent_Y;
+    property ActorShift_X       : Integer read GetActorShiftX        write SetActorShiftX;
+    property ActorShift_Y       : Integer read GetActorShiftY        write SetActorShiftY;
   end;
   
   IActorNPC = interface(IActor)
   ['{DCA79765-448C-48DA-8C97-F125CD140275}']
-  
+
   end;  
   
   IActorHuman = interface(IActor)
@@ -61,8 +77,8 @@ type
   TActor      = class(TInterfacedObject, IActor)
     { String }
     FActorName              : String;              {hold the name of the Actor or later the User Name}
-	  FActorGuildName         : String;              {hold the Guild name from the Actor}
-	  FActorRankName          : String;              {hold the Rank name from the Actor}
+    FActorGuildName         : String;              {hold the Guild name from the Actor}
+    FActorRankName          : String;              {hold the Rank name from the Actor}
     { Byte }
     FActorJob               : Byte;                {0:Warrior, 1:Wizard, 2:Tao, 3:Assassin}
     FActorGender            : Byte;                {0:Male, 1:Female}
@@ -72,31 +88,44 @@ type
     FActorDress             : Byte;                {used Dress  ID 0..255}
     FActorDressColor        : Byte;                {used Dress  ID 0..255}
     FActorHair              : Byte;                {used Hair   ID 0..255}
-	  FActorWeapon            : Byte;                {used Weapon ID 0..255}
-	  FActorWeaponFrame       : Byte;                {used Weapon Frame ID 0..255}
-	  FActorHorse             : Byte;                {used Horse  ID 0..255}
+    FActorWeapon            : Byte;                {used Weapon ID 0..255}
+    FActorWeaponFrame       : Byte;                {used Weapon Frame ID 0..255}
+    FActorHorse             : Byte;                {used Horse  ID 0..255}
     { Integer }
-
     FActorCurrent_X         : Integer;             {hold the Actors X Position}
     FActorCurrent_Y         : Integer;             {hold the Actors Y Position}
-	  FActorRecogId           : Integer;             {hold the Actors Recog ID}
+    FActorTempCurrent_X     : Integer;             {hold the Actors X Position Temp}
+    FActorTempCurrent_Y     : Integer;             {hold the Actors Y Position Temp}
+    FActorShiftX            : Integer;
+    FActorShiftY            : Integer;
+    FActorRecogId           : Integer;             {hold the Actors Recog ID}
     FActorTarget_X          : Integer;             {hold the Targets X Position}
     FActorTarget_Y          : Integer;             {hold the Targets Y Position}
     FActorTargetRecogId     : Integer;             {hold the Target Recog ID}
-	  FActorCurrentAction     : Integer;             {hold the Current Actor Action}
+    FActorCurrentAction     : Integer;             {hold the Current Actor Action}
 
     { Boolean }
     FActorIsDeath           : Boolean;             {Signal if Actor Death}
     FActorIsSkeleton        : Boolean;             {Signal if Actor Skeleton: Cow,Pig,Hen...}
     FActorRunSound          : Boolean;             {Signal can Actor Sound Run}
-    FActorVisible	          : Boolean;             {Signal if Actor Visible ingame}
+    FActorVisible           : Boolean;             {Signal if Actor Visible ingame}
     { TList/TGList/TStringList }
 
-	{ other }
-	  FActorAction            : PMonsterAction;
-	//FActorBodySurface        : IMir3Image;
-	//FActorHorseSurface       : IMir3Image;
+    { other }
+    FActorAction            : PMonsterAction;
+  //FActorBodySurface        : IMir3Image;
+  //FActorHorseSurface       : IMir3Image;
   //FActorHorseSurfaceShadow : IMir3Image;
+  private
+    (* Getter / Setter *)
+    function GetActorTempCurrent_X: Integer;
+    procedure SetActorTempCurrent_X(AValue: Integer);
+    function GetActorTempCurrent_Y: Integer;
+    procedure SetActorTempCurrent_Y(AValue: Integer);
+    function GetActorShiftX: Integer;
+    procedure SetActorShiftX(AValue: Integer);
+    function GetActorShiftY: Integer;
+    procedure SetActorShiftY(AValue: Integer);
   protected
     { Integer }
     FActorStartFrame        : Integer;             {used for Actor Image Frame Start}
@@ -111,27 +140,31 @@ type
   public
     { TList/TGList/TStringList }
     FActorMessageList       : TLockList;           {used for Internal Message Handling}
-	  FHealthActionStatusList : TLockList;           {used to hold Action Status Messages to show ingame}
-	  { other }
-	  FRealActorMessage       : TActorMessage;       {used for External Message Handling}
+    FHealthActionStatusList : TLockList;           {used to hold Action Status Messages to show ingame}
+    { other }
+    FRealActorMessage       : TActorMessage;       {used for External Message Handling}
   private
-	  function GetMessage(AMessage: PActorMessage): Boolean;
+    function GetMessage(AMessage: PActorMessage): Boolean;
   public
     constructor Create; dynamic;
     destructor Destroy; override;
   public
     procedure ProcessActor; dynamic;
-	  procedure ProcessMessage;
-	  procedure ProcessHurryMessage;
-	  procedure RenderActor(AX, AY: Integer; ABlend: Boolean; AFlag: Boolean); dynamic;
-	  procedure AddHealthActionStatus(AStatus: Byte; AValue: Integer);
-  end; 
+    procedure ProcessMessage;
+    procedure ProcessHurryMessage;
+    procedure RenderActor(AX, AY: Integer; ABlend: Boolean; AFlag: Boolean); dynamic;
+    procedure AddHealthActionStatus(AStatus: Byte; AValue: Integer);
+    property ActorTempCurrent_X : Integer read GetActorTempCurrent_X write SetActorTempCurrent_X;
+    property ActorTempCurrent_Y : Integer read GetActorTempCurrent_Y write SetActorTempCurrent_Y;
+    property ActorShift_X       : Integer read GetActorShiftX        write SetActorShiftX;
+    property ActorShift_Y       : Integer read GetActorShiftY        write SetActorShiftY;
+  end;
   
   (* TActorNPC *)  
   TActorNPC   = class(TActor, IActorNPC)
   public  
     constructor Create; override;
-	  destructor Destroy; override;
+    destructor Destroy; override;
   public
     procedure ProcessActor;	override;
     procedure RenderActor(AX, AY: Integer; ABlend: Boolean; AFlag: Boolean); override;		
@@ -141,7 +174,7 @@ type
   TActorHuman = class(TActor, IActorHuman)
   public  
     constructor Create; override;
-	  destructor Destroy; override;
+    destructor Destroy; override;
   public
     procedure ProcessActor;	override;
     procedure RenderActor(AX, AY: Integer; ABlend: Boolean; AFlag: Boolean); override;	
@@ -213,7 +246,7 @@ begin
       FMessage := FActorMessageList.Items[I];
       Dispose(FMessage);
     end;
-	  FActorMessageList.Clear;
+    FActorMessageList.Clear;
     FreeAndNil(FActorMessageList);
   end;
   
@@ -224,12 +257,62 @@ begin
       FStatus := FHealthActionStatusList.Items[I];
       Dispose(FStatus);
     end;
-	  FHealthActionStatusList.Clear;
+    FHealthActionStatusList.Clear;
     FreeAndNil(FHealthActionStatusList);
   end;  
   
   Inherited Destroy;
 end;
+
+
+(* Getter / Setter *)
+{$REGION ' - TActor Getter / Setter '}
+  function TActor.GetActorTempCurrent_X: Integer;
+  begin
+    Result := FActorTempCurrent_X;
+  end;
+  
+  procedure TActor.SetActorTempCurrent_X(AValue: Integer);
+  begin
+    if AValue <> FActorTempCurrent_X then
+      FActorTempCurrent_X := AValue;
+  end;
+  
+  function TActor.GetActorTempCurrent_Y: Integer;
+  begin
+    Result := FActorTempCurrent_Y;
+  end;
+  
+  procedure TActor.SetActorTempCurrent_Y(AValue: Integer);
+  begin
+    if AValue <> FActorTempCurrent_Y then
+      FActorTempCurrent_Y := AValue;
+  end;
+
+  function TActor.GetActorShiftX: Integer;
+  begin
+    Result := FActorShiftX;
+  end;
+
+  procedure TActor.SetActorShiftX(AValue: Integer);
+  begin
+    if AValue <> FActorShiftX then
+      FActorShiftX := AValue;
+  end;
+
+  function TActor.GetActorShiftY: Integer;
+  begin
+    Result := FActorShiftY;
+  end;
+
+  procedure TActor.SetActorShiftY(AValue: Integer);
+  begin
+    if AValue <> FActorShiftY then
+      FActorShiftY := AValue;
+  end;
+  
+{$ENDREGION}
+
 
 //**********************************************************
 // TActor::ProcessActor
@@ -255,19 +338,19 @@ begin
       SM_STRUCK  : begin
         //m_nHiterCode := FMessage.amSound;
         //ReadyAction(FMessage);
-	    end;
+    end;
       SM_DEATH   ,
       SM_NOWDEATH,
       SM_SKELETON,
       SM_ALIVE   : begin
         //ReadyAction(FMessage);
- 	    end;
-	  //add other ...
+    end;
+      //add other ...
       else begin
         //ReadyAction(FMessage);
-      end;	
+      end;
     end;
-  end;	
+  end;
 end;
 
 //**********************************************************
@@ -283,10 +366,10 @@ begin
   while True do
   begin
     if FActorMessageList.Count <= FCount then
-	    Break;
-	  
-	  FFinish  := False;
-	  FMessage := FActorMessageList[FCount];
+      Break;
+     
+    FFinish  := False;
+    FMessage := FActorMessageList[FCount];
     case FMessage.amIdent of
       SM_MAGICFIRE      : begin
 {         if m_CurMagic.ServerMagicCode <> 0 then
@@ -301,8 +384,8 @@ begin
             m_CurMagic.EffectType := TMagicType(FMessage.Y);
           FFinish := True;
         end; }
-	    end;
-	    SM_MAGICFIRE_FAIL : begin
+      end;
+      SM_MAGICFIRE_FAIL : begin
 {         if m_CurMagic.ServerMagicCode <> 0 then
         begin
           m_CurMagic.ServerMagicCode := 0;

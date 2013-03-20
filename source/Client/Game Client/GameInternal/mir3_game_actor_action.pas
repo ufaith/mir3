@@ -2,7 +2,7 @@
  *   LomCN Mir3 Actor Action core File 2012                          *
  *                                                                   *
  *   Web       : http://www.lomcn.co.uk                              *
- *   Version   : 0.0.0.2                                             *
+ *   Version   : 0.0.0.3                                             *
  *                                                                   *
  *   - File Info -                                                   *
  *                                                                   *
@@ -15,7 +15,7 @@
  *                                                                   *
  *  - 0.0.0.1 [2012-09-22] Coly : fist init (Motion Settings)        *
  *  - 0.0.0.2 [2012-09-24] Coly : add first correct Mon Race Actions *
- *  - 0.0.0.2 [2012-09-27] Coly : add more Mon Race Actions          *
+ *  - 0.0.0.3 [2012-09-27] Coly : add more Mon Race Actions          *
  *                                                                   *
  *                                                                   *
  *                                                                   *
@@ -61,8 +61,8 @@ type
     haHold                 : TActionInfo; // Motion 4
     haPush_Back            : TActionInfo; // Motion 5
     haPush_Back_Fly        : TActionInfo; // Motion 6
-    haAttack_Mode          : TActionInfo; // Motion 7 aka ActWarMode
-    haCut                  : TActionInfo; // Motion 8 aka ActSitdown
+    haAttack_Mode          : TActionInfo; // Motion 7  aka ActWarMode
+    haCut                  : TActionInfo; // Motion 8  aka ActSitdown
     haOne_V_Swing          : TActionInfo; // Motion 9
     haTow_V_Swing          : TActionInfo; // Motion 10 atm not ingame
     haOne_H_Swing          : TActionInfo; // Motion 11
@@ -78,8 +78,8 @@ type
     haWalk                 : TActionInfo; // Motion 21
     haRun                  : TActionInfo; // Motion 22
     haMoodepo              : TActionInfo; // Motion 23 aka Push Run
-    haAssessin_Spell_1     : TActionInfo; // Motion 24 Assessin Only
-    haAssessin_Spell_2     : TActionInfo; // Motion 25 Assessin Only
+    haAssassin_Spell_1     : TActionInfo; // Motion 24 Assassin Only
+    haAssassin_Spell_2     : TActionInfo; // Motion 25 Assassin Only
     haCast_Fishing_Pole    : TActionInfo; // Motion 26 can only use by Fishing Amor (HumEx)
     haFishing_Idel         : TActionInfo; // Motion 27 can only use by Fishing Amor (HumEx)
     haReel_Fishing_Pole_In : TActionInfo; // Motion 28 can only use by Fishing Amor (HumEx)
@@ -136,8 +136,8 @@ const
     haWalk                    : (aiFrameStart: 1680; aiFrameMax:  6; aiFrameSkip:  4;  aiFrameTime:  90; aiFrameUseTick: 2;); //21
     haRun                     : (aiFrameStart: 1760; aiFrameMax:  6; aiFrameSkip:  4;  aiFrameTime: 120; aiFrameUseTick: 3;); //22
     haMoodepo                 : (aiFrameStart: 1840; aiFrameMax:  6; aiFrameSkip:  4;  aiFrameTime: 120; aiFrameUseTick: 0;); //23
-    haAssessin_Spell_1        : (aiFrameStart: 1920; aiFrameMax:  4; aiFrameSkip:  0;  aiFrameTime: 300; aiFrameUseTick: 0;); //24
-    haAssessin_Spell_2        : (aiFrameStart: 2000; aiFrameMax:  6; aiFrameSkip:  0;  aiFrameTime: 100; aiFrameUseTick: 0;); //25
+    haAssassin_Spell_1        : (aiFrameStart: 1920; aiFrameMax:  4; aiFrameSkip:  0;  aiFrameTime: 300; aiFrameUseTick: 0;); //24
+    haAssassin_Spell_2        : (aiFrameStart: 2000; aiFrameMax:  6; aiFrameSkip:  0;  aiFrameTime: 100; aiFrameUseTick: 0;); //25
     haCast_Fishing_Pole       : (aiFrameStart: 2080; aiFrameMax:  8; aiFrameSkip:  0;  aiFrameTime: 140; aiFrameUseTick: 0;); //26
     haFishing_Idel            : (aiFrameStart: 2160; aiFrameMax:  6; aiFrameSkip:  0;  aiFrameTime: 300; aiFrameUseTick: 0;); //27
     haReel_Fishing_Pole_In    : (aiFrameStart: 2240; aiFrameMax:  8; aiFrameSkip:  0;  aiFrameTime: 140; aiFrameUseTick: 0;); //28
