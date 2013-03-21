@@ -109,7 +109,8 @@ type
     FActorIsSkeleton        : Boolean;             {Signal if Actor Skeleton: Cow,Pig,Hen...}
     FActorRunSound          : Boolean;             {Signal can Actor Sound Run}
     FActorVisible           : Boolean;             {Signal if Actor Visible ingame}
-    { TList/TGList/TStringList }
+    FActorHoldPlace         : Boolean;             {Signal if the Actor hold the place}
+    { TList/TLockList/TStringList }
 
     { other }
     FActorAction            : PMonsterAction;

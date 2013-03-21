@@ -30,10 +30,10 @@
     <DCC_Hints>False</DCC_Hints>
     <DCC_Warnings>False</DCC_Warnings>
     <DCC_MapFile>3</DCC_MapFile>
-    <DCC_UnitSearchPath>.\GameCommon;.\GameEngine;.\GameEngine\ZLib;.\GameEngine\Ogg Vorbis;.\GameEngine\DirectX</DCC_UnitSearchPath>
-    <DCC_ResourcePath>.\GameCommon;.\GameEngine;.\GameEngine\ZLib;.\GameEngine\Ogg Vorbis;.\GameEngine\DirectX</DCC_ResourcePath>
-    <DCC_ObjPath>.\GameCommon;.\GameEngine;.\GameEngine\ZLib;.\GameEngine\Ogg Vorbis;.\GameEngine\DirectX</DCC_ObjPath>
-    <DCC_IncludePath>.\GameCommon;.\GameEngine;.\GameEngine\ZLib;.\GameEngine\Ogg Vorbis;.\GameEngine\DirectX</DCC_IncludePath>
+    <DCC_UnitSearchPath>.\GameCommon;.\GameEngine;.\GameEngine\ZLib;.\GameEngine\Ogg Vorbis;.\GameEngine\DirectX;.\Game Client</DCC_UnitSearchPath>
+    <DCC_ResourcePath>.\GameCommon;.\GameEngine;.\GameEngine\ZLib;.\GameEngine\Ogg Vorbis;.\GameEngine\DirectX;.\Game Client</DCC_ResourcePath>
+    <DCC_ObjPath>.\GameCommon;.\GameEngine;.\GameEngine\ZLib;.\GameEngine\Ogg Vorbis;.\GameEngine\DirectX;.\Game Client</DCC_ObjPath>
+    <DCC_IncludePath>.\GameCommon;.\GameEngine;.\GameEngine\ZLib;.\GameEngine\Ogg Vorbis;.\GameEngine\DirectX;.\Game Client</DCC_IncludePath>
     <DCC_Define>DEBUG</DCC_Define>
     <DCC_ExeOutput>..\..\..\release\client</DCC_ExeOutput>
     <DCC_DcuOutput>..\..\dcu</DCC_DcuOutput>

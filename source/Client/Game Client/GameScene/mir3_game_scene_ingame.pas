@@ -1,6 +1,38 @@
+(*******************************************************************
+ *   LomCN Mir3 InGame Scene File 2013                             *
+ *                                                                 *
+ *   Web       : http://www.lomcn.co.uk                            *
+ *   Version   : 0.0.0.1                                           *
+ *                                                                 *
+ *   - File Info -                                                 *
+ *                                                                 *
+ *                                                                 *
+ *******************************************************************
+ * Change History                                                  *
+ *                                                                 *
+ *  - 0.0.0.1 [2013-01-01] Coly : first init                       *
+ *                                                                 *
+ *                                                                 *
+ *                                                                 *
+ *                                                                 *
+ *                                                                 *
+ *******************************************************************
+ *  - TODO List for this *.pas file -                              *
+ *-----------------------------------------------------------------*
+ *  if a todo finished, then delete it here...                     *
+ *  if you find a global TODO thats need to do, then add it here.. *
+ *-----------------------------------------------------------------*
+ *                                                                 *
+ *  - TODO : -all -fill *.pas header information                   *
+ *                 (how to need this file etc.)                    *
+ *                                                                 *
+ *******************************************************************)
+
 unit mir3_game_scene_ingame;
 
 interface
+
+{$I DevelopmentDefinition.inc}
 
 uses
 {Delphi }  Windows, SysUtils, Classes, JSocket,
@@ -13,9 +45,8 @@ uses
 
 { Callback Functions }
     procedure InGameGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
-    function GamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
-    function GamePostProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
-
+    function CallbackGamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
+    function CallbackGamePostProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
 (*
   C_MODE_ALL      :
   C_MODE_PEACE    :
@@ -38,6 +69,10 @@ type
     FTextureListWeapon  : TList;   // 
     FTextureListHuman   : TList;   //
     FLastMessageError   : Integer;
+    FMoveTime           : LongWord;
+    FRushTime           : LongWord;
+    FMoveTick           : Boolean;
+    FMoveStepCount      : Integer;
   strict private
     procedure Create_ExitWindow_UI_Interface;
     procedure Create_Bottm_UI_Interface;
@@ -51,6 +86,9 @@ type
     procedure Create_Group_UI_Interface;
   public
     FGameMap            : IMapFramework;
+    FActorList          : TLockList;
+    FEffectList         : TLockList;
+    FFlyList            : TLockList;    
   public
     constructor Create;
     destructor Destroy; override;
@@ -71,7 +109,16 @@ type
     procedure EventBodyWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventBodyShowWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventMagicWindowWindow(AEventType: Integer; AEventControl: Integer);
-
+  public
+    (* Game Process Functions *)
+    function GamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT;
+    function GamePostProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT;
+    (* Find Actor *)
+    function FindActor(AName: String): TActor; overload;
+    function FindActor(AActorID: Integer): TActor; overload;
+    function FindActorXY(AX, AY: Integer): TActor;
+    (*  *)
+    procedure CalculateMoveTime;
   end;
 
 implementation
@@ -366,8 +413,15 @@ uses mir3_misc_ingame, mir3_game_backend;
       inherited Create;
       Self.DebugMode := False;
       Self.SetEventCallback(@InGameGUIEvent);
-      Self.SetPreProcessingCallback(@GamePreProcessing);
-      Self.SetPostProcessingCallback(@GamePostProcessing);
+      Self.SetPreProcessingCallback(@CallbackGamePreProcessing);
+      Self.SetPostProcessingCallback(@CallbackGamePostProcessing);
+
+      GGameActor                := TActorHuman.Create;
+      FGameMap                  := TMapFramework.Create;
+      FGameMap.LoadGameMap(ExtractFilePath(ParamStr(0))+ '\map\0.map', 165, 264);
+      GGameActor.ActorTempCurrent_X  := 165;
+      GGameActor.ActorTempCurrent_Y  := 264;
+     
 
       GGameActor                := TActorHuman.Create;
       FGameMap                  := TMapFramework.Create;
@@ -381,7 +435,17 @@ uses mir3_misc_ingame, mir3_game_backend;
       FTextureListGround        := TList.Create;   //
       FTextureListEquip         := TList.Create;   // 
       FTextureListWeapon        := TList.Create;   // 
-      FTextureListHuman         := TList.Create;   //        
+      FTextureListHuman         := TList.Create;   //    
+
+      FActorList                := TLockList.Create;    
+
+      (* Set Up Vars *)
+      FMoveTick                 := False;
+      FMoveStepCount            := 0;
+
+      (* Set Timer *)
+      FMoveTime                 := GetTickCount;
+      FRushTime                 := GetTickCount;
       
       (* Begin Ingame Controls *)
        // Only ADD here all GUI Forms thats is not a UI elemend
@@ -409,6 +473,15 @@ uses mir3_misc_ingame, mir3_game_backend;
         Self.AddControl(FSystemForm, FSys_Button_Yes        , False);
         Self.AddControl(FSystemForm, FSys_Button_No         , False);
       end;
+      {$IFDEF DEVELOP_INGAME}
+      with GGameEngine.GameNetwork do
+      begin
+        Active  := False;
+        Address := '127.0.0.1';
+        Port    := 6000;
+        Active  := True;
+      end; 
+      {$ENDIF} 
     end;
     
     destructor TMir3GameSceneInGame.Destroy;
@@ -430,7 +503,11 @@ uses mir3_misc_ingame, mir3_game_backend;
 	      FreeAndNil(FTextureListWeapon);
 
       if Assigned(FTextureListHuman) then
-	      FreeAndNil(FTextureListHuman);    
+	      FreeAndNil(FTextureListHuman);
+          
+      if Assigned(FActorList) then
+	      FreeAndNil(FActorList);
+          
       inherited;
     end;
 
@@ -456,7 +533,40 @@ uses mir3_misc_ingame, mir3_game_backend;
       FMessage     := DecodeMessage(FMessageHead);
 
       case FMessage.Ident of
-        0:;
+        SM_OUTOFCONNECTION : begin
+        
+        end;
+        SM_DEVELOPMENT     : begin //Used for Dummy Server and Ingame Test
+        
+        end;
+        SM_SERVER_LOGON    : begin
+        
+        end;
+        SM_NEW_MAP         ,
+        SM_CHANGE_MAP      : begin
+        
+        end;
+        
+        SM_SPACEMOVE_HIDE  ,
+        SM_SPACEMOVE_HIDE2 ,
+        SM_SPACEMOVE_HIDE3 : begin
+
+        end;  
+        SM_SPACEMOVE_SHOW,
+        SM_SPACEMOVE_SHOW2 ,
+        SM_SPACEMOVE_SHOW3 : begin
+        
+        end;
+        SM_WALK            , 
+	    SM_RUSH            , 
+	    SM_HORSEWALK       ,
+	    SM_RUSHKUNG        : begin
+
+        end;
+        SM_RUN             , 
+	    SM_HORSERUN        : begin
+        
+        end;        
       end;
     end;
   {$ENDREGION}
@@ -905,7 +1015,6 @@ uses mir3_misc_ingame, mir3_game_backend;
     end;
   {$ENDREGION}
 
-
   {$REGION ' - Callback Event Function   '}
     ////////////////////////////////////////////////////////////////////////////////
     // Events coming from inside the Control System, we move the Event to a own sys
@@ -948,34 +1057,138 @@ uses mir3_misc_ingame, mir3_game_backend;
     ////////////////////////////////////////////////////////////////////////////////
     // It is for Pre Processing things / Map, Item, Magic, Ators things etc.
     //..............................................................................
-    function GamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
+    function CallbackGamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
     begin
-      Result := S_OK;
-
-      with FGameEngine.SceneInGame do
-      begin
-
-        FGameMap.CalculateAniamtionTime;
-        FGameMap.CalculateMapRect(C_GAME_800_600, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
-        //FGameMap.UpdateMapPos(GGameActor.ActorTempCurrent_X - 1, GGameActor.ActorTempCurrent_Y - 20);
-        FGameMap.DrawTileMap;
-        FGameMap.DrawCellMap;
-        
-      end;
-      //Render Ingame things before Controls rendered
-      //Render Tile Map
-      //Render Object Map and all other ingame things
+      Result := FGameEngine.SceneInGame.GamePreProcessing(AD3DDevice, AElapsedTime, ADebugMode);
     end;
 
     ////////////////////////////////////////////////////////////////////////////////
     // It can be use to add Overlay Text or Out / In Blending
     //..............................................................................
-    function GamePostProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
+    function CallbackGamePostProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
     begin
-      Result := S_OK;
+      Result := FGameEngine.SceneInGame.GamePostProcessing(AD3DDevice, AElapsedTime, ADebugMode);
       //Render Ingame things after Controls rendered
       //like Text or Outblend (Mapchange) or other things
     end;      
   {$ENDREGION}
+
+  (* Game Internal Functions *)
+
+  {$REGION ' - TMir3GameSceneInGame :: Pre and Post Processing Funktion   '}
+    function TMir3GameSceneInGame.GamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT;
+    begin
+      Result := S_OK;
+      try
+        CalculateMoveTime;
+
+        FGameMap.CalculateAniamtionTime;
+        FGameMap.CalculateMapRect(C_GAME_800_600, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
+        //FGameMap.UpdateMapPos(GGameActor.ActorTempCurrent_X - 1, GGameActor.ActorTempCurrent_Y - 20);
+
+        FGameMap.DrawTileMap;
+        FGameMap.DrawCellMap;
+
+
+
+
+      except
+        Result := E_Fail;
+      end;
+    end;
+
+    function TMir3GameSceneInGame.GamePostProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT;
+    begin
+      Result := S_OK;
+      try
+
+      except
+        Result := E_Fail;
+      end;
+    end;
+  {$ENDREGION}
+
+  {$REGION ' - TMir3GameSceneInGame :: Find Actor Function                '}
+    function TMir3GameSceneInGame.FindActor(AName: String): TActor;
+    var
+      I      : Integer;
+      FActor : TActor;
+    begin
+      Result := nil;
+      try
+        FActorList.Lock;  
+        for I := 0 to FActorList.count - 1 do
+        begin
+          FActor := TActor(FActorList[I]);
+          if CompareText(TActor(FActor).FActorName, AName) = 0 then
+          begin
+            Result := FActor;
+            Break;
+          end;
+        end;
+      finally
+        FActorList.UnLock;
+      end;  
+    end;  
+    
+    function TMir3GameSceneInGame.FindActor(AActorID: Integer): TActor;
+    var
+      I : Integer;
+    begin
+      Result := nil;
+      try
+        FActorList.Lock;  
+        for I := 0 to FActorList.Count - 1 do
+        begin
+          if TActor(FActorList[I]).FActorRecogId = AActorID then
+          begin
+            Result := TActor(FActorList[I]);
+            Break;
+          end;
+        end;
+      finally
+        FActorList.UnLock;
+      end;
+    end;
+    
+    function TMir3GameSceneInGame.FindActorXY(AX, AY: Integer): TActor;
+    var
+      I : Integer;
+    begin
+      Result := nil;
+      try
+        FActorList.Lock;
+        for I := 0 to FActorList.Count - 1 do
+        begin
+          if (TActor(FActorList[I]).FActorCurrent_X = AX) and
+             (TActor(FActorList[I]).FActorCurrent_Y = AY) then
+          begin
+            Result := TActor(FActorList[I]);
+            if not TActor(Result).FActorIsDeath   and 
+                   TActor(Result).FActorVisible   and 
+                   TActor(Result).FActorHoldPlace then
+              Break;
+          end;
+        end;
+      finally
+        FActorList.UnLock;
+      end;  
+    end;
+    
+    
+  {$ENDREGION}
+
   
+procedure TMir3GameSceneInGame.CalculateMoveTime;
+begin
+  if GetTickCount - FMoveTime >= 95 then
+  begin
+    FMoveTime := GetTickCount;
+    FMoveTick := True;
+    Inc(FMoveStepCount);
+    if FMoveStepCount > 1 then
+      FMoveStepCount := 0;
+  end;
+end;
+
 end.

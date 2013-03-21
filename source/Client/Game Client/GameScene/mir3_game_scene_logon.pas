@@ -1,6 +1,38 @@
+(*******************************************************************
+ *   LomCN Mir3 Login Scene File 2013                              *
+ *                                                                 *
+ *   Web       : http://www.lomcn.co.uk                            *
+ *   Version   : 0.0.0.1                                           *
+ *                                                                 *
+ *   - File Info -                                                 *
+ *                                                                 *
+ *                                                                 *
+ *******************************************************************
+ * Change History                                                  *
+ *                                                                 *
+ *  - 0.0.0.1 [2013-01-01] Coly : first init                       *
+ *                                                                 *
+ *                                                                 *
+ *                                                                 *
+ *                                                                 *
+ *                                                                 *
+ *******************************************************************
+ *  - TODO List for this *.pas file -                              *
+ *-----------------------------------------------------------------*
+ *  if a todo finished, then delete it here...                     *
+ *  if you find a global TODO thats need to do, then add it here.. *
+ *-----------------------------------------------------------------*
+ *                                                                 *
+ *  - TODO : -all -fill *.pas header information                   *
+ *                 (how to need this file etc.)                    *
+ *                                                                 *
+ *******************************************************************)
+ 
 unit mir3_game_scene_logon;
 
 interface
+
+{$I DevelopmentDefinition.inc}
 
 uses
 {Delphi }  Windows, SysUtils, Classes, JSocket,

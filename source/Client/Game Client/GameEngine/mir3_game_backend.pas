@@ -29,13 +29,12 @@
  *                 (how to need this file etc.)                    *
  *                                                                 *
  *******************************************************************)
- 
- {$DEFINE DEVELOP_INGAME}
- 
- 
+
 unit mir3_game_backend;
 
 interface
+
+{$I DevelopmentDefinition.inc}
 
 uses
 {Delphi }  Windows, Messages, Classes, SysUtils, JSocket, Math,
@@ -58,6 +57,8 @@ uses
 
 
 type
+  TWorkerFunction = function (AValue :Pointer): Integer of object;
+
   PMir3_GameLauncherSetting = ^TMir3_GameLauncherSetting;
   TMir3_GameLauncherSetting = record
     FConfigVersion : DWord;
@@ -73,6 +74,15 @@ type
   end;
 
 type
+  TGame_WorkerThread = class(TThread)
+  protected
+    procedure Execute; override;
+  public
+    constructor Create(AFunction: TWorkerFunction);
+    destructor Destroy; override;
+  end;
+
+
   TGame_Connection_Test = class(TThread)
   protected
     procedure Execute; override;
@@ -121,6 +131,7 @@ type
     FPartCode            : Integer;
     FCertification       : Integer;
     FSendLogin           : Boolean;
+    FWorkerThreadCount   : Integer;
     FFileMemory          : TMemoryStream;
     FGameLauncherSetting : TMir3_GameLauncherSetting;
   private
@@ -177,7 +188,7 @@ type
     property SoundManager        : TMir3_Sound_Engine        read FGameSoundEngine    write FGameSoundEngine;
     property GameNetwork         : TClientSocket             read FGameNetwork        write FGameNetwork;
     property GameLanguage        : TMir3_GameLanguageEngine  read FGameLanguageEngine write FGameLanguageEngine;
-
+    property WorkerThreadCount   : Integer                   read FWorkerThreadCount  write FWorkerThreadCount;
   end;
 
  { Global Functions }
@@ -189,7 +200,7 @@ var
   FGameEngine   : TMIR3_Game_Engine;
   GRenderEngine : IHGE = nil;
   GSystemActive : Boolean = False;
-  GEffectMusic  : Boolean;         //TODO: used in mir3_game_Sound  add to Option Record Global
+  GEffectMusic  : Boolean;
 
 implementation
 
@@ -229,6 +240,7 @@ implementation
       LoadClientServerConfig;
       FServerConnecting := False;
       FServerConnected  := False;
+      WorkerThreadCount := 0;
 
       {check can play start Video}
       if FGameLauncherSetting.FUseStartVideo then
@@ -719,8 +731,6 @@ implementation
       Result := S_OK;
       GGameEngine.OnDeviceRender(PD3dDevice, DX9GetGlobalTimer.GetElapsedTime);
 
-
-
       //GRenderEngine.Effect_Play(ETest);
       //if Not frmMain.IsRunning then
       //begin
@@ -728,27 +738,8 @@ implementation
       //end;
       //frmmain.ProcessKeyMessages;
       //frmMain.ProcessActionMessages;
-
-      //DScreen.DrawScreen();
-      //Sleep(1);
-      //g_Fps  := GHGE_Engine.Timer_GetFPS;
-	    GRenderEngine.Gfx_EndSceneBatch;
-
-
-//      if Assigned(GRenderEngine.GetFontEngine) then
-//      begin
-//        g_SFps := GRenderEngine.Timer_GetFPSStr;
-//        SetRect(destRect1, 4, 24, 0, 0);
-//        if FAILED(GRenderEngine.GetFontEngine.DrawTextA( nil, PChar(g_SFps), -1, @destRect1, DT_NOCLIP, ARGB(255, 215,  215,  215)))then
-//        begin
-//          Exit;
-//        end;
-//      end;
-      //DScreen.DrawScreentop();
-      //g_DWinMan.DirectPaint(BLEND_DEFAULT);
-
-      //DScreen.DrawHint();
-      //frmMain.aaa.Draw;
+      
+      GRenderEngine.Gfx_EndSceneBatch;
 
 //      if g_boItemMoving then
 //      begin
@@ -768,6 +759,17 @@ implementation
 //          MainDraw.Draw(d, p.X - (d.ClientRect.Right Div 2), p.Y - (d.ClientRect.Bottom Div 2));
 //        end;
 //      end;
+
+
+       // Wait if all Worker Thrads Finish 
+       if GGameEngine.WorkerThreadCount > 0 then
+       begin
+         while (True) do
+         begin
+           if GGameEngine.WorkerThreadCount = 0 then
+             Break;           
+         end;
+       end;       
     except
       Result := E_FAIL;
       exit;
@@ -823,7 +825,29 @@ implementation
     end;
   end;
 
-  {$REGION ' - TGame_Connection_Test '}
+
+  {$REGION ' - TGame_WorkerThread '}
+    constructor TGame_WorkerThread.Create(AFunction: TWorkerFunction);
+    begin
+      inherited Create(True);
+      FreeOnTerminate := False;
+    end;
+
+    destructor TGame_WorkerThread.Destroy;
+    begin
+      inherited Destroy;
+    end;
+
+    procedure TGame_WorkerThread.Execute;
+    begin
+      while not Terminated do
+      begin
+        
+      end;
+    end;
+  {$ENDREGION}
+
+  {$REGION ' - TGame_WorkerThread '}
     constructor TGame_Connection_Test.Create;
     begin
       inherited Create(True);
