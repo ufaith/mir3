@@ -364,7 +364,9 @@ const
   SM_SHOWEFF                     = 48;
   SM_MAGICEFF                    = 49;
   SM_LOGON                       = 50;
+  SM_SERVER_LOGON                = 50; //<-- LomCN Client
   SM_NEWMAP                      = 51;
+  SM_NEW_MAP                     = 51; // <-- LomCN Client  
   SM_ABILITY                     = 52;
   SM_HEALTHSPELLCHANGED          = 53;
   SM_MAPDESCRIPTION              = 54;
@@ -446,6 +448,7 @@ const
   SM_WEIGHTCHANGED               = 622;
   SM_CLEAROBJECTS                = 633;
   SM_CHANGEMAP                   = 634;
+  SM_CHANGE_MAP                  = 634; // <-- LomCN Client
   SM_EAT_OK                      = 635;
   SM_EAT_FAIL                    = 636;
   SM_BUTCH                       = 637;
@@ -556,6 +559,7 @@ const
   SM_EXCHGTAKEON_OK              = 65023;
   SM_EXCHGTAKEON_FAIL            = 65024;
   SM_TEST                        = 65037;
+  SM_DEVELOPMENT                 = 65037;
   SM_TESTHERO                    = 65038;
   SM_THROW                       = 65069;
   SM_716                         = 716;
