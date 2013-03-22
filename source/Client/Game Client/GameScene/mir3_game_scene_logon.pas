@@ -42,7 +42,7 @@ uses
 {Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils;
 
 { Callback Functions }
-procedure LoginGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: TMIR3_GUI_Default); stdcall;
+procedure LoginGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
 procedure LoginGUIHotKeyEvent(AChar: LongWord); stdcall;
 
 
@@ -103,7 +103,7 @@ uses mir3_game_backend;
                                                                              'this is the new LomCN Mir3 client...'+#10#13+
                                                                              'Completely re-created from begin...'+#10#13+
                                                                              ' '+#10#13+
-                                                                             'Create by Coly and Azura'+#10#13+
+                                                                             'Create by Coly, Azura and ElAmO'+#10#13+
                                                                              ' '+#10#13+
                                                                              ' Thank you LomCN staff, for all the help...'+#10#13+
                                                                              ' '+#10#13+
@@ -286,7 +286,7 @@ uses mir3_game_backend;
 
 
   {$REGION ' - Callback Event Function   '}
-    procedure LoginGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: TMIR3_GUI_Default); stdcall;
+    procedure LoginGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
     begin
       case AEventID of
         EVENT_BUTTON_UP : begin

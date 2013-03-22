@@ -3020,7 +3020,7 @@ begin
   if (@PCallbackDeviceCreated <> nil) then
     HR := PCallbackDeviceCreated(GetD3DDevice);
   DX9State.FInsideDeviceCallback := False;
-  if (GetD3DDevice = nil) then // Handle DXUTShutdown from inside callback
+  if (GetD3DDevice = nil) then 
   begin
     Result := False;
     Exit;
@@ -3040,7 +3040,7 @@ begin
   if (@PCallbackDeviceReset <> nil) then
     HR := PCallbackDeviceReset(GetD3DDevice);
   DX9State.FInsideDeviceCallback := False;
-  if (GetD3DDevice = nil) then // Handle DXUTShutdown from inside callback
+  if (GetD3DDevice = nil) then
   begin
     Result:= False;
     Exit;
@@ -4067,23 +4067,26 @@ end;
 function THGEImpl.Resource_EnumFiles(const Wildcard: String): String;
 begin
   Result := '';
-  if (Wildcard <> '') then begin
+  if (Wildcard <> '') then
+  begin
     FindClose(FSearch);
     if (FindFirst(Resource_MakePath(Wildcard),faAnyFile,FSearch) <> 0) then
       Exit;
     if ((FSearch.Attr and faDirectory) = 0) then
       Result := FSearch.Name
-    else
-      Result := Resource_EnumFiles;
+    else Result := Resource_EnumFiles;
   end else begin
     if (FSearch.FindHandle = INVALID_HANDLE_VALUE) then
       Exit;
-    while True do begin
-      if (FindNext(FSearch) <> 0) then begin
+    while True do
+    begin
+      if (FindNext(FSearch) <> 0) then
+      begin
         FindClose(FSearch);
         Exit;
       end;
-      if ((FSearch.Attr and faDirectory) = 0) then begin
+      if ((FSearch.Attr and faDirectory) = 0) then
+      begin
         Result := FSearch.Name;
         Exit;
       end;
@@ -4106,11 +4109,13 @@ begin
     if (FSearch.FindHandle = INVALID_HANDLE_VALUE) then
       Exit;
     while True do begin
-      if (FindNext(FSearch) <> 0) then begin
+      if (FindNext(FSearch) <> 0) then
+      begin
         FindClose(FSearch);
         Exit;
       end;
-      if ((FSearch.Attr and faDirectory) <> 0) and (FSearch.Name[1] <> '.') then begin
+      if ((FSearch.Attr and faDirectory) <> 0) and (FSearch.Name[1] <> '.') then
+      begin
         Result := FSearch.Name;
         Exit;
       end;
@@ -4139,7 +4144,8 @@ begin
     Exit;
   ResItem := FRes;
 
-  if (not (Filename[1] in ['\','/',':'])) then begin
+  if (not (Filename[1] in ['\','/',':'])) then
+  begin
     // Load from pack
     Name := UpperCase(Filename);
     for I := 1 to Length(Name) do
@@ -4198,7 +4204,8 @@ begin
   F := CreateFile(PChar(Resource_MakePath(Filename)),GENERIC_READ,
     FILE_SHARE_READ,nil,OPEN_EXISTING,
     FILE_ATTRIBUTE_NORMAL or FILE_FLAG_RANDOM_ACCESS,0);
-  if (F = INVALID_HANDLE_VALUE) then begin
+  if (F = INVALID_HANDLE_VALUE) then
+  begin
     PostError(Format(ResErr,[Filename]));
     Exit;
   end;
@@ -4213,7 +4220,8 @@ begin
     Exit;
   end;
 
-  if (not ReadFile(F,Data^,FileInfo.uncompressed_size,BytesRead,nil)) then begin
+  if (not ReadFile(F,Data^,FileInfo.uncompressed_size,BytesRead,nil)) then
+  begin
     CloseHandle(F);
     FreeMem(Data);
     PostError(Format(ResErr,[Filename]));
@@ -4267,7 +4275,8 @@ begin
   Name := UpperCase(Resource_MakePath(Filename));
 
   while Assigned(ResItem) do begin
-    if (Name = ResItem.Filename) then begin
+    if (Name = ResItem.Filename) then
+    begin
       if Assigned(ResPrev) then
         ResPrev.Next := ResItem.Next
       else

@@ -1085,14 +1085,14 @@ uses mir3_misc_ingame, mir3_game_backend;
           while True do
           begin
             if I >= FActorList.Count then Break;
-            FActor := FActorList[I];
+            FActor := TActor(FActorList[I]);
             
             if FMoveTick {or movetickRush} then
               FActor.FActorLockendFrame := FALSE;
               
             if not FActor.FActorLockendFrame then
             begin
-              //FActor.ProcessMessage;
+             // FActor.ProcessMessage;
            (*   if (FMoveTick {and (FActor.FActorCurrentAction <> SM_RUSH)}) {or movetickRush} then
                 if FActor.Move(FMoveStepCount) then
                 begin

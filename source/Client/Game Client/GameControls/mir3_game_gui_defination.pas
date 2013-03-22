@@ -977,6 +977,7 @@ var
                                      gui_Blend_Size             : 170;
                                      gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
                                                                    gui_Background_Texture_ID    : 1);
+                                     gui_Use_Strech_Texture     : True;                              
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                    
                                      {$ENDREGION}

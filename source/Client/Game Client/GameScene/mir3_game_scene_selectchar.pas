@@ -42,7 +42,7 @@ uses
 {Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils;
 
 { Callback Functions }
-procedure SelectCharGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: TMIR3_GUI_Default); stdcall;
+procedure SelectCharGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
 procedure SelectCharGUIHotKeyEvent(AChar: LongWord); stdcall;
 
 type
@@ -727,7 +727,7 @@ uses mir3_game_backend;
   {$ENDREGION}
   
   {$REGION ' - Callback Event Function   '}
-    procedure SelectCharGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: TMIR3_GUI_Default); stdcall;
+    procedure SelectCharGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
     begin
       case AEventID of
         EVENT_BUTTON_UP : begin
