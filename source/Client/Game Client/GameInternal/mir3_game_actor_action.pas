@@ -426,12 +426,12 @@ const
 
 
   (*External Functions*)
-  function GetMonsterActionByRace(ARace: Integer; AAppr: Integer): PMonsterAction;
-
+  function GetMonsterActionByRace(ARace: Integer; AAppearance: Integer): PMonsterAction;
+  function GetOffsetByAppearance(AAppearance: Integer): Integer;
 
 implementation
 
-  function GetMonsterActionByRace(ARace: Integer; AAppr: Integer): PMonsterAction;
+  function GetMonsterActionByRace(ARace: Integer; AAppearance: Integer): PMonsterAction;
   begin
     Result := nil;
     case ARace of
@@ -493,5 +493,15 @@ implementation
     end;
   end;
 
-
+  function GetOffsetByAppearance(AAppearance: Integer): Integer;
+  var
+    //FRace : Integer;
+    FPos  : Integer;
+  begin
+    //FRace  := AAppearance Div 10;
+    FPos   := AAppearance Mod 10;
+    Result := FPos * 1000;
+  end;  
+    
+  
 end.

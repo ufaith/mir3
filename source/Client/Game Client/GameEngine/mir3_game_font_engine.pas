@@ -1,55 +1,3 @@
-<<<<<<< .mine
-(*******************************************************************
- *   LomCN Mir3 Font System game File 2013                         *
- *                                                                 *
- *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.2                                           *
- *                                                                 *
- *   - File Info -                                                 *
- *                                                                 *
- *   A Texture Based Font Render System, create exlusive for this  *
- *   Client / Game                                                 *
- *                                                                 *
- *******************************************************************
- * Change History                                                  *
- *                                                                 *
- *  - 0.0.0.1 [2013-03-20] Coly : first init                       *
- *  - 0.0.0.2 [2013-03-20] Coly : Optimize Code (get 230 FPS more )*
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- *  - TODO List for this *.pas file -                              *
- *-----------------------------------------------------------------*
- *  if a todo finished, then delete it here...                     *
- *  if you find a global TODO thats need to do, then add it here.. *
- *-----------------------------------------------------------------*
- *                                                                 *
- *  - TODO : -all -fill *.pas header information                   *
- *                 (how to need this file etc.)                    *
- *                                                                 *
- *  - TODO : Add Color Use (need to have a Place Holder like       *
- *           {COLOR:AARRGGBB} {COLOR:AARRGGBB:END} )               *
- *  - TODO : Optimize Font System                                  *
- *    - Optimiere GetFontIndex(..) weg!! (include to DrawSetting)  *
- *    - Idee : FontPack in dem alle sachen gesammelt werden wie    *
- *             z.B. Line Count, Höhe etc. somit ist nur 1 lauf     *
- *             nötig (Cashing effect...)                           *
- *      If TDrawSetting.Inite = False :: Initializiere alle Infos  *
- *                                                                 *
- *                                                                 * 
- *  - TODO : Change Font System (Idea: Splitt to one Font)         *
- *                                                                 *
- *           --TFontEngine                                         *
- *                 |-TFont (Option:Size:FontType)                  *
- *                 |-TFont (Option:Size:FontType)                  *
- *                     "           "                               *
- *                                                                 * 
- *******************************************************************)
-
-=======
 (*******************************************************************
  *   LomCN Mir3 Font System game File 2013                         *
  *                                                                 *
@@ -93,7 +41,6 @@
  *                                                                 * 
  *******************************************************************)
 
->>>>>>> .r7
 unit mir3_game_font_engine;
 
 interface
@@ -214,7 +161,6 @@ type
     FScale            : Single;
     FFileHeader       : TMFD_FileHeader;
     FFontSetup        : array [1..8] of TFontSetup;
-    FScale            : Single;
     FMFD_FontSets     : array of TMIR3_MFD_Font_Set;
   private
     function GetFontIndex(AFontHeight: Integer; AFontSetting: PMIR3_FontSettings): Integer;

@@ -51,9 +51,11 @@ type
     procedure SetActorShiftX(AValue: Integer);
     function GetActorShiftY: Integer;
     procedure SetActorShiftY(AValue: Integer);
-    (* Public *)
+    (* Public *)    
     function GetMessage(AMessage: PActorMessage): Boolean;
+    function IsIdle: Boolean;    
     procedure ProcessActor;
+    procedure ProcessReadyAction(AMessage: PActorMessage);
   	procedure RenderActor(AX, AY: Integer; ABlend: Boolean; AFlag: Boolean);
     (* Propertys *)
     property ActorTempCurrent_X : Integer read GetActorTempCurrent_X write SetActorTempCurrent_X;
@@ -91,6 +93,7 @@ type
     FActorWeapon            : Byte;                {used Weapon ID 0..255}
     FActorWeaponFrame       : Byte;                {used Weapon Frame ID 0..255}
     FActorHorse             : Byte;                {used Horse  ID 0..255}
+    FActorSpellAction       : Byte;                {used for Monster Spell Action}
     { Integer }
     FActorCurrent_X         : Integer;             {hold the Actors X Position}
     FActorCurrent_Y         : Integer;             {hold the Actors Y Position}
@@ -103,20 +106,30 @@ type
     FActorTarget_Y          : Integer;             {hold the Targets Y Position}
     FActorTargetRecogId     : Integer;             {hold the Target Recog ID}
     FActorCurrentAction     : Integer;             {hold the Current Actor Action}
-
+    FActorAppearance        : Integer;             {hold the Actors Appearance} 
+    FActorFeature           : Integer;             {hold the Actor Feature}
+    {Actor Offsets}
+    FActorBodyOffset        : Integer;
+    FActorHairOffset        : Integer;
+    FActorHelmetOffset      : Integer;
+    FActorWeaponOffset      : Integer;
+    FActorWingOffset        : Integer;
+    { LongWord}
+    FActorWarModeTime       : LongWord;            {... War Mode Timer}
+    
     { Boolean }
     FActorIsDeath           : Boolean;             {Signal if Actor Death}
     FActorIsSkeleton        : Boolean;             {Signal if Actor Skeleton: Cow,Pig,Hen...}
     FActorRunSound          : Boolean;             {Signal can Actor Sound Run}
     FActorVisible           : Boolean;             {Signal if Actor Visible ingame}
     FActorHoldPlace         : Boolean;             {Signal if the Actor hold the place}
+    FActorReverseFrame      : Boolean;             {...} 
+    FActorLockendFrame      : Boolean;             {...}
+    FActorWarMode           : Boolean;
     { TList/TLockList/TStringList }
 
     { other }
     FActorAction            : PMonsterAction;
-  //FActorBodySurface        : IMir3Image;
-  //FActorHorseSurface       : IMir3Image;
-  //FActorHorseSurfaceShadow : IMir3Image;
   private
     (* Getter / Setter *)
     function GetActorTempCurrent_X: Integer;
@@ -132,12 +145,24 @@ type
     FActorStartFrame        : Integer;             {used for Actor Image Frame Start}
     FActorEndFrame          : Integer;             {used for Actor Image Frame End}
     FActorCurrentFrame      : Integer;             {hold the last Image Frame}
-    FActorCurrentFrameDef   : Integer;             {hold the last Default Image Frame}
-    FActorFrameCountDef     : Integer;             {hold the last Default Frame Count}
+    FActorCurrentFrameDef   : Integer;             {hold the last Default Image Frame}           
+    FActorFrameCount        : Integer;             {hold the last Default Frame Count}       
     FActorEffectStart       : Integer;             {used for Actor Effect Frame Start}
     FActorEffectFrame       : Integer;             {used for Actor Effect Frame Max}
     FActorEffectEnd         : Integer;             {used for Actor Effect Frame End}
     FActorGold              : Integer;             {hold the Actors Gold}
+    { Ticks and Steps }
+    FActorMaxTick           : Integer;             {..}
+    FActorCurrentTick       : Integer;             {..}
+    FActorSkipTick          : Integer;             {..}
+    FActorIceSkipTick       : Integer;             {..}
+    FActorMoveStep          : Integer;             {..}
+    { LongWord }
+    FActorStruckFrameTime   : LongWord;            {..}
+    FActorFrameTime         : LongWord;
+    FActorStartTime         : LongWord;
+  protected
+    procedure SetActorDefaultMotion; Dynamic;
   public
     { TList/TGList/TStringList }
     FActorMessageList       : TLockList;           {used for Internal Message Handling}
@@ -146,11 +171,15 @@ type
     FRealActorMessage       : TActorMessage;       {used for External Message Handling}
   private
     function GetMessage(AMessage: PActorMessage): Boolean;
+    procedure ActorShift(ADir, AStep, ACurrent, AMax: Integer);
   public
     constructor Create; dynamic;
     destructor Destroy; override;
   public
+    function IsIdle: Boolean;  
+    function GetActorDefaultFrame(AActorWarMode: Boolean): Integer;
     procedure ProcessActor; dynamic;
+    procedure ProcessReadyAction(AMessage: PActorMessage);
     procedure ProcessMessage;
     procedure ProcessHurryMessage;
     procedure RenderActor(AX, AY: Integer; ABlend: Boolean; AFlag: Boolean); dynamic;
@@ -183,6 +212,8 @@ type
   
 implementation
 
+uses mir3_game_scene_ingame, mir3_game_backend, mir3_misc_ingame;
+
 //**********************************************************
 // TActor::Create
 // Actor Constructor (Initial Memory)
@@ -190,10 +221,11 @@ implementation
 constructor TActor.Create;
 begin
   Inherited Create;
+  { String }  
   FActorName                 := ''; 
   FActorGuildName            := '';
   FActorRankName             := ''; 
-  {Byte}
+  { Byte }
   FActorJob                  := 0;
   FActorGender               := 0;
   FActorRace                 := 0;
@@ -205,12 +237,12 @@ begin
   FActorWeapon               := 0;
   FActorWeaponFrame          := 0;
   FActorHorse                := 0;
-  {Integer}                  
+  { Integer }                  
   FActorStartFrame           := 0;
   FActorEndFrame             := 0;
   FActorCurrentFrame         := -1;
   FActorCurrentFrameDef      := 0;
-  FActorFrameCountDef        := 0;
+  FActorFrameCount           := 0;
   FActorEffectStart          := 0;
   FActorEffectFrame          := -1;
   FActorEffectEnd            := 0;
@@ -220,11 +252,33 @@ begin
   FActorTarget_X             := 0;
   FActorTarget_Y             := 0;
   FActorTargetRecogId        := 0;
-  {Boolean}                  
+  FActorAppearance           := 0;
+  { Framing }
+  FActorStartFrame           := 0;
+  FActorEndFrame             := 0;
+  FActorCurrentFrame         := 0;
+  FActorFrameCount           := 0; 
+  { Offsets }
+  FActorBodyOffset           := 0;
+  FActorHairOffset           := 0;
+  FActorHelmetOffset         := 0;
+  FActorWeaponOffset         := 0;
+  FActorWingOffset           := 0;  
+  { Ticks and Steps }
+  FActorMaxTick              := 0;
+  FActorCurrentTick          := 0;
+  FActorSkipTick             := 0;
+  FActorIceSkipTick          := 0;
+  FActorMoveStep             := 0;
+  { LongWord }
+  FActorStruckFrameTime      := 0;
+  { Boolean }                  
   FActorIsDeath              := False;
   FActorIsSkeleton           := False;
   FActorRunSound             := False;
   FActorVisible              := True;
+  FActorReverseFrame         := False;
+  FActorLockendFrame         := False;
   {TList/TGList/TStringList}
   FActorMessageList          := TLockList.Create;
   FHealthActionStatusList    := TLockList.Create;
@@ -320,9 +374,281 @@ end;
 // Run all Actor things
 //****
 procedure TActor.ProcessActor;
+var
+  FTempAction : PMonsterAction;
 begin
-
+  FillChar(FTempAction, SizeOf(FTempAction), 0);
+  FActorCurrentFrame := -1;
+  FActorBodyOffset   := GetOffsetByAppearance(FActorAppearance);
+  FTempAction        := GetMonsterActionByRace(FActorRace, FActorAppearance);
   
+  case FActorCurrentAction of
+    SM_TURN       : begin
+      {$REGION ' - SM_TURN  '}
+      with FTempAction^, maStand do
+      begin
+        FActorStartFrame  := aiFrameStart + FActorDirectory * (aiFrameMax + aiFrameSkip);
+        FActorEndFrame    := FActorStartFrame + aiFrameMax -1;
+        FActorFrameTime   := aiFrameTime;
+        FActorStartTime   := GetTickCount;
+        FActorFrameCount  := aiFrameMax;     
+        ActorShift(FActorDirectory, 0, 0, 1);        
+      end;
+      {$ENDREGION}      
+    end;
+    SM_WALK       ,
+    SM_RUSH       , 
+    SM_RUSHKUNG   , 
+    SM_BACKSTEP   : begin
+      {$REGION ' - SM_WALK | SM_RUSH | SM_RUSHKUNG | SM_BACKSTEP '}
+      with FTempAction^, maWalk do
+      begin
+        FActorStartFrame  := aiFrameStart + FActorDirectory * (aiFrameMax + aiFrameSkip);
+        FActorEndFrame    := FActorStartFrame + aiFrameMax -1;
+        FActorFrameTime   := aiFrameTime;
+        FActorStartTime   := GetTickCount;
+        FActorMaxTick     := aiFrameUseTick;
+        FActorCurrentTick := 0;
+        FActorMoveStep    := 1;     
+        if FActorCurrentAction = SM_BACKSTEP then
+        //  ActorShift(GetBack(FActorDirectory), 2, 0, FActorEndFrame - FActorStartFrame + 1)
+        else ActorShift(FActorDirectory, FActorMoveStep, 0, FActorEndFrame - FActorStartFrame + 1);
+      end;
+      {$ENDREGION}
+    end;
+    SM_HIT        , 
+    SM_REMOTEHIT  : begin
+      {$REGION ' - SM_HIT | SM_REMOTEHIT '}
+      with FTempAction^, maAttack do
+      begin
+        FActorStartFrame  := aiFrameStart + FActorDirectory * (aiFrameMax + aiFrameSkip);
+        FActorEndFrame    := FActorStartFrame + aiFrameMax -1;
+        FActorFrameTime   := aiFrameTime;
+        FActorStartTime   := GetTickCount;    
+        FActorWarModeTime := GetTickCount;     
+        ActorShift(FActorDirectory, 0, 0, 1);        
+      end;
+      {$ENDREGION}
+    end;
+    SM_STRUCK     : begin
+      {$REGION ' - SM_STRUCK  '}
+      with FTempAction^, maHitted do
+      begin
+        FActorStartFrame  := aiFrameStart + FActorDirectory * (aiFrameMax + aiFrameSkip);
+        FActorEndFrame    := FActorStartFrame + aiFrameMax -1;
+        FActorFrameTime   := FActorStruckFrameTime;
+        FActorStartTime   := GetTickCount;      
+        ActorShift(FActorDirectory, 0, 0, 1);        
+      end;
+      {$ENDREGION}    
+    end;
+    SM_DEATH      ,
+    SM_NOWDEATH   : begin
+      {$REGION ' - SM_DEATH | SM_NOWDEATH '}
+      with FTempAction^, maDie do
+      begin
+        FActorStartFrame  := aiFrameStart + FActorDirectory * (aiFrameMax + aiFrameSkip);
+        FActorEndFrame    := FActorStartFrame + aiFrameMax -1;
+        FActorFrameTime   := aiFrameTime;
+        FActorStartTime   := GetTickCount;              
+      end;
+      {$ENDREGION}
+    end;
+    SM_SKELETON   : begin
+      {$REGION ' - SM_SKELETON '}
+      with FTempAction^, maDeath do
+      begin
+        FActorStartFrame  := aiFrameStart + FActorDirectory * (aiFrameMax + aiFrameSkip);
+        FActorEndFrame    := FActorStartFrame + aiFrameMax -1;
+        FActorFrameTime   := aiFrameTime;
+        FActorStartTime   := GetTickCount;              
+      end;
+      {$ENDREGION}
+    end;
+    SM_MONSPELL   : begin
+      case FActorSpellAction of
+        0: begin
+          {$REGION ' - maStand    '}
+          with FTempAction^, maStand do
+          begin
+            FActorStartFrame  := aiFrameStart + FActorDirectory * (aiFrameMax + aiFrameSkip);
+            FActorEndFrame    := FActorStartFrame + aiFrameMax -1;
+            FActorFrameTime   := aiFrameTime;
+          end;
+          {$ENDREGION}      
+        end;        
+        1: begin
+          {$REGION ' - maAttack   '}
+          with FTempAction^, maAttack do
+          begin
+            FActorStartFrame  := aiFrameStart + FActorDirectory * (aiFrameMax + aiFrameSkip);
+            FActorEndFrame    := FActorStartFrame + aiFrameMax -1;
+            FActorFrameTime   := aiFrameTime;   
+            FActorWarModeTime := GetTickCount;             
+          end;
+          {$ENDREGION}      
+        end;      
+        2: begin
+          {$REGION ' - maAttack2  '}
+          with FTempAction^, maAttack2 do
+          begin
+            FActorStartFrame  := aiFrameStart + FActorDirectory * (aiFrameMax + aiFrameSkip);
+            FActorEndFrame    := FActorStartFrame + aiFrameMax -1;
+            FActorFrameTime   := aiFrameTime;   
+            FActorWarModeTime := GetTickCount;             
+          end;
+          {$ENDREGION}      
+        end;       
+        3: begin
+          {$REGION ' - maAttack3  '}
+          with FTempAction^, maAttack3 do
+          begin
+            FActorStartFrame  := aiFrameStart + FActorDirectory * (aiFrameMax + aiFrameSkip);
+            FActorEndFrame    := FActorStartFrame + aiFrameMax -1;
+            FActorFrameTime   := aiFrameTime;   
+            FActorWarModeTime := GetTickCount;             
+          end;
+          {$ENDREGION}      
+        end;         
+      end;
+      FActorStartTime := GetTickCount;
+      ActorShift(FActorDirectory, 0, 0, 1);      
+    end;
+  end;
+end;
+
+//**********************************************************
+// TActor::ProcessReadyAction
+// Run all Ready Action things
+//****
+procedure TActor.ProcessReadyAction(AMessage: PActorMessage);
+begin
+  //m_nActBeforeX := FActorCurrentX;
+  //m_nActBeforeY := FActorCurrentY;
+
+  if AMessage.amIdent = SM_ALIVE then
+  begin
+    FActorIsDeath    := False;
+    FActorIsSkeleton := False;
+  end;
+  
+  if not FActorIsDeath then
+  begin
+    Case AMessage.amIdent Of
+      SM_TURN, SM_BACKSTEP  , 
+      SM_WALK, SM_HORSE_WALK, 
+      SM_RUSH, SM_RUSHKUNG  , 
+      SM_RUN, SM_HORSE_RUN  , 
+      SM_DIGUP, SM_ALIVE    : begin
+        FActorFeature := AMessage.amFeature;
+       //   m_nState   := AMessage.amState;
+       //   if m_nState and STATE_OPENHEATH <> 0 then
+       //     m_boOpenHealth := True
+       //   else m_boOpenHealth := FALSE;
+      end;
+    end;
+    if TActor(GGameActor) = Self then
+    begin
+    
+      case AMessage.amIdent of
+        CM_WALK       , 
+        CM_HORSE_WALK : begin
+          //if Not GGameEngine.SceneInGame.CanWalk(AMessage.amX, AMessage.amY) then Exit;
+        end;
+        CM_RUN        ,
+        CM_HORSE_RUN  : begin
+          //if Not GGameEngine.SceneInGame.CanRun(GGameActor.FActorCurrentX, GGameActor.FActorCurrentY, AMessage.amX, AMessage.amY) then Exit;
+        end;                 
+      end; 
+  
+      case AMessage.amIdent Of
+        CM_TURN        ,
+        CM_WALK        ,
+        CM_SITDOWN     ,
+        CM_RUN         ,
+        CM_HIT         ,
+        CM_HEAVYHIT    ,
+        CM_BIGHIT      ,
+        CM_POWERHIT    ,
+        CM_LONGHIT     ,
+        CM_WIDEHIT     : begin
+          FRealActorMessage := AMessage^;
+          AMessage.amIdent  := AMessage.amIdent - 3000;
+        end;
+        CM_REMOTEHIT   : begin
+          FRealActorMessage := AMessage^;
+          AMessage.amIdent  := SM_REMOTEHIT;
+        end;
+        CM_HORSE_WALK  ,
+        CM_HORSE_RUN   : begin
+          FRealActorMessage := AMessage^;
+          case AMessage.amIdent of
+            CM_HORSE_WALK : AMessage.amIdent := SM_HORSE_WALK;
+            CM_HORSE_RUN  : AMessage.amIdent := SM_HORSE_RUN;
+          end;
+        end;
+        CM_THROW       : begin
+          if FActorFeature <> 0 then
+          begin
+//            FActorTarget_X      := TActor(AMessage^.amFeature).FActorCurrentX;
+//            FActorTarget_Y      := TActor(AMessage^.amFeature).FActorCurrentY;
+//            FActorTargetRecogId := TActor(AMessage^.amFeature).FActorRecogId;
+          end;
+          FRealActorMessage := AMessage^;
+          AMessage.amIdent  := SM_THROW;
+        end;
+        CM_FIREHIT     : begin
+          FRealActorMessage := AMessage^;
+          AMessage.amIdent  := SM_FIREHIT;
+        end;
+        (* TODO: Add more Hitting / Spell Messages *)
+        CM_CRSHIT      : begin // Cross Hit ?
+          FRealActorMessage := AMessage^;
+          AMessage.amIdent  := SM_CRSHIT;
+        end;
+        CM_TWINHIT     : begin
+          FRealActorMessage := AMessage^;
+          AMessage.amIdent  := SM_TWINHIT;
+        end;           
+        CM_SPELL       : begin (*TODO : Fix UseMagic*)
+          FRealActorMessage       := AMessage^;
+          //FUseMagic               := PTUseMagicInfo(AMessage.amFeature);
+          //FRealActorMessage.amDir := FUseMagic.MagicSerial;
+          AMessage.amIdent        := AMessage^.amIdent - 3000;
+        end;
+      end;
+//      m_nOldx   := FActorCurrentX;
+//      m_nOldy   := FActorCurrentY;
+//      m_nOldDir := FActorDirectory;
+    end;
+    case AMessage.amIdent of
+      SM_STRUCK      :;
+      SM_SPELL       :;
+      SM_MONSPELL    :;
+      SM_MONSPELLEFF :;
+      else begin
+        FActorCurrent_X := AMessage.amX;
+        FActorCurrent_Y := AMessage.amY;
+        FActorDirectory := AMessage.amDir;
+      end;
+    end;
+    FActorCurrentAction := AMessage.amIdent;
+    ProcessActor;     
+  end else begin
+    if AMessage.amIdent = SM_SKELETON then
+    begin
+      FActorCurrentAction := AMessage.amIdent;
+      ProcessActor; 
+      FActorIsSkeleton    := True;
+    end;
+  end;
+  
+  if (AMessage.amIdent = SM_DEATH) or (AMessage.amIdent = SM_NOW_DEATH) then
+  begin
+    FActorIsDeath := True;
+    //GGameEngine.SceneInGame.ActorDied(Self);
+  end;  
+  //RunSound; 
 end;
 
 //**********************************************************
@@ -338,17 +664,21 @@ begin
     case FMessage.amIdent of 
       SM_STRUCK  : begin
         //m_nHiterCode := FMessage.amSound;
-        //ReadyAction(FMessage);
-    end;
+        ProcessReadyAction(FMessage);
+      end;
       SM_DEATH   ,
       SM_NOWDEATH,
       SM_SKELETON,
-      SM_ALIVE   : begin
-        //ReadyAction(FMessage);
-    end;
+      SM_ALIVE   ,
+      SM_ACTION_MIN..SM_ACTION_MAX,
+      3000..3099      : begin
+        ProcessReadyAction(FMessage);
+      end;
+      // SM_SPACEMOVE_HIDE .. SM_SPACEMOVE_HIDE2
+      // SM_SPACEMOVE_SHOW .. SM_SPACEMOVE_SHOW3
       //add other ...
       else begin
-        //ReadyAction(FMessage);
+        ProcessReadyAction(FMessage);
       end;
     end;
   end;
@@ -460,6 +790,192 @@ begin
     end;
   finally
     FActorMessageList.Unlock;
+  end;
+end;
+
+//**********************************************************
+// TActorNPC::IsIdle
+// Check if actor idle
+//****
+function TActor.IsIdle: Boolean;
+begin
+  Result := False;
+  if (FActorCurrentAction     = 0) and 
+     (FActorMessageList.Count = 0) then
+  begin
+    Result := True
+  end;
+end;
+
+//**********************************************************
+// TActorNPC::GetActorDefaultFrame
+// Get the Actors Default Frame back
+//****
+function TActor.GetActorDefaultFrame(AActorWarMode: Boolean): Integer;
+var                                 // AActorWarMode is for later
+  FCurrentFrame  : Integer;
+  FMonsterAction : PMonsterAction;
+begin
+  Result := 0;
+  FMonsterAction     := GetMonsterActionByRace(FActorRace, FActorAppearance);
+  if FMonsterAction = nil then Exit;
+
+  with FMonsterAction^ do
+  begin
+    if FActorIsDeath then
+    begin
+      if FActorIsSkeleton then
+        Result := maDeath.aiFrameStart
+      else Result := maDie.aiFrameStart + FActorDirectory * (maDie.aiFrameMax + maDie.aiFrameSkip) + (maDie.aiFrameMax - 1);
+    end else begin
+      FActorFrameCount := maStand.aiFrameMax;
+      if FActorCurrentFrameDef < 0 then
+        FCurrentFrame := 0
+      else if FActorCurrentFrameDef >= maStand.aiFrameMax then
+        FCurrentFrame := 0
+      else
+        FCurrentFrame := FActorCurrentFrameDef;
+      Result := maStand.aiFrameStart + FActorDirectory * (maStand.aiFrameMax + maStand.aiFrameSkip) + FCurrentFrame;
+    end;
+  end;
+end;
+
+//**********************************************************
+// TActorNPC::SetActorDefaultMotion
+// Set the Default Actor Motion 
+//****
+procedure TActor.SetActorDefaultMotion;
+begin
+  FActorReverseFrame := False;
+  if FActorWarMode then
+  begin
+    if (GetTickCount - FActorWarModeTime > 4 * 1000) then
+      FActorWarMode := False;
+  end;
+  FActorCurrentFrame := GetActorDefaultFrame(FActorWarMode);
+  ActorShift(FActorDirectory, 0, 1, 1);
+end;
+
+//**********************************************************
+// TActorNPC::ActorShift
+// TODO fill me
+//****
+procedure TActor.ActorShift(ADir, AStep, ACurrent, AMax: Integer);
+var
+  FTempX       : Integer;
+  FTempY       : Integer;  
+  FTempStep, v : Integer;
+begin
+  if ACurrent > AMax then
+    ACurrent := AMax;  
+  
+  FTempX := UNIT_X * AStep;
+  FTempY := UNIT_Y * AStep;
+     
+  ActorTempCurrent_X := FActorCurrent_X;
+  ActorTempCurrent_Y := FActorCurrent_Y;
+  
+  case ADir of
+    DR_UP        : begin
+      FTempStep           := Round((AMax - ACurrent) / AMax) * AStep;
+      FActorShiftX        := 0;
+      FActorTempCurrent_Y := FActorCurrent_Y + FTempStep;
+      if FTempStep = AStep then
+        FActorShiftY := -Round(FTempY / AMax * ACurrent)
+      else FActorShiftY := Round(FTempY / AMax * (AMax - ACurrent));
+    end;
+    DR_UPRIGHT   : begin
+      if AMax >= 6 then
+        v := 2
+      else v := 0;
+      FTempStep          := Round((AMax - ACurrent + v) / AMax) * AStep;
+      ActorTempCurrent_X := FActorCurrent_X - FTempStep;
+      ActorTempCurrent_Y := FActorCurrent_Y + v;
+      if FTempStep = AStep then
+      begin
+        FActorShiftX :=  Round(FTempX / AMax * ACurrent);
+        FActorShiftY := -Round(FTempY / AMax * ACurrent);
+      end else begin
+        FActorShiftX := -Round(FTempX / AMax * (AMax - ACurrent));
+        FActorShiftY :=  Round(FTempY / AMax * (AMax - ACurrent));
+      end;
+    end;
+    DR_RIGHT     : begin
+      FTempStep          := Round((AMax - ACurrent) / AMax) * AStep;
+      FActorShiftY       := 0;
+      ActorTempCurrent_X := FActorCurrent_X - FTempStep;
+      if FTempStep = AStep then
+        FActorShiftX := Round(FTempX / AMax * ACurrent)
+      else FActorShiftX := -Round(FTempX / AMax * (AMax - ACurrent));
+    end;
+    DR_DOWNRIGHT : begin
+      if AMax >= 6 then
+        v := 2
+      else v := 0;
+      FTempStep          := Round((AMax - ACurrent - v) / AMax) * AStep;
+      ActorTempCurrent_X := FActorCurrent_X - FTempStep;
+      ActorTempCurrent_Y := FActorCurrent_Y - FTempStep;
+      if FTempStep = AStep then
+      begin
+        FActorShiftX :=  Round(FTempX / AMax * ACurrent);
+        FActorShiftY :=  Round(FTempY / AMax * ACurrent);
+      end else begin
+        FActorShiftX := -Round(FTempX / AMax * (AMax - ACurrent));
+        FActorShiftY := -Round(FTempY / AMax * (AMax - ACurrent));
+      end;
+    end;
+    DR_DOWN      : begin
+      if AMax >= 6 then
+        v := 1
+      else v := 0;
+      FTempStep          := Round((AMax - ACurrent - v) / AMax) * AStep;
+      FActorShiftX       := 0;
+      ActorTempCurrent_Y := FActorCurrent_Y - FTempStep;
+      if FTempStep = AStep then
+        FActorShiftY := Round(FTempY / AMax * ACurrent)
+      else FActorShiftY := -Round(FTempY / AMax * (AMax - ACurrent));
+    end;
+    DR_DOWNLEFT  : begin
+      if AMax >= 6 then
+        v := 2
+      else
+        v := 0;
+      FTempStep          := Round((AMax - ACurrent - v) / AMax) * AStep;
+      ActorTempCurrent_X := FActorCurrent_X + FTempStep;
+      ActorTempCurrent_Y := FActorCurrent_Y - FTempStep;
+      if FTempStep = AStep then
+      begin
+        FActorShiftX := -Round(FTempX / AMax * ACurrent);
+        FActorShiftY :=  Round(FTempY / AMax * ACurrent);
+      end else begin
+        FActorShiftX :=  Round(FTempX / AMax * (AMax - ACurrent));
+        FActorShiftY := -Round(FTempY / AMax * (AMax - ACurrent));
+      end;
+    end;
+    DR_LEFT      : begin
+      FTempStep          := Round((AMax - ACurrent) / AMax) * AStep;
+      FActorShiftY       := 0;
+      ActorTempCurrent_X := FActorCurrent_X + FTempStep;
+      if FTempStep = AStep then
+        FActorShiftX := -Round(FTempX / AMax * ACurrent)
+      else FActorShiftX := Round(FTempX / AMax * (AMax - ACurrent));
+    end;
+    DR_UPLEFT    : begin
+      if AMax >= 6 then
+        v := 2
+      else v := 0;
+      FTempStep          := Round((AMax - ACurrent + v) / AMax) * AStep;
+      ActorTempCurrent_X := FActorCurrent_X + FTempStep;
+      ActorTempCurrent_Y := FActorCurrent_Y + FTempStep;
+      if FTempStep = v then
+      begin
+        FActorShiftX := -Round(FTempX / AMax * ACurrent);
+        FActorShiftY := -Round(FTempY / AMax * ACurrent);
+      end else begin
+        FActorShiftX :=  Round(FTempX / AMax * (AMax - ACurrent));
+        FActorShiftY :=  Round(FTempY / AMax * (AMax - ACurrent));
+      end;
+    end;
   end;
 end;
 

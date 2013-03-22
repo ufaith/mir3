@@ -421,13 +421,6 @@ uses mir3_misc_ingame, mir3_game_backend;
       FGameMap.LoadGameMap(ExtractFilePath(ParamStr(0))+ '\map\0.map', 165, 264);
       GGameActor.ActorTempCurrent_X  := 165;
       GGameActor.ActorTempCurrent_Y  := 264;
-     
-
-      GGameActor                := TActorHuman.Create;
-      FGameMap                  := TMapFramework.Create;
-      FGameMap.LoadGameMap(ExtractFilePath(ParamStr(0))+ '\map\0.map', 165, 264);
-      GGameActor.ActorTempCurrent_X  := 165;
-      GGameActor.ActorTempCurrent_Y  := 264;
 
 	  {Declare Game Lists}
       FTextureListNPC           := TList.Create;   //
@@ -435,10 +428,10 @@ uses mir3_misc_ingame, mir3_game_backend;
       FTextureListGround        := TList.Create;   //
       FTextureListEquip         := TList.Create;   // 
       FTextureListWeapon        := TList.Create;   // 
-      FTextureListHuman         := TList.Create;   //    
+      FTextureListHuman         := TList.Create;   //
 
       FActorList                := TLockList.Create;    
-
+     FActorList.add(@GGameActor);
       (* Set Up Vars *)
       FMoveTick                 := False;
       FMoveStepCount            := 0;
@@ -1077,15 +1070,70 @@ uses mir3_misc_ingame, mir3_game_backend;
 
   {$REGION ' - TMir3GameSceneInGame :: Pre and Post Processing Funktion   '}
     function TMir3GameSceneInGame.GamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT;
+    var
+      I      : Integer;
+      FActor : TActor;
     begin
       Result := S_OK;
       try
         CalculateMoveTime;
-
         FGameMap.CalculateAniamtionTime;
-        FGameMap.CalculateMapRect(C_GAME_800_600, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
+        
+        {$REGION ' - Process Actor List '}
+        try
+          I := 0;
+          while True do
+          begin
+            if I >= FActorList.Count then Break;
+            FActor := FActorList[I];
+            
+            if FMoveTick {or movetickRush} then
+              FActor.FActorLockendFrame := FALSE;
+              
+            if not FActor.FActorLockendFrame then
+            begin
+              //FActor.ProcessMessage;
+           (*   if (FMoveTick {and (FActor.FActorCurrentAction <> SM_RUSH)}) {or movetickRush} then
+                if FActor.Move(FMoveStepCount) then
+                begin
+                  Inc(I);
+                  Continue;
+                end;
+          
+              FActor.ExecuteActor; //aka Run
+              *)
+              //if FActor <> TActor(GGameActor) then
+                //FActor.ProcessHurryMessage;
+            end;
+
+            if FActor = TActor(GGameActor) then
+            begin
+              //FActor.ProcessHurryMessage;
+              //FGameMap.CalculateMapRect(C_GAME_800_600, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
+              (*
+                Here Tile Map Rendering Start via a Worker Thread
+              *)        
+            end;
+            // add the rest of the function
+            Inc(I);
+          end;
+        except
+          //Log Error Message 
+        end;
+       {$ENDREGION}        
+        
+        {$REGION ' - Process m_EffectList List '} 
+        {$ENDREGION}
+        
+        {$REGION ' - Process m_FlyList List '} 
+        {$ENDREGION}
+        
+        (* Prüfen :  Besser GGameActor nach Actor.pas verschieben, so sollten wir uns einiges sparen*)
+        
         //FGameMap.UpdateMapPos(GGameActor.ActorTempCurrent_X - 1, GGameActor.ActorTempCurrent_Y - 20);
 
+        // Debug
+        FGameMap.CalculateMapRect(C_GAME_800_600, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
         FGameMap.DrawTileMap;
         FGameMap.DrawCellMap;
 

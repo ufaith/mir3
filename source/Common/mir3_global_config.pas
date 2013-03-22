@@ -48,7 +48,7 @@ uses
 
   
 const
-  GGameClientVersion             = '0.0.1.0';
+  GGameClientVersion             = '0.0.1.2';
 
   KEY                            = 20100730;
   RUNGATEMAX                     = 20;
@@ -246,10 +246,10 @@ const
  (****************************************************
   *        ... Consts                          *
   ****************************************************)
-  POISON_DECHEALTH               = 0;
-  POISON_DAMAGEARMOR             = 1;
-  POISON_LOCKSPELL               = 2;
-  POISON_DONTMOVE                = 4;
+  POISON_DEC_HEALTH              = 0;
+  POISON_DAMAGE_ARMOR            = 1;
+  POISON_LOCK_SPELL              = 2;
+  POISON_DONT_MOVE               = 4;
   POISON_STONE                   = 5;
   POISON_ICE                     = 6;
 
@@ -319,7 +319,9 @@ const
   *        Server Message Protocol Consts            *
   ****************************************************)
   SM_HORSEWALK                   = 4;
+  SM_HORSE_WALK                  = 4; // <-- LomCN Client
   SM_HORSERUN                    = 5;
+  SM_HORSE_RUN                   = 5; // <-- LomCN Client
   SM_RUSH                        = 6;
   SM_RUSHKUNG                    = 7;
   SM_FIREHIT                     = 8;
@@ -330,6 +332,7 @@ const
   SM_RUN                         = 13;
   SM_HIT                         = 14;
   SM_HEAVYHIT                    = 15;
+  SM_HEAVY_HIT                   = 15; // <-- LomCN Client
   SM_BIGHIT                      = 16;
   SM_SPELL                       = 17;
   SM_POWERHIT                    = 18;
@@ -349,6 +352,7 @@ const
   SM_DEATH                       = 32;
   SM_SKELETON                    = 33;
   SM_NOWDEATH                    = 34;
+  SM_NOW_DEATH                   = 34;
   SM_34SKILLHIT                  = 35;
   SM_35SKILLHIT                  = 36;
   SM_103SKILLHIT                 = 37;
@@ -913,7 +917,10 @@ const
   CM_RANDOMCODE                  = 2006;
   CM_CLOSEUSER                   = 2007;
   CM_THROW                       = 3005;
+  CM_HORSEWALK                   = 3008;
+  CM_HORSE_WALK                  = 3008;  
   CM_HORSERUN                    = 3009;
+  CM_HORSE_RUN                   = 3009;
   CM_TURN                        = 3010;
   CM_WALK                        = 3011;
   CM_SITDOWN                     = 3012;
