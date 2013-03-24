@@ -234,9 +234,16 @@ uses mir3_misc_ingame, mir3_game_backend;
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FBodyForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Body_Window, False));
+        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Wings      , False);
+        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_NackedBody , True);
+        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Body       , True);
+        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Hair       , True);
+        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Helmet     , True);
+        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Weapon     , True);
+        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Hero       , True);
+        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Heart      , True);
+
         Self.AddControl(FBodyForm, FInGame_UI_Body_Btn_Close , True);
-        //Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_ , True);
-        //Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_ , True);
       end;
     end;
 
@@ -255,18 +262,86 @@ uses mir3_misc_ingame, mir3_game_backend;
     end;
 
     procedure TMir3GameSceneInGame.Create_Minimap_UI_Interface;
-    //var
-      //FMiniMapFormOpen  : TMIR3_GUI_Form;
-      //FMiniMapFormClose : TMIR3_GUI_Form;
+    var
+      FMiniMapFormStage1 : TMIR3_GUI_Form;
+      FMiniMapFormStage2 : TMIR3_GUI_Form;
+      FMiniMapFormStage3 : TMIR3_GUI_Form;
+      FMiniMapLibForm    : TMIR3_GUI_Form;
     begin
-       // MiniMap Control Bauen?
       with FGame_GUI_Defination_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
-        //FMiniMapFormClose  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Background, True));
-        //Self.AddControl(FSystemForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_ , True);
-        //Self.AddControl(FSystemForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_ , True);
-        //Self.AddControl(FSystemForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_ , True);
+        (* Stage 1 *)
+        FMiniMapFormStage1 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_1_Background, False));
+        Self.AddControl(FMiniMapFormStage1, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_1_TextField_MapName , True);
+        Self.AddControl(FMiniMapFormStage1, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_1_TextField_MapPos , True);
+
+        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_NAME)).Caption := 'Bichon';
+        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_POS)).Caption  := '127 , 254';
+
+        (* Stage 2 *)
+        FMiniMapFormStage2 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Background, True));
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Draw_Map    , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Design_LT   , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Design_LB   , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Design_RB   , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_TextField_MapName , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_TextField_MapPos  , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Btn_Back    , True);
+
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Button_Blend      , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Button_Open_Big   , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Button_Open_Lib   , True);
+
+
+        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_NAME)).Caption := 'Bichon';
+        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_POS)).Caption  := '(127 , 254)';
+
+        (* Stage 3 *)
+        FMiniMapFormStage3 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Background, False));
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Panel_Draw_Map    , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Panel_Design_LT   , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Panel_Design_LB   , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Panel_Design_RB   , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_TextField_MapName , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_TextField_MapPos  , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Panel_Btn_Back    , True);
+
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Button_Blend      , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Button_Close_Big  , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Button_Open_Lib   , True);
+
+        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_NAME)).Caption := 'Bichon';
+        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_POS)).Caption  := '(127 , 254)';
+
+        FMiniMapLibForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Background, False));
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Panel_Draw_Map , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Close      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Zoom_50    , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Zoom_100   , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Zoom_200   , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_1      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_2      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_3      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_4      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_5      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_6      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_7      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_8      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_9      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_10     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_11     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_12     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_13     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_14     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_15     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_16     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_17     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Scroll_Map_Btn , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Scroll_Map_H   , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Scroll_Map_V   , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Text_Map       , True);
+
       end;
     end;
 
@@ -376,8 +451,6 @@ uses mir3_misc_ingame, mir3_game_backend;
     end;
 
 
-
-
   {$ENDREGION}
 
   {$REGION ' - TMir3GameSceneInGame :: Scene Funtions             '}
@@ -431,7 +504,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       FTextureListHuman         := TList.Create;   //
 
       FActorList                := TLockList.Create;    
-     FActorList.add(@GGameActor);
+     FActorList.add(GGameActor);
       (* Set Up Vars *)
       FMoveTick                 := False;
       FMoveStepCount            := 0;
@@ -497,10 +570,11 @@ uses mir3_misc_ingame, mir3_game_backend;
 
       if Assigned(FTextureListHuman) then
 	      FreeAndNil(FTextureListHuman);
-          
+
+      GGameActor.Free;
       if Assigned(FActorList) then
 	      FreeAndNil(FActorList);
-          
+
       inherited;
     end;
 
@@ -671,7 +745,18 @@ uses mir3_misc_ingame, mir3_game_backend;
               not (TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Visible);
             end;
             GUI_ID_INGAME_BOTTOM_UI_BUTTON_6_MINIMAP    : begin
-            //TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_UI_WINDOW)).Visible := True;
+              case TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_2_UI_WINDOW)).Visible of
+                True  : begin
+                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_1_UI_WINDOW)).Visible := True;
+                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_2_UI_WINDOW)).Visible := False;
+                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_3_UI_WINDOW)).Visible := False;
+                end;
+                False : begin
+                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_2_UI_WINDOW)).Visible := True;
+                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_1_UI_WINDOW)).Visible := False;
+                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_3_UI_WINDOW)).Visible := False;
+                end;
+              end;
             end;
             GUI_ID_INGAME_BOTTOM_UI_BUTTON_7_QUEST      : begin
             //TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_QUEST_UI_WINDOW)).Visible := True;
@@ -703,7 +788,7 @@ uses mir3_misc_ingame, mir3_game_backend;
         end;
       end;
     end;
-    
+
     procedure TMir3GameSceneInGame.EventBeltWindow(AEventType: Integer; AEventControl: Integer);
 
       procedure Flip_H_V_Defination;
@@ -780,13 +865,73 @@ uses mir3_misc_ingame, mir3_game_backend;
       case AEventType of
         EVENT_BUTTON_UP   : begin
           case AEventControl of
-            0:;
+            (* Stage 1 *)
+            GUI_ID_INGAME_MINIMAP_1_UI_WINDOW            ,
+            GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_NAME     ,
+            GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_POS      : begin
+              // Open Mini Map (LomCN Version)
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_2_UI_WINDOW)).Visible := True;
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_1_UI_WINDOW)).Visible := False;
+            end;
+            (* Stage 2 and 3 *)
+            GUI_ID_INGAME_MINIMAP_2_UI_BTN_BLEND         ,
+            GUI_ID_INGAME_MINIMAP_3_UI_BTN_BLEND         : begin
+              case TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_BTN_BLEND)).SwitchOn of
+                True  : begin
+                  TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_BTN_BLEND)).SwitchOn := False;
+                  TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_BTN_BLEND)).SwitchOn := False;
+                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_DRAW)).FGUI_Defination , gui_Color do
+                  begin
+                    gui_Blend_Size   := 255;
+                    gui_ControlColor := $FF131313;
+                    gui_BorderColor  := $FF030303;
+                  end;
+                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_DRAW)).FGUI_Defination , gui_Color do
+                  begin
+                    gui_Blend_Size   := 255;
+                    gui_ControlColor := $FF131313;
+                    gui_BorderColor  := $FF030303;
+                  end;
+                end;
+                False : begin
+                  TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_BTN_BLEND)).SwitchOn := True;
+                  TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_BTN_BLEND)).SwitchOn := True;
+                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_DRAW)).FGUI_Defination , gui_Color do
+                  begin
+                    gui_Blend_Size   := 127;
+                    gui_ControlColor := $AF131313;
+                    gui_BorderColor  := $BF030303;
+                  end;
+                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_DRAW)).FGUI_Defination , gui_Color do
+                  begin
+                    gui_Blend_Size   := 127;
+                    gui_ControlColor := $AF131313;
+                    gui_BorderColor  := $BF030303;
+                  end;
+                end;
+              end;
+
+            end;
+            GUI_ID_INGAME_MINIMAP_2_UI_BTN_OPEN_LIB      ,
+            GUI_ID_INGAME_MINIMAP_3_UI_BTN_OPEN_LIB      : begin
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_LIB_UI_WINDOW)).Visible :=
+              not TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_LIB_UI_WINDOW)).Visible;
+            end;
+            GUI_ID_INGAME_MINIMAP_2_UI_BTN_OPEN_BIG_MAP  : begin
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_3_UI_WINDOW)).Visible := True;
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_1_UI_WINDOW)).Visible := False;
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_2_UI_WINDOW)).Visible := False;
+            end;
+            GUI_ID_INGAME_MINIMAP_3_UI_BTN_CLOSE_BIG_MAP : begin
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_1_UI_WINDOW)).Visible := False;
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_2_UI_WINDOW)).Visible := True;
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_3_UI_WINDOW)).Visible := False;
+            end;
+            (* MiniMap Lib *)
+            GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_CLOSE       : begin
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_LIB_UI_WINDOW)).Visible := False;
+            end;
           end;          
-        end;
-        EVENT_BUTTON_DOWN : begin
-          case AEventControl of
-            0:;
-          end;
         end;
       end;
     end;
@@ -1019,6 +1164,9 @@ uses mir3_misc_ingame, mir3_game_backend;
           with GGameEngine.SceneInGame do
           begin                                    
             case AControl.ControlIdentifier of
+              { Mini Map UI Events }
+               50..100   : EventMiniMapWindow(AEventID, AControl.ControlIdentifier);
+              { Exit Window UI Events }
               402..404   : EventExitWindow(AEventID, AControl.ControlIdentifier);
               { Bottom UI Events }
               411..458   : EventBottomWindow(AEventID, AControl.ControlIdentifier);
@@ -1085,14 +1233,14 @@ uses mir3_misc_ingame, mir3_game_backend;
           while True do
           begin
             if I >= FActorList.Count then Break;
-            FActor := TActor(FActorList[I]);
+            FActor := FActorList[I];
             
             if FMoveTick {or movetickRush} then
               FActor.FActorLockendFrame := FALSE;
               
             if not FActor.FActorLockendFrame then
             begin
-             // FActor.ProcessMessage;
+              FActor.ProcessMessage;
            (*   if (FMoveTick {and (FActor.FActorCurrentAction <> SM_RUSH)}) {or movetickRush} then
                 if FActor.Move(FMoveStepCount) then
                 begin
@@ -1102,13 +1250,13 @@ uses mir3_misc_ingame, mir3_game_backend;
           
               FActor.ExecuteActor; //aka Run
               *)
-              //if FActor <> TActor(GGameActor) then
-                //FActor.ProcessHurryMessage;
+              if FActor <> GGameActor then
+                FActor.ProcessHurryMessage;
             end;
 
-            if FActor = TActor(GGameActor) then
+            if FActor = GGameActor then
             begin
-              //FActor.ProcessHurryMessage;
+              FActor.ProcessHurryMessage;
               //FGameMap.CalculateMapRect(C_GAME_800_600, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
               (*
                 Here Tile Map Rendering Start via a Worker Thread
@@ -1122,10 +1270,10 @@ uses mir3_misc_ingame, mir3_game_backend;
         end;
        {$ENDREGION}        
         
-        {$REGION ' - Process m_EffectList List '} 
+        {$REGION ' - Process m_EffectList List '}
         {$ENDREGION}
         
-        {$REGION ' - Process m_FlyList List '} 
+        {$REGION ' - Process m_FlyList List '}
         {$ENDREGION}
         
         (* Prüfen :  Besser GGameActor nach Actor.pas verschieben, so sollten wir uns einiges sparen*)
@@ -1136,9 +1284,6 @@ uses mir3_misc_ingame, mir3_game_backend;
         FGameMap.CalculateMapRect(C_GAME_800_600, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
         FGameMap.DrawTileMap;
         FGameMap.DrawCellMap;
-
-
-
 
       except
         Result := E_Fail;

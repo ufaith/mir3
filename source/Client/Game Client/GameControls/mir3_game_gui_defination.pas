@@ -50,7 +50,7 @@ const
   //Unique Control Numbers
 
   (* System Info Control IDs *)
-  {$REGION ' - System Dialog  Global Use (10-50) '}
+  {$REGION ' - System Dialog  Global Use (10-49) '}
   GUI_ID_SYSINFO_DIALOG                           = 10;   // Base Info Window
   GUI_ID_SYSINFO_PANEL                            = 11;   // Static Text Field
   GUI_ID_SYSINFO_EDIT_FIELD                       = 12;   // For Input like PW on Char Deletion
@@ -119,7 +119,72 @@ const
 
   (* InGame Control IDs *)
   {$REGION ' - InGame Scene Control IDs           '}
-   //                                               = (50 - 200) und (226 - 300) können noch genutzt werden
+   //                                               = (110 - 200) und (226 - 300) können noch genutzt werden
+
+  {$REGION ' - MiniMap GUI             (50-80)   '}
+  (* Stage 1 *)
+  GUI_ID_INGAME_MINIMAP_1_UI_WINDOW               = 50;
+  GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_NAME        = 51;
+  GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_POS         = 52;
+  (* Stage 2 *)
+  GUI_ID_INGAME_MINIMAP_2_UI_WINDOW               = 53;
+  GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_NAME        = 54;
+  GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_POS         = 55;
+  GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_DRAW          = 56;
+  GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_LT            = 57;
+  GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_LB            = 58;
+  GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_RB            = 59;
+  GUI_ID_INGAME_MINIMAP_2_UI_BTN_BACK             = 60;
+  GUI_ID_INGAME_MINIMAP_2_UI_BTN_BLEND            = 61;
+  GUI_ID_INGAME_MINIMAP_2_UI_BTN_OPEN_BIG_MAP     = 62;
+  GUI_ID_INGAME_MINIMAP_2_UI_BTN_OPEN_LIB         = 63;
+  (* Stage 3 *)
+  GUI_ID_INGAME_MINIMAP_3_UI_WINDOW               = 64;
+  GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_NAME        = 65;
+  GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_POS         = 66;
+  GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_DRAW          = 67;
+  GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_LT            = 68;
+  GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_LB            = 69;
+  GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_RB            = 70;
+  GUI_ID_INGAME_MINIMAP_3_UI_BTN_BACK             = 71;
+  GUI_ID_INGAME_MINIMAP_3_UI_BTN_BLEND            = 72;
+  GUI_ID_INGAME_MINIMAP_3_UI_BTN_CLOSE_BIG_MAP    = 73;
+  GUI_ID_INGAME_MINIMAP_3_UI_BTN_OPEN_LIB         = 74;
+  (* Mini Map Lib *)
+  GUI_ID_INGAME_MINIMAP_LIB_UI_WINDOW             = 75;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_DESIGN_DRAW        = 76;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_CLOSE          = 77;
+  
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_ZOMM_50        = 78;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_ZOOM_100       = 79;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_ZOOM_200       = 80;
+
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_1              = 81;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_2              = 82;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_3              = 83;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_4              = 84;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_5              = 85;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_6              = 86;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_7              = 87;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_8              = 88;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_9              = 89;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_10             = 90;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_11             = 91;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_12             = 92;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_13             = 93;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_14             = 94;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_15             = 95;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_16             = 96;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_17             = 97;
+
+  GUI_ID_INGAME_MINIMAP_LIB_UI_SCROLL_BTN         = 98;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_SCROLL_H           = 99;
+  GUI_ID_INGAME_MINIMAP_LIB_UI_SCROLL_V           = 100;
+
+  GUI_ID_INGAME_MINIMAP_LIB_UI_TEXT_MAP           = 101;
+
+  // Reserve 75 - 80
+  {$ENDREGION}
 
   {$REGION ' - Trade GUI               (201-215) '}
   GUI_ID_INGAME_TRADE_UI_WINDOW                   = 201;
@@ -606,6 +671,70 @@ type
       FInGame_UI_Belt_Item_Field_V_6          : TMir3_GUI_Ground_Info;  //
     {$ENDREGION}
 
+    {$REGION ' - MiniMap Window System       '}
+    (* Stage 1 *)
+    FInGame_UI_MiniMap_1_Background           : TMir3_GUI_Ground_Info;  // MiniMap Stage 1 (without map view, only Map Name and Position)
+      FInGame_UI_MiniMap_1_TextField_MapName  : TMir3_GUI_Ground_Info;  // View Used Map Name
+      FInGame_UI_MiniMap_1_TextField_MapPos   : TMir3_GUI_Ground_Info;  // View Used Map Position x/y
+    (* Stage 2 *)
+    FInGame_UI_MiniMap_2_Background           : TMir3_GUI_Ground_Info;  // MiniMap Stage 2 (show little Map)
+      FInGame_UI_MiniMap_2_Panel_Draw_Map     : TMir3_GUI_Ground_Info;  // MiniMap Draw Panel
+      FInGame_UI_MiniMap_2_TextField_MapName  : TMir3_GUI_Ground_Info;  // View Used Map Name
+      FInGame_UI_MiniMap_2_TextField_MapPos   : TMir3_GUI_Ground_Info;  // View Used Map Position x/y
+      FInGame_UI_MiniMap_2_Panel_Design_LT    : TMir3_GUI_Ground_Info;  // Design Left Top
+      FInGame_UI_MiniMap_2_Panel_Design_LB    : TMir3_GUI_Ground_Info;  // Design Left Bottom
+      FInGame_UI_MiniMap_2_Panel_Design_RB    : TMir3_GUI_Ground_Info;  // Design Right Bottom
+      FInGame_UI_MiniMap_2_Panel_Btn_Back     : TMir3_GUI_Ground_Info;  // Button Background
+      FInGame_UI_MiniMap_2_Button_Blend       : TMir3_GUI_Ground_Info;  // Button to Blend / Unblend
+      FInGame_UI_MiniMap_2_Button_Open_Big    : TMir3_GUI_Ground_Info;  // Button to open Big View
+      FInGame_UI_MiniMap_2_Button_Open_Lib    : TMir3_GUI_Ground_Info;  // Button to close
+    (* Stage 3 *)
+    FInGame_UI_MiniMap_3_Background           : TMir3_GUI_Ground_Info;  // MiniMap Stage 3 (show big Map)
+      FInGame_UI_MiniMap_3_Panel_Draw_Map     : TMir3_GUI_Ground_Info;  // MiniMap Draw Panel
+      FInGame_UI_MiniMap_3_TextField_MapName  : TMir3_GUI_Ground_Info;  // View Used Map Name
+      FInGame_UI_MiniMap_3_TextField_MapPos   : TMir3_GUI_Ground_Info;  // View Used Map Position x/y
+      FInGame_UI_MiniMap_3_Panel_Design_LT    : TMir3_GUI_Ground_Info;  // Design Left Top
+      FInGame_UI_MiniMap_3_Panel_Design_LB    : TMir3_GUI_Ground_Info;  // Design Left Bottom
+      FInGame_UI_MiniMap_3_Panel_Design_RB    : TMir3_GUI_Ground_Info;  // Design Right Bottom
+      FInGame_UI_MiniMap_3_Panel_Btn_Back     : TMir3_GUI_Ground_Info;  // Button Background
+      FInGame_UI_MiniMap_3_Button_Blend       : TMir3_GUI_Ground_Info;  // Button to Blend / Unblend
+      FInGame_UI_MiniMap_3_Button_Close_Big   : TMir3_GUI_Ground_Info;  // Button to close Big View
+      FInGame_UI_MiniMap_3_Button_Open_Lib    : TMir3_GUI_Ground_Info;  // Button to close
+    (* Mini Map Lib *)
+    FInGame_UI_MiniMap_Lib_Background         : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Panel_Draw_Map   : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Close        : TMir3_GUI_Ground_Info;  //
+
+      FInGame_UI_MiniMap_Lib_Btn_Zoom_50      : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Zoom_100     : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Zoom_200     : TMir3_GUI_Ground_Info;  //
+
+      FInGame_UI_MiniMap_Lib_Btn_Map_1        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_2        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_3        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_4        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_5        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_6        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_7        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_8        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_9        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_10       : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_11       : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_12       : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_13       : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_14       : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_15       : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_16       : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Btn_Map_17       : TMir3_GUI_Ground_Info;  //
+
+      FInGame_UI_MiniMap_Lib_Scroll_Map_Btn   : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Scroll_Map_H     : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_MiniMap_Lib_Scroll_Map_V     : TMir3_GUI_Ground_Info;  //
+
+      FInGame_UI_MiniMap_Lib_Text_Map         : TMir3_GUI_Ground_Info;  //
+
+    {$ENDREGION}
+
     {$REGION ' - Menue Bar System            '}
     (* Menue Bar System *)
     FInGame_UI_Menue_Bar_Background           : TMir3_GUI_Ground_Info;  //
@@ -692,7 +821,17 @@ type
 
     {$REGION ' - Body Window UI System       '}
     FInGame_UI_Body_Window                    : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Body_Btn_Close                 : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Body_Btn_Close               : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Body_Item_Wings              : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Body_Item_NackedBody         : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Body_Item_Body               : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Body_Item_Hair               : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Body_Item_Helmet             : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Body_Item_Weapon             : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Body_Item_Hero               : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Body_Item_Heart              : TMir3_GUI_Ground_Info;  //
+
+
     {$ENDREGION}
 
     {$REGION ' - Body Show Window UI System  '}
@@ -2719,9 +2858,1010 @@ var
 *)
 
       {$ENDREGION}
-      
+
       {$REGION ' - MiniMap UI System               '}
-      
+
+      {$REGION ' - MiniMap UI Stage 1      '}
+      FInGame_UI_MiniMap_1_Background         : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_1_UI_WINDOW;
+                                              gui_Type                   : ctForm;
+                                              gui_Form_Type              : ftUIStatic;
+                                              gui_WorkField              : (Left:0; Top:0; Right:132; Bottom:45);
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 668;
+                                              gui_Height                 : 45;
+                                              gui_Width                  : 132;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID    : 144);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_1_TextField_MapName  : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_NAME;
+                                              gui_Type                   : ctTextLabel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 7;
+                                              gui_Left                   : 5;
+                                              gui_Height                 : 16;
+                                              gui_Width                  : 121;
+                                              gui_Blend_Size             : 255;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFFFF;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_1_TextField_MapPos   : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_POS;
+                                              gui_Type                   : ctTextLabel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 25;
+                                              gui_Left                   : 5;
+                                              gui_Height                 : 16;
+                                              gui_Width                  : 121;
+                                              gui_Blend_Size             : 255;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFFFF;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      {$ENDREGION}
+
+      {$REGION ' - MiniMap UI Stage 2      '}
+      FInGame_UI_MiniMap_2_Background         : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_WINDOW;
+                                              gui_Type                   : ctForm;
+                                              gui_Form_Type              : ftUIStatic;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 672;
+                                              gui_Height                 : 128;
+                                              gui_Width                  : 128;
+                                              gui_Blend_Size             : 255;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_2_Panel_Draw_Map     : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_DRAW;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 1;
+                                              gui_Height                 : 130;
+                                              gui_Width                  : 130;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 205;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFFFF;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Color                  : (gui_ControlColor : $FF131313;
+                                                                            gui_BorderColor  : $FF030303);
+                                              gui_ShowBorder             : True;
+                                              gui_ShowPanel              : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_2_TextField_MapName  : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_NAME;
+                                              gui_Type                   : ctTextLabel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 6;
+                                              gui_Left                   : 5;
+                                              gui_Height                 : 16;
+                                              gui_Width                  : 118;
+                                              gui_Blend_Size             : 255;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFFFF;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_2_TextField_MapPos   : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_POS;
+                                              gui_Type                   : ctTextLabel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 114;
+                                              gui_Left                   : 5;
+                                              gui_Height                 : 16;
+                                              gui_Width                  : 118;
+                                              gui_Blend_Size             : 255;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFFFF;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_2_Panel_Design_LT    : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_LT;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : -1;
+                                              gui_Left                   : 0;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 26;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID     : 134);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_2_Panel_Design_LB    : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_LB;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 105;
+                                              gui_Left                   : 0;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 26;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID     : 135);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_2_Panel_Design_RB    : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_RB;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 105;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 26;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID     : 136);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_2_Panel_Btn_Back     : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_BTN_BACK;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 110;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 26;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID     : 143);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_2_Button_Blend       : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_BTN_BLEND;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 3;
+                                              gui_Left                   : 113;
+                                              gui_Height                 : 14;
+                                              gui_Width                  : 14;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID  : 130;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 131;
+                                                                                                          gui_Mouse_Over_Texture_ID : 131));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_2_Button_Open_Big    : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_BTN_OPEN_BIG_MAP;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 19;
+                                              gui_Left                   : 113;
+                                              gui_Height                 : 14;
+                                              gui_Width                  : 14;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID  : 132);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_2_Button_Open_Lib    : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_2_UI_BTN_OPEN_LIB;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 35;
+                                              gui_Left                   : 113;
+                                              gui_Height                 : 14;
+                                              gui_Width                  : 14;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID  : 137);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      {$ENDREGION}
+
+      {$REGION ' - MiniMap UI Stage 3      '}
+      FInGame_UI_MiniMap_3_Background         : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_WINDOW;
+                                              gui_Type                   : ctForm;
+                                              gui_Form_Type              : ftUIStatic;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 544;
+                                              gui_Height                 : 256;
+                                              gui_Width                  : 256;
+                                              gui_Blend_Size             : 255;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_3_Panel_Draw_Map     : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_DRAW;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 1;
+                                              gui_Height                 : 258;
+                                              gui_Width                  : 258;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 205;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFFFF;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Color                  : (gui_ControlColor : $FF131313;
+                                                                            gui_BorderColor  : $FF030303);
+                                              gui_ShowBorder             : True;
+                                              gui_ShowPanel              : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_3_TextField_MapName  : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_NAME;
+                                              gui_Type                   : ctTextLabel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 6;
+                                              gui_Left                   : 5;
+                                              gui_Height                 : 16;
+                                              gui_Width                  : 246;
+                                              gui_Blend_Size             : 255;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFFFF;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_3_TextField_MapPos   : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_POS;
+                                              gui_Type                   : ctTextLabel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 242;
+                                              gui_Left                   : 5;
+                                              gui_Height                 : 16;
+                                              gui_Width                  : 246;
+                                              gui_Blend_Size             : 255;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFFFF;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_3_Panel_Design_LT    : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_LT;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : -1;
+                                              gui_Left                   : 0;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 26;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID     : 134);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_3_Panel_Design_LB    : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_LB;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 233;
+                                              gui_Left                   : 0;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 26;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID     : 135);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_3_Panel_Design_RB    : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_RB;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 233;
+                                              gui_Left                   : 233;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 26;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID     : 136);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_3_Panel_Btn_Back     : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_BTN_BACK;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 238;
+                                              gui_Height                 : 20;
+                                              gui_Width                  : 20;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID     : 143);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_3_Button_Blend       : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_BTN_BLEND;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 3;
+                                              gui_Left                   : 241;
+                                              gui_Height                 : 14;
+                                              gui_Width                  : 14;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID  : 130;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 131;
+                                                                                                          gui_Mouse_Over_Texture_ID : 131));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_3_Button_Close_Big   : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_BTN_CLOSE_BIG_MAP;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 19;
+                                              gui_Left                   : 241;
+                                              gui_Height                 : 14;
+                                              gui_Width                  : 14;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID  : 141;
+                                                                            gui_Mouse_Over_Texture_ID  : 133);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      FInGame_UI_MiniMap_3_Button_Open_Lib    : (
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_BTN_OPEN_LIB;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 35;
+                                              gui_Left                   : 241;
+                                              gui_Height                 : 14;
+                                              gui_Width                  : 14;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID  : 137);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                );
+      {$ENDREGION}
+
+      {$REGION ' - MiniMap UI Lib          '}
+      FInGame_UI_MiniMap_Lib_Background       : ({$REGION ' - FInGame_UI_MiniMap_Lib_Background     '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_WINDOW;
+                                              gui_Type                   : ctForm;
+                                              gui_Form_Type              : ftMoving;
+                                              gui_WorkField              : (Left:139; Top:219; Right:743; Bottom:585);
+                                              gui_Top                    : -218;
+                                              gui_Left                   : -113;
+                                              gui_Height                 : 1024;
+                                              gui_Width                  : 1024;
+                                              gui_Blend_Size             : 240;
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID    : 670);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Panel_Draw_Map   : ({$REGION ' - FInGame_UI_MiniMap_Lib_Panel_Draw_Map   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_DESIGN_DRAW;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 235;
+                                              gui_Left                   : 337;
+                                              gui_Height                 : 508;
+                                              gui_Width                  : 508;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 206;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFFFF;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Color                  : (gui_ControlColor : $CF131313);
+                                              gui_ShowPanel              : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Close        : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Close  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_CLOSE;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 763;
+                                              gui_Left                   : 845;
+                                              gui_Height                 : 30;
+                                              gui_Width                  : 32;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID    : 1221;
+                                                                            gui_Mouse_Down_Texture_ID    : 1222);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Zoom_50      : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Zoom_50  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_ZOMM_50;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 749;
+                                              gui_Left                   : 363;
+                                              gui_Height                 : 22;
+                                              gui_Width                  : 52;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID  : 671;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 674;
+                                                                                                          gui_Mouse_Over_Texture_ID : 674));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Zoom_100     : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Zoom_100  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_ZOOM_100;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 749;
+                                              gui_Left                   : 433;
+                                              gui_Height                 : 22;
+                                              gui_Width                  : 52;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID  : 672;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 675;
+                                                                                                          gui_Mouse_Over_Texture_ID : 675));
+                                              gui_PreSelected            : True;                                                                                                           
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Zoom_200     : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Zoom_200  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_ZOOM_200;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 749;
+                                              gui_Left                   : 503;
+                                              gui_Height                 : 22;
+                                              gui_Width                  : 52;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID  : 673;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 676;
+                                                                                                          gui_Mouse_Over_Texture_ID : 676));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_1        : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_1  '}
+                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_1;
+                                               gui_Type                   : ctButton;
+                                               gui_Form_Type              : ftNone;
+                                               gui_Top                    : 284;
+                                               gui_Left                   : 165;
+                                               gui_Height                 : 24;
+                                               gui_Width                  : 112;
+                                               gui_Blend_Size             : 255;
+                                               gui_CaptionID              : 207;
+                                               gui_Font                   : (gui_Font_Size        : 18;
+                                                                             gui_Font_Color       : $FFFF9400;
+                                                                             gui_Font_Use_Kerning : False;
+                                                                             gui_Font_Text_HAlign : alCenter;
+                                                                             gui_Font_Text_VAlign : avCenter);
+                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID    : 677;
+                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                           gui_Mouse_Over_Texture_ID : 678));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                             gui_ColorPress       : $FFF0F0F0;
+                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Enabled                : True;
+                                               gui_Visible                : True
+                                               {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_2        : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_2  '}
+                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_2;
+                                               gui_Type                   : ctButton;
+                                               gui_Form_Type              : ftNone;
+                                               gui_Top                    : 314;
+                                               gui_Left                   : 165;
+                                               gui_Height                 : 24;
+                                               gui_Width                  : 112;
+                                               gui_Blend_Size             : 255;
+                                               gui_CaptionID              : 207;
+                                               gui_Font                   : (gui_Font_Size        : 18;
+                                                                             gui_Font_Color       : $FFFF9400;
+                                                                             gui_Font_Use_Kerning : False;
+                                                                             gui_Font_Text_HAlign : alCenter;
+                                                                             gui_Font_Text_VAlign : avCenter);
+                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID    : 677;
+                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                           gui_Mouse_Over_Texture_ID : 678));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                             gui_ColorPress       : $FFF0F0F0;
+                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Enabled                : True;
+                                               gui_Visible                : True
+                                               {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_3        : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_3  '}
+                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_3;
+                                               gui_Type                   : ctButton;
+                                               gui_Form_Type              : ftNone;
+                                               gui_Top                    : 344;
+                                               gui_Left                   : 165;
+                                               gui_Height                 : 24;
+                                               gui_Width                  : 112;
+                                               gui_Blend_Size             : 255;
+                                               gui_CaptionID              : 207;
+                                               gui_Font                   : (gui_Font_Size        : 18;
+                                                                             gui_Font_Color       : $FFFF9400;
+                                                                             gui_Font_Use_Kerning : False;
+                                                                             gui_Font_Text_HAlign : alCenter;
+                                                                             gui_Font_Text_VAlign : avCenter);
+                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID    : 677;
+                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                           gui_Mouse_Over_Texture_ID : 678));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                             gui_ColorPress       : $FFF0F0F0;
+                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Enabled                : True;
+                                               gui_Visible                : True
+                                               {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_4        : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_4  '}
+                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_4;
+                                               gui_Type                   : ctButton;
+                                               gui_Form_Type              : ftNone;
+                                               gui_Top                    : 374;
+                                               gui_Left                   : 165;
+                                               gui_Height                 : 24;
+                                               gui_Width                  : 112;
+                                               gui_Blend_Size             : 255;
+                                               gui_CaptionID              : 207;
+                                               gui_Font                   : (gui_Font_Size        : 18;
+                                                                             gui_Font_Color       : $FFFF9400;
+                                                                             gui_Font_Use_Kerning : False;
+                                                                             gui_Font_Text_HAlign : alCenter;
+                                                                             gui_Font_Text_VAlign : avCenter);
+                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID    : 677;
+                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                           gui_Mouse_Over_Texture_ID : 678));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                             gui_ColorPress       : $FFF0F0F0;
+                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Enabled                : True;
+                                               gui_Visible                : True
+                                               {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_5        : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_5  '}
+                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_5;
+                                               gui_Type                   : ctButton;
+                                               gui_Form_Type              : ftNone;
+                                               gui_Top                    : 404;
+                                               gui_Left                   : 165;
+                                               gui_Height                 : 24;
+                                               gui_Width                  : 112;
+                                               gui_Blend_Size             : 255;
+                                               gui_CaptionID              : 207;
+                                               gui_Font                   : (gui_Font_Size        : 18;
+                                                                             gui_Font_Color       : $FFFF9400;
+                                                                             gui_Font_Use_Kerning : False;
+                                                                             gui_Font_Text_HAlign : alCenter;
+                                                                             gui_Font_Text_VAlign : avCenter);
+                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID    : 677;
+                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                           gui_Mouse_Over_Texture_ID : 678));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                             gui_ColorPress       : $FFF0F0F0;
+                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Enabled                : True;
+                                               gui_Visible                : True
+                                               {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_6        : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_6  '}
+                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_6;
+                                               gui_Type                   : ctButton;
+                                               gui_Form_Type              : ftNone;
+                                               gui_Top                    : 434;
+                                               gui_Left                   : 165;
+                                               gui_Height                 : 24;
+                                               gui_Width                  : 112;
+                                               gui_Blend_Size             : 255;
+                                               gui_CaptionID              : 207;
+                                               gui_Font                   : (gui_Font_Size        : 18;
+                                                                             gui_Font_Color       : $FFFF9400;
+                                                                             gui_Font_Use_Kerning : False;
+                                                                             gui_Font_Text_HAlign : alCenter;
+                                                                             gui_Font_Text_VAlign : avCenter);
+                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID    : 677;
+                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                           gui_Mouse_Over_Texture_ID : 678));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                             gui_ColorPress       : $FFF0F0F0;
+                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Enabled                : True;
+                                               gui_Visible                : True
+                                               {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_7        : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_7  '}
+                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_7;
+                                               gui_Type                   : ctButton;
+                                               gui_Form_Type              : ftNone;
+                                               gui_Top                    : 464;
+                                               gui_Left                   : 165;
+                                               gui_Height                 : 24;
+                                               gui_Width                  : 112;
+                                               gui_Blend_Size             : 255;
+                                               gui_CaptionID              : 207;
+                                               gui_Font                   : (gui_Font_Size        : 18;
+                                                                             gui_Font_Color       : $FFFF9400;
+                                                                             gui_Font_Use_Kerning : False;
+                                                                             gui_Font_Text_HAlign : alCenter;
+                                                                             gui_Font_Text_VAlign : avCenter);
+                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID    : 677;
+                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                           gui_Mouse_Over_Texture_ID : 678));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                             gui_ColorPress       : $FFF0F0F0;
+                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Enabled                : True;
+                                               gui_Visible                : True
+                                               {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_8        : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_8  '}
+                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_8;
+                                               gui_Type                   : ctButton;
+                                               gui_Form_Type              : ftNone;
+                                               gui_Top                    : 494;
+                                               gui_Left                   : 165;
+                                               gui_Height                 : 24;
+                                               gui_Width                  : 112;
+                                               gui_Blend_Size             : 255;
+                                               gui_CaptionID              : 207;
+                                               gui_Font                   : (gui_Font_Size        : 18;
+                                                                             gui_Font_Color       : $FFFF9400;
+                                                                             gui_Font_Use_Kerning : False;
+                                                                             gui_Font_Text_HAlign : alCenter;
+                                                                             gui_Font_Text_VAlign : avCenter);
+                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID    : 677;
+                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                           gui_Mouse_Over_Texture_ID : 678));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                             gui_ColorPress       : $FFF0F0F0;
+                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Enabled                : True;
+                                               gui_Visible                : True
+                                               {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_9        : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_9  '}
+                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_9;
+                                               gui_Type                   : ctButton;
+                                               gui_Form_Type              : ftNone;
+                                               gui_Top                    : 524;
+                                               gui_Left                   : 165;
+                                               gui_Height                 : 24;
+                                               gui_Width                  : 112;
+                                               gui_Blend_Size             : 255;
+                                               gui_CaptionID              : 207;
+                                               gui_Font                   : (gui_Font_Size        : 18;
+                                                                             gui_Font_Color       : $FFFF9400;
+                                                                             gui_Font_Use_Kerning : False;
+                                                                             gui_Font_Text_HAlign : alCenter;
+                                                                             gui_Font_Text_VAlign : avCenter);
+                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID    : 677;
+                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                           gui_Mouse_Over_Texture_ID : 678));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                             gui_ColorPress       : $FFF0F0F0;
+                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Enabled                : True;
+                                               gui_Visible                : True
+                                               {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_10       : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_10  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_10;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 554;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 24;
+                                              gui_Width                  : 112;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 207;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFFF9400;
+                                                                            gui_Font_Use_Kerning : False;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID    : 677;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                          gui_Mouse_Over_Texture_ID : 678));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_11       : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_11  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_11;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 584;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 24;
+                                              gui_Width                  : 112;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 207;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFFF9400;
+                                                                            gui_Font_Use_Kerning : False;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID    : 677;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                          gui_Mouse_Over_Texture_ID : 678));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_12       : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_12  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_12;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 614;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 24;
+                                              gui_Width                  : 112;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 207;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFFF9400;
+                                                                            gui_Font_Use_Kerning : False;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID    : 677;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                          gui_Mouse_Over_Texture_ID : 678));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_13       : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_13  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_13;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 644;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 24;
+                                              gui_Width                  : 112;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 207;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFFF9400;
+                                                                            gui_Font_Use_Kerning : False;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID    : 677;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                          gui_Mouse_Over_Texture_ID : 678));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_14       : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_14  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_14;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 674;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 24;
+                                              gui_Width                  : 112;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 207;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFFF9400;
+                                                                            gui_Font_Use_Kerning : False;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID    : 677;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                          gui_Mouse_Over_Texture_ID : 678));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_15       : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_15  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_15;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 704;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 24;
+                                              gui_Width                  : 112;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 207;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFFF9400;
+                                                                            gui_Font_Use_Kerning : False;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID    : 677;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                          gui_Mouse_Over_Texture_ID : 678));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_16       : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_16  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_16;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 734;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 24;
+                                              gui_Width                  : 112;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 207;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFFF9400;
+                                                                            gui_Font_Use_Kerning : False;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID    : 677;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                          gui_Mouse_Over_Texture_ID : 678));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Btn_Map_17       : ({$REGION ' - FInGame_UI_MiniMap_Lib_Btn_Map_17  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_BTN_17;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 764;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 24;
+                                              gui_Width                  : 112;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 207;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFFF9400;
+                                                                            gui_Font_Use_Kerning : False;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID    : 677;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
+                                                                                                          gui_Mouse_Over_Texture_ID : 678));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Scroll_Map_Btn   : ({$REGION ' - FInGame_UI_MiniMap_Lib_Scroll_Map_Btn   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_SCROLL_BTN;
+                                              gui_Type                   : ctPanel; // fix me with Scrollbar
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 0;
+                                              gui_Height                 : 0;
+                                              gui_Width                  : 0;
+                                              gui_Blend_Size             : 255;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Scroll_Map_H     : ({$REGION ' - FInGame_UI_MiniMap_Lib_Scroll_Map_H   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_SCROLL_H;
+                                              gui_Type                   : ctPanel; // fix me with Scrollbar
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 0;
+                                              gui_Height                 : 0;
+                                              gui_Width                  : 0;
+                                              gui_Blend_Size             : 255;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Scroll_Map_V     : ({$REGION ' - FInGame_UI_MiniMap_Lib_Scroll_Map_V   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_LIB_UI_SCROLL_V;
+                                              gui_Type                   : ctPanel; // fix me with Scrollbar
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 0;
+                                              gui_Height                 : 0;
+                                              gui_Width                  : 0;
+                                              gui_Blend_Size             : 255;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_MiniMap_Lib_Text_Map         : ({$REGION ' - FInGame_UI_MiniMap_Lib_Text_Map   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_NAME;
+                                              gui_Type                   : ctTextLabel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 242;
+                                              gui_Left                   : 178;
+                                              gui_Height                 : 18;
+                                              gui_Width                  : 104;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 206;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFFFF;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+                
+      {$ENDREGION}
+
       {$ENDREGION}     
 
       {$REGION ' - Menue Bar UI System             '}
@@ -4205,11 +5345,123 @@ var
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
+      FInGame_UI_Body_Item_Wings              : ({$REGION ' - FInGame_UI_Body_Item_Helmet   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_BODY_UI_PANEL_WING;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 142;
+                                              gui_Left                   : 180;
+                                              gui_Height                 : 140;
+                                              gui_Width                  : 75;
+                                              gui_ExtraOffset_Y          : 100;
+                                              gui_Blend_Size             : 255;
+                                              gui_Blend_Mode             : 100;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_PROGUSE_INT;
+                                                                            gui_Background_Texture_ID     : 190);
+                                              gui_Color                  : (gui_BorderColor : $FFFF1212);
+                                              gui_Use_Image_Offset       : True;
+                                              gui_ShowBorder             : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Body_Item_NackedBody         : ({$REGION ' - FInGame_UI_Body_Item_NackedBody   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_BODY_UI_PANEL_BODY;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 142;
+                                              gui_Left                   : 180;
+                                              gui_Height                 : 150;
+                                              gui_Width                  : 80;
+                                              gui_ExtraOffset_Y          : 100;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_PROGUSE_INT;
+                                                                            gui_Background_Texture_ID     : 0);
+                                              gui_Color                  : (gui_BorderColor : $FFFF1212);                              
+                                              gui_Use_Image_Offset       : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Body_Item_Body               : ({$REGION ' - FInGame_UI_Body_Item_Body   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_BODY_UI_PANEL_BODY;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 142;
+                                              gui_Left                   : 180;
+                                              gui_Height                 : 150;
+                                              gui_Width                  : 80;
+                                              gui_ExtraOffset_Y          : 100;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_EQUIP_INT;
+                                                                            gui_Background_Texture_ID     : 2006);
+                                              gui_Color                  : (gui_BorderColor : $FFFF1212);                              
+                                              gui_Use_Image_Offset       : True;
+                                              gui_ShowBorder             : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Body_Item_Helmet             : ({$REGION ' - FInGame_UI_Body_Item_Helmet   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_BODY_UI_PANEL_HELMET;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 112;
+                                              gui_Left                   : 181;
+                                              gui_Height                 : 40;
+                                              gui_Width                  : 60;
+                                              gui_ExtraOffset_Y          : 130;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_EQUIP_INT;
+                                                                            gui_Background_Texture_ID     : 2109);
+                                              gui_Color                  : (gui_BorderColor : $FFFF1212);
+                                              gui_Use_Image_Offset       : True;
+                                              gui_ShowBorder             : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Body_Item_Weapon             : ({$REGION ' - FInGame_UI_Body_Item_Helmet   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_BODY_UI_PANEL_WEAPON;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 145;
+                                              gui_Left                   : 154;
+                                              gui_Height                 : 100;
+                                              gui_Width                  : 30;
+                                              gui_ExtraOffset_X          : 25;
+                                              gui_ExtraOffset_Y          : 100;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_EQUIP_INT;
+                                                                            gui_Background_Texture_ID     : 1048);
+                                              gui_Color                  : (gui_BorderColor : $FFFF1212);
+                                              gui_Use_Image_Offset       : True;
+                                              gui_ShowBorder             : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+
+
+
+//      FInGame_UI_Body_Item_Hair               : TMir3_GUI_Ground_Info;  //
+//      FInGame_UI_Body_Item_Helmet             : TMir3_GUI_Ground_Info;  //
+//      FInGame_UI_Body_Item_Weapon             : TMir3_GUI_Ground_Info;  //
+//      FInGame_UI_Body_Item_Hero               : TMir3_GUI_Ground_Info;  //
+//      FInGame_UI_Body_Item_Heart              : TMir3_GUI_Ground_Info;  //
+//
+//  GUI_ID_INGAME_BODY_UI_PANEL_WING                = 902;
+//  GUI_ID_INGAME_BODY_UI_PANEL_BODY                = 903;
+//  GUI_ID_INGAME_BODY_UI_PANEL_HAIR                = 904;
+//  GUI_ID_INGAME_BODY_UI_PANEL_HELMET              = 905;
+//  GUI_ID_INGAME_BODY_UI_PANEL_WEAPON              = 906;
+//  GUI_ID_INGAME_BODY_UI_PANEL_HERO                = 907; // Top Right Hero Animation
+//  GUI_ID_INGAME_BODY_UI_PANEL_HEART               = 908;
 
       {$ENDREGION}
       
       {$REGION ' - Body Show Window UI System      '}
-      FInGame_UI_Body_Show_Window                  : ({$REGION ' - FInGame_UI_Body_Show_Window     '}
+      FInGame_UI_Body_Show_Window             : ({$REGION ' - FInGame_UI_Body_Show_Window     '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_BODY_SHOW_UI_WINDOW;
                                               gui_Type                   : ctForm;
                                               gui_Form_Type              : ftMoving;
@@ -4242,7 +5494,7 @@ var
                                               {$ENDREGION}
                 );
       {$ENDREGION}      
-       
+
       {$REGION ' - Magic Window UI System          '}
         //TODO : Class Controler (War/Wiz/Tao - Ass View)
          {$REGION ' - Magic War/Wiz/Tao '}
@@ -4285,7 +5537,7 @@ var
       {$REGION ' - Avatar Setup Window UI System   '}
       
       {$ENDREGION}
-      
+
       {$REGION ' - Siege (WAR) Window UI System    '}
       
       {$ENDREGION}      

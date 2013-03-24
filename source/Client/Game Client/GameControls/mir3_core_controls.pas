@@ -247,6 +247,8 @@ type
     gui_Left                   : Integer;
     gui_Height                 : Integer;
     gui_Width                  : Integer;
+    gui_ExtraOffset_X          : Integer;
+    gui_ExtraOffset_Y          : Integer;
     gui_Strech_Rate_X          : Single;
     gui_Strech_Rate_Y          : Single;
     gui_Blend_Size             : Byte;
@@ -264,10 +266,12 @@ type
     gui_Btn_Font_Color         : TMIR3_UI_BTN_Font_Color;
     gui_Slider_Setup           : TMIR3_UI_Slider_Setup;
     gui_Progress_Setup         : TMIR3_UI_Progress_Setup;
+    gui_PreSelected            : Boolean;
     gui_Scroll_Text            : Boolean;
     gui_Use_Animation_Texture  : Boolean;
     gui_Use_Random_Texture     : Boolean;
     gui_Use_Strech_Texture     : Boolean;
+    gui_Use_Image_Offset       : Boolean;
     gui_ShowBorder             : Boolean;
     gui_ShowPanel              : Boolean;
     gui_ShowHint               : Boolean;
@@ -2641,6 +2645,7 @@ var
     //..............................................................................
     procedure TMIR3_GUI_Panel.RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
     var
+     FTempImage   : PImageHeaderD3D;
      FDrawSetting : TDrawSetting;
     begin
 	  // @override
@@ -2650,12 +2655,11 @@ var
 		    (* Render Panel without Texture in Debug Mode *)
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
-        if FGUI_Defination.gui_ShowPanel then                                                                 
-        begin
+        if FGUI_Defination.gui_ShowPanel then
           GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Defination.gui_Color.gui_ControlColor, True);
-          if FGUI_Defination.gui_ShowBorder then
-            GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Defination.gui_Color.gui_BorderColor, False);
-        end;
+        if FGUI_Defination.gui_ShowBorder then
+          GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Defination.gui_Color.gui_BorderColor, False);
+          
         (* Render Panel with given Texture *)
         with FGUI_Defination, gui_Font, gui_Control_Texture, gui_Animation, GGameEngine.FGameFileManger, GGameEngine.FontManager do
         begin
@@ -2665,7 +2669,14 @@ var
             begin
               DrawStrech(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Blend_Mode, gui_Blend_Size);
             end else begin
-              Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
+              if gui_Use_Image_Offset then
+              begin
+                FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
+                if Assigned(FTempImage) then
+                begin
+                  Draw(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + FLeft + FTempImage.ihOffset_X + gui_ExtraOffset_X, FParentGUIForm.FTop + FTop + FTempImage.ihOffset_Y + gui_ExtraOffset_Y, gui_Blend_Mode, gui_Blend_Size);
+                end;
+              end else Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
             end;
 
             if gui_Use_Animation_Texture then
@@ -2761,8 +2772,6 @@ var
         WM_LBUTTONDOWN     : begin
           if ContainsPoint(AMousePoint) then
           begin
-            if (not FFocus) then
-              FParentGUIContainer.RequestFocus(@Self);
             FParentGUIContainer.SendEvent(EVENT_BUTTON_DOWN, True, @Self);
             Exit;
           end;
@@ -2770,8 +2779,6 @@ var
         WM_LBUTTONDBLCLK   : begin
           if ContainsPoint(AMousePoint) then
           begin
-            if (not FFocus) then
-              FParentGUIContainer.RequestFocus(@Self);
             FParentGUIContainer.SendEvent(EVENT_BUTTON_DBCLICKED, True, @Self);
             Exit;
           end;
@@ -3527,8 +3534,8 @@ var
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctButton;
       FButtonState        := bsBase;
-      SwitchOn            := False;
-      with FGUI_Defination.gui_Btn_Font_Color do
+
+      with FGUI_Defination, gui_Btn_Font_Color do
       begin
         if gui_ColorSelect <> 0 then
           ColorSelect := gui_ColorSelect
@@ -3539,6 +3546,7 @@ var
         if gui_ColorDisabled <> 0 then
           ColorDisabled := gui_ColorDisabled
         else ColorDisabled := D3DCOLOR_ARGB($FF,$09,$09,$09);
+        SwitchOn := gui_PreSelected;
       end;
     end;
   {$ENDREGION} 
@@ -3700,7 +3708,7 @@ var
         Result := False;
         Exit;
       end;
-	  
+
       case uMsg of
         WM_LBUTTONDOWN     : begin
           if ContainsPoint(AMousePoint) then
@@ -4413,7 +4421,7 @@ var
             dsControlWidth  := FWidth;
             dsControlHeigth := FHeight;
             dsAX            := FParentGUIForm.FLeft + FLeft + 1;
-            dsAY            := FParentGUIForm.FTop  + FTop  + 1;
+            dsAY            := FParentGUIForm.FTop  + FTop  + 2;
             dsFontHeight    := gui_Font_Size;
             dsFontSetting   := gui_Font_Setting;
             dsUseKerning    := gui_Font_Use_Kerning;

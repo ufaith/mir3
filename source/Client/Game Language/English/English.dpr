@@ -34,7 +34,7 @@ uses
 {$R *.res}
 
 const
-  LANGUAGE_FILE_AUTOR   = 'Azura';
+  LANGUAGE_FILE_AUTOR   = 'Azura, Coly';
   LANGUAGE_FILE_VERSION = $00000002;
 
 

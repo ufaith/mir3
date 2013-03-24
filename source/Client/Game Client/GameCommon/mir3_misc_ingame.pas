@@ -7,7 +7,7 @@ uses mir3_game_actor;
 
 
 var
-  GGameActor : IActorHuman;
+  GGameActor : TActorHuman;//IActorHuman;
 
 implementation
 

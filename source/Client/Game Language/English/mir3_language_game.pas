@@ -36,7 +36,7 @@ implementation
 
 function GetGameLine(): Integer; stdcall;
 begin
-  Result := 200;
+  Result := 207;
 end;
 
 function GetGameString(ID: Integer; Buffer: PChar): Integer; stdcall;
@@ -283,6 +283,14 @@ begin
     198: Value := 'reserved';
     199: Value := 'reserved';
     200: Value := 'reserved';
+    { Mini Map }
+    201: Value := ''; //Hint
+    202: Value := ''; //Hint
+    203: Value := ''; //Hint
+    204: Value := ''; //Hint
+    205: Value := 'No Mini Map';
+    206: Value := 'No Map';
+    207: Value := 'Not Used';
     else Value := 'Unsupport';
   end;
 

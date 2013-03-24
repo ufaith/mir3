@@ -40,43 +40,8 @@ uses
 {Game   }  mir3_misc_utils, mir3_game_actor_action, mir3_global_config;
 
 type
-  IActor = interface
-  ['{F6AB6125-B91D-4B96-AE63-C181E083EDB2}']
-    (* Getter / Setter *)
-    function GetActorTempCurrent_X: Integer;
-    procedure SetActorTempCurrent_X(AValue: Integer);
-    function GetActorTempCurrent_Y: Integer;
-    procedure SetActorTempCurrent_Y(AValue: Integer);
-    function GetActorShiftX: Integer;
-    procedure SetActorShiftX(AValue: Integer);
-    function GetActorShiftY: Integer;
-    procedure SetActorShiftY(AValue: Integer);
-    (* Public *)    
-    function GetMessage(AMessage: PActorMessage): Boolean;
-    function IsIdle: Boolean;    
-    procedure ProcessActor;
-    procedure ProcessReadyAction(AMessage: PActorMessage);
-  	procedure RenderActor(AX, AY: Integer; ABlend: Boolean; AFlag: Boolean);
-    (* Propertys *)
-    property ActorTempCurrent_X : Integer read GetActorTempCurrent_X write SetActorTempCurrent_X;
-    property ActorTempCurrent_Y : Integer read GetActorTempCurrent_Y write SetActorTempCurrent_Y;
-    property ActorShift_X       : Integer read GetActorShiftX        write SetActorShiftX;
-    property ActorShift_Y       : Integer read GetActorShiftY        write SetActorShiftY;
-  end;
-  
-  IActorNPC = interface(IActor)
-  ['{DCA79765-448C-48DA-8C97-F125CD140275}']
-
-  end;  
-  
-  IActorHuman = interface(IActor)
-  ['{1B45E52A-08B7-426F-98F6-8AD208F56B07}']
-
-  end;  
-
-type
   (* TActor *)  
-  TActor      = class(TInterfacedObject, IActor)
+  TActor      = class
     { String }
     FActorName              : String;              {hold the name of the Actor or later the User Name}
     FActorGuildName         : String;              {hold the Guild name from the Actor}
@@ -191,7 +156,7 @@ type
   end;
   
   (* TActorNPC *)  
-  TActorNPC   = class(TActor, IActorNPC)
+  TActorNPC   = class(TActor)
   public  
     constructor Create; override;
     destructor Destroy; override;
@@ -201,7 +166,7 @@ type
   end;
   
   (* TActorHuman *)
-  TActorHuman = class(TActor, IActorHuman)
+  TActorHuman = class(TActor)
   public  
     constructor Create; override;
     destructor Destroy; override;
