@@ -84,6 +84,7 @@ type
     procedure Create_GameSetting_UI_Interface;
     procedure Create_Trade_UI_Interface;
     procedure Create_Group_UI_Interface;
+    procedure Create_Magic_UI_Interface;
   public
     FGameMap            : IMapFramework;
     FActorList          : TLockList;
@@ -104,6 +105,7 @@ type
     procedure EventBottomWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventBeltWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventMiniMapWindow(AEventType: Integer; AEventControl: Integer);
+    procedure EventGroupWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventMenueBarWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventGameSettingWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventBodyWindow(AEventType: Integer; AEventControl: Integer);
@@ -234,16 +236,94 @@ uses mir3_misc_ingame, mir3_game_backend;
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FBodyForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Body_Window, False));
-        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Wings      , False);
-        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_NackedBody , True);
-        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Body       , True);
-        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Hair       , True);
-        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Helmet     , True);
-        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Weapon     , True);
-        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Hero       , True);
-        Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Heart      , True);
-
-        Self.AddControl(FBodyForm, FInGame_UI_Body_Btn_Close , True);
+          (* Item Slots *)
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Horse        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Necklase     , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Brace_L      , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Brace_R      , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Ring_L       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Ring_R       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Shoes        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Light        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Talisman     , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Medal        , True);
+          (* Text *)
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_Panel        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_Spouse       , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Heart        , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_Level        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_Exp          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_HP           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_MP           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_BGW          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_BOW          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_HAW          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_ACC          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_AGI          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_DC           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_AC           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_BC           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_MC           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_SC           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_MR           , True);
+          (* Element Info *)
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_ATT       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_ADV       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_DIS       , True);
+          (* Element Size Text *)
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_FI_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_FI_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_FI_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_IC_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_IC_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_IC_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_TH_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_TH_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_TH_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_WI_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_WI_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_WI_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_HO_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_HO_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_HO_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_DA_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_DA_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_DA_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_PH_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_PH_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_PH_3      , False);
+          (* Element Texture *)
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_FI_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_FI_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_FI_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_IC_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_IC_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_IC_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_TH_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_TH_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_TH_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_WI_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_WI_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_WI_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_HO_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_HO_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_HO_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_DA_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_DA_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_DA_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_PH_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_PH_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_PH_3     , False);
+          (* Base GUI *)
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_NackedBody   , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Body         , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Wings        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Hair         , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Helmet       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Weapon       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Weapon_Shild , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Hero         , False);
+          Self.AddControl(FBodyForm, FInGame_UI_Body_Btn_Close , True);
       end;
     end;
 
@@ -272,7 +352,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       begin
         { Create Ingame Static Base UI Forms and Controls }
         (* Stage 1 *)
-        FMiniMapFormStage1 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_1_Background, False));
+        FMiniMapFormStage1 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_1_Background, True));
         Self.AddControl(FMiniMapFormStage1, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_1_TextField_MapName , True);
         Self.AddControl(FMiniMapFormStage1, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_1_TextField_MapPos , True);
 
@@ -280,7 +360,7 @@ uses mir3_misc_ingame, mir3_game_backend;
         TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_POS)).Caption  := '127 , 254';
 
         (* Stage 2 *)
-        FMiniMapFormStage2 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Background, True));
+        FMiniMapFormStage2 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Background, False));
         Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Draw_Map    , True);
         Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Design_LT   , True);
         Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Design_LB   , True);
@@ -288,14 +368,13 @@ uses mir3_misc_ingame, mir3_game_backend;
         Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_TextField_MapName , True);
         Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_TextField_MapPos  , True);
         Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Btn_Back    , True);
-
         Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Button_Blend      , True);
         Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Button_Open_Big   , True);
         Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Button_Open_Lib   , True);
 
 
-        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_NAME)).Caption := 'Bichon';
-        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_POS)).Caption  := '(127 , 254)';
+       // TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_NAME)).Caption := 'Bichon';
+       // TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_POS)).Caption  := '(127 , 254)';
 
         (* Stage 3 *)
         FMiniMapFormStage3 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Background, False));
@@ -311,8 +390,8 @@ uses mir3_misc_ingame, mir3_game_backend;
           Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Button_Close_Big  , True);
           Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Button_Open_Lib   , True);
 
-        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_NAME)).Caption := 'Bichon';
-        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_POS)).Caption  := '(127 , 254)';
+       // TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_NAME)).Caption := 'Bichon';
+       // TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_POS)).Caption  := '(127 , 254)';
 
         FMiniMapLibForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Background, False));
           Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Panel_Draw_Map , True);
@@ -437,16 +516,54 @@ uses mir3_misc_ingame, mir3_game_backend;
     end;
 
     procedure TMir3GameSceneInGame.Create_Group_UI_Interface;
-    //var
-      //FGroupForm  : TMIR3_GUI_Form;
+    var
+      FGroupForm  : TMIR3_GUI_Form;
     begin
       with FGame_GUI_Defination_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
-        //FGroupForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Group_Window, False));
-        //Self.AddControl(FGroupForm, FInGame_UI_ , True);
-        //Self.AddControl(FGroupForm, FInGame_UI_ , True);
-        //Self.AddControl(FGroupForm, FInGame_UI_ , True);
+        FGroupForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Group_Window, False));
+          Self.AddControl(FGroupForm, FInGame_UI_Group_Window_Text       , True);
+          Self.AddControl(FGroupForm, FInGame_UI_Group_Btn_Close         , True);
+          Self.AddControl(FGroupForm, FInGame_UI_Group_Btn_Add_Member    , True);
+          Self.AddControl(FGroupForm, FInGame_UI_Group_Btn_Delete_Member , True);
+          Self.AddControl(FGroupForm, FInGame_UI_Group_Btn_Create_Group  , True);
+          Self.AddControl(FGroupForm, FInGame_UI_Group_Btn_Permit_Group  , True);
+      end;
+    end;
+
+    procedure TMir3GameSceneInGame.Create_Magic_UI_Interface;
+    var
+      FMagicWWTForm  : TMIR3_GUI_Form;
+      FMagicASSForm  : TMIR3_GUI_Form;
+    begin
+      with FGame_GUI_Defination_InGame do
+      begin
+        { Create Ingame Static Base UI Forms and Controls }
+        FMagicWWTForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Magic_WWT_Window, False));
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_PageControl   , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Close     , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_1 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_2 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_3 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_4 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_5 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_6 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_7 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_8 , True);
+
+        (* Assassin Magic Window *)
+        FMagicASSForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Magic_ASS_Window, False));
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_PageControl   , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Close     , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_1 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_2 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_3 , True);
+
+        (* Setup First Start *)
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1)).SwitchOn := True;
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1)).SwitchOn := True;
+
       end;
     end;
 
@@ -521,6 +638,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       Create_GameSetting_UI_Interface;
       Create_Trade_UI_Interface;
       Create_Group_UI_Interface;
+      Create_Magic_UI_Interface;
       (* End Ingame Controls *)
 
       // Static Elements
@@ -544,7 +662,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       begin
         Active  := False;
         Address := '127.0.0.1';
-        Port    := 6000;
+        Port    := 7200;
         Active  := True;
       end; 
       {$ENDIF} 
@@ -719,6 +837,9 @@ uses mir3_misc_ingame, mir3_game_backend;
             end;
             GUI_ID_INGAME_BOTTOM_UI_BUTTON_3_MAGIC      : begin
               // Open Magic Window (Look if WAR/WIZ/TAO or Assassin)
+
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_WWT_WINDOW)).Visible := not
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_WWT_WINDOW)).Visible;
               (*
               case job of
                 C_WARRIOR  ,
@@ -736,8 +857,11 @@ uses mir3_misc_ingame, mir3_game_backend;
              //TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_TRADE_UI_WINDOW)).Visible := True;
 
              {Only for test }
-             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BODY_SHOW_UI_WINDOW)).Visible := not
-             (TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BODY_SHOW_UI_WINDOW)).Visible);
+             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW)).Visible := not
+             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW)).Visible;
+
+//             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BODY_SHOW_UI_WINDOW)).Visible := not
+//             (TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BODY_SHOW_UI_WINDOW)).Visible);
 
             end;
             GUI_ID_INGAME_BOTTOM_UI_BUTTON_5_BELT       : begin
@@ -859,7 +983,7 @@ uses mir3_misc_ingame, mir3_game_backend;
         end;
       end;
     end;
-    
+
     procedure TMir3GameSceneInGame.EventMiniMapWindow(AEventType: Integer; AEventControl: Integer);
     begin
       case AEventType of
@@ -935,7 +1059,40 @@ uses mir3_misc_ingame, mir3_game_backend;
         end;
       end;
     end;
-    
+
+    procedure TMir3GameSceneInGame.EventGroupWindow(AEventType: Integer; AEventControl: Integer);
+    begin
+      case AEventType of
+        EVENT_BUTTON_UP   : begin
+          case AEventControl of
+            GUI_ID_INGAME_GROUP_UI_LIST_MEMBER      : ;
+            GUI_ID_INGAME_GROUP_UI_BTN_ADD_MEMBER   : ;
+            GUI_ID_INGAME_GROUP_UI_BTN_DEL_MEMBER   : ;
+            GUI_ID_INGAME_GROUP_UI_BTN_CREATE_GROUP : ;
+            GUI_ID_INGAME_GROUP_UI_BTN_PERMIT_GROUP : begin
+              case TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_GROUP_UI_BTN_PERMIT_GROUP)).SwitchOn of
+                True  : begin
+                  TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_GROUP_UI_BTN_PERMIT_GROUP)).SwitchOn := False;
+                  // TODO : Disable other button !?
+                end;
+                False : begin
+                  TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_GROUP_UI_BTN_PERMIT_GROUP)).SwitchOn := True;
+                  // TODO : Enabled other button !?
+                end;
+              end;
+
+            end;
+            GUI_ID_INGAME_GROUP_UI_BTN_CLOSE        : TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GROUP_UI_WINDOW)).Visible := False;
+          end;          
+        end;
+        EVENT_BUTTON_DOWN : begin
+          case AEventControl of
+            0:;
+          end;
+        end;
+      end;
+    end;
+
     procedure TMir3GameSceneInGame.EventMenueBarWindow(AEventType: Integer; AEventControl: Integer);
     begin
       case AEventType of
@@ -949,7 +1106,10 @@ uses mir3_misc_ingame, mir3_game_backend;
             end;
             GUI_ID_INGAME_MENUEBAR_UI_BTN_CHAT    :;
             GUI_ID_INGAME_MENUEBAR_UI_BTN_MAIL    :;
-            GUI_ID_INGAME_MENUEBAR_UI_BTN_GROUP   :;
+            GUI_ID_INGAME_MENUEBAR_UI_BTN_GROUP   : begin
+               TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GROUP_UI_WINDOW)).Visible    := True;
+               TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible := False;
+            end;
             GUI_ID_INGAME_MENUEBAR_UI_BTN_GUILD   :;
             GUI_ID_INGAME_MENUEBAR_UI_BTN_AVATAR  :;
             GUI_ID_INGAME_MENUEBAR_UI_BTN_SIEGE   :;
@@ -1137,11 +1297,179 @@ uses mir3_misc_ingame, mir3_game_backend;
     end;
     
     procedure TMir3GameSceneInGame.EventMagicWindowWindow(AEventType: Integer; AEventControl: Integer);
+
+       procedure ChangeVisiblePageWWT_1(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1)).SwitchOn := APageVisible;
+       end;
+
+       procedure ChangeVisiblePageWWT_2(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_2)).SwitchOn := APageVisible;
+       end;
+
+       procedure ChangeVisiblePageWWT_3(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_3)).SwitchOn := APageVisible;
+       end;
+
+       procedure ChangeVisiblePageWWT_4(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_4)).SwitchOn := APageVisible;
+       end;
+
+       procedure ChangeVisiblePageWWT_5(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_5)).SwitchOn := APageVisible;
+       end;
+
+       procedure ChangeVisiblePageWWT_6(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_6)).SwitchOn := APageVisible;
+       end;
+
+       procedure ChangeVisiblePageWWT_7(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_7)).SwitchOn := APageVisible;
+       end;
+
+       procedure ChangeVisiblePageWWT_8(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_8)).SwitchOn := APageVisible;
+       end;
+
+       procedure ChangeVisiblePageASS_1(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1)).SwitchOn := APageVisible;
+       end;
+
+       procedure ChangeVisiblePageASS_2(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_2)).SwitchOn := APageVisible;
+       end;
+
+       procedure ChangeVisiblePageASS_3(APageVisible: Boolean);
+       begin
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_3)).SwitchOn := APageVisible;
+       end;
+
     begin
       case AEventType of
         EVENT_BUTTON_UP   : begin
           case AEventControl of
-            0:;
+            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_CLOSE  : begin
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_WWT_WINDOW)).Visible := False;
+            end;
+            GUI_ID_INGAME_MAGIC_UI_ASS_BTN_CLOSE  : begin
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW)).Visible := False;
+            end;
+            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(711);
+              ChangeVisiblePageWWT_2(False);
+              ChangeVisiblePageWWT_3(False);
+              ChangeVisiblePageWWT_4(False);
+              ChangeVisiblePageWWT_5(False);
+              ChangeVisiblePageWWT_6(False);
+              ChangeVisiblePageWWT_7(False);
+              ChangeVisiblePageWWT_8(False);
+              ChangeVisiblePageWWT_1(True);
+            end;
+            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_2 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(712);
+              ChangeVisiblePageWWT_1(False);
+              ChangeVisiblePageWWT_3(False);
+              ChangeVisiblePageWWT_4(False);
+              ChangeVisiblePageWWT_5(False);
+              ChangeVisiblePageWWT_6(False);
+              ChangeVisiblePageWWT_7(False);
+              ChangeVisiblePageWWT_8(False);
+              ChangeVisiblePageWWT_2(True);
+            end;
+            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_3 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(713);
+              ChangeVisiblePageWWT_1(False);
+              ChangeVisiblePageWWT_2(False);
+              ChangeVisiblePageWWT_4(False);
+              ChangeVisiblePageWWT_5(False);
+              ChangeVisiblePageWWT_6(False);
+              ChangeVisiblePageWWT_7(False);
+              ChangeVisiblePageWWT_8(False);
+              ChangeVisiblePageWWT_3(True);
+            end;
+            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_4 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(714);
+              ChangeVisiblePageWWT_1(False);
+              ChangeVisiblePageWWT_2(False);
+              ChangeVisiblePageWWT_3(False);
+              ChangeVisiblePageWWT_5(False);
+              ChangeVisiblePageWWT_6(False);
+              ChangeVisiblePageWWT_7(False);
+              ChangeVisiblePageWWT_8(False);
+              ChangeVisiblePageWWT_4(True);
+            end;
+            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_5 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(715);
+              ChangeVisiblePageWWT_1(False);
+              ChangeVisiblePageWWT_2(False);
+              ChangeVisiblePageWWT_3(False);
+              ChangeVisiblePageWWT_4(False);
+              ChangeVisiblePageWWT_6(False);
+              ChangeVisiblePageWWT_7(False);
+              ChangeVisiblePageWWT_8(False);
+              ChangeVisiblePageWWT_5(True);
+            end;
+            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_6 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(716);
+              ChangeVisiblePageWWT_1(False);
+              ChangeVisiblePageWWT_2(False);
+              ChangeVisiblePageWWT_3(False);
+              ChangeVisiblePageWWT_4(False);
+              ChangeVisiblePageWWT_5(False);
+              ChangeVisiblePageWWT_7(False);
+              ChangeVisiblePageWWT_8(False);
+              ChangeVisiblePageWWT_6(True);
+            end;
+            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_7 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(717);
+              ChangeVisiblePageWWT_1(False);
+              ChangeVisiblePageWWT_2(False);
+              ChangeVisiblePageWWT_3(False);
+              ChangeVisiblePageWWT_4(False);
+              ChangeVisiblePageWWT_5(False);
+              ChangeVisiblePageWWT_6(False);
+              ChangeVisiblePageWWT_8(False);
+              ChangeVisiblePageWWT_7(True);
+            end;
+            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_8 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(718);
+              ChangeVisiblePageWWT_1(False);
+              ChangeVisiblePageWWT_2(False);
+              ChangeVisiblePageWWT_3(False);
+              ChangeVisiblePageWWT_4(False);
+              ChangeVisiblePageWWT_5(False);
+              ChangeVisiblePageWWT_6(False);
+              ChangeVisiblePageWWT_7(False);
+              ChangeVisiblePageWWT_8(True);
+            end;
+            (* Assassin *)
+            GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(741);
+              ChangeVisiblePageASS_2(False);
+              ChangeVisiblePageASS_3(False);
+              ChangeVisiblePageASS_1(True);
+            end;
+            GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_2 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(742);
+              ChangeVisiblePageASS_1(False);
+              ChangeVisiblePageASS_3(False);
+              ChangeVisiblePageASS_2(True);
+            end;
+            GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_3 : begin
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(743);
+              ChangeVisiblePageASS_1(False);
+              ChangeVisiblePageASS_2(False);
+              ChangeVisiblePageASS_3(True);
+            end;
           end;          
         end;
         EVENT_BUTTON_DOWN : begin
@@ -1166,6 +1494,8 @@ uses mir3_misc_ingame, mir3_game_backend;
             case AControl.ControlIdentifier of
               { Mini Map UI Events }
                50..100   : EventMiniMapWindow(AEventID, AControl.ControlIdentifier);
+              { Group UI Events }
+              216..223   : EventGroupWindow(AEventID, AControl.ControlIdentifier);
               { Exit Window UI Events }
               402..404   : EventExitWindow(AEventID, AControl.ControlIdentifier);
               { Bottom UI Events }
@@ -1176,6 +1506,8 @@ uses mir3_misc_ingame, mir3_game_backend;
               481..488   : EventBeltWindow(AEventID, AControl.ControlIdentifier);
               { Game Setting UI Events }
               601..647   : EventGameSettingWindow(AEventID, AControl.ControlIdentifier);
+              { Magic Window }
+              750..820   : EventMagicWindowWindow(AEventID, AControl.ControlIdentifier);
               { Body UI Events }
               901..902   : EventBodyWindow(AEventID, AControl.ControlIdentifier);
               { Body Show UI Events }

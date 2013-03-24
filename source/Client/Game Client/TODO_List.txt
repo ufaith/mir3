@@ -24,22 +24,10 @@
  ::: Select Char Scene :::
  ::: Scene Work Status: 85% Finish
 
-  :: Finish ::
- + added and create special component for character view
-   with all required logic
- + added All components for the Scene
- + added Button Event and logic functions
- + using 3 Character pro Player Concept (can use 2 or 3 Char Concept)
- + all 3 Character with all 4 Job Types works in Select Char View
- + added Exit functions
- + added start game video
- + added Character Information Panel
- + added Create Character function and Message Code
- 
+
   :: TODO ::
- - add Delete Character function and Message Code
+ - add Delete Character function and Message Code   !!! need to finish (need change at Server part)
  - add Start Game function and Message Code (need only finishing)
- - add Message Code to Exit Button (Ask : realy exit the Game?)
  - add logic for SM_QUERYCHR_FAIL Information
  
   :: Known Bugs ::
@@ -59,13 +47,11 @@
  ::: Notice / InGame Scene :::
  ::: Scene Work Status: 1% Finish
 
- :: Finish ::
- + added base scene system
- + add Pre and Post Processing Callback
-
  :: TODO ::
  + add the latest new Notice Scene (wait Image)
  + add Game Code
+ + add Hint to all close Button
+ 
 
  :: Known Bugs ::
  - none
@@ -76,7 +62,8 @@
  :: TODO ::
  - cleanup code
  - add more functions
- - Move Blending constants to Globals
+
+  + Say system need Administration (User: disalowed / alowed say ingame)
 
  :: Known Bugs ::
   - none
@@ -86,20 +73,3 @@
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
- - add Hot Key System
- - add Hint Show system (atm for all Button Types)
- - add Text Scroll System
- - add CreateChar Information Panel
- - change English Language system (add Assasin things and resort all)
- - ! Login Scene full Finished now (100% Done)
- - add Connection state check system for all scenes
- - fix some small bugs
-
-
- - add Sounds for Select Char Scene (Include Class Select Sound)
- - add Sounds for Create Char Scene
- - Sync Create Char Video to Render Scene
- - Recreate Hint System (now it works better)
- - add new Text to Language File (English)
- - add Edit Control to System Message Dialog
- - add and change many other things

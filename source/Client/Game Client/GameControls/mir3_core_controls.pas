@@ -43,7 +43,7 @@ interface
 
 uses
 {Delphi }  Windows, Messages, Classes, Controls, SysUtils,
-{DirectX}  Direct3D9, D3DX9, mir3_game_engine,
+{DirectX}  Direct3D9, D3DX9, 
 {Game   }  mir3_global_config, mir3_game_file_manager, mir3_game_font_engine,
 {Game   }  mir3_game_language_engine, mir3_game_sound, mir3_misc_utils;
 
@@ -103,6 +103,7 @@ type
   TMIR3_Control_State    = (csNormal, csMouseOver, csPress, csHoldDown);
   TMIR3_Button_State     = (bsBase, bsMouseOver, bsPress, bsDisabled, bsSelected);
   TMIR3_CharSystem       = (csSelectChar, csCreateChar);
+  TMIR3_TexturAlign      = (taTop, taCenter, taBottom);
   TMIR3_ProgressType     = (ptHorizontal, ptVertical, ptSpecial);
   TMIR3_DLG_Btn          = (mbYes, mbNo, mbOK, mbCancel, mbEditField);
   TMIR3_DLG_Buttons      = set of TMIR3_DLG_Btn;
@@ -141,7 +142,7 @@ type
   PMIR3_GUI_TextButton   = ^TMIR3_GUI_TextButton;
   PMIR3_GUI_TextLabel    = ^TMIR3_GUI_TextLabel;
   PMIR3_GUI_Slider       = ^TMIR3_GUI_Slider;
-  PMIR3_GUI_Progress     = ^ TMIR3_GUI_Progress;
+  PMIR3_GUI_Progress     = ^TMIR3_GUI_Progress;
 
   (* Records *)
   THintMessage             = record
@@ -156,6 +157,8 @@ type
     // Texture IDs
     gui_Animation_Texture_From    : Integer;
     gui_Animation_Texture_To      : Integer;
+    // Blending
+    gui_Animation_Blend_Mode      : Integer;
     // Timer
     gui_Animation_Interval        : LongWord;
     gui_Animation_Current         : Integer;
@@ -173,8 +176,10 @@ type
     gui_Mouse_Select_Texture_ID   : Integer;           {for Buttons and class inheritance}
     gui_Mouse_Disable_Texture_ID  : Integer;           {for Buttons and class inheritance}
   end;
-  
+
   TMIR3_UI_Control_Texture        = record
+    //
+    gui_Texture_Align             : TMIR3_TexturAlign;
     // Texture File ID
     gui_Texture_File_ID           : Integer;
     // Texture ID
@@ -189,6 +194,9 @@ type
     // Random Texture IDs
     gui_Random_Texture_From       : Integer;           {using for Login Screen and Notice Screen}
     gui_Random_Texture_To         : Integer;           {using for Login Screen and Notice Screen}
+    // Extra Texture and file For Body System
+    gui_ExtraTexture_File_ID      : Integer;
+    gui_ExtraBackground_Texture_ID: Integer;           {if set then the image is in background of gui_Background_Texture_ID}
     // Special for On/Off Button
     gui_Extra_Texture_Set         : TMIR3_UI_Extra_Texture;
   end;
@@ -237,6 +245,12 @@ type
     gui_ShowText                  : Boolean;
   end;
 
+  TMIR3_UI_Extra_Text             = record
+    gui_Caption_Offset            : Integer;
+    gui_Extra_Font                : TMIR3_UI_Fonts;
+    gui_CaptionID                 : Integer;
+  end;
+
   PMir3_GUI_Ground_Info    = ^TMir3_GUI_Ground_Info;
   TMir3_GUI_Ground_Info    = record
     gui_Unique_Control_Number  : Integer;
@@ -247,16 +261,18 @@ type
     gui_Left                   : Integer;
     gui_Height                 : Integer;
     gui_Width                  : Integer;
-    gui_ExtraOffset_X          : Integer;
-    gui_ExtraOffset_Y          : Integer;
+    gui_Null_Point_X           : Integer;   // Used for Equip Offset Calculation
+    gui_Null_Point_Y           : Integer;   // Used for Equip Offset Calculation
     gui_Strech_Rate_X          : Single;
     gui_Strech_Rate_Y          : Single;
+    gui_Cut_Rect_Position_X    : Integer;   // used to move Cutted Image
+    gui_Cut_Rect_Position_Y    : Integer;   // used to move Cutted Image
     gui_Blend_Size             : Byte;
     gui_Blend_Mode             : Integer;
     gui_CaptionID              : Integer;
     gui_HintID                 : Integer;
     gui_Window_Text            : TMir3_UI_Window_Info;
-    gui_Font                   : TMIR3_UI_Fonts; 
+    gui_Font                   : TMIR3_UI_Fonts;
     gui_Control_Texture        : TMir3_UI_Control_Texture;
     gui_Animation              : TMir3_UI_Animation;
     gui_Password_Char          : String[1];
@@ -266,12 +282,16 @@ type
     gui_Btn_Font_Color         : TMIR3_UI_BTN_Font_Color;
     gui_Slider_Setup           : TMIR3_UI_Slider_Setup;
     gui_Progress_Setup         : TMIR3_UI_Progress_Setup;
+    gui_Caption_Extra          : TMIR3_UI_Extra_Text;     // atm only on TextLabel Controls
     gui_PreSelected            : Boolean;
     gui_Scroll_Text            : Boolean;
+    gui_Use_Extra_Caption      : Boolean;
     gui_Use_Animation_Texture  : Boolean;
     gui_Use_Random_Texture     : Boolean;
     gui_Use_Strech_Texture     : Boolean;
     gui_Use_Image_Offset       : Boolean;
+    gui_Use_Cut_Rect           : Boolean;
+    gui_Use_Null_Point_Calc    : Boolean;
     gui_ShowBorder             : Boolean;
     gui_ShowPanel              : Boolean;
     gui_ShowHint               : Boolean;
@@ -488,6 +508,8 @@ type
   (* class TMIR3_GUI_Panel *)    
   TMIR3_GUI_Panel       = class(TMIR3_GUI_Default)
   private
+    FMouseState     : TMIR3_Button_State;
+  private
     procedure SetCaption(ACaption: String);
     function GetCaption: String;
   protected
@@ -499,6 +521,7 @@ type
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
     function HandleMouse(uMsg: LongWord; AMousePoint: TPoint; wParam: WPARAM; lParam: LPARAM): Boolean; override;
+    procedure SetTextureID(ATextureID: Integer; AType: Integer=0);
   public
     property Caption : String read GetCaption write SetCaption;
   end;
@@ -707,7 +730,7 @@ type
 
 implementation
  
-uses mir3_game_backend, Math;
+uses mir3_game_backend, mir3_game_engine, Math;
 
 var
   G_MousePoint      : TPoint;
@@ -2630,6 +2653,7 @@ var
       inherited;
       if Assigned(PGUI_Defination) then
         FGUI_Defination := PGUI_Defination^;
+      FMouseState         := bsBase;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctPanel;
       FCaption            := '';
@@ -2645,8 +2669,11 @@ var
     //..............................................................................
     procedure TMIR3_GUI_Panel.RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
     var
-     FTempImage   : PImageHeaderD3D;
-     FDrawSetting : TDrawSetting;
+     FMoveRect      : TRect;
+     FTempX, FTempY : Integer;
+     FTempImageID   : Integer;
+     FTempImage     : PImageHeaderD3D;
+     FDrawSetting   : TDrawSetting;
     begin
 	  // @override
 	    (* Render Panel *)
@@ -2665,25 +2692,65 @@ var
         begin
           if gui_Texture_File_ID > 74 then
           begin
-            if gui_Use_Strech_Texture then                                                                                                                    
+            if (gui_ExtraBackground_Texture_ID > 0) and (gui_ExtraTexture_File_ID > 74) then
             begin
-              DrawStrech(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Blend_Mode, gui_Blend_Size);
-            end else begin
-              if gui_Use_Image_Offset then
+              Draw(gui_ExtraBackground_Texture_ID, gui_ExtraTexture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
+            end;
+
+            if gui_Background_Texture_ID > -1 then
+            begin
+              if gui_Use_Strech_Texture then
               begin
-                FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
-                if Assigned(FTempImage) then
+                DrawStrech(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Blend_Mode, gui_Blend_Size);
+              end else begin
+                if gui_Use_Null_Point_Calc then
                 begin
-                  Draw(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + FLeft + FTempImage.ihOffset_X + gui_ExtraOffset_X, FParentGUIForm.FTop + FTop + FTempImage.ihOffset_Y + gui_ExtraOffset_Y, gui_Blend_Mode, gui_Blend_Size);
+                  FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
+                  if Assigned(FTempImage) then
+                  begin
+                    Draw(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Blend_Mode, gui_Blend_Size);
+                  end;
+                end else begin
+                  if gui_Use_Cut_Rect then
+                  begin
+                    SetRect(FMoveRect, gui_WorkField.Left  + gui_Cut_Rect_Position_X, gui_WorkField.Top    + gui_Cut_Rect_Position_Y,
+                                       gui_WorkField.Right + gui_Cut_Rect_Position_X, gui_WorkField.Bottom + gui_Cut_Rect_Position_Y);
+                    DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FMoveRect, gui_Blend_Mode, gui_Blend_Size);
+                  end else begin
+                    case gui_Texture_Align of
+                      taTop    : Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
+                      taCenter : begin
+                        FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
+                        FTempX := (FWidth  div 2) - (FTempImage.ihORG_Width  div 2);
+                        FTempY := (FHeight div 2) - (FTempImage.ihORG_Height div 2);
+                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FTempX, FParentGUIForm.FTop + FTop +FTempY, gui_Blend_Mode, gui_Blend_Size);
+                      end;
+                      taBottom : begin
+                        FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
+                        FTempY     := FHeight - FTempImage.ihORG_Height;
+                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop + FTempY, gui_Blend_Mode, gui_Blend_Size);
+                      end;
+                    end;
+                  end;
                 end;
-              end else Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
+
+              end;
             end;
 
             if gui_Use_Animation_Texture then
             begin
               if (gui_Animation_Texture_File_ID > 0) and (gui_Animation_Texture_From > 0) and (gui_Animation_Texture_To > 0)  then
               begin
-                Draw(gui_Animation_Current + gui_Animation_Texture_From, gui_Animation_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Animation_Offset_X, FParentGUIForm.FTop + FTop + gui_Animation_Offset_Y, gui_Blend_Mode, gui_Blend_Size);
+                if gui_Use_Null_Point_Calc then
+                begin
+                  FTempImageID := (gui_Animation_Current + gui_Animation_Texture_From);
+                  FTempImage   := GGameEngine.FGameFileManger.GetImageD3DDirect(FTempImageID, gui_Animation_Texture_File_ID);
+                  if Assigned(FTempImage) then
+                  begin
+                    Draw(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                  end;
+                end else Draw(gui_Animation_Current + gui_Animation_Texture_From, gui_Animation_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Animation_Offset_X, FParentGUIForm.FTop + FTop + gui_Animation_Offset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+
                 if (GetTickCount - FAnimationTime) > gui_Animation_Interval then
                 begin
                   FAnimationTime := GetTickCount;
@@ -2693,7 +2760,7 @@ var
                 end;
               end;
             end;
-
+            
           end else if (Trim(FCaption) <> '') or (gui_CaptionID > 0) then
                    begin
                      case gui_Scroll_Text of
@@ -2755,6 +2822,20 @@ var
                        end;
                      end;
                    end;
+          (* Render Hint *)
+          if (FMouseOver) and (gui_HintID <> 0) then
+          begin
+            with FDrawSetting do
+            begin
+              dsFontHeight    := 18;
+              dsFontSetting   := [];
+              dsHAlign        := alLeft;
+              dsVAlign        := avTop;
+              dsUseKerning    := False;
+              dsColor         := $FFF7F767;
+            end;
+            FParentGUIContainer.AddHintMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_HintID), FDrawSetting);
+          end;                   
         end;
       end;
 	  end;
@@ -2767,7 +2848,7 @@ var
         Result := False;
         Exit;
       end;
-	  
+
       case uMsg of
         WM_LBUTTONDOWN     : begin
           if ContainsPoint(AMousePoint) then
@@ -2792,6 +2873,31 @@ var
       end;
 
       Result:= False;
+    end;
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // TMIR3_GUI_Panel Helper function to set Textures
+    //..............................................................................
+    procedure TMIR3_GUI_Panel.SetTextureID(ATextureID: Integer; AType: Integer=0);
+    begin
+      with FGUI_Defination.gui_Control_Texture do
+      begin
+        case AType of
+         0  : gui_Background_Texture_ID                          := ATextureID;
+         1  : gui_Mouse_Over_Texture_ID                          := ATextureID;
+         2  : gui_Mouse_Down_Texture_ID                          := ATextureID;
+         3  : gui_Mouse_Select_Texture_ID                        := ATextureID;
+         4  : gui_Mouse_Disable_Texture_ID                       := ATextureID;
+         5  : gui_Slider_Texture_ID                              := ATextureID;
+         6  : gui_Random_Texture_From                            := ATextureID;
+         7  : gui_Random_Texture_To                              := ATextureID;
+         8  : gui_Extra_Texture_Set.gui_Background_Texture_ID    := ATextureID;
+         9  : gui_Extra_Texture_Set.gui_Mouse_Over_Texture_ID    := ATextureID;
+         10 : gui_Extra_Texture_Set.gui_Mouse_Down_Texture_ID    := ATextureID;
+         11 : gui_Extra_Texture_Set.gui_Mouse_Select_Texture_ID  := ATextureID;
+         12 : gui_Extra_Texture_Set.gui_Mouse_Disable_Texture_ID := ATextureID;
+        end;
+      end;
     end;
 
   {$ENDREGION}
@@ -4486,6 +4592,14 @@ var
         begin
           if (Trim(FCaption) <> '') or (gui_CaptionID > 0) then
           begin
+          if FMouseOver and (FMouseState = bsBase) then
+          begin
+            FMouseState := bsMouseOver;
+          end else if not FMouseOver and (FMouseState = bsMouseOver) then
+                   begin
+                     FMouseState := bsBase;
+                   end;
+
             if gui_CaptionID > 0 then
             begin
               with FDrawSetting do
@@ -4517,6 +4631,42 @@ var
                 dsVAlign        := gui_Font_Text_VAlign;
               end;
               GGameEngine.FontManager.DrawControlText(FCaption, @FDrawSetting);
+            end;
+
+            if gui_Use_Extra_Caption then
+            begin
+              if gui_Caption_Extra.gui_CaptionID > 0 then
+              begin
+                with FDrawSetting, gui_Caption_Extra do
+                begin
+                  dsControlWidth  := FWidth;
+                  dsControlHeigth := FHeight;
+                  dsAX            := FParentGUIForm.FLeft + FLeft + 1;
+                  dsAY            := FParentGUIForm.FTop  + FTop  + 1 + gui_Caption_Offset;
+                  dsFontHeight    := gui_Extra_Font.gui_Font_Size;
+                  dsFontSetting   := gui_Extra_Font.gui_Font_Setting;
+                  dsUseKerning    := gui_Extra_Font.gui_Font_Use_Kerning;
+                  dsColor         := gui_Extra_Font.gui_Font_Color;
+                  dsHAlign        := gui_Extra_Font.gui_Font_Text_HAlign;
+                  dsVAlign        := gui_Extra_Font.gui_Font_Text_VAlign;
+                end;
+                GGameEngine.FontManager.DrawControlText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_Caption_Extra.gui_CaptionID), @FDrawSetting);
+              end;
+            end;
+
+            (* Render Hint *)
+            if (FMouseState = bsMouseOver) and (gui_HintID <> 0) then
+            begin
+              with FDrawSetting do
+              begin
+                dsFontHeight    := 18;
+                dsFontSetting   := [];
+                dsHAlign        := alLeft;
+                dsVAlign        := avTop;
+                dsUseKerning    := False;
+                dsColor         := $FFF7F767;
+              end;
+              FParentGUIContainer.AddHintMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_HintID), FDrawSetting);
             end;
           end;
         end;

@@ -36,7 +36,7 @@ implementation
 
 function GetGameLine(): Integer; stdcall;
 begin
-  Result := 207;
+  Result := 2000;
 end;
 
 function GetGameString(ID: Integer; Buffer: PChar): Integer; stdcall;
@@ -86,9 +86,9 @@ begin
     35: Value := 'reserve';
     36: Value := 'reserve';
     37: Value := 'reserve';
-    38: Value := '100-100';
-    39: Value := '10000';
-    40: Value := '1000';
+    38: Value := 'reserve';
+    39: Value := 'reserve';
+    40: Value := 'reserve';
     (*******************************************************************
     *               Character Selection / Creation                     *
     *******************************************************************)
@@ -164,6 +164,9 @@ begin
     78: Value := 'reserve';
     79: Value := 'reserve';
     80: Value := 'reserve';
+    (*******************************************************************
+    *                        InGame Text                               *
+    *******************************************************************)
     {Menue Bar}
     81: Value := 'Settings';
     82: Value := 'Chat';
@@ -291,6 +294,77 @@ begin
     205: Value := 'No Mini Map';
     206: Value := 'No Map';
     207: Value := 'Not Used';
+    208..210: Value := 'reserved';
+    { Body Window }
+    211: Value := 'Level';
+    212: Value := 'Experience';
+    213: Value := 'Health Points (HP)';
+    214: Value := 'Mana Points (MP)';
+    215: Value := 'Bag Weight';
+    216: Value := 'Body Weight';
+    217: Value := 'Hand Weight';
+    218: Value := 'Accuracy';
+    219: Value := 'Agility';
+    220: Value := 'Ele(Att)';
+    221: Value := 'Ele(Adv)';
+    222: Value := 'Ele(Dis)';
+    223: Value := 'Element Att (Attack Power)';     //Hint
+    224: Value := 'Element Adv (Defence)';          //Hint
+    225: Value := 'Element Dis (Weakness)';         //Hint
+    226: Value := 'Element Fire (Attack Power)';    //Hint
+    227: Value := 'Element Fire (Defence)';         //Hint
+    228: Value := 'Element Fire (Weakness)';        //Hint
+    229: Value := 'Element Ice (Attack Power)';     //Hint
+    230: Value := 'Element Ice (Defence)';          //Hint
+    231: Value := 'Element Ice (Weakness)';         //Hint
+    232: Value := 'Element Thunder (Attack Power)'; //Hint
+    233: Value := 'Element Thunder (Defence)';      //Hint
+    234: Value := 'Element Thunder (Weakness)';     //Hint
+    235: Value := 'Element Wind (Attack Power)';    //Hint
+    236: Value := 'Element Wind (Defence)';         //Hint
+    237: Value := 'Element Wind (Weakness)';        //Hint
+    238: Value := 'Element Holy (Attack Power)';    //Hint
+    239: Value := 'Element Holy (Defence)';         //Hint
+    240: Value := 'Element Holy (Weakness)';        //Hint
+    241: Value := 'Element Dark (Attack Power)';    //Hint
+    242: Value := 'Element Dark (Defence)';         //Hint
+    243: Value := 'Element Dark (Weakness)';        //Hint
+    244: Value := 'Element Phantom (Attack Power)'; //Hint
+    245: Value := 'Element Phantom (Defence)';      //Hint
+    246: Value := 'Element Phantom (Weakness)';     //Hint
+    247..250: Value := 'reserve';
+    { Group Window }
+    251: Value := 'Group';
+    252: Value := 'Close Group Window';             //Hint
+    253: Value := 'Add member to group';            //Hint
+    254: Value := 'Delete member from group';       //Hint
+    255: Value := 'Create a group';                 //Hint
+    256: Value := 'Permit group invitation';        //Hint
+
+    (* Development Strings, not for real play *)
+    1050: Value := 'DC 1000-1000';
+    1051: Value := 'AC 1000-1000';
+    1052: Value := 'BC 1000-1000';
+    1053: Value := 'MC 1000-1000';
+    1054: Value := 'SC 1000-1000';
+    1055: Value := 'MR 1000-1000';
+    1056: Value := '+1000';
+    1057: Value := '1000/1000';
+    1058: Value := '194';
+    1059: Value := '3.55 %';
+    1060: Value := 'Coly\GameMasterGuild';
+    1061: Value := 'Coly´s Spouse';
+    1062: Value := '100-100';
+    1063: Value := '10000';
+    1064: Value := '1000';
+    1065: Value := '99';
+    1066: Value := '10';
+    1067: Value := '+';
+    1068: Value := '-';
+    1069: Value := 'x';
+    1070: Value := '*';
+
+    1071..2000: Value := 'reserve';
     else Value := 'Unsupport';
   end;
 
