@@ -1,27 +1,30 @@
-(*******************************************************************
- *   LomCN Mir3 English Game Language LGU File 2013                *
- *                                                                 *
- *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.3                                           *
- *                                                                 *
- *   - File Info -                                                 *
- *                                                                 *
- *   It holds the mir3 game english language strings.              *
- *                                                                 *
- *******************************************************************
- * Change History                                                  *
- *                                                                 *
- *  - 0.0.0.1 [2013-02-11] Azura : first init                      *
- *  - 0.0.0.2 [2013-03-10] Coly : change all and reorg all         *
- *  - 0.0.0.3 [2013-03-11] Coly : add new lines                    *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- * :Info:                                                          *
- * The Maximum of String Literale is 255 so you need to add ' + '  *
- * at the end of 255 Char...                                       *
- * The String it self can have a length of 1024                    *
- *******************************************************************)
+(******************************************************************************
+ *   LomCN Mir3 English Game Language LGU File 2013                           *
+ *                                                                            *
+ *   Web       : http://www.lomcn.co.uk                                       *
+ *   Version   : 0.0.0.4                                                      *
+ *                                                                            *
+ *   - File Info -                                                            *
+ *                                                                            *
+ *   It holds the mir3 game english language strings.                         *
+ *                                                                            *
+ ******************************************************************************
+ * Change History                                                             *
+ *                                                                            *
+ *  - 0.0.0.1 [2013-02-11] Azura : first init                                 *
+ *  - 0.0.0.2 [2013-03-10] Coly : change all and reorg all                    *
+ *  - 0.0.0.3 [2013-03-11] Coly : add new lines                               *
+ *  - 0.0.0.4 [2013-03-27] SomebodyElse : fix language                        *
+ *                                                                            *
+ *                                                                            *
+ *                                                                            *
+ *                                                                            *
+ ******************************************************************************
+ * :Info:                                                                     *
+ * The Maximum of String Literale is 255 so you need to add ' + '             *
+ * at the end of 255 Char...                                                  *
+ * The String it self can have a length of 1024                               *
+ *****************************************************************************)
 
 unit mir3_language_game;
 
@@ -79,7 +82,7 @@ begin
     28: Value := 'Your IP access will be valid for'     +#10#13+'another %d days.';            //'Your IP in use has remaining'         +#10#13+' %d days to access.';
     29: Value := 'Your IP access expires today!';                                              //'Your IP in use expires today.';
     30: Value := 'Your IP access will be valid for'     +#10#13+'another %d hours.';           //'Your IP in use has remaining'         +#10#13+' %d hours to access.';
-    31: Value := 'Your ID will be valid for another'    +#10#13+'%d hours.'                    //'Your ID in use has remaining'         +#10#13+' %d hours to access.';
+    31: Value := 'Your ID will be valid for another'    +#10#13+'%d hours.';                   //'Your ID in use has remaining'         +#10#13+' %d hours to access.';
     32: Value := 'Reserved';
     33: Value := 'Reserved';
     34: Value := 'Reserved';
@@ -150,7 +153,7 @@ begin
                  'you cannot create another character with'   + #10#13 +
                  'the same name for a while. If you wish to'  + #10#13 +
                  'continue, please type your password and'    + #10#13 +
-                 'press the Yes button.';     // 'Yes' sounds awkward but what does the button actually say? It should probably say "Confirm"
+                 'press the Yes button.';     // 'Yes' sounds awkward but what does the button actually say? It should probably say "Confirm"   Coly: I can use a Text Button with own Text...
     67: Value := 'You cannot create more than %d characters.';
     68: Value := 'Please create a character first.';// by'+ #10#13 +'clicking the New Character button.';
     69: Value := 'Character information cannot be accessed.';
@@ -176,13 +179,13 @@ begin
     85: Value := 'Guild';
     86: Value := 'Avatar';
     87: Value := 'Siege';
-    88: Value := 'Exit';
-    89: Value := 'Auto-Features'; // Exit should be at the bottom
+    88: Value := 'Auto-Features';
+    89: Value := 'Exit';
     90: Value := 'Close';
     91..100 : Value := 'Reserved';
     {Game Settings}
     101: Value := 'Basic';
-    102: Value := 'Permit'; // not great, but I can't find another word that's short enough
+    102: Value := 'Permit'; // not great, but I can't find another word that's short enough    Coly: give me some words and I test it...
     103: Value := 'Chat';
     104: Value := 'Visual';
     { Page 1 Basic }
@@ -219,7 +222,7 @@ begin
     135: Value := '[ Allow Recall On/Off ]';
     136: Value := 'Allow Trading';
     137: Value := '[ Allow Trading On/Off ]';
-    138: Value := 'Blood Display';                      // I have no idea what this is.
+    138: Value := 'Blood Display';                      // I have no idea what this is.  Coly: It is for  blood spatter (we have Textures for it (Only From 18 years up))
     139: Value := '[ Blood Display On/Off ]';
     140: Value := 'Reserved';
     141: Value := 'hint reserved';
@@ -239,8 +242,8 @@ begin
     154: Value := 'Guild Messages';
     155: Value := '[ Listen to Guild Messages On/Off ]';
     156: Value := 'Block whispering from User';
-    158: Value := '[ Whispering from User blocked ]';    // Should it be "User %s"?
-    157: Value := 'Reserved';
+    158: Value := '[ Whispering from User blocked ]';    // Should it be "User %s"?  Coly: no idea, if so we need to add it
+    157: Value := 'Reserved'; //<-- Hint for "Whispering from User blocked"
     159: Value := 'Reserved';
     160: Value := 'hint reserved';
     161: Value := 'Reserved';
@@ -266,7 +269,7 @@ begin
     180: Value := '[ Dyed Hair Colours On/Off ]';
     181: Value := 'Display Avatar';
     182: Value := '[ Avatar On/Off ]';
-    183: Value := 'Display Monsters on Mini-map';
+    183: Value := 'Display Monsters on Mini-map';  // The text is a bit to long
     184: Value := '[ Monsters on Mini-map On/Off ]';
     185: Value := 'Display Player HP Gauge';
     186: Value := '[ Player HP Gauge On/Off ]';
