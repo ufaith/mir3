@@ -2,7 +2,7 @@
  *   LomCN Mir3 file manager core File 2012                        *
  *                                                                 *
  *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.2                                           *
+ *   Version   : 0.0.0.3                                           *
  *                                                                 *
  *   - File Info -                                                 *
  *                                                                 *
@@ -15,6 +15,7 @@
  *                                                                 *
  *  - 0.0.0.1 [2012-09-11] Coly : fist init                        *
  *  - 0.0.0.2 [2012-10-10] Coly : cleanup code                     *
+ *  - 0.0.0.3 [2013-03-27] Coly : change img reading and cliping   * 
  *                                                                 *
  *                                                                 *
  *                                                                 *
@@ -86,6 +87,37 @@ type
       end;
   {$ENDREGION}
 
+  {$REGION ' - LomCN Texture Format Header (For Import LMT) '}  
+     (*****************************************************************************
+      * TLMT_Header LMT (LomCN Texture) File Header
+      *
+      ****************************************************************************)
+      PLMT_Header =^TLMT_Header;
+      TLMT_Header = packed record
+        lhValid            : Byte;                          // 1
+        lhLib_Info         : array [0..20] of AnsiChar;     // LMT v1.0-LomCN
+        lhLib_Type         : Word;                          // 9000=Type4
+        lhTotal_Index      : Word;                          // Total Image in this File
+        lhSecuredImage     : Byte;                          // 0: No  |  1:Yes (Type 1 Crypt) |  2:Yes (Type 2 Crypt) ...
+      end;
+
+     (*****************************************************************************
+      * TLMT_Img_Header LMT_IMG (LomCN Texture) Image Header
+      *
+      ****************************************************************************)
+      PLMT_Img_Header = ^TLMT_Img_Header;         // LMT-File Image Offset Header
+      TLMT_Img_Header = packed record
+        imgWidth           : Word;                          // Image Width
+        imgHeight          : Word;                          // Image Height
+        imgOffset_X        : Smallint;                      // Image Offset X
+        imgOffset_Y        : Smallint;                      // Image Offset Y
+        imgShadow_type     : Byte;                          // Image Shadow Type
+        imgShadow_Offset_X : Smallint;                      // Image Shadow Offset X
+        imgShadow_Offset_Y : Smallint;                      // Image Shadow Offset Y
+        imgFileSize        : Cardinal;                      // FileSize 
+      end;
+  {$ENDREGION}   
+  
   {$REGION ' - Records  '}
     { Records }
 
@@ -141,20 +173,26 @@ type
     procedure LoadFromITexture(AImages: ITexture; AWidth, AHeight: Integer);
   end;
 
-  { TMir3_TextureLibrary }
-  TFileLibType         = (LIB_TYPE_1, LIB_TYPE_2, LIB_TYPE_3);
+  { TMir3_TextureLibrary } // WIL         WIL         WTL         LMT
+  TFileLibType         = (LIB_TYPE_1, LIB_TYPE_2, LIB_TYPE_3, LIB_TYPE_4);
   TMir3_TextureLibrary = class
   strict private
     FFileName      : string;
 	FUsingLibType  : TFileLibType;
     FImageIndex    : Integer;
     FTotalImage    : Integer;
-    FHeaderWilInfo : TWIL_Header;
-    FHeaderWixInfo : TWIX_Header;
-    FHeaderImage   : TWIL_Img_Header;
-    FDumpImageInfo : TWIL_Img_Header;
-    FWIL           : PByte;
-    FWIX           : PByte;
+    (* Wil / Wix System *)
+    FHeaderWilInfo    : TWIL_Header;
+    FHeaderWixInfo    : TWIX_Header;
+    FHeaderImage      : TWIL_Img_Header;
+    FDumpImageInfo    : TWIL_Img_Header;
+    FWIL              : PByte;
+    FWIX              : PByte;    
+    (* LMT System *)
+    FHeaderLMTInfo    : TLMT_Header;
+    FHeaderImageLMT   : TLMT_Img_Header;
+    FDumpImageInfoLMT : TWIL_Img_Header;
+    FLMT              : PByte;
   private
     procedure CreateFilesMMF(FFileName: String);
     function GetLibTypeOffset(LibType: Integer): Integer;
@@ -222,6 +260,7 @@ type
     procedure Draw(image: TMir3_Texture; X, y: Integer; Rect: TRect; Drawmode: Word = BLEND_DEFAULT; Alpha: Byte = 255); overload;
     procedure Draw(Image: TMir3_Texture; X, y: Integer; Drawmode: word = BLEND_DEFAULT; Alpha: Byte = 255); Overload;
     procedure DrawRect(AImageID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ADrawmode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+    procedure DrawClipRect(AImageID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ADrawmode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
     procedure DrawColorChange(AImage: TMir3_Texture; AX, AY: Integer; R, G, B: Byte);
     procedure DrawColor(AImage: TMir3_Texture; AX, AY: Integer; AColor: Cardinal);
     procedure DrawStrech(Image: TMir3_Texture; X, y: integer; xRate: Single; yRate: Single; Drawmode: word = BLEND_DEFAULT; Alpha: Byte = 255); Overload;
@@ -277,20 +316,23 @@ var
       Close;
       Result    := False;
       try
-	    case FUsingLibType of
-		  LIB_TYPE_1 , 
-		  LIB_TYPE_2 : begin
+        case FUsingLibType of
+          LIB_TYPE_1 , 
+          LIB_TYPE_2 : begin
             CreateFilesMMF(FileName);
             // Read Wil and Wix File Header
             CopyMemory(@FHeaderWilInfo, FWIL  , sizeof(TWIL_Header));
             CopyMemory(@FHeaderWixInfo, FWIX  , sizeof(TWIX_Header));
             FTotalImage := FHeaderWilInfo.whTotal_Index;
             FFileName   := FileName;
-		  end;
-		  LIB_TYPE_3 : begin
-		  
-		  end;
-		end;
+          end;
+          LIB_TYPE_3 : begin //WTL
+  
+          end;
+          LIB_TYPE_4 : begin //LMT
+  
+          end;          
+        end;
         Result      := True;
       finally
         if not Result then Close;
@@ -299,14 +341,26 @@ var
 
     procedure TMir3_TextureLibrary.Close;
     begin
-      CloseMMF(Pointer(FWIL));
-      CloseMMF(Pointer(FWIX));
-      FTotalImage := -1;
-      FillChar(FHeaderWilInfo, SizeOf(TWIL_Header)    , 0);
-      FillChar(FHeaderWixInfo, SizeOf(TWIX_Header)    , 0);
-      FillChar(FHeaderImage  , SizeOf(TWIL_Img_Header), 0);
+      case FUsingLibType of
+        LIB_TYPE_1 , 
+        LIB_TYPE_2 : begin    
+          CloseMMF(Pointer(FWIL));
+          CloseMMF(Pointer(FWIX));
+          FillChar(FHeaderWilInfo, SizeOf(TWIL_Header)    , 0);
+          FillChar(FHeaderWixInfo, SizeOf(TWIX_Header)    , 0);
+          FillChar(FHeaderImage  , SizeOf(TWIL_Img_Header), 0);
+        end;  
+        LIB_TYPE_3 : begin
+        
+        end;
+        LIB_TYPE_4 : begin
+          CloseMMF(Pointer(FLMT));
+          FillChar(FHeaderLMTInfo, SizeOf(TLMT_Header)    , 0);
+        end;
+      end;  
       FImageIndex := -1;
-      FFileName := '';
+      FTotalImage := -1;
+      FFileName   := '';
     end;
   {$ENDREGION}
 
@@ -345,7 +399,8 @@ var
       case LibType of
         17   : Result := 17;
         5000 : Result := 21;
-		  //6000 : Result := 31;
+        6000 : Result := 31;
+        9000 : Result := 0; //(LMT System - LomCn Mir3 Texture)        
       end;
     end;
 
@@ -355,7 +410,8 @@ var
       case LibType of
         17   : Result := 24;
         5000 : Result := 28;
-		  //6000 : Result := 31;
+        6000 : Result := 31;
+        9000 : Result := 0; //(LMT System - LomCn Mir3 Texture)
       end;
     end;
 
@@ -364,7 +420,8 @@ var
       case LibType of
         17   : Result := 'Type 1';
         5000 : Result := 'Type 2';
-		    6000 : Result := 'Type 3';
+        6000 : Result := 'Type 3';
+        9000 : Result := 'Type 4'; //(LMT System - LomCn Mir3 Texture)
       end;
     end;
   {$ENDREGION}
@@ -511,8 +568,7 @@ var
         d3dlr    := FTexture.LockExt(False);
         try
           {$REGION ' - Decoder '}
-          //for Y:=0 to FHeaderImage.imgHeight-1 do
-          for Y:= FHeaderImage.imgHeight-1 downto 0 do
+          for Y:=0 to FHeaderImage.imgHeight-1 do
           begin
             PIncX^ := 0;  X := 0; PCount^ := 0;
             CopyMemory(PCount, PInteger(Integer(FWIL)+ PosCount), sizeOf(Word));
@@ -576,14 +632,6 @@ var
           APImageRecord.ihD3DTexture.LoadFromITexture(FTexture, FHeaderImage.imgWidth, FHeaderImage.imgHeight);
         except
           FTexture.Unlock;
-//          if Assigned(APImageRecord) then
-//          begin
-//            if Assigned(APImageRecord.ihD3DTexture) then
-//            begin
-//              FreeAndNil(APImageRecord.ihD3DTexture);
-//            end;
-//            Dispose(APImageRecord);
-//          end;
         end;
       end;
 (*
@@ -1036,14 +1084,16 @@ end;
       FWidth             := AWidth;
       FHeight            := AHeight;
       FQuad.Tex          := FStaticImage;
-      FQuad.V[3].TX      := 0;
-      FQuad.V[3].TY      := 0;                    //left
-      FQuad.V[2].TX      := FWidth / FTexWidth;
-      FQuad.V[2].TY      := 0;                    //right
+
+      FQuad.V[0].TX      := 0;                     //left
+      FQuad.V[0].TY      := 0;
       FQuad.V[1].TX      := FWidth / FTexWidth;
-      FQuad.V[1].TY      := FHeight / FTexHeight; //rightbottom
-      FQuad.V[0].TX      := 0;
-      FQuad.V[0].TY      := FHeight / FTexHeight; //leftbottom
+      FQuad.V[1].TY      := 0;                     //right
+      FQuad.V[2].TX      := FWidth / FTexWidth;
+      FQuad.V[2].TY      := FHeight / FTexHeight;  //rightbottom
+      FQuad.V[3].TX      := 0;
+      FQuad.V[3].TY      := FHeight / FTexHeight;  //leftbottom
+
       FQuad.Blend        := BLEND_DEFAULT;
       FQuad.V[0].Col     := $FFFFFFFF;
       FQuad.V[1].Col     := $FFFFFFFF;
@@ -1357,39 +1407,55 @@ end;
 function TMir3_FileManager.GetImageD3DDirect(var AImageID, AFileID: Integer): PImageHeaderD3D;
 var
   FFileInfo : PFileInformation;
+  FImageID  : Integer;
+  
+  //This little hack is need for the gui system 
+  function GetImageOffset(AValue: Integer): Integer;
+  begin
+    case AFileID of
+      0..75 : Result :=  AValue;
+      else    Result := (AValue-1);
+    end;
+  end;
+
 begin
+  try
+  FImageID  := GetImageOffset(AImageID);
   FFileInfo := FTextureManager.GetStaticFile(AFileID);
   if not Assigned(FFileInfo) then
   begin
     FFileInfo := TestIfInList(1,AFileID);
   end;
-  if High(FFileInfo.fiImageList)+1 <= AImageID then
+  if High(FFileInfo.fiImageList)+1 <= FImageID then
   begin
     SetLength(FFileInfo.fiImageList, FFileInfo.fiImageLib.GetLastImageInt+1);
   end;
-  if Assigned(FFileInfo.fiImageList[AImageID]) and Assigned(FFileInfo.fiImageList[AImageID].ihD3DTexture) then
+  if Assigned(FFileInfo.fiImageList[FImageID]) and Assigned(FFileInfo.fiImageList[FImageID].ihD3DTexture) then
   begin
-    Result                                       := FFileInfo.fiImageList[AImageID];
-    FFileInfo.fiImageList[AImageID].ihUseTime    := GetTickCount;
+    Result                                       := FFileInfo.fiImageList[FImageID];
+    FFileInfo.fiImageList[FImageID].ihUseTime    := GetTickCount;
     FFileInfo.fiLastUseTick                      := GetTickCount;
   end else begin
-    FFileInfo.fiImageLib.DecodeFrame32ToMir3D3DX(AImageID, FFileInfo.fiImageList[AImageID]);
-    if Assigned(FFileInfo.fiImageList[AImageID]) and Assigned(FFileInfo.fiImageList[AImageID].ihD3DTexture) then
+    FFileInfo.fiImageLib.DecodeFrame32ToMir3D3DX(FImageID, FFileInfo.fiImageList[FImageID]);
+    if Assigned(FFileInfo.fiImageList[FImageID]) and Assigned(FFileInfo.fiImageList[FImageID].ihD3DTexture) then
     begin
-      FFileInfo.fiImageList[AImageID].ihUseTime := GetTickCount;
+      FFileInfo.fiImageList[FImageID].ihUseTime := GetTickCount;
       FFileInfo.fiLastUseTick                   := GetTickCount;
       Inc(FFileInfo.fiImageOpenCount);
-      //IncExtended(FFileInfo.fiImageMemoryUsag, ((FFileInfo.fiImageList[AImageID].ihPO2_Width * FFileInfo.fiImageList[AImageID].ihPO2_Height) * 4));
+      //IncExtended(FFileInfo.fiImageMemoryUsag, ((FFileInfo.fiImageList[FImageID].ihPO2_Width * FFileInfo.fiImageList[FImageID].ihPO2_Height) * 4));
     end;
-    Result := FFileInfo.fiImageList[AImageID];
+    Result := FFileInfo.fiImageList[FImageID];
+  end;
+  except
+    GRenderEngine.System_Log('ERROR:Draw:IMAGEID('+IntToStr(AImageID)+')-FILEID('+ IntToStr(AFileID) +')');
   end;
 end;
 
 procedure TMir3_FileManager.Draw(image: TMir3_Texture; X, y: Integer; Rect: TRect; Drawmode: Word; Alpha: byte);
 var
   OldQuad           : THGEQuad;
-  FTX               : Single;
-  FTY               : Single;
+  H               : Single;
+  W               : Single;
   Tx1, ty1, tx2, ty2: single;
 begin
   if Image <> nil then
@@ -1403,32 +1469,25 @@ begin
       rect.Right := image.FWidth;
     If Rect.Bottom > image.FHeight Then
       rect.Bottom := image.FHeight;
-    Ftx := rect.Left;
-    Fty := Rect.Top;
-    TX1 := FTX / image.FTexWidth;
-    TY1 := FTY / image.FTexHeight;
-    TX2 := (FTX + rect.Right - rect.left) / image.FTexWidth;
-    TY2 := (FTY + Rect.Bottom - rect.top) / image.FTexHeight;
-    Image.FQuad.V[0].TX := TX1;
-    Image.FQuad.V[0].TY := TY1;
 
-    Image.FQuad.V[1].TX := TX2;
-    Image.FQuad.V[1].TY := TY1;
+    H := Rect.bottom - Rect.top;
+    W := Rect.Right  - Rect.Left;
 
-    Image.FQuad.V[2].TX := TX2;
-    Image.FQuad.V[2].TY := TY2;
+    TX1 := Rect.Left / Image.FTexWidth;
+    TY1 := Rect.Top  / Image.FTexHeight;
+    TX2 := TX1 + (Rect.Right  - Rect.left) / Image.FTexWidth;
+    TY2 := TY1 + (Rect.Bottom - Rect.top ) / Image.FTexHeight;
 
-    Image.FQuad.V[3].TX := TX1;
-    Image.FQuad.V[3].TY := TY2;
+    Image.FQuad.V[0].TX := TX1; Image.FQuad.V[0].TY := TY1;
+    Image.FQuad.V[1].TX := TX2; Image.FQuad.V[1].TY := TY1;
+    Image.FQuad.V[2].TX := TX2; Image.FQuad.V[2].TY := TY2;
+    Image.FQuad.V[3].TX := TX1; Image.FQuad.V[3].TY := TY2;
 
-    Image.FQuad.V[3].X := x;
-    Image.FQuad.V[3].Y := y;
-    Image.FQuad.V[2].X := x + rect.Right - rect.left;
-    Image.FQuad.V[2].Y := y;
-    Image.FQuad.V[1].X := x + Rect.right - rect.left;
-    Image.FQuad.V[1].Y := y + rect.Bottom - rect.top;
-    Image.FQuad.V[0].X := x;
-    Image.FQuad.V[0].Y := y + Rect.bottom - rect.top;
+    Image.FQuad.V[0].X := X;     Image.FQuad.V[0].Y := Y;
+    Image.FQuad.V[1].X := X + W; Image.FQuad.V[1].Y := Y;
+    Image.FQuad.V[2].X := X + W; Image.FQuad.V[2].Y := Y +H;
+    Image.FQuad.V[3].X := X;     Image.FQuad.V[3].Y := Y +H;
+    
     Image.FQuad.V[0].Col := SetA(Image.FQuad.V[0].Col, Alpha);
     Image.FQuad.V[1].Col := SetA(Image.FQuad.V[1].Col, Alpha);
     Image.FQuad.V[2].Col := SetA(Image.FQuad.V[2].Col, Alpha);
@@ -1492,17 +1551,11 @@ begin
     TY1 := FTY / FImage.FTexHeight;
     TX2 := (FTX + ARect.Right - ARect.left) / FImage.FTexWidth;
     TY2 := (FTY + ARect.Bottom - ARect.top) / FImage.FTexHeight;
-    FImage.FQuad.V[0].TX := TX1;
-    FImage.FQuad.V[0].TY := TY1;
 
-    FImage.FQuad.V[1].TX := TX2;
-    FImage.FQuad.V[1].TY := TY1;
-
-    FImage.FQuad.V[2].TX := TX2;
-    FImage.FQuad.V[2].TY := TY2;
-
-    FImage.FQuad.V[3].TX := TX1;
-    FImage.FQuad.V[3].TY := TY2;
+    FImage.FQuad.V[0].TX := TX1; FImage.FQuad.V[0].TY := TY1;
+    FImage.FQuad.V[1].TX := TX2; FImage.FQuad.V[1].TY := TY1;
+    FImage.FQuad.V[2].TX := TX2; FImage.FQuad.V[2].TY := TY2;
+    FImage.FQuad.V[3].TX := TX1; FImage.FQuad.V[3].TY := TY2;
 
     FImage.FQuad.V[3].X := AX;
     FImage.FQuad.V[3].Y := AY;
@@ -1512,6 +1565,58 @@ begin
     FImage.FQuad.V[1].Y := AY + ARect.Bottom - ARect.top;
     FImage.FQuad.V[0].X := AX;
     FImage.FQuad.V[0].Y := AY + ARect.bottom - ARect.top;
+    FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, AAlpha);
+    FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, AAlpha);
+    FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, AAlpha);
+    FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, AAlpha);
+    FImage.FQuad.Blend := ADrawmode;
+    GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
+    FImage.FQuad := FOldQuad;
+  end;
+end;
+
+procedure TMir3_FileManager.DrawClipRect(AImageID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ADrawmode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad : THGEQuad;
+  FImage   : TMir3_Texture;
+  FTX      : Single;
+  FTY      : Single;
+  Tx1, Ty1,
+  Tx2, Ty2 : single;
+  W, H       : Single;
+begin
+  FImage := GetImageD3DDirect(AImageID, AFileID).ihD3DTexture;
+  if Assigned(FImage) then
+  begin
+    FOldQuad := FImage.FQuad;
+
+    If ARect.Left > FImage.FWidth Then
+      ARect.Left := FImage.FWidth;
+    If ARect.Top > FImage.FHeight Then
+      ARect.Top := FImage.FHeight;
+    If ARect.Right > FImage.FWidth Then
+      ARect.Right := FImage.FWidth;
+    If ARect.Bottom > FImage.FHeight Then
+      ARect.Bottom := FImage.FHeight;
+
+    H := ARect.bottom - ARect.top;
+    W := ARect.Right  - ARect.Left;
+
+    TX1 := ARect.Left / FImage.FTexWidth;
+    TY1 := ARect.Top  / FImage.FTexHeight;
+    TX2 := TX1 + (ARect.Right  - ARect.left) / FImage.FTexWidth;
+    TY2 := TY1 + (ARect.Bottom - ARect.top ) / FImage.FTexHeight;
+
+    FImage.FQuad.V[0].TX := TX1; FImage.FQuad.V[0].TY := TY1;
+    FImage.FQuad.V[1].TX := TX2; FImage.FQuad.V[1].TY := TY1;
+    FImage.FQuad.V[2].TX := TX2; FImage.FQuad.V[2].TY := TY2;
+    FImage.FQuad.V[3].TX := TX1; FImage.FQuad.V[3].TY := TY2;
+
+    FImage.FQuad.V[0].X := AX;     FImage.FQuad.V[0].Y := AY;
+    FImage.FQuad.V[1].X := AX + W; FImage.FQuad.V[1].Y := AY;
+    FImage.FQuad.V[2].X := AX + W; FImage.FQuad.V[2].Y := AY +H;
+    FImage.FQuad.V[3].X := AX;     FImage.FQuad.V[3].Y := AY +H;
+
     FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, AAlpha);
     FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, AAlpha);
     FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, AAlpha);
@@ -1579,25 +1684,29 @@ var
   OldQuad : THGEQuad;
   FImage  : TMir3_Texture;
 begin
-  FImage := GetImageD3DDirect(AImageID, AFileID).ihD3DTexture;
-  if Assigned(FImage) then
-  begin
-    OldQuad := FImage.FQuad;
-    FImage.FQuad.V[0].X := x;
-    FImage.FQuad.V[0].Y := y;
-    FImage.FQuad.V[1].X := x + FImage.FWidth;
-    FImage.FQuad.V[1].Y := y;
-    FImage.FQuad.V[2].X := x + FImage.FWidth;
-    FImage.FQuad.V[2].Y := y + FImage.FHeight;
-    FImage.FQuad.V[3].X := x;
-    FImage.FQuad.V[3].Y := y + FImage.FHeight;
-    FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, Alpha);
-    FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, Alpha);
-    FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, Alpha);
-    FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, Alpha);
-    FImage.FQuad.Blend := Drawmode;
-    GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
-    FImage.FQuad := OldQuad;
+  try
+    FImage := GetImageD3DDirect(AImageID, AFileID).ihD3DTexture;
+    if Assigned(FImage) then
+    begin
+      OldQuad := FImage.FQuad;
+      FImage.FQuad.V[0].X := x;
+      FImage.FQuad.V[0].Y := y;
+      FImage.FQuad.V[1].X := x + FImage.FWidth;
+      FImage.FQuad.V[1].Y := y;
+      FImage.FQuad.V[2].X := x + FImage.FWidth;
+      FImage.FQuad.V[2].Y := y + FImage.FHeight;
+      FImage.FQuad.V[3].X := x;
+      FImage.FQuad.V[3].Y := y + FImage.FHeight;
+      FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, Alpha);
+      FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, Alpha);
+      FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, Alpha);
+      FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, Alpha);
+      FImage.FQuad.Blend := Drawmode;
+      GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
+      FImage.FQuad := OldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR:Draw:IMAGEID('+IntToStr(AImageID)+')-FILEID('+ IntToStr(AFileID) +')');
   end;
 end;
 

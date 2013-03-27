@@ -1,42 +1,43 @@
-(*******************************************************************
- *   LomCN Mir3 Control core File 2012                             *
- *                                                                 *
- *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.9                                           *
- *                                                                 *
- *   - File Info -                                                 *
- *                                                                 *
- *   It hold the mir3 game controls (no Delphi Forms / Objects)    *
- *   It use full Persistante Objects (fast, stabel, etc.)          *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- * Change History                                                  *
- *                                                                 *
- *  - 0.0.0.1 [2012-10-04] Coly : first init                       *
- *  - 0.0.0.2 [2013-02-25] Coly : add new controls (TextXXX)       *
- *  - 0.0.0.3 [2013-02-27] Coly : Fix Assassen and Form Handling   *
- *  - 0.0.0.4 [2013-03-01] Coly : add Pre and Post Processing      *
- *  - 0.0.0.5 [2013-03-02] Coly : Fix Wizard and Edit Control      *
- *  - 0.0.0.6 [2013-03-07] Coly : Fix Edit Control add StringBuffer*
- *  - 0.0.0.7 [2013-03-09] Coly : hint render system               *
- *  - 0.0.0.8 [2013-03-10] Coly : add Sound to Create Char         *
- *  - 0.0.0.9 [2013-03-10] Coly : create PageControl               * 
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- *  - TODO List for this *.pas file -                              *
- *-----------------------------------------------------------------*
- *  if a todo finished, then delete it here...                     *
- *  if you find a global TODO thats need to do, then add it here.. *
- *-----------------------------------------------------------------*
- *                                                                 *
- *  - TODO : -all -fill *.pas header information                   *
- *                 (how to need this file etc.)                    *
- *                                                                 *
- *******************************************************************)
+(*****************************************************************************************
+ *   LomCN Mir3 Control core File 2012                                                   *
+ *                                                                                       *
+ *   Web       : http://www.lomcn.co.uk                                                  *
+ *   Version   : 0.0.0.10                                                                *
+ *                                                                                       *
+ *   - File Info -                                                                       *
+ *                                                                                       *
+ *   It hold the mir3 game controls (no Delphi Forms / Objects)                          *
+ *   It use full Persistante Objects (fast, stabel, etc.)                                *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ * Change History                                                                        *
+ *                                                                                       *
+ *  - 0.0.0.1 [2012-10-04] Coly : first init                                             *
+ *  - 0.0.0.2 [2013-02-25] Coly : add new controls (TextXXX)                             *
+ *  - 0.0.0.3 [2013-02-27] Coly : Fix Assassen and Form Handling                         *
+ *  - 0.0.0.4 [2013-03-01] Coly : add Pre and Post Processing                            *
+ *  - 0.0.0.5 [2013-03-02] Coly : Fix Wizard and Edit Control                            *
+ *  - 0.0.0.6 [2013-03-07] Coly : Fix Edit Control add StringBuffer                      *
+ *  - 0.0.0.7 [2013-03-09] Coly : hint render system                                     *
+ *  - 0.0.0.8 [2013-03-10] Coly : add Sound to Create Char                               *
+ *  - 0.0.0.9 [2013-03-10] Coly : create PageControl                                     * 
+ *  - 0.0.0.10[2013-03-25] Coly : create Scrollbar and MagicButton                       * 
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ *  - TODO List for this *.pas file -                                                    *
+ *---------------------------------------------------------------------------------------*
+ *  if a todo finished, then delete it here...                                           *
+ *  if you find a global TODO thats need to do, then add it here..                       *
+ *---------------------------------------------------------------------------------------*
+ *                                                                                       *
+ *  - TODO : -all -fill *.pas header information                                         *
+ *                 (how to need this file etc.)                                          *
+ *                                                                                       *
+ *****************************************************************************************)
 unit mir3_core_controls;
 
 interface
@@ -47,6 +48,13 @@ uses
 {Game   }  mir3_global_config, mir3_game_file_manager, mir3_game_font_engine,
 {Game   }  mir3_game_language_engine, mir3_game_sound, mir3_misc_utils;
 
+
+    const
+      // Minimum scroll bar thumb size
+      SCROLLBAR_MINTHUMBSIZE      = 8;
+      // Delay and repeat period when clicking on the scroll bar arrows
+      SCROLLBAR_ARROWCLICK_DELAY  = 0.33;
+      SCROLLBAR_ARROWCLICK_REPEAT = 0.05;
 
 const
   EVENT_SYSTEM_TOOL_X           =   100;
@@ -63,6 +71,7 @@ const
   EVENT_CHECKBOX_X              =  8000;
   EVENT_RADIOBUTTON_X           =  9000;
   EVENT_SLIDER_VALUE_CHANGED    = 10000;
+  EVENT_SCROLLBAR_VALUE_CHANGED = 10100;
 
 ////////////////////////////////////////////////////////////////////////////////
 ///  Key Handling Info Constanten
@@ -98,11 +107,13 @@ const
 type
   (* Enum Declaration *)
   TMIR3_GUI_Type         = (ctNone, ctForm, ctPanel, ctEdit, ctGrid, ctButton, ctListBox, ctComboBox, ctCheckBox, 
-                            ctRadioButton, ctSelectChar, ctTextButton, ctTextLabel, ctSlider, ctProgress);
+                            ctRadioButton, ctSelectChar, ctTextButton, ctTextLabel, ctSlider, ctProgress, ctScrollbar,
+                            ctMagicButton);
   TMIR3_GUI_Form_Type    = (ftNone, ftMoving, ftUIStatic, ftBackground);
   TMIR3_Control_State    = (csNormal, csMouseOver, csPress, csHoldDown);
   TMIR3_Button_State     = (bsBase, bsMouseOver, bsPress, bsDisabled, bsSelected);
   TMIR3_CharSystem       = (csSelectChar, csCreateChar);
+  TMIR3_ScrollKind       = (skVertical, skHorizontal);
   TMIR3_TexturAlign      = (taTop, taCenter, taBottom);
   TMIR3_ProgressType     = (ptHorizontal, ptVertical, ptSpecial);
   TMIR3_DLG_Btn          = (mbYes, mbNo, mbOK, mbCancel, mbEditField);
@@ -126,6 +137,9 @@ type
   TMIR3_GUI_TextLabel    = class;
   TMIR3_GUI_Slider       = class;
   TMIR3_GUI_Progress     = class;
+  TMIR3_GUI_Scrollbar    = class;
+  TMIR3_GUI_MagicButton  = class; 
+  
 
   (* Class Pointer Declaration *)
   PMIR3_GUI_Form         = ^TMIR3_GUI_Form;
@@ -143,14 +157,15 @@ type
   PMIR3_GUI_TextLabel    = ^TMIR3_GUI_TextLabel;
   PMIR3_GUI_Slider       = ^TMIR3_GUI_Slider;
   PMIR3_GUI_Progress     = ^TMIR3_GUI_Progress;
+  PMIR3_GUI_Scrollbar    = ^TMIR3_GUI_Scrollbar;
+  PMIR3_GUI_MagicButton  = ^TMIR3_GUI_MagicButton;
 
   (* Records *)
   THintMessage             = record
     DrawSetting            : TDrawSetting;
     Caption                : String[255];
   end;
-
-
+  
   TMIR3_UI_Animation              = record
     // Texture File ID
     gui_Animation_Texture_File_ID : Integer;
@@ -236,6 +251,11 @@ type
     gui_Value                     : Integer;
     gui_Btn_Size                  : TRect;
   end;
+  
+  TMIR3_UI_ScrollBar_Setup        = record
+    gui_ScrollKind                : TMIR3_ScrollKind;
+    gui_Slider_Info               : TMIR3_UI_Slider_Setup;
+  end;  
 
   TMIR3_UI_Progress_Setup         = record
     gui_Min                       : Integer;
@@ -265,12 +285,16 @@ type
     gui_Null_Point_Y           : Integer;   // Used for Equip Offset Calculation
     gui_Strech_Rate_X          : Single;
     gui_Strech_Rate_Y          : Single;
+    gui_Extra_Offset_X         : Integer;   // not usede at a system but implemented (Button and Magic Button)
+    gui_Extra_Offset_Y         : Integer;   // used at Magic System atm (Move the scroll Offset) (Button and Magic Button) 
     gui_Cut_Rect_Position_X    : Integer;   // used to move Cutted Image
     gui_Cut_Rect_Position_Y    : Integer;   // used to move Cutted Image
+    gui_Clip_Rect              : TRect;
     gui_Blend_Size             : Byte;
     gui_Blend_Mode             : Integer;
     gui_CaptionID              : Integer;
-    gui_HintID                 : Integer;
+    gui_HintID                 : Integer;                  //used the Basic Language file
+    gui_MagicHintID            : Integer;                  //used the Magic Language file
     gui_Window_Text            : TMir3_UI_Window_Info;
     gui_Font                   : TMIR3_UI_Fonts;
     gui_Control_Texture        : TMir3_UI_Control_Texture;
@@ -281,6 +305,7 @@ type
     gui_Color                  : TMIR3_UI_Color;
     gui_Btn_Font_Color         : TMIR3_UI_BTN_Font_Color;
     gui_Slider_Setup           : TMIR3_UI_Slider_Setup;
+    gui_ScrollBar_Setup        : TMIR3_UI_ScrollBar_Setup;
     gui_Progress_Setup         : TMIR3_UI_Progress_Setup;
     gui_Caption_Extra          : TMIR3_UI_Extra_Text;     // atm only on TextLabel Controls
     gui_PreSelected            : Boolean;
@@ -619,7 +644,7 @@ type
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
   end;
 
-  (* class TMIR3_GUI_CheckBox *)    
+  (* class TMIR3_GUI_CheckBox *)
   TMIR3_GUI_CheckBox    = class(TMIR3_GUI_Default)
   private
   public
@@ -701,6 +726,7 @@ type
     procedure SetValueInternal(AValue: Integer; AFromInput: Boolean);
     function ValueFromPos(AValue: Integer): Integer;
     procedure SetValue(AValue: Integer);
+    procedure OnMouseLeave; override;
   public
     constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
@@ -722,8 +748,60 @@ type
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
   end;
 
+    // ARROWSTATE indicates the state of the arrow buttons.
+    // CLEAR            No arrow is down.
+    // CLICKED_UP       Up arrow is clicked.
+    // CLICKED_DOWN     Down arrow is clicked.
+    // HELD_UP          Up arrow is held down for sustained period.
+    // HELD_DOWN        Down arrow is held down for sustained period.
+  TMIR3_ScrollBar_ArrayState = (CLEAR, CLICKED_UP, CLICKED_DOWN, HELD_UP, HELD_DOWN);
+  (* class TMIR3_GUI_Scrollbar *)
+  TMIR3_GUI_Scrollbar  = class(TMIR3_GUI_Default)
+  protected
+    m_bShowThumb   : Boolean;
+    FCanDrag        : Boolean;
+    FUpButton     : TRect;
+    FDownButton   : TRect;
+    FTrack        : TRect;
+    FSliderThumb  : TRect;
+    FPosition     : Integer;  // Position of the first displayed item
+    FPageSize     : Integer;  // How many items are displayable in one page
+    FMin          : Integer;  // First item
+    FMax          : Integer;  // The index after the last item
+    FLastMouse    : TPoint;   // Last mouse position
+    FArrowButtonState   : TMIR3_ScrollBar_ArrayState; // State of the arrows
+    FArrowTime     : Double;    // Timestamp of last arrow event.
+  protected
+    procedure UpdateThumbRect;
+    procedure UpdateRects;
+    procedure SetTrackRange(AMin, AMax: Integer);
+    procedure Cap;
+    procedure SetPageSize(APageSize: Integer);
+    procedure SetTrackPos(APosition: Integer);
+    procedure OnMouseLeave; override;
+  public
+    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+  public
+    procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
+    function HandleMouse(uMsg: LongWord; AMousePoint: TPoint; wParam: WPARAM; lParam: LPARAM): Boolean; override;
+    function MsgProc(uMsg: LongWord; wParam: WPARAM; lParam: LPARAM): Boolean;
+    procedure ShowItem(AIndex: Integer);
+    procedure Scroll(nDelta: Integer);
+    property Maximum : Integer read FMax      write FMax;
+    property Value   : Integer read FPosition write FPosition;
+  end;
 
-
+  (* class TMIR3_GUI_MagicButton *)
+  TMIR3_GUI_MagicButton  = class(TMIR3_GUI_Button)
+  protected
+    FCaption   : String;
+    FMagicFKey : Integer;
+  public
+    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+  public
+    procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
+  end;
+  
 
   {$ENDREGION}  
   
@@ -1585,7 +1663,6 @@ var
           FControl := TMIR3_GUI_Progress.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            //gui_Progress_Setup
             FGUI_Defination   := AGroundInfo;
             FControlType      := ctProgress;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
@@ -1595,14 +1672,58 @@ var
             FWidth            := AGroundInfo.gui_Width;
             FHeight           := AGroundInfo.gui_Height;
             FVisible          := AVisible;
-            //SetRect(FBoundingBox, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FParentGUIForm.FLeft + FLeft +FHeight, FParentGUIForm.FTop + FTop+FWidth);
           end;
           TMIR3_GUI_Form(AGUIForm).FControlList.Add(FControl);
           Result              := FControl;
           if Assigned(FControl) then
             FControl.FDebugMode := FDebugMode;
         end;
+        
+        ctScrollbar : begin
+          if not Assigned(AGUIForm) then Exit;
 
+          FControl := TMIR3_GUI_Scrollbar.Create(@AGroundInfo, Self);
+          with FControl do
+          begin
+            FGUI_Defination   := AGroundInfo;
+            FControlType      := ctScrollbar;
+            FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
+            FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
+            FLeft             := AGroundInfo.gui_Left;
+            FTop              := AGroundInfo.gui_Top;
+            FWidth            := AGroundInfo.gui_Width;
+            FHeight           := AGroundInfo.gui_Height;
+            FVisible          := AVisible;
+            SetRect(FBoundingBox, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FParentGUIForm.FLeft + FLeft +FHeight, FParentGUIForm.FTop + FTop+FWidth);
+          end;
+          TMIR3_GUI_Form(AGUIForm).FControlList.Add(FControl);
+          Result              := FControl;
+          if Assigned(FControl) then
+            FControl.FDebugMode := FDebugMode;
+        end;
+        
+        ctMagicButton : begin
+          if not Assigned(AGUIForm) then Exit;
+
+          FControl := TMIR3_GUI_MagicButton.Create(@AGroundInfo, Self);
+          with FControl do
+          begin
+            FGUI_Defination   := AGroundInfo;
+            FControlType      := ctMagicButton;
+            FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
+            FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
+            FLeft             := AGroundInfo.gui_Left;
+            FTop              := AGroundInfo.gui_Top;
+            FWidth            := AGroundInfo.gui_Width;
+            FHeight           := AGroundInfo.gui_Height;
+            FVisible          := AVisible;
+          end;
+          TMIR3_GUI_Form(AGUIForm).FControlList.Add(FControl);
+          Result              := FControl;
+          if Assigned(FControl) then
+            FControl.FDebugMode := FDebugMode;
+        end;
+          
       end;
       {$ENDREGION}
     end;
@@ -1894,6 +2015,48 @@ var
           if Assigned(FControl) then
             FControl.FDebugMode := FDebugMode;
         end;
+        
+        ctScrollbar : begin
+          if not Assigned(AGUIForm) then Exit;
+
+          FControl := TMIR3_GUI_Scrollbar.Create(nil, Self);
+          with FControl do
+          begin
+            FControlType      := ctScrollbar;
+            FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
+            FControlIdentifier:= AUIContolID;
+            FLeft             := AX;
+            FTop              := AY;
+            FWidth            := AWidth;
+            FHeight           := AHeight;
+            FVisible          := AVisible;
+          end;
+          TMIR3_GUI_Form(AGUIForm).FControlList.Add(FControl);
+          Result              := FControl;
+          if Assigned(FControl) then
+            FControl.FDebugMode := FDebugMode;
+        end;  
+        
+        ctMagicButton : begin
+          if not Assigned(AGUIForm) then Exit;
+
+          FControl := TMIR3_GUI_MagicButton.Create(nil, Self);
+          with FControl do
+          begin
+            FControlType      := ctMagicButton;
+            FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
+            FControlIdentifier:= AUIContolID;
+            FLeft             := AX;
+            FTop              := AY;
+            FWidth            := AWidth;
+            FHeight           := AHeight;
+            FVisible          := AVisible;
+          end;
+          TMIR3_GUI_Form(AGUIForm).FControlList.Add(FControl);
+          Result              := FControl;
+          if Assigned(FControl) then
+            FControl.FDebugMode := FDebugMode;
+        end;             
 
       end;
       {$ENDREGION}
@@ -2697,7 +2860,7 @@ var
               Draw(gui_ExtraBackground_Texture_ID, gui_ExtraTexture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
             end;
 
-            if gui_Background_Texture_ID > -1 then
+            if gui_Background_Texture_ID > 0 then
             begin
               if gui_Use_Strech_Texture then
               begin
@@ -2715,7 +2878,7 @@ var
                   begin
                     SetRect(FMoveRect, gui_WorkField.Left  + gui_Cut_Rect_Position_X, gui_WorkField.Top    + gui_Cut_Rect_Position_Y,
                                        gui_WorkField.Right + gui_Cut_Rect_Position_X, gui_WorkField.Bottom + gui_Cut_Rect_Position_Y);
-                    DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FMoveRect, gui_Blend_Mode, gui_Blend_Size);
+                    DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FMoveRect, gui_Blend_Mode, gui_Blend_Size);
                   end else begin
                     case gui_Texture_Align of
                       taTop    : Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
@@ -3748,14 +3911,14 @@ var
             end;
           end;
 
-          if FTempTextureID > 0 then
+          if FTempTextureID > 0 then //gui_Texture_File_ID > 75 then
           begin
 		        (* Render Button with given Texture *)
             if gui_Use_Strech_Texture then
             begin
-              DrawStrech(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+              DrawStrech(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
             end else begin
-              Draw(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+              Draw(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, BLEND_DEFAULT, gui_Blend_Size);
             end;
           end;
           
@@ -3779,7 +3942,7 @@ var
           end;
 
           (* Hint Render System *)
-          if ((FButtonState = bsMouseOver) or (FButtonState = bsPress)) and (gui_HintID <> 0) then
+          if ((FMouseOver) or (FButtonState = bsPress)) and (gui_HintID <> 0) then
           begin
             with FDrawSetting do
             begin
@@ -3907,8 +4070,8 @@ var
             end;
           end;
         end;
-	    end;
-	  end;
+      end;
+    end;
   {$ENDREGION}   
 
   /// TMIR3_GUI_ComboBox
@@ -3935,7 +4098,7 @@ var
     begin
     // @override
     
-	  end;
+	end;
   {$ENDREGION}   
   
    /// TMIR3_GUI_CheckBox
@@ -3989,7 +4152,7 @@ var
     begin
 	  // @override
 
-	  end;
+	end;
   {$ENDREGION}
 
   /// TMIR3_GUI_SelectChar
@@ -4592,14 +4755,6 @@ var
         begin
           if (Trim(FCaption) <> '') or (gui_CaptionID > 0) then
           begin
-          if FMouseOver and (FMouseState = bsBase) then
-          begin
-            FMouseState := bsMouseOver;
-          end else if not FMouseOver and (FMouseState = bsMouseOver) then
-                   begin
-                     FMouseState := bsBase;
-                   end;
-
             if gui_CaptionID > 0 then
             begin
               with FDrawSetting do
@@ -4655,7 +4810,7 @@ var
             end;
 
             (* Render Hint *)
-            if (FMouseState = bsMouseOver) and (gui_HintID <> 0) then
+            if (FMouseOver) and (gui_HintID <> 0) then
             begin
               with FDrawSetting do
               begin
@@ -4671,7 +4826,7 @@ var
           end;
         end;
       end;
-	  end;
+    end;
   {$ENDREGION}
 
 
@@ -4718,19 +4873,19 @@ var
 		    (* Render Slider without Texture in Debug Mode *)
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
-		    (* Render TextLabel with given Texture *)
+		    (* Render Slider with given Texture *)
         with FGUI_Defination, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
         begin
 
           if (gui_Background_Texture_ID > 0) then
           begin
             SetRect(FSlidRect, gui_WorkField.Left, gui_WorkField.Top, FLButton, gui_WorkField.Bottom);
-		        (* Render Button with given Texture *)
+		        (* Render Slider with given Texture *)
             if gui_Use_Strech_Texture then
             begin
               DrawStrech(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
             end else begin
-              DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FSlidRect, BLEND_DEFAULT, gui_Blend_Size);
+              DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FSlidRect, BLEND_DEFAULT, gui_Blend_Size);
             end;
           end;
           {Render Slider Button}
@@ -4741,7 +4896,7 @@ var
             begin
               DrawStrech(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
             end else begin
-              DrawRect(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FLButton-5 , FParentGUIForm.FTop + FTop + gui_Slider_Setup.gui_Btn_Size.Top, gui_Slider_Setup.gui_Btn_Size ,BLEND_DEFAULT, gui_Blend_Size);
+              DrawClipRect(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FLButton-5 , FParentGUIForm.FTop + FTop + gui_Slider_Setup.gui_Btn_Size.Top, gui_Slider_Setup.gui_Btn_Size ,BLEND_DEFAULT, gui_Blend_Size);
             end;
           end;
 
@@ -4841,6 +4996,18 @@ var
         end;
       end;
       Result:= False;
+    end;
+
+    procedure TMIR3_GUI_Slider.OnMouseLeave;
+    begin
+    //@override
+      if FPressed then
+      begin
+        FPressed := False;
+        ReleaseCapture;
+        FParentGUIContainer.SendEvent(EVENT_SLIDER_VALUE_CHANGED, True, @Self);
+      end;
+      inherited;
     end;
 
     procedure TMIR3_GUI_Slider.GetRange(out AMin, AMax: Integer);
@@ -4950,7 +5117,7 @@ var
               if (gui_Background_Texture_ID > 0) then
               begin
 		            (* Render Progressbar with given Texture *)
-                DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
               end;
             end;
             ptVertical  : begin
@@ -4959,7 +5126,7 @@ var
               if (gui_Background_Texture_ID > 0) then
               begin
 		            (* Render Progressbar with given Texture *)
-                DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop +(gui_WorkField.Bottom - FSize), FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop +(gui_WorkField.Bottom - FSize), FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
               end;
               if FMouseOver and gui_ShowHint then
               begin
@@ -4986,7 +5153,7 @@ var
                    SetRect(FProgressRect,gui_WorkField.Left, gui_WorkField.Top, FSize, gui_WorkField.Bottom);
                    if (gui_Background_Texture_ID > 0) then
                    begin
-                     DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  11..20 : begin
@@ -4995,7 +5162,7 @@ var
                    if (gui_Background_Texture_ID > 0) then
                    begin
                      Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
-                     DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+71, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+71, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  21..30 : begin
@@ -5007,7 +5174,7 @@ var
                      begin
                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+140, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+140, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  31..40 : begin
@@ -5019,7 +5186,7 @@ var
                      begin
                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+210, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+210, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  41..50 : begin
@@ -5031,7 +5198,7 @@ var
                      begin
                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+280, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+280, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  51..60 : begin
@@ -5043,7 +5210,7 @@ var
                      begin
                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+350, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+350, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  61..70 : begin
@@ -5055,7 +5222,7 @@ var
                      begin
                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+420, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+420, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  71..80 : begin
@@ -5067,7 +5234,7 @@ var
                      begin
                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+490, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+490, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  81..90 : begin
@@ -5079,7 +5246,7 @@ var
                      begin
                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+560, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+560, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  91..100: begin
@@ -5091,7 +5258,7 @@ var
                      begin
                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+630, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+630, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                end;
@@ -5141,5 +5308,862 @@ var
       end;
 	  end;
   {$ENDREGION}
+  
+  
+   /// TMIR3_GUI_Scrollbar  
+  
+  {$REGION ' - TMIR3_GUI_Scrollbar :: constructor   '}
+    ////////////////////////////////////////////////////////////////////////////////
+    // TMIR3_GUI_Scrollbar Form control constructor
+    //..............................................................................  
+    constructor TMIR3_GUI_Scrollbar.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    begin
+      inherited;
+      if Assigned(PGUI_Defination) then
+        FGUI_Defination := PGUI_Defination^;
+      FParentGUIContainer := PParentGUIManager;
+      FControlType        := ctScrollbar;
+
+      m_bShowThumb  := True;
+      FCanDrag      := False;
+      SetRect(FUpButton   , 0, 0, 0, 0);
+      SetRect(FDownButton , 0, 0, 0, 0);
+      SetRect(FTrack      , 0, 0, 0, 0);
+      SetRect(FSliderThumb, 0, 0, 0, 0);
+      FPosition := 0;
+      FPageSize := 1;
+      FMin      := FGUI_Defination.gui_ScrollBar_Setup.gui_Slider_Info.gui_Min;
+      FMax      := FGUI_Defination.gui_ScrollBar_Setup.gui_Slider_Info.gui_Max;
+      UpdateRects;
+    end;
+  {$ENDREGION}  
+
+  {$REGION ' - TMIR3_GUI_Scrollbar :: functions   '}
+    ////////////////////////////////////////////////////////////////////////////////
+    // TMIR3_GUI_Scrollbar override render function for this control
+    //..............................................................................   
+    procedure TMIR3_GUI_Scrollbar.RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
+    var
+      FCurrTime: Double;
+    begin
+	  // @override
+	    (* Render Scrollbar *)
+      if FParentGUIContainer.FDebugMode then
+      begin
+		    (* Render Scrollbar without Texture in Debug Mode *)
+        GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
+      end else begin
+		    (* Render Scrollbar with given Texture *)
+        with FGUI_Defination, gui_Control_Texture, gui_Font, gui_ScrollBar_Setup, GGameEngine.FGameFileManger do
+        begin
+
+          // Check if the arrow button has been held for a while.
+          // If so, update the thumb position to simulate repeated
+          // scroll.
+          if (FArrowButtonState <> CLEAR) then
+          begin
+            FCurrTime := DX9GetGlobalTimer.GetTime;
+            if PtInRect(FUpButton, FLastMouse) then
+            begin
+              case FArrowButtonState of
+                CLICKED_UP:
+                  if (SCROLLBAR_ARROWCLICK_DELAY < FCurrTime - FArrowTime) then
+                  begin
+                    Scroll(-1);
+                    FArrowButtonState := HELD_UP;
+                    FArrowTime        := FCurrTime;
+                    FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, True, @Self);
+                  end;
+
+                HELD_UP:
+                  if (SCROLLBAR_ARROWCLICK_REPEAT < FCurrTime - FArrowTime) then
+                  begin
+                    Scroll(-1);
+                    FArrowTime := FCurrTime;
+                    FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, True, @Self);
+                  end;
+              end; {case}
+            end else
+            if PtInRect(FDownButton, FLastMouse) then
+            begin
+              case FArrowButtonState of
+                CLICKED_DOWN:
+                  if (SCROLLBAR_ARROWCLICK_DELAY < FCurrTime - FArrowTime) then
+                  begin
+                    Scroll(1);
+                    FArrowButtonState := HELD_DOWN;
+                    FArrowTime        := FCurrTime;
+                    FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, True, @Self);
+                  end;
+
+                HELD_DOWN:
+                  if (SCROLLBAR_ARROWCLICK_REPEAT < FCurrTime - FArrowTime) then
+                  begin
+                    Scroll(1);
+                    FArrowTime := FCurrTime;
+                    FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, True, @Self);
+                  end;
+              end;
+            end;
+          end;
+          
+          Draw(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FSliderThumb.Left, FParentGUIForm.FTop + FTop + FSliderThumb.Top, BLEND_DEFAULT, gui_Blend_Size);
+
+
+
+
+//          if (gui_Background_Texture_ID > 0) then
+//          begin
+//            case gui_ScrollKind of
+//              skVertical   : begin
+//                SetRect(FScrollBarRect, gui_WorkField.Left, gui_WorkField.Top, gui_WorkField.Right, FLButton);               
+//              end;
+//              skHorizontal : begin
+//                SetRect(FScrollBarRect, gui_WorkField.Left, gui_WorkField.Top, FLButton, gui_WorkField.Bottom);
+//              end;                 
+//            end; (* Render Button with given Texture *)
+//            DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FScrollBarRect, BLEND_DEFAULT, gui_Blend_Size);
+//          end;
+//
+//          {Render Slider Button}
+//          if (gui_Slider_Texture_ID > 0)  then
+//          begin
+//            case gui_ScrollKind of
+//              skVertical   : begin
+// 		        (* Render Button with given Texture *)
+//                DrawClipRect(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Slider_Info.gui_Btn_Size.Left, FParentGUIForm.FTop + FTop + FLButton-5, gui_Slider_Info.gui_Btn_Size ,BLEND_DEFAULT, gui_Blend_Size);
+//              end;               
+//              skHorizontal : begin
+//		       (* Render Button with given Texture *)
+//                DrawClipRect(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FLButton-5 , FParentGUIForm.FTop + FTop + gui_Slider_Info.gui_Btn_Size.Top, gui_Slider_Info.gui_Btn_Size ,BLEND_DEFAULT, gui_Blend_Size);
+//              end;
+//            end;
+//          end;
+
+        end;
+      end;
+	  end;
+
+{$REGION 'MyRegion'}
+  //    function TMIR3_GUI_Scrollbar.HandleMouse(uMsg: LongWord; AMousePoint: TPoint; wParam: WPARAM; lParam: LPARAM): Boolean;
+  //    var
+  //      FScrollAmount: Integer;
+  //    begin
+  //      if not FEnabled or not FVisible then
+  //      begin
+  //        Result := False;
+  //        Exit;
+  //      end;
+  //
+  //      Result := True;
+  //
+  //      case uMsg of
+  //        WM_LBUTTONDOWN,
+  //        WM_LBUTTONDBLCLK:
+  //        begin
+  //          with FGUI_Defination, gui_ScrollBar_Setup do 
+  //          begin
+  //            
+  //            if PtInRect(gui_Button_Rect_BR, AMousePoint) then
+  //            begin   
+  //              SetCapture(GRenderEngine.GetGameHWND);
+  //              SetValueInternal(FValue +1, True);
+  //              FPressed := True;
+  //            end else if PtInRect(gui_Button_Rect_TL, AMousePoint) then 
+  //                     begin      
+  //                       SetCapture(GRenderEngine.GetGameHWND);
+  //                       SetValueInternal(FValue -1, True);
+  //                       FPressed := True;
+  //                     end;
+  //        
+  //            case gui_ScrollKind of 
+  //              skVertical   : begin           
+  //                SetRect(FButton, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop+ FLButton-5,
+  //                         FParentGUIForm.FLeft + FLeft+ FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Right,
+  //                         FParentGUIForm.FTop  + FTop + FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Bottom + FLButton);
+  //              end;           
+  //              skHorizontal : begin
+  //                SetRect(FButton, FParentGUIForm.FLeft + FLeft + FLButton-5, FParentGUIForm.FTop + FTop,
+  //                         FParentGUIForm.FLeft + FLeft+ FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Right+ FLButton,
+  //                         FParentGUIForm.FTop  + FTop + FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Bottom);
+  //              end;
+  //            end;
+  //          end;        
+  //
+  //          if PtInRect(FButton, AMousePoint) then
+  //          begin
+  //            // Pressed while inside the control
+  //            FPressed := True;
+  //            SetCapture(GRenderEngine.GetGameHWND);
+  //           
+  //           with FGUI_Defination, gui_ScrollBar_Setup do 
+  //            begin
+  //              case gui_ScrollKind of
+  //                skVertical   : begin           
+  //                  FDragX := AMousePoint.y;
+  //                end;           
+  //                skHorizontal : begin
+  //                  FDragX := AMousePoint.x;
+  //                end;
+  //              end;
+  //            end;
+  //            
+  //            FDragOffset := FButtonX - FDragX;
+  //
+  //            if not FFocus then FParentGUIContainer.RequestFocus(@Self);
+  //            Exit;
+  //          end;
+  //
+  //          if PtInRect(FBoundingBox, AMousePoint) then
+  //          begin
+  //            with FGUI_Defination, gui_ScrollBar_Setup do 
+  //            begin
+  //              case gui_ScrollKind of 
+  //                skVertical   : begin           
+  //                  FDragX      := AMousePoint.y;
+  //                  FDragOffset := 0;
+  //                  FPressed    := True;
+  //                  
+  //                  if not FFocus then FParentGUIContainer.RequestFocus(@Self);
+  //                  
+  //                  if (AMousePoint.y > FButtonX) then
+  //                  begin
+  //                    SetValueInternal(FValue + 1, True);
+  //                    Exit;
+  //                  end;
+  //                  
+  //                  if (AMousePoint.y < FButtonX) then
+  //                  begin
+  //                    SetValueInternal(FValue - 1, True);
+  //                    Exit;
+  //                  end;
+  //                end;           
+  //                skHorizontal : begin
+  //                  FDragX      := AMousePoint.x;
+  //                  FDragOffset := 0;
+  //                  FPressed    := True;
+  //                  
+  //                  if not FFocus then FParentGUIContainer.RequestFocus(@Self);
+  //                  
+  //                  if (AMousePoint.x > FButtonX) then
+  //                  begin
+  //                    SetValueInternal(FValue + 1, True);
+  //                    Exit;
+  //                  end;
+  //                  
+  //                  if (AMousePoint.x < FButtonX) then
+  //                  begin
+  //                    SetValueInternal(FValue - 1, True);
+  //                    Exit;
+  //                  end;
+  //                end;
+  //              end;
+  //            end;           
+  //          end;
+  //        end;
+  //        WM_LBUTTONUP:
+  //        begin
+  //          if FPressed then
+  //          begin
+  //            FPressed := False;
+  //            ReleaseCapture;
+  //            FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, True, @Self);
+  //            Exit;
+  //          end;
+  //        end;
+  //        WM_MOUSEMOVE:
+  //        begin
+  //          if FPressed then
+  //          begin
+  //            with FGUI_Defination, gui_ScrollBar_Setup do 
+  //            begin
+  //              case gui_ScrollKind of 
+  //                skVertical   : begin
+  //                  SetValueInternal(ValueFromPos(AMousePoint.y + FDragOffset), True);
+  //                end;           
+  //                skHorizontal : begin
+  //                  SetValueInternal(ValueFromPos(AMousePoint.x + FDragOffset), True);
+  //                end;
+  //              end;
+  //            end;
+  //            exit;
+  //          end;
+  //        end;
+  //        WM_MOUSEWHEEL:
+  //        begin
+  //          FScrollAmount := Integer(ShortInt(HIWORD(wParam))) div WHEEL_DELTA;
+  //          SetValueInternal(FValue - FScrollAmount, True);
+  //          FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, True, @Self);
+  //          Exit;
+  //        end;
+  //      end;
+  //      Result:= False;
+  //    end;
+  //
+  //    procedure TMIR3_GUI_Scrollbar.GetRange(out AMin, AMax: Integer);
+  //    begin
+  //      AMin := FMin;
+  //      AMax := FMax;
+  //    end;
+  //
+  //    procedure TMIR3_GUI_Scrollbar.SetRange(AMin, AMax: Integer);
+  //    begin
+  //      FMin := AMin;
+  //      FMax := AMax;
+  //      SetValueInternal(FValue, False);
+  //    end;
+  //
+  //    function TMIR3_GUI_Scrollbar.ContainsPoint(AMousePoint: TPoint): LongBool;
+  //    begin
+  //      if FParentGUIForm = nil then
+  //      begin
+  //        Result := PtInRect(Rect(FLeft,FTop,FLeft+FWidth,FTop+FHeight), AMousePoint) or PtInRect(FButton, AMousePoint);
+  //      end else begin
+  //        with FGUI_Defination, gui_ScrollBar_Setup do 
+  //        begin
+  //          case gui_ScrollKind of 
+  //            skVertical   : begin      
+  //              Result := PtInRect(Rect(FParentGUIForm.FLeft + FLeft ,FParentGUIForm.FTop + FTop,FParentGUIForm.FLeft + FLeft+FWidth,FParentGUIForm.FTop + FTop+FHeight), AMousePoint) or
+  //                        PtInRect(Rect(FParentGUIForm.FLeft + gui_Slider_Info.gui_Btn_Size.Left + FLButton,FParentGUIForm.FTop + gui_Slider_Info.gui_Btn_Size.Top,FParentGUIForm.FLeft + gui_Slider_Info.gui_Btn_Size.Left + gui_Slider_Info.gui_Btn_Size.Right,
+  //                                      FParentGUIForm.FTop  + gui_Slider_Info.gui_Btn_Size.Top  + FLButton + gui_Slider_Info.gui_Btn_Size.Bottom), AMousePoint);
+  //            end;
+  //            skHorizontal : begin
+  //              Result := PtInRect(Rect(FParentGUIForm.FLeft + FLeft ,FParentGUIForm.FTop + FTop,FParentGUIForm.FLeft + FLeft+FWidth,FParentGUIForm.FTop + FTop+FHeight), AMousePoint) or
+  //                        PtInRect(Rect(FParentGUIForm.FLeft + gui_Slider_Info.gui_Btn_Size.Left + FLButton,FParentGUIForm.FTop + gui_Slider_Info.gui_Btn_Size.Top,FParentGUIForm.FLeft + gui_Slider_Info.gui_Btn_Size.Left+ FLButton + gui_Slider_Info.gui_Btn_Size.Right,
+  //                                      FParentGUIForm.FTop  + gui_Slider_Info.gui_Btn_Size.Top  + gui_Slider_Info.gui_Btn_Size.Bottom), AMousePoint);
+  //            end;
+  //          end;
+  //        end;
+  //      end;
+  //    end;
+  //
+  //    procedure TMIR3_GUI_Scrollbar.UpdateRects;
+  //    begin
+  //      inherited;
+  //      FLButton := 0;
+  //      with FGUI_Defination, gui_ScrollBar_Setup do 
+  //      begin
+  //        case gui_ScrollKind of 
+  //          skVertical   : begin
+  //            if (FMax - FMin) <> 0 then
+  //            begin
+  //              FButtonX := Trunc(((FValue - FMin) * RectHeight(gui_WorkField) / (FMax - FMin)));
+  //              FLButton := FLButton + FButtonX;
+  //            end;
+  //            SetRect(FButton, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop +FLButton,
+  //                             FParentGUIForm.FLeft + FLeft+ gui_Slider_Info.gui_Btn_Size.Right,
+  //                             FParentGUIForm.FTop  + FTop + gui_Slider_Info.gui_Btn_Size.Bottom+FLButton);
+  //          end;           
+  //          skHorizontal : begin
+  //            if (FMax - FMin) <> 0 then
+  //            begin
+  //              FButtonX := Trunc(((FValue - FMin) * RectWidth(gui_WorkField) / (FMax - FMin)));
+  //              FLButton := FLButton + FButtonX;
+  //            end;
+  //            SetRect(FButton, FParentGUIForm.FLeft + FLeft+FLButton, FParentGUIForm.FTop + FTop,
+  //                             FParentGUIForm.FLeft + FLeft+ gui_Slider_Info.gui_Btn_Size.Right+FLButton,
+  //                             FParentGUIForm.FTop  + FTop + gui_Slider_Info.gui_Btn_Size.Bottom);
+  //          end;
+  //        end;
+  //      end;        
+  //    end;
+  //
+  //    procedure TMIR3_GUI_Scrollbar.SetValueInternal(AValue: Integer; AFromInput: Boolean);
+  //    begin
+  //      // Clamp to range
+  //      AValue := Max(FMin, AValue);
+  //      AValue := Min(FMax, AValue);
+  //      if (AValue = FValue) then Exit;
+  //      FValue := AValue;
+  //      UpdateRects;
+  //      FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, AFromInput, @Self);
+  //    end;
+  //
+  //    function TMIR3_GUI_Scrollbar.ValueFromPos(AValue: Integer): Integer;
+  //    var
+  //      FValuePerPixel: Single;
+  //    begin
+  //      with FGUI_Defination, gui_ScrollBar_Setup do 
+  //      begin
+  //        case gui_ScrollKind of 
+  //          skVertical   : begin
+  //            FValuePerPixel := (FMax - FMin) / RectHeight(gui_WorkField);
+  //            Result         := Trunc((0.5 + FMin + FValuePerPixel * (AValue - gui_WorkField.top)));
+  //          end;               
+  //          skHorizontal : begin
+  //            FValuePerPixel := (FMax - FMin) / RectWidth(gui_WorkField);
+  //            Result         := Trunc((0.5 + FMin + FValuePerPixel * (AValue - gui_WorkField.left)));
+  //          end;
+  //        end;  
+  //      end;
+  //    end;
+  //
+  //    procedure TMIR3_GUI_Scrollbar.SetValue(AValue: Integer);
+  //    begin
+  //      SetValueInternal(AValue, False);
+  //    end;
+{$ENDREGION}
+
+
+    var
+      ThumbOffsetY: Integer = 0;
+
+    function TMIR3_GUI_Scrollbar.HandleMouse(uMsg: LongWord; AMousePoint: TPoint; wParam: WPARAM; lParam: LPARAM): Boolean;
+    var
+      FTestPoint  : TPoint;
+      nMaxFirstItem: Integer;
+      nMaxThumb: Integer;
+      FScrollAmount: Integer;
+    begin
+      if not FEnabled or not FVisible then
+      begin
+        Result := False;
+        Exit;
+      end;
+
+      Result := True;
+
+      FTestPoint.x := AMousePoint.X - (FParentGUIForm.Left + FLeft);
+      FTestPoint.y := AMousePoint.Y - (FParentGUIForm.Top  + FTop);
+      FLastMouse   := FTestPoint;
+
+      case uMsg of
+        WM_LBUTTONDOWN,
+        WM_LBUTTONDBLCLK:
+        begin
+          // Check for click on up button
+          if PtInRect(FUpButton, FTestPoint) then
+          begin
+            SetCapture(GRenderEngine.GetGameHWND);
+            if (FPosition > FMin) then Dec(FPosition);
+            UpdateThumbRect;
+            FArrowButtonState := CLICKED_UP;
+            FArrowTime        := DX9GetGlobalTimer.GetTime;
+            if not FFocus then FParentGUIContainer.RequestFocus(@Self);
+            Exit;
+          end;
+
+          // Check for click on down button
+          if PtInRect(FDownButton, FTestPoint) then
+          begin
+            SetCapture(GRenderEngine.GetGameHWND);
+            if (FPosition + FPageSize < FMax) then Inc(FPosition);
+            UpdateThumbRect;
+            FArrowButtonState := CLICKED_DOWN;
+            FArrowTime        := DX9GetGlobalTimer.GetTime;
+            if not FFocus then FParentGUIContainer.RequestFocus(@Self);
+            Exit;
+          end;
+
+          // Check for click on thumb
+          if PtInRect(FSliderThumb, FTestPoint) then
+          begin
+            SetCapture(GRenderEngine.GetGameHWND);
+            FCanDrag     := True;
+            ThumbOffsetY := FTestPoint.y - FSliderThumb.top;
+            if not FFocus then FParentGUIContainer.RequestFocus(@Self);
+            Exit;
+          end;
+
+          // Check for click on track
+          if (FSliderThumb.left <= FTestPoint.x) and (FSliderThumb.right > FTestPoint.x) then
+          begin
+            SetCapture(GRenderEngine.GetGameHWND);
+            if (FSliderThumb.top > FTestPoint.y) and
+               (FTrack.top      <= FTestPoint.y) then
+            begin
+              Scroll(-(FPageSize - 1));
+              if not FFocus then FParentGUIContainer.RequestFocus(@Self);
+              Exit;
+            end else
+            if (FSliderThumb.bottom <= FTestPoint.y) and
+               (FTrack.bottom        > FTestPoint.y) then
+            begin
+              Scroll(FPageSize - 1);
+              if not FFocus then FParentGUIContainer.RequestFocus(@Self);
+              Exit;
+            end;
+          end;
+        end;
+
+        WM_LBUTTONUP:
+        begin
+          FCanDrag := False;
+          ReleaseCapture;
+          FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, True, @Self);
+          UpdateThumbRect;
+          FArrowButtonState := CLEAR;
+        end;
+
+        WM_MOUSEMOVE:
+        begin
+          if FCanDrag then
+          begin
+            Inc(FSliderThumb.bottom, FTestPoint.y - ThumbOffsetY - FSliderThumb.top);
+            FSliderThumb.top := FTestPoint.y - ThumbOffsetY;
+            if (FSliderThumb.top    < FTrack.top)    then
+              OffsetRect(FSliderThumb, 0, FTrack.top - FSliderThumb.top) else
+            if (FSliderThumb.bottom > FTrack.bottom) then
+              OffsetRect(FSliderThumb, 0, FTrack.bottom - FSliderThumb.bottom);
+
+            // Compute first item index based on thumb position
+            nMaxFirstItem := FMax - FMin - FPageSize;                        // Largest possible index for first item
+            nMaxThumb     := RectHeight(FTrack) - RectHeight(FSliderThumb);  // Largest possible thumb position from the top
+
+            // Shift by half a row to avoid last row covered by only one pixel
+            FPosition := FMin + ( FSliderThumb.top - FTrack.top + nMaxThumb div (nMaxFirstItem * 2) ) * nMaxFirstItem  div nMaxThumb;
+            FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, True, @Self);
+            Exit;
+          end;
+        end;
+        WM_MOUSEWHEEL:
+        begin
+          FScrollAmount := Integer(ShortInt(HIWORD(wParam))) div WHEEL_DELTA;
+          FPosition     := FPosition - FScrollAmount;
+          if (FPosition > FMin) and (FPosition + FPageSize < FMax) then
+          begin
+            UpdateThumbRect;
+            FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, True, @Self);
+          end;
+          // SetValueInternal(FValue - FScrollAmount, True);
+          Exit;
+        end;
+      end;
+
+      Result:= False;
+    end;
+
+    procedure TMIR3_GUI_Scrollbar.OnMouseLeave;
+    begin
+    //@override
+      FCanDrag := False;
+      ReleaseCapture;
+      FParentGUIContainer.SendEvent(EVENT_SCROLLBAR_VALUE_CHANGED, True, @Self);
+      UpdateThumbRect;
+      FArrowButtonState := CLEAR;
+      inherited;
+    end;
+
+    function TMIR3_GUI_Scrollbar.MsgProc(uMsg: LongWord; wParam: WPARAM; lParam: LPARAM): Boolean;
+    begin
+      if (WM_CAPTURECHANGED = uMsg) then
+      begin
+        // The application just lost mouse capture. We may not have gotten
+        // the WM_MOUSEUP message, so reset FCanDrag here.
+        if (THandle(lParam) <> GRenderEngine.GetGameHWND) then
+          FCanDrag := False;
+      end;
+      Result:= False;
+    end;
+
+
+
+    // Compute the dimension of the scroll thumb
+    procedure TMIR3_GUI_Scrollbar.UpdateThumbRect;
+    var
+      FThumbHeight: Integer;
+      FMaxPosition: Integer;
+    begin
+      if (FMax - FMin > FPageSize) then
+      begin
+        FThumbHeight        := Max(RectHeight(FTrack) * FPageSize div (FMax - FMin), SCROLLBAR_MINTHUMBSIZE);
+        FMaxPosition        := FMax - FMin - FPageSize;
+        FSliderThumb.top    := FTrack.top    + (FPosition - FMin) * (RectHeight(FTrack) - FThumbHeight) div FMaxPosition;
+        FSliderThumb.bottom := FSliderThumb.top +  16;//+ FThumbHeight;
+        m_bShowThumb        := True;
+      end else
+      begin
+        // No content to scroll
+        FSliderThumb.bottom := FSliderThumb.top;
+        m_bShowThumb        := False;
+      end;
+    end;
+
+    procedure TMIR3_GUI_Scrollbar.UpdateRects;
+    begin
+      inherited;
+      // Make the buttons square
+      with FGUI_Defination do
+      begin
+        SetRect(FUpButton   , gui_WorkField.left, gui_WorkField.top, gui_WorkField.right, gui_WorkField.top + RectWidth(gui_WorkField));
+        SetRect(FDownButton , gui_WorkField.left, gui_WorkField.bottom - RectWidth(gui_WorkField), gui_WorkField.right, gui_WorkField.bottom);
+        SetRect(FTrack      , FUpButton.left , FUpButton.bottom, FDownButton.right, FDownButton.top);
+        FSliderThumb.left  := FUpButton.left +1;
+        FSliderThumb.right := FUpButton.right-1;
+      end;
+      UpdateThumbRect;
+    end;
+
+    // Scroll() scrolls by nDelta items.  A positive value scrolls down, while a negative
+    // value scrolls up.
+    procedure TMIR3_GUI_Scrollbar.Scroll(nDelta: Integer);
+    begin
+      // Perform scroll
+      Inc(FPosition, nDelta);
+      // Cap position
+      Cap;
+      // Update thumb position
+      UpdateThumbRect;
+    end;
+
+    procedure TMIR3_GUI_Scrollbar.ShowItem(AIndex: Integer);
+    begin
+      // Cap the index
+      if (AIndex < 0)     then
+        AIndex := 0;
+      if (AIndex >= FMax) then
+        AIndex := FMax - 1;
+
+      // Adjust position
+      if (FPosition > AIndex) then
+        FPosition := AIndex
+      else if (FPosition + FPageSize <= AIndex) then
+             FPosition := AIndex - FPageSize + 1;
+
+      UpdateThumbRect;
+    end;
+
+    procedure TMIR3_GUI_Scrollbar.SetTrackRange(AMin, AMax: Integer);
+    begin
+      FMin := AMin;
+      FMax := AMax;
+      Cap;
+      UpdateThumbRect;
+    end;
+
+    procedure TMIR3_GUI_Scrollbar.Cap; // Clips position at boundaries. Ensures it stays within legal range.
+    begin
+      if (FPosition < FMin) or
+         (FMax - FMin <= FPageSize) then
+      begin
+        FPosition := FMin;
+      end else if (FPosition + FPageSize > FMax) then
+                 FPosition := FMax - FPageSize;
+    end;
+
+    procedure TMIR3_GUI_Scrollbar.SetPageSize(APageSize: Integer);
+    begin
+      FPageSize := APageSize;
+      Cap;
+      UpdateThumbRect;
+    end;
+
+    procedure TMIR3_GUI_Scrollbar.SetTrackPos(APosition: Integer);
+    begin
+      FPosition := APosition;
+      Cap;
+      UpdateThumbRect;
+    end;
+
+  {$ENDREGION}
+ 
+   /// TMIR3_GUI_MagicButton
+
+  {$REGION ' - TMIR3_GUI_MagicButton :: constructor   '}
+    ////////////////////////////////////////////////////////////////////////////////
+    // TMIR3_GUI_MagicButton Form control constructor
+    //..............................................................................  
+    constructor TMIR3_GUI_MagicButton.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    begin
+      inherited;
+      if Assigned(PGUI_Defination) then
+        FGUI_Defination := PGUI_Defination^;
+      FParentGUIContainer := PParentGUIManager;
+      FControlType        := ctMagicButton;
+      FCaption            := '0';
+    end;
+  {$ENDREGION}  
+
+  {$REGION ' - TMIR3_GUI_MagicButton :: functions   '}
+    ////////////////////////////////////////////////////////////////////////////////
+    // TMIR3_GUI_MagicButton override render function for this control
+    //..............................................................................   
+    procedure TMIR3_GUI_MagicButton.RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
+    var
+      FClipRect     : TRect;
+      FShowFlag    : Integer;
+      FDrawSetting : TDrawSetting;
+      FTempTextureID : Integer;
+    begin
+    // @override
+      (*
+        before we draw anything we check the situation
+        if the Button not visible on this position then Exit here
+        If the Button Visible, check if the Text Visible, if not
+        Set FShowFlag = 0, dont Draw Text ( Clip Text ? )
+      *)
+
+	    (* Render Button *)
+      with FGUI_Defination, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
+      begin
+        if FParentGUIContainer.FDebugMode then
+        begin
+		      (* Render Button without Texture in Debug Mode *)
+          GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FWidth, FHeight, $FFFF0000, True);
+        end else begin
+          if (FTop + gui_Extra_Offset_Y > gui_Clip_Rect.Bottom) or (FTop  + gui_Extra_Offset_Y < gui_Clip_Rect.Top-35) then
+          begin
+            FShowFlag := 0;
+          end else begin
+            FShowFlag := 1;
+
+            if (FTop + gui_Extra_Offset_Y > (gui_Clip_Rect.Bottom - 44)) then
+            begin
+              FShowFlag := 2;  // clip Text
+            end;
+            if (FTop + gui_Extra_Offset_Y > (gui_Clip_Rect.Bottom - 36)) then
+            begin
+              FShowFlag := 3;  // clip Text and Texture
+            end;
+//            if (FTop + gui_Extra_Offset_Y < 96) then
+//            begin
+//              FShowFlag := 4;  // clip Text and Texture
+//            end;
+             //draw    FShowFlag=2 Clip Rect
+
+            FTempTextureID :=gui_Control_Texture.gui_Extra_Texture_Set.gui_Background_Texture_ID;
+            if FTempTextureID > 0 then //gui_Texture_File_ID > 75 then
+            begin
+
+              case FShowFlag of
+                1,2: begin
+                  SetRect(FClipRect,0,0,34,34);
+                  DrawClipRect(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FClipRect, BLEND_DEFAULT, gui_Blend_Size);
+                end;
+                3  : begin
+                   SetRect(FClipRect,0,0,34,ABS(34-(FTop + gui_Extra_Offset_Y-(gui_Clip_Rect.Bottom - 36))));
+                   DrawClipRect(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FClipRect, BLEND_DEFAULT, gui_Blend_Size);
+                end;
+                4  : begin
+                   //SetRect(FClipRect,0,ABS(34-(FTop + gui_Extra_Offset_Y+(gui_Clip_Rect.top - 36))),34,34);
+//                   if (34 + gui_Extra_Offset_Y) > 0 then
+//                   begin
+//                    SetRect(FClipRect,0,ABS(34 + gui_Extra_Offset_Y),34, 34);
+//                    DrawClipRect(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop, FClipRect, BLEND_DEFAULT, gui_Blend_Size);
+//
+//                   end;
+                end;
+              end;
+
+                 //ABS(34-(FTop + gui_Extra_Offset_Y-(gui_Clip_Rect.top + 36)))
+            end;
+          end;
+
+        end;
+      end;
+
+
+      (*
+          case FButtonState of
+            bsBase      : begin
+              FRenderColor   := gui_Font_Color;
+              if not(FSwitchOn) then
+              begin
+                FTempTextureID := gui_Background_Texture_ID;
+              end else begin
+                FTempTextureID := gui_Extra_Texture_Set.gui_Background_Texture_ID;
+              end;
+            end;
+            bsMouseOver : begin
+              if not(FSwitchOn) then
+              begin
+                FTempTextureID := gui_Mouse_Over_Texture_ID;
+              end else begin
+                FTempTextureID := gui_Extra_Texture_Set.gui_Mouse_Over_Texture_ID;
+              end;
+              if gui_Enabled then
+                FRenderColor := ColorSelect;
+            end;
+            bsPress     : begin
+              if not(FSwitchOn) then
+              begin
+                FTempTextureID := gui_Mouse_Down_Texture_ID;
+              end else begin
+                FTempTextureID := gui_Extra_Texture_Set.gui_Mouse_Down_Texture_ID;
+              end;
+              if gui_Enabled then
+                FRenderColor := ColorPress;
+            end;
+            bsDisabled  : begin
+              if not(FSwitchOn) then
+              begin
+                FTempTextureID := gui_Mouse_Disable_Texture_ID;
+              end else begin
+                FTempTextureID := gui_Extra_Texture_Set.gui_Mouse_Disable_Texture_ID;
+              end;
+              if gui_Enabled then
+                FRenderColor := ColorDisabled;
+            end;
+            bsSelected  : begin
+              if not(FSwitchOn) then
+              begin
+                FTempTextureID := gui_Mouse_Select_Texture_ID;
+              end else begin
+                FTempTextureID := gui_Extra_Texture_Set.gui_Mouse_Select_Texture_ID;
+              end;
+              if gui_Enabled then
+                FRenderColor := ColorSelect;
+            end;
+          end;
+      *)
+
+      // TODO : Add F1-F12 Key Overlay Texture Rendering 
+      //      : Add Check Variable thats hold the F* Key = 0 nothing
+      
+      (*  
+         if FMagicFKey  > 0 then
+         begin
+           Render (BaseID+FMagicFKey,....)
+         end;
+      *)
+      
+      
+      (* Render Magic Button Text *)
+      if FParentGUIContainer.FDebugMode then
+      begin
+        (* Render Render Magic Button without Texture in Debug Mode *)
+        GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft + FGUI_Defination.gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + FGUI_Defination.gui_Extra_Offset_Y, FWidth, FHeight, $FFFF0000, True);
+      end else begin
+        (* Render Magic Button Text *)
+        with FGUI_Defination, gui_Font, GGameEngine.FGameFileManger do
+        begin
+          if (Trim(FCaption) <> '') and (FSwitchOn) and (FShowFlag = 1) then
+          begin
+            with FDrawSetting do
+            begin
+              dsControlWidth  := 16;//FWidth;
+              dsControlHeigth := 16;//FHeight;
+              dsAX            := FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X + 33;
+              dsAY            := FParentGUIForm.FTop  + FTop  + gui_Extra_Offset_Y + 33;
+              dsFontHeight    := gui_Font_Size;
+              dsFontSetting   := gui_Font_Setting;
+              dsUseKerning    := gui_Font_Use_Kerning;
+              dsColor         := gui_Font_Color;
+              dsHAlign        := gui_Font_Text_HAlign;
+              dsVAlign        := gui_Font_Text_VAlign;
+            end;
+            GGameEngine.FontManager.DrawControlText(FCaption, @FDrawSetting);
+          end;
+          (* Render Magic Hint *)
+          if (FMouseOver) and (gui_MagicHintID <> 0) then
+          begin
+            with FDrawSetting do
+            begin  (* Exclusive for Magic Hint *)
+              dsFontHeight    := 18;
+              dsFontSetting   := [];
+              dsHAlign        := alLeft;
+              dsVAlign        := avTop;
+              dsUseKerning    := False;
+              dsColor         := $FFF7F767;
+            end;
+            FParentGUIContainer.AddHintMessage(GGameEngine.GameLanguage.GetMagicTextFromLangSystem(gui_MagicHintID), FDrawSetting);
+          end;          
+        end;
+      end;     
+	end;
+  {$ENDREGION}
+  
+  
+  
 
 end.

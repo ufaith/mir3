@@ -1,41 +1,42 @@
-(*********************************************************************
- *   LomCN Mir3 GUI Defination control File 2012                     *
- *                                                                   *
- *   Web       : http://www.lomcn.co.uk                              *
- *   Version   : 0.0.0.7                                             *
- *                                                                   *
- *   - File Info -                                                   *
- *                                                                   *
- *   Hold all GUI Definations                                        *
- *                                                                   *
- *                                                                   *
- *                                                                   *
- *********************************************************************
- * Change History                                                    *
- *                                                                   *
- *  - 0.0.0.1 [2012-10-08] Coly : fist init                          *
- *  - 0.0.0.2 [2013-02-27] Coly : change the Control Config          *
- *  - 0.0.0.3 [2013-03-02] Coly : add more GUI Definations           *
- *  - 0.0.0.4 [2013-03-04] Coly : add more GUI Definations           *
- *  - 0.0.0.5 [2013-03-07] Coly : add Edit Option Fiels              *
- *  - 0.0.0.6 [2013-03-12] Coly : add Exit Win and other             *
- *  - 0.0.0.7 [2013-03-14] Coly : add Body Window                    *
- *                                                                   *
- *                                                                   *
- *                                                                   *
- *********************************************************************
- *  - TODO List for this *.pas file -                                *
- *-------------------------------------------------------------------*
- *  if a todo finished, then delete it here...                       *
- *  if you find a global TODO thats need to do, then add it here..   *
- *-------------------------------------------------------------------*
- *                                                                   *
- *  - TODO : -all -fill *.pas header information                     *
- *                 (how to need this file etc.)                      *
- *                                                                   *
- *  - TODO : -all -Check if Frame timing correct at MonActions       *
- *                                                                   *
- *********************************************************************)
+(*****************************************************************************************
+ *   LomCN Mir3 GUI Defination control File 2012                                         *
+ *                                                                                       *
+ *   Web       : http://www.lomcn.co.uk                                                  *
+ *   Version   : 0.0.0.9                                                                 *
+ *                                                                                       *
+ *   - File Info -                                                                       *
+ *                                                                                       *
+ *   Hold all GUI Definations                                                            *
+ *                                                                                        *
+ *                                                                                       *
+ *****************************************************************************************
+ * Change History                                                                        *
+ *                                                                                       *
+ *  - 0.0.0.1 [2012-10-08] Coly : fist init                                              *
+ *  - 0.0.0.2 [2013-02-27] Coly : change the Control Config                              *
+ *  - 0.0.0.3 [2013-03-02] Coly : add more GUI Definations                               *
+ *  - 0.0.0.4 [2013-03-04] Coly : add more GUI Definations                               *
+ *  - 0.0.0.5 [2013-03-07] Coly : add Edit Option Fiels                                  *
+ *  - 0.0.0.6 [2013-03-12] Coly : add Exit Win and other                                 *
+ *  - 0.0.0.7 [2013-03-14] Coly : add Body Window                                        *
+ *  - 0.0.0.8 [2013-03-24] Coly : add Group Window                                       *  
+ *  - 0.0.0.9 [2013-03-25] Coly : add Magic Window                                       * 
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ *  - TODO List for this *.pas file -                                                    *
+ *---------------------------------------------------------------------------------------*
+ *  if a todo finished, then delete it here...                                           *
+ *  if you find a global TODO thats need to do, then add it here..                       *
+ *---------------------------------------------------------------------------------------*
+ *                                                                                       *
+ *  - TODO : -all -fill *.pas header information                                         *
+ *                 (how to need this file etc.)                                          *
+ *                                                                                       *
+ *  - TODO : -all -Check if Frame timing correct at MonActions                           *
+ *                                                                                       *
+ *****************************************************************************************)
 unit mir3_game_gui_defination;
 
 interface
@@ -200,8 +201,8 @@ const
   {$ENDREGION}
 
   {$REGION ' - Group GUI               (216-225) '}
-  GUI_ID_INGAME_GROUP_UI_WINDOW                   = 216;
-  GUI_ID_INGAME_GROUP_UI_WINDOW_TEXT              = 217;
+  GUI_ID_INGAME_GROUP_UI_WINDOW                   = 216;   
+  GUI_ID_INGAME_GROUP_UI_TEXT_LEADER              = 217;
   GUI_ID_INGAME_GROUP_UI_LIST_MEMBER              = 218;
   GUI_ID_INGAME_GROUP_UI_BTN_ADD_MEMBER           = 219;
   GUI_ID_INGAME_GROUP_UI_BTN_DEL_MEMBER           = 220;
@@ -395,27 +396,7 @@ const
 
   {$ENDREGION}
 
-  {$REGION ' - Magic Base GUI          (750-xxx) '}
-  {Magic Base and Assassin GUI}
-  GUI_ID_INGAME_MAGIC_UI_WWT_WINDOW              = 750;
-  GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL        = 751;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_CLOSE           = 752;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1          = 753;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_2          = 754;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_3          = 755;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_4          = 756;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_5          = 757;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_6          = 758;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_7          = 759;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_8          = 760;
-
-  GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW              = 800;
-  GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL        = 801;
-  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_CLOSE           = 802;
-  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1          = 803;
-  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_2          = 804;
-  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_3          = 805;
-  {$ENDREGION}
+  // 750 - 899 is Free now
 
   {$REGION ' - Body Base GUI           (900-990) '}
   {Body Base GUI}
@@ -543,6 +524,180 @@ const
   GUI_ID_INGAME_BODY_SHOW_UI_TEXT_SPOUSE          = 1025; //
   {$ENDREGION}
 
+  {$REGION ' - Magic Base GUI        (2000-2500) '}
+  {Magic Base and Assassin GUI}
+  GUI_ID_INGAME_MAGIC_UI_WWT_WINDOW               = 2000;
+  GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL         = 2001;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_CLOSE            = 2002;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1           = 2003;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_2           = 2004;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_3           = 2005;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_4           = 2006;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_5           = 2007;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_6           = 2008;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_7           = 2009;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_8           = 2010;
+  GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR           = 2011;
+                                                  
+  //Page 1 : B1 - B6 ( Reserve 2018 - 2041 )      
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1            = 2012;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2            = 2013;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B3            = 2014;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B4            = 2015;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B5            = 2016;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B6            = 2017;
+                                                  
+  //Page 2 : B1 - B5 ( Reserve 2047 - 2071 )      
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B1            = 2042;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B2            = 2043;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B3            = 2044;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B4            = 2045;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B5            = 2046;
+                                                  
+  //Page 3 : B1 - B7 ( Reserve 2079 - 2101 )      
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B1            = 2072;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B2            = 2073;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B3            = 2074;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B4            = 2075;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B5            = 2076;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B6            = 2077;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B7            = 2078;
+                                                  
+  //Page 4 : B1 - B7 ( Reserve 2109 - 2131 )      
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B1            = 2102;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B2            = 2103;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B3            = 2104;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B4            = 2105;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B5            = 2106;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B6            = 2107;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B7            = 2108;
+                                                  
+  //Page 5 : B1 - B9 ( Reserve 2141 - 2161 )          
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B1            = 2132;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B2            = 2133;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B3            = 2134;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B4            = 2135;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B5            = 2136;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B6            = 2137;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B7            = 2138;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B8            = 2139;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B9            = 2140;
+                                                  
+  //Page 6 : B1 - B12 ( Reserve 2174 - 2191 )                
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B1            = 2162;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B2            = 2163;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B3            = 2164;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B4            = 2165;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B5            = 2166;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B6            = 2167;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B7            = 2168;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B8            = 2169;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B9            = 2170;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B10           = 2171;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B11           = 2172;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B12           = 2173;
+                                                  
+  //Page 7 : B1 - B13 ( Reserve 2205 - 2221 )                
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B1            = 2192;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B2            = 2193;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B3            = 2194;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B4            = 2195;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B5            = 2196;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B6            = 2197;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B7            = 2198;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B8            = 2199;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B9            = 2200;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B10           = 2201;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B11           = 2202;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B12           = 2203;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B13           = 2204;
+                                                  
+  //Page 8 : B1 - B26 ( Reserve 2247 - 2250 )                
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B1            = 2221;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B2            = 2222;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B3            = 2223;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B4            = 2224;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B5            = 2225;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B6            = 2226;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B7            = 2227;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B8            = 2228;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B9            = 2229;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B10           = 2230;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B11           = 2231;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B12           = 2232;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B13           = 2233;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B14           = 2234;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B15           = 2235;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B16           = 2236;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B17           = 2237;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B18           = 2238;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B19           = 2239;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B20           = 2240;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B21           = 2241;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B22           = 2242;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B23           = 2243;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B24           = 2244;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B25           = 2245;
+  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B26           = 2246;
+                             
+  GUI_ID_INGAME_MAGIC_UI_WWT_TEXT_INFO            = 2251;                           
+                                                  
+  ////  Assassin Magic ///////////////////////////////////
+                                                  
+  GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW               = 2300;
+  GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL         = 2301;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_CLOSE            = 2302;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1           = 2303;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_2           = 2304;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_3           = 2305;
+  GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR           = 2306;
+                                                  
+  //Page 1 : B1 - B21 ( Reserve 2328 - 2336 )     
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B1            = 2307;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B2            = 2308;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B3            = 2309;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B4            = 2310;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B5            = 2311;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B6            = 2312;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B7            = 2313;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B8            = 2314;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B9            = 2315;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B10           = 2316;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B11           = 2317;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B12           = 2318;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B13           = 2319;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B14           = 2320;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B15           = 2321;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B16           = 2322;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B17           = 2323;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B18           = 2324;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B19           = 2325;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B20           = 2326;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B21           = 2327;
+                                                  
+  //Page 2 : B1 - B9 ( Reserve 2346 - 2366 )      
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B1            = 2337;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B2            = 2338;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B3            = 2339;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B4            = 2340;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B5            = 2341;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B6            = 2342;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B7            = 2343;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B8            = 2344;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B9            = 2345;
+  //Page 3 : B1 - B7 ( Reserve 2374 - 2400 )                             
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B1            = 2367;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B2            = 2368;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B3            = 2369;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B4            = 2370;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B5            = 2371;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B6            = 2372;
+  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B7            = 2373;
+
+  GUI_ID_INGAME_MAGIC_UI_ASS_TEXT_INFO            = 2401;
+  //Reserve 2397 - 2500 
+  {$ENDREGION}  
+  
   {$ENDREGION}
   
 type
@@ -933,11 +1088,12 @@ type
     FInGame_UI_Body_Show_Btn_Close            : TMir3_GUI_Ground_Info;  //
     {$ENDREGION}
 
-    {$REGION ' - Body Show Window UI System  '}
+    {$REGION ' - Magic Window UI System  '}
     { War Wiz Tao GUI Window }
     FInGame_UI_Magic_WWT_Window               : TMir3_GUI_Ground_Info;  // War Wiz Tao Magic Window
     FInGame_UI_Magic_WWT_Btn_Close            : TMir3_GUI_Ground_Info;  //
     FInGame_UI_Magic_WWT_PageControl          : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Text_Info            : TMir3_GUI_Ground_Info;  //
     FInGame_UI_Magic_WWT_Button_Page_1        : TMir3_GUI_Ground_Info;  //
     FInGame_UI_Magic_WWT_Button_Page_2        : TMir3_GUI_Ground_Info;  //
     FInGame_UI_Magic_WWT_Button_Page_3        : TMir3_GUI_Ground_Info;  //
@@ -946,20 +1102,156 @@ type
     FInGame_UI_Magic_WWT_Button_Page_6        : TMir3_GUI_Ground_Info;  //
     FInGame_UI_Magic_WWT_Button_Page_7        : TMir3_GUI_Ground_Info;  //
     FInGame_UI_Magic_WWT_Button_Page_8        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_ScrollBar            : TMir3_GUI_Ground_Info;  //
+    (* Magic Buttons Page 1 *)
+    FInGame_UI_Magic_WWT_Btn_Page_1_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_1_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_1_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_1_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_1_B5        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_1_B6        : TMir3_GUI_Ground_Info;  //
+    (* Magic Buttons Page 2 *) 
+    FInGame_UI_Magic_WWT_Btn_Page_2_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_2_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_2_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_2_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_2_B5        : TMir3_GUI_Ground_Info;  //    
+    (* Magic Buttons Page 3 *)    
+    FInGame_UI_Magic_WWT_Btn_Page_3_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_3_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_3_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_3_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_3_B5        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_3_B6        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_3_B7        : TMir3_GUI_Ground_Info;  //      
+    (* Magic Buttons Page 4 *)  
+    FInGame_UI_Magic_WWT_Btn_Page_4_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_4_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_4_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_4_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_4_B5        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_4_B6        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_4_B7        : TMir3_GUI_Ground_Info;  // 
+    (* Magic Buttons Page 5 *)  
+    FInGame_UI_Magic_WWT_Btn_Page_5_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_5_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_5_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_5_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_5_B5        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_5_B6        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_5_B7        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_5_B8        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_5_B9        : TMir3_GUI_Ground_Info;  // 
+    (* Magic Buttons Page 6 *) 
+    FInGame_UI_Magic_WWT_Btn_Page_6_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_6_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_6_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_6_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_6_B5        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_6_B6        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_6_B7        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_6_B8        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_6_B9        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_6_B10       : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_6_B11       : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_6_B12       : TMir3_GUI_Ground_Info;  // 
+    (* Magic Buttons Page 7 *)  
+    FInGame_UI_Magic_WWT_Btn_Page_7_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_7_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_7_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_7_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_7_B5        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_7_B6        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_7_B7        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_7_B8        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_7_B9        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_7_B10       : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_7_B11       : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_7_B12       : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_WWT_Btn_Page_7_B13       : TMir3_GUI_Ground_Info;  //     
+    (* Magic Buttons Page 8 *)  
+    FInGame_UI_Magic_WWT_Btn_Page_8_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B5        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B6        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B7        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B8        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B9        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B10       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B11       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B12       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B13       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B14       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B15       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B16       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B17       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B18       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B19       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B20       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B21       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B22       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B23       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B24       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B25       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_WWT_Btn_Page_8_B26       : TMir3_GUI_Ground_Info;  //
 
     { Assassen GUI Window }
     FInGame_UI_Magic_ASS_Window               : TMir3_GUI_Ground_Info;  // Assassin Magic Window
     FInGame_UI_Magic_ASS_Btn_Close            : TMir3_GUI_Ground_Info;  //
     FInGame_UI_Magic_ASS_PageControl          : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Text_Info            : TMir3_GUI_Ground_Info;  //
     FInGame_UI_Magic_ASS_Button_Page_1        : TMir3_GUI_Ground_Info;  //
     FInGame_UI_Magic_ASS_Button_Page_2        : TMir3_GUI_Ground_Info;  //
     FInGame_UI_Magic_ASS_Button_Page_3        : TMir3_GUI_Ground_Info;  //
-
+    FInGame_UI_Magic_ASS_ScrollBar            : TMir3_GUI_Ground_Info;  //
+    (* Magic Buttons Page 1 *) 
+    FInGame_UI_Magic_ASS_Btn_Page_1_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B5        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B6        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B7        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B8        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B9        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B10       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B11       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B12       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B13       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B14       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B15       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B16       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B17       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B18       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B19       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B20       : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_1_B21       : TMir3_GUI_Ground_Info;  //
+    (* Magic Buttons Page 2 *)  
+    FInGame_UI_Magic_ASS_Btn_Page_2_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_2_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_2_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_2_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_2_B5        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_ASS_Btn_Page_2_B6        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_ASS_Btn_Page_2_B7        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_ASS_Btn_Page_2_B8        : TMir3_GUI_Ground_Info;  // 
+    FInGame_UI_Magic_ASS_Btn_Page_2_B9        : TMir3_GUI_Ground_Info;  //     
+    (* Magic Buttons Page 3 *)
+    FInGame_UI_Magic_ASS_Btn_Page_3_B1        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_3_B2        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_3_B3        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_3_B4        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_3_B5        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_3_B6        : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Magic_ASS_Btn_Page_3_B7        : TMir3_GUI_Ground_Info;  //
     {$ENDREGION}
 
     {$REGION ' - Group Window UI System       '}
     FInGame_UI_Group_Window                   : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Group_Window_Text            : TMir3_GUI_Ground_Info;  //
+
+      FInGame_UI_Group_Text_Group_Leader      : TMir3_GUI_Ground_Info;  //
       FInGame_UI_Group_Btn_Close              : TMir3_GUI_Ground_Info;  //
       FInGame_UI_Group_Btn_Add_Member         : TMir3_GUI_Ground_Info;  //
       FInGame_UI_Group_Btn_Delete_Member      : TMir3_GUI_Ground_Info;  //
@@ -983,7 +1275,6 @@ type
 
     {$ENDREGION}
 
-
     {$ENDREGION}
   end;
 
@@ -1006,8 +1297,8 @@ var
                                      gui_Height                 : 226;
                                      gui_Width                  : 308;
                                      gui_Blend_Size             : 245;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID    : 420);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 421);
                                      gui_Modal_Event            : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True
@@ -1068,10 +1359,10 @@ var
                                      gui_Height                 : 26;
                                      gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID    : 423;
-                                                                   gui_Mouse_Over_Texture_ID    : 423;
-                                                                   gui_Mouse_Down_Texture_ID    : 424);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 424;
+                                                                   gui_Mouse_Over_Texture_ID : 424;
+                                                                   gui_Mouse_Down_Texture_ID : 425);
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -1086,10 +1377,10 @@ var
                                      gui_Height                 : 26;
                                      gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID    : 421;
-                                                                   gui_Mouse_Over_Texture_ID    : 421;
-                                                                   gui_Mouse_Down_Texture_ID    : 422);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 422;
+                                                                   gui_Mouse_Over_Texture_ID : 422;
+                                                                   gui_Mouse_Down_Texture_ID : 423);
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -1104,10 +1395,10 @@ var
                                      gui_Height                 : 26;
                                      gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID    : 425;
-                                                                   gui_Mouse_Over_Texture_ID    : 425;
-                                                                   gui_Mouse_Down_Texture_ID    : 426);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 426;
+                                                                   gui_Mouse_Over_Texture_ID : 426;
+                                                                   gui_Mouse_Down_Texture_ID : 427);
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -1122,10 +1413,10 @@ var
                                      gui_Height                 : 26;
                                      gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID    : 3611;
-                                                                   gui_Mouse_Over_Texture_ID    : 3611;
-                                                                   gui_Mouse_Down_Texture_ID    : 3612);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 3612;
+                                                                   gui_Mouse_Over_Texture_ID : 3612;
+                                                                   gui_Mouse_Down_Texture_ID : 3613);
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                      {$ENDREGION}
@@ -1140,10 +1431,10 @@ var
                                      gui_Height                 : 26;
                                      gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID    : 3611;
-                                                                   gui_Mouse_Over_Texture_ID    : 3611;
-                                                                   gui_Mouse_Down_Texture_ID    : 3612);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 3612;
+                                                                   gui_Mouse_Over_Texture_ID : 3612;
+                                                                   gui_Mouse_Down_Texture_ID : 3613);
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                      {$ENDREGION}
@@ -1158,10 +1449,10 @@ var
                                    gui_Height                 : 26;
                                    gui_Width                  : 80;
                                    gui_Blend_Size             : 255;
-                                   gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                 gui_Background_Texture_ID    : 3611;
-                                                                 gui_Mouse_Over_Texture_ID    : 3611;
-                                                                 gui_Mouse_Down_Texture_ID    : 3612);
+                                   gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                 gui_Background_Texture_ID : 3612;
+                                                                 gui_Mouse_Over_Texture_ID : 3612;
+                                                                 gui_Mouse_Down_Texture_ID : 3613);
                                    gui_Enabled                : True;
                                    gui_Visible                : False 
                                    {$ENDREGION}
@@ -1186,10 +1477,10 @@ var
                                      gui_Height                 : 600;
                                      gui_Width                  : 800;
                                      gui_Blend_Size             : 245;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_PROGUSE_INT;
-                                                                   gui_Background_Texture_ID    : 360;
-                                                                   gui_Random_Texture_From      : 360;
-                                                                   gui_Random_Texture_To        : 364);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_PROGUSE_INT;
+                                                                   gui_Background_Texture_ID : 361;
+                                                                   gui_Random_Texture_From   : 361;
+                                                                   gui_Random_Texture_To     : 365);
                                      gui_Use_Random_Texture     : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
@@ -1206,8 +1497,8 @@ var
                                      gui_Strech_Rate_X          : 1.25;
                                      gui_Strech_Rate_Y          : 1.25;
                                      gui_Blend_Size             : 170;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 1);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 2);
                                      gui_Use_Strech_Texture     : True;                              
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                    
@@ -1223,9 +1514,8 @@ var
                                      gui_Width                  : 800;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 5;
-                                     gui_Font                   : (gui_Font_Size        : 22;
-                                                                   gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Use_Kerning : False);
+                                     gui_Font                   : (gui_Font_Size  : 22;
+                                                                   gui_Font_Color : $FFF0F0F0);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -1243,7 +1533,6 @@ var
                                      gui_Font                   : (gui_Font_Use_ID      : 3;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Use_Kerning : False;
                                                                    gui_Font_Text_VAlign : avCenter);
                                      gui_Password_Char          : '';
                                      gui_Edit_Max_Length        : 25;
@@ -1269,10 +1558,8 @@ var
                                      gui_Font                   : (gui_Font_Use_ID      : 3;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Use_Kerning : False;
                                                                    gui_Font_Text_HAlign : alLeft;
-                                                                   gui_Font_Text_VAlign : avCenter;
-                                                                   gui_Font_Setting     : []);
+                                                                   gui_Font_Text_VAlign : avCenter);
                                      gui_Password_Char          : '*';
                                      gui_Edit_Max_Length        : 25;
                                      gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
@@ -1298,7 +1585,6 @@ var
                                      gui_HintID                 : 7;
                                      gui_Font                   : (gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Use_Kerning : False;
                                                                    gui_Font_Text_HAlign : alLeft;
                                                                    gui_Font_Text_VAlign : avCenter;
                                                                    gui_Font_Setting     : [fsBold]);
@@ -1320,7 +1606,6 @@ var
                                      gui_HintID                 : 6;
                                      gui_Font                   : (gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Use_Kerning : False;
                                                                    gui_Font_Text_HAlign : alLeft;
                                                                    gui_Font_Text_VAlign : avCenter;
                                                                    gui_Font_Setting     : [fsBold]);
@@ -1342,7 +1627,6 @@ var
                                      gui_HintID                 : 8;
                                      gui_Font                   : (gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Use_Kerning : False;
                                                                    gui_Font_Text_HAlign : alLeft;
                                                                    gui_Font_Text_VAlign : avCenter;
                                                                    gui_Font_Setting     : [fsBold]);
@@ -1364,7 +1648,6 @@ var
                                      gui_HintID                 : 9;
                                      gui_Font                   : (gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Use_Kerning : False;
                                                                    gui_Font_Text_HAlign : alLeft;
                                                                    gui_Font_Text_VAlign : avCenter;
                                                                    gui_Font_Setting     : [fsBold]);
@@ -1383,7 +1666,6 @@ var
                                      gui_Blend_Size             : 205;
                                      gui_Font                   : (gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF2F2F2;
-                                                                   gui_Font_Use_Kerning : False;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avTop;
                                                                    gui_Font_Setting     : [fsBold]);
@@ -1418,8 +1700,8 @@ var
                                      gui_Strech_Rate_X          : 1.25;
                                      gui_Strech_Rate_Y          : 1.25;                                   
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 50);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 51);
                                      gui_Use_Strech_Texture     : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
@@ -1435,8 +1717,8 @@ var
                                      gui_Height                 : 200;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 200);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 201);
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                      {$ENDREGION}
@@ -1451,8 +1733,8 @@ var
                                      gui_Height                 : 200;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 200);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 201);
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                      {$ENDREGION}
@@ -1467,8 +1749,8 @@ var
                                      gui_Height                 : 200;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 200);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 201);
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                      {$ENDREGION}
@@ -1483,10 +1765,10 @@ var
                                      gui_Height                 : 16;
                                      gui_Width                  : 92;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 55;
-                                                                   gui_Mouse_Over_Texture_ID    : 56;
-                                                                   gui_Mouse_Down_Texture_ID    : 55);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 56;
+                                                                   gui_Mouse_Over_Texture_ID : 57;
+                                                                   gui_Mouse_Down_Texture_ID : 56);
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                    
                                      {$ENDREGION}
@@ -1501,10 +1783,10 @@ var
                                      gui_Height                 : 18;
                                      gui_Width                  : 40;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 57;
-                                                                   gui_Mouse_Over_Texture_ID    : 58;
-                                                                   gui_Mouse_Down_Texture_ID    : 57);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 58;
+                                                                   gui_Mouse_Over_Texture_ID : 59;
+                                                                   gui_Mouse_Down_Texture_ID : 58);
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                     
                                      {$ENDREGION}
@@ -1519,10 +1801,10 @@ var
                                      gui_Height                 : 14;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 53;
-                                                                   gui_Mouse_Over_Texture_ID    : 54;
-                                                                   gui_Mouse_Down_Texture_ID    : 53);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 54;
+                                                                   gui_Mouse_Over_Texture_ID : 55;
+                                                                   gui_Mouse_Down_Texture_ID : 54);
                                      gui_Enabled                : True;
                                      gui_Visible                : True      
                                      {$ENDREGION}
@@ -1537,10 +1819,10 @@ var
                                      gui_Height                 : 14;
                                      gui_Width                  : 104;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 51;
-                                                                   gui_Mouse_Over_Texture_ID    : 52;
-                                                                   gui_Mouse_Down_Texture_ID    : 51);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 52;
+                                                                   gui_Mouse_Over_Texture_ID : 53;
+                                                                   gui_Mouse_Down_Texture_ID : 52);
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -1554,8 +1836,8 @@ var
                                      gui_Height                 : 120;
                                      gui_Width                  : 190;
                                      gui_Blend_Size             : 240;
-                                     gui_Font                   : ( gui_Font_Size        : 20;
-                                                                    gui_Font_Color       : $FFB5D5BD);
+                                     gui_Font                   : (gui_Font_Size    : 20;
+                                                                   gui_Font_Color   : $FFB5D5BD);
                                      gui_Color                  : (gui_ControlColor : $7F313A19;
                                                                    gui_BorderColor  : $FF717171);
                                      gui_ShowBorder             : True;
@@ -1573,8 +1855,8 @@ var
                                      gui_Height                 : 20;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 20;
-                                                                   gui_Font_Color       : $FFFF8100);
+                                     gui_Font                   : (gui_Font_Size  : 20;
+                                                                   gui_Font_Color : $FFFF8100);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
@@ -1590,8 +1872,8 @@ var
                                      gui_Height                 : 20;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 20;
-                                                                   gui_Font_Color       : $FFBF7830);
+                                     gui_Font                   : (gui_Font_Size  : 20;
+                                                                   gui_Font_Color : $FFBF7830);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
@@ -1607,8 +1889,8 @@ var
                                      gui_Height                 : 20;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 20;
-                                                                   gui_Font_Color       : $FFFFA040);
+                                     gui_Font                   : (gui_Font_Size  : 20;
+                                                                   gui_Font_Color : $FFFFA040);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
@@ -1624,8 +1906,8 @@ var
                                      gui_Height                 : 20;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : ( gui_Font_Size        : 20;
-                                                                    gui_Font_Color       : $FFFFBA73);
+                                     gui_Font                   : ( gui_Font_Size  : 20;
+                                                                    gui_Font_Color : $FFFFBA73);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
@@ -1641,8 +1923,8 @@ var
                                      gui_Height                 : 20;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : ( gui_Font_Size        : 20;
-                                                                    gui_Font_Color       : $FFFFBA73);
+                                     gui_Font                   : ( gui_Font_Size  : 20;
+                                                                    gui_Font_Color : $FFFFBA73);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
@@ -1658,8 +1940,8 @@ var
                                      gui_Height                 : 20;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 20;
-                                                                   gui_Font_Color       : $FFFF8100);
+                                     gui_Font                   : (gui_Font_Size  : 20;
+                                                                   gui_Font_Color : $FFFF8100);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
@@ -1675,8 +1957,8 @@ var
                                      gui_Height                 : 20;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 20;
-                                                                   gui_Font_Color       : $FFBF7830);
+                                     gui_Font                   : (gui_Font_Size  : 20;
+                                                                   gui_Font_Color : $FFBF7830);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
@@ -1692,8 +1974,8 @@ var
                                      gui_Height                 : 20;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 20;
-                                                                   gui_Font_Color       : $FFFFA040);
+                                     gui_Font                   : (gui_Font_Size  : 20;
+                                                                   gui_Font_Color : $FFFFA040);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
@@ -1709,8 +1991,8 @@ var
                                      gui_Height                 : 20;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 20;
-                                                                   gui_Font_Color       : $FFFFBA73);
+                                     gui_Font                   : (gui_Font_Size  : 20;
+                                                                   gui_Font_Color : $FFFFBA73);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
@@ -1726,8 +2008,8 @@ var
                                      gui_Height                 : 20;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 20;
-                                                                   gui_Font_Color       : $FFFFBA73);
+                                     gui_Font                   : (gui_Font_Size  : 20;
+                                                                   gui_Font_Color : $FFFFBA73);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
@@ -1749,8 +2031,8 @@ var
                                      gui_Strech_Rate_X          : 1.25;
                                      gui_Strech_Rate_Y          : 1.25;                                   
                                      gui_Blend_Size             : 255;                       
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 80);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 81);
                                      gui_Use_Strech_Texture     : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
@@ -1766,8 +2048,8 @@ var
                                      gui_Height                 : 260;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 440);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 441);
                                      gui_Use_Strech_Texture     : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : False                                      
@@ -1783,8 +2065,8 @@ var
                                      gui_Height                 : 240;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 740);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 741);
                                      gui_Use_Strech_Texture     : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : False
@@ -1799,9 +2081,9 @@ var
                                      gui_Height                 : 32;
                                      gui_Width                  : 256;
                                      gui_Blend_Size             : 155;
-                                     gui_Blend_Mode             : 111;//Blend_DestBright
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 82);
+                                     gui_Blend_Mode             : Blend_DestBright;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 83);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -1815,8 +2097,8 @@ var
                                      gui_Height                 : 84;
                                      gui_Width                  : 164;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 81);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 82);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -1832,10 +2114,10 @@ var
                                      gui_Width                  : 36;
                                      gui_Blend_Size             : 255;
                                      gui_HintID                 : 42;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 91;
-                                                                   gui_Mouse_Over_Texture_ID    : 92;
-                                                                   gui_Mouse_Down_Texture_ID    : 93);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 92;
+                                                                   gui_Mouse_Over_Texture_ID : 93;
+                                                                   gui_Mouse_Down_Texture_ID : 94);
                                      gui_Enabled                : True;
                                      gui_Visible                : False
                                      {$ENDREGION}
@@ -1851,10 +2133,10 @@ var
                                      gui_Width                  : 36;
                                      gui_Blend_Size             : 255;
                                      gui_HintID                 : 43;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 94;
-                                                                   gui_Mouse_Over_Texture_ID    : 95;
-                                                                   gui_Mouse_Down_Texture_ID    : 96);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 95;
+                                                                   gui_Mouse_Over_Texture_ID : 96;
+                                                                   gui_Mouse_Down_Texture_ID : 97);
                                      gui_Enabled                : True;
                                      gui_Visible                : False
                                      {$ENDREGION}
@@ -1870,10 +2152,10 @@ var
                                      gui_Width                  : 36;
                                      gui_Blend_Size             : 255;
                                      gui_HintID                 : 44;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 97;
-                                                                   gui_Mouse_Over_Texture_ID    : 98;
-                                                                   gui_Mouse_Down_Texture_ID    : 99);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 98;
+                                                                   gui_Mouse_Over_Texture_ID : 99;
+                                                                   gui_Mouse_Down_Texture_ID : 100);
                                      gui_Enabled                : True;
                                      gui_Visible                : False
                                      {$ENDREGION}
@@ -1889,10 +2171,10 @@ var
                                      gui_Width                  : 36;
                                      gui_Blend_Size             : 255;
                                      gui_HintID                 : 45;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 100;
-                                                                   gui_Mouse_Over_Texture_ID    : 101;
-                                                                   gui_Mouse_Down_Texture_ID    : 102);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 101;
+                                                                   gui_Mouse_Over_Texture_ID : 102;
+                                                                   gui_Mouse_Down_Texture_ID : 103);
                                      gui_Enabled                : True;
                                      gui_Visible                : False
                                      {$ENDREGION}
@@ -1908,10 +2190,10 @@ var
                                      gui_Width                  : 28;
                                      gui_Blend_Size             : 255;
                                      gui_HintID                 : 46;
-                                     gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID    : 85;
-                                                                   gui_Mouse_Over_Texture_ID    : 86;
-                                                                   gui_Mouse_Down_Texture_ID    : 87);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 86;
+                                                                   gui_Mouse_Over_Texture_ID : 87;
+                                                                   gui_Mouse_Down_Texture_ID : 88);
                                      gui_Enabled                : True;
                                      gui_Visible                : False
                                      {$ENDREGION}
@@ -1927,10 +2209,10 @@ var
                                    gui_Width                  : 28;
                                    gui_Blend_Size             : 255;
                                    gui_HintID                 : 47;
-                                   gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                 gui_Background_Texture_ID    : 88;
-                                                                 gui_Mouse_Over_Texture_ID    : 89;
-                                                                 gui_Mouse_Down_Texture_ID    : 90);
+                                   gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                 gui_Background_Texture_ID : 89;
+                                                                 gui_Mouse_Over_Texture_ID : 90;
+                                                                 gui_Mouse_Down_Texture_ID : 91);
                                    gui_Enabled                : True;
                                    gui_Visible                : False
                                    {$ENDREGION}
@@ -2010,8 +2292,8 @@ var
                                           gui_Height                 : 56;
                                           gui_Width                  : 708;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Background_Texture_ID    : 50);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Background_Texture_ID : 51);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2025,9 +2307,9 @@ var
                                           gui_Height                 : 28;
                                           gui_Width                  : 28;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 80;
-                                                                        gui_Mouse_Down_Texture_ID    : 81);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 81;
+                                                                        gui_Mouse_Down_Texture_ID : 82);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2041,9 +2323,9 @@ var
                                           gui_Height                 : 28;
                                           gui_Width                  : 28;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 82;
-                                                                        gui_Mouse_Down_Texture_ID    : 83);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 83;
+                                                                        gui_Mouse_Down_Texture_ID : 84);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2057,9 +2339,9 @@ var
                                           gui_Height                 : 28;
                                           gui_Width                  : 28;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 84;
-                                                                        gui_Mouse_Down_Texture_ID    : 85);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 85;
+                                                                        gui_Mouse_Down_Texture_ID : 86);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2073,9 +2355,9 @@ var
                                           gui_Height                 : 28;
                                           gui_Width                  : 28;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 94;
-                                                                        gui_Mouse_Down_Texture_ID    : 95);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 95;
+                                                                        gui_Mouse_Down_Texture_ID : 96);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2089,9 +2371,9 @@ var
                                           gui_Height                 : 28;
                                           gui_Width                  : 28;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 86;
-                                                                        gui_Mouse_Down_Texture_ID    : 87);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 87;
+                                                                        gui_Mouse_Down_Texture_ID : 88);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2105,9 +2387,9 @@ var
                                           gui_Height                 : 28;
                                           gui_Width                  : 28;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 88;
-                                                                        gui_Mouse_Down_Texture_ID    : 89);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 89;
+                                                                        gui_Mouse_Down_Texture_ID : 90);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2121,9 +2403,9 @@ var
                                           gui_Height                 : 28;
                                           gui_Width                  : 28;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 90;
-                                                                        gui_Mouse_Down_Texture_ID    : 91);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 91;
+                                                                        gui_Mouse_Down_Texture_ID : 92);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2137,9 +2419,9 @@ var
                                           gui_Height                 : 28;
                                           gui_Width                  : 28;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 92;
-                                                                        gui_Mouse_Down_Texture_ID    : 93);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 93;
+                                                                        gui_Mouse_Down_Texture_ID : 94);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2284,11 +2566,11 @@ var
                                                                           gui_Font_Color       : $FFFFFFFF;
                                                                           gui_Font_Text_HAlign : alCenter;
                                                                           gui_Font_Text_VAlign : avCenter);
-                                            gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID    : 52);
+                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                          gui_Background_Texture_ID : 53);
                                             gui_Progress_Setup         : (gui_Min   : 0;
                                                                           gui_Max   : 100;
-                                                                          gui_Value : 90;
+                                                                          gui_Value : 1;
                                                                           gui_ShowText : True);
                                             gui_Enabled                : True;
                                             gui_Visible                : True
@@ -2308,11 +2590,11 @@ var
                                                                           gui_Font_Color       : $FFFFFFFF;
                                                                           gui_Font_Text_HAlign : alCenter;
                                                                           gui_Font_Text_VAlign : avCenter);                                            
-                                            gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID    : 54);
+                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                          gui_Background_Texture_ID : 55);
                                             gui_Progress_Setup         : (gui_Min   : 0;
                                                                           gui_Max   : 100;
-                                                                          gui_Value : 75;
+                                                                          gui_Value : 1;
                                                                           gui_ShowText : True);
                                             gui_Enabled                : True;
                                             gui_Visible                : True
@@ -2328,8 +2610,8 @@ var
                                             gui_Height                 : 4;
                                             gui_Width                  : 700; // used full length to have Hint Support on all 10 fields
                                             gui_Blend_Size             : 255;
-                                            gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID    : 56);
+                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                          gui_Background_Texture_ID : 57);
                                             gui_Progress_Setup         : (gui_Min   : 0;
                                                                           gui_Max   : 100;
                                                                           gui_Value : 36;
@@ -2348,11 +2630,11 @@ var
                                             gui_Height                 : 30;
                                             gui_Width                  : 4;
                                             gui_Blend_Size             : 255;
-                                            gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID    : 60);
+                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                          gui_Background_Texture_ID : 61);
                                             gui_Progress_Setup         : (gui_Min   : 0;
                                                                           gui_Max   : 100;
-                                                                          gui_Value : 75;
+                                                                          gui_Value : 1;
                                                                           gui_Progress_Type: ptVertical);
                                             gui_ShowHint               : True;
                                             gui_Enabled                : True;
@@ -2383,8 +2665,8 @@ var
                                             gui_Height                 : 86;
                                             gui_Width                  : 96;
                                             gui_Blend_Size             : 255;
-                                            gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID     : 68);
+                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                          gui_Background_Texture_ID : 69);
                                             gui_Enabled                : True;
                                             gui_Visible                : True
                                             {$ENDREGION}
@@ -2399,10 +2681,10 @@ var
                                             gui_Width                  : 263;
                                             gui_Blend_Size             : 255;
                                             gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID     : 71);
+                                                                          gui_Background_Texture_ID     : 72);
                                             gui_Animation              : (gui_Animation_Texture_File_ID : GAME_TEXTURE_PROGUSE_INT;
-                                                                          gui_Animation_Texture_From    : 320;
-                                                                          gui_Animation_Texture_To      : 329;
+                                                                          gui_Animation_Texture_From    : 321;
+                                                                          gui_Animation_Texture_To      : 330;
                                                                           gui_Animation_Interval        : 200;
                                                                           gui_Animation_Offset_X        : 2;
                                                                           gui_Animation_Offset_Y        : 2
@@ -2421,8 +2703,8 @@ var
                                             gui_Height                 : 144;
                                             gui_Width                  : 104;
                                             gui_Blend_Size             : 255;
-                                            gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID     : 67);
+                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                          gui_Background_Texture_ID : 68);
                                             gui_Enabled                : True;
                                             gui_Visible                : True
                                             {$ENDREGION}
@@ -2437,10 +2719,10 @@ var
                                             gui_Width                  : 263;
                                             gui_Blend_Size             : 255;
                                             gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID     : 70);
+                                                                          gui_Background_Texture_ID     : 71);
                                             gui_Animation              : (gui_Animation_Texture_File_ID : GAME_TEXTURE_PROGUSE_INT;
-                                                                          gui_Animation_Texture_From    : 650;
-                                                                          gui_Animation_Texture_To      : 657;
+                                                                          gui_Animation_Texture_From    : 651;
+                                                                          gui_Animation_Texture_To      : 658;
                                                                           gui_Animation_Interval        : 1000;
                                                                           gui_Animation_Offset_X        : 0;
                                                                           gui_Animation_Offset_Y        : 0
@@ -2465,8 +2747,8 @@ var
                                           gui_Height                 : 64;
                                           gui_Width                  : 512;
                                           gui_Blend_Size             : 250;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Background_Texture_ID    : 320);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Background_Texture_ID : 321);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2480,8 +2762,8 @@ var
                                           gui_Height                 : 14;
                                           gui_Width                  : 16;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 323);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 324);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2495,21 +2777,22 @@ var
                                           gui_Height                 : 14;
                                           gui_Width                  : 16;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 322);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 323);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
                 );
       FInGame_UI_Belt_Item_Field_H_1      : ({$REGION ' - FInGame_UI_Belt_Item_Field_H_1   '}
                                            gui_Unique_Control_Number  : GUI_ID_INGAME_BELT_UI_ITEM_FIELD_1;
-                                           gui_Type                   : ctPanel;
+                                           gui_Type                   : ctPanel; //ctItemField (has Text include)
                                            gui_Form_Type              : ftNone;
                                            gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:36);
                                            gui_Top                    : 14;
                                            gui_Left                   : 141;
                                            gui_Height                 : 36;
                                            gui_Width                  : 36;
+                                           //gui_Item_Field_Show_Null   : True;
                                            gui_Enabled                : True;
                                            gui_Visible                : True
                                            {$ENDREGION}
@@ -2590,8 +2873,8 @@ var
                                           gui_Height                 : 274;
                                           gui_Width                  : 52;
                                           gui_Blend_Size             : 250;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Background_Texture_ID    : 321);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Background_Texture_ID : 322);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2605,8 +2888,8 @@ var
                                           gui_Height                 : 14;
                                           gui_Width                  : 16;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 323);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 324);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2620,8 +2903,8 @@ var
                                           gui_Height                 : 14;
                                           gui_Width                  : 16;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 322);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 323);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -2704,42 +2987,6 @@ var
                                           gui_Visible                : True
                                           {$ENDREGION}
                 );
-
-
-(*
-  TODO : GUI Defination Switch Function Needet
-
-    FInGame_UI_Belt_Background                : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Background_V            : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_V_1          : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_V_2          : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_V_3          : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_V_4          : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_V_5          : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_V_6          : TMir3_GUI_Ground_Info;  //
-
-      FInGame_UI_Belt_Background_H            : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_H_1          : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_H_2          : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_H_3          : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_H_4          : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_H_5          : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Item_Field_H_6          : TMir3_GUI_Ground_Info;  //
-
-      FInGame_UI_Belt_Btn_Rotate              : TMir3_GUI_Ground_Info;  //
-      FInGame_UI_Belt_Btn_Close               : TMir3_GUI_Ground_Info;  //
-
-  GUI_ID_INGAME_BELT_UI_BACKGROUND                = 480;
-  GUI_ID_INGAME_BELT_UI_ITEM_FIELD_1              = 481;
-  GUI_ID_INGAME_BELT_UI_ITEM_FIELD_2              = 482;
-  GUI_ID_INGAME_BELT_UI_ITEM_FIELD_3              = 483;
-  GUI_ID_INGAME_BELT_UI_ITEM_FIELD_4              = 484;
-  GUI_ID_INGAME_BELT_UI_ITEM_FIELD_5              = 485;
-  GUI_ID_INGAME_BELT_UI_ITEM_FIELD_6              = 486;
-  GUI_ID_INGAME_BELT_UI_BTN_ROTATE                = 487;
-  GUI_ID_INGAME_BELT_UI_BTN_CLOSE                 = 488;
-*)
-
       {$ENDREGION}
 
       {$REGION ' - MiniMap UI System               '}
@@ -2755,8 +3002,8 @@ var
                                               gui_Height                 : 45;
                                               gui_Width                  : 132;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 144);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 145);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -2873,8 +3120,8 @@ var
                                               gui_Height                 : 26;
                                               gui_Width                  : 26;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID     : 134);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 135);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -2887,8 +3134,8 @@ var
                                               gui_Height                 : 26;
                                               gui_Width                  : 26;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID     : 135);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 136);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -2901,8 +3148,8 @@ var
                                               gui_Height                 : 26;
                                               gui_Width                  : 26;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID     : 136);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 137);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -2915,8 +3162,8 @@ var
                                               gui_Height                 : 26;
                                               gui_Width                  : 26;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID     : 143);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 144);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -2929,10 +3176,10 @@ var
                                               gui_Height                 : 14;
                                               gui_Width                  : 14;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 130;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 131;
-                                                                                                          gui_Mouse_Over_Texture_ID : 131));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 131;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 132;
+                                                                                                         gui_Mouse_Over_Texture_ID : 132));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -2946,7 +3193,7 @@ var
                                               gui_Width                  : 14;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 132);
+                                                                            gui_Mouse_Over_Texture_ID  : 133);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -2960,7 +3207,7 @@ var
                                               gui_Width                  : 14;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 137);
+                                                                            gui_Mouse_Over_Texture_ID  : 138);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -3044,7 +3291,7 @@ var
                                               gui_Width                  : 26;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID     : 134);
+                                                                            gui_Background_Texture_ID     : 135);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -3058,7 +3305,7 @@ var
                                               gui_Width                  : 26;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID     : 135);
+                                                                            gui_Background_Texture_ID     : 136);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -3072,7 +3319,7 @@ var
                                               gui_Width                  : 26;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID     : 136);
+                                                                            gui_Background_Texture_ID     : 137);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -3086,7 +3333,7 @@ var
                                               gui_Width                  : 20;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID     : 143);
+                                                                            gui_Background_Texture_ID     : 144);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -3100,9 +3347,9 @@ var
                                               gui_Width                  : 14;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 130;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 131;
-                                                                                                          gui_Mouse_Over_Texture_ID : 131));
+                                                                            gui_Mouse_Over_Texture_ID  : 131;
+                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 132;
+                                                                                                          gui_Mouse_Over_Texture_ID : 132));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -3116,8 +3363,8 @@ var
                                               gui_Width                  : 14;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID  : 141;
-                                                                            gui_Mouse_Over_Texture_ID  : 133);
+                                                                            gui_Background_Texture_ID  : 142;
+                                                                            gui_Mouse_Over_Texture_ID  : 134);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -3130,8 +3377,8 @@ var
                                               gui_Height                 : 14;
                                               gui_Width                  : 14;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 137);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 138);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                 );
@@ -3148,8 +3395,8 @@ var
                                               gui_Height                 : 1024;
                                               gui_Width                  : 1024;
                                               gui_Blend_Size             : 240;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 670);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 671);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3183,9 +3430,9 @@ var
                                               gui_Height                 : 30;
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 1221;
-                                                                            gui_Mouse_Down_Texture_ID    : 1222);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 1222;
+                                                                            gui_Mouse_Down_Texture_ID : 1223);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3199,10 +3446,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 52;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 671;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 674;
-                                                                                                          gui_Mouse_Over_Texture_ID : 674));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 672;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 675;
+                                                                                                         gui_Mouse_Over_Texture_ID : 675));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3216,10 +3463,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 52;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 672;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 675;
-                                                                                                          gui_Mouse_Over_Texture_ID : 675));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 673;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 676;
+                                                                                                         gui_Mouse_Over_Texture_ID : 676));
                                               gui_PreSelected            : True;                                                                                                           
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -3234,10 +3481,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 52;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 673;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 676;
-                                                                                                          gui_Mouse_Over_Texture_ID : 676));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 674;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 677;
+                                                                                                         gui_Mouse_Over_Texture_ID : 677));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3257,13 +3504,13 @@ var
                                                                              gui_Font_Use_Kerning : False;
                                                                              gui_Font_Text_HAlign : alCenter;
                                                                              gui_Font_Text_VAlign : avCenter);
-                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                             gui_Mouse_Over_Texture_ID    : 677;
-                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                           gui_Mouse_Over_Texture_ID : 678));
-                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                             gui_ColorPress       : $FFF0F0F0;
-                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                                gui_Enabled                : True;
                                                gui_Visible                : True
                                                {$ENDREGION}
@@ -3283,13 +3530,13 @@ var
                                                                              gui_Font_Use_Kerning : False;
                                                                              gui_Font_Text_HAlign : alCenter;
                                                                              gui_Font_Text_VAlign : avCenter);
-                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                             gui_Mouse_Over_Texture_ID    : 677;
-                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                           gui_Mouse_Over_Texture_ID : 678));
-                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                             gui_ColorPress       : $FFF0F0F0;
-                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                                gui_Enabled                : True;
                                                gui_Visible                : True
                                                {$ENDREGION}
@@ -3309,13 +3556,13 @@ var
                                                                              gui_Font_Use_Kerning : False;
                                                                              gui_Font_Text_HAlign : alCenter;
                                                                              gui_Font_Text_VAlign : avCenter);
-                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                             gui_Mouse_Over_Texture_ID    : 677;
-                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                           gui_Mouse_Over_Texture_ID : 678));
-                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                             gui_ColorPress       : $FFF0F0F0;
-                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                                gui_Enabled                : True;
                                                gui_Visible                : True
                                                {$ENDREGION}
@@ -3335,13 +3582,13 @@ var
                                                                              gui_Font_Use_Kerning : False;
                                                                              gui_Font_Text_HAlign : alCenter;
                                                                              gui_Font_Text_VAlign : avCenter);
-                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                             gui_Mouse_Over_Texture_ID    : 677;
-                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                           gui_Mouse_Over_Texture_ID : 678));
-                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                             gui_ColorPress       : $FFF0F0F0;
-                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                                gui_Enabled                : True;
                                                gui_Visible                : True
                                                {$ENDREGION}
@@ -3361,13 +3608,13 @@ var
                                                                              gui_Font_Use_Kerning : False;
                                                                              gui_Font_Text_HAlign : alCenter;
                                                                              gui_Font_Text_VAlign : avCenter);
-                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                             gui_Mouse_Over_Texture_ID    : 677;
-                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                           gui_Mouse_Over_Texture_ID : 678));
-                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                             gui_ColorPress       : $FFF0F0F0;
-                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                                gui_Enabled                : True;
                                                gui_Visible                : True
                                                {$ENDREGION}
@@ -3387,13 +3634,13 @@ var
                                                                              gui_Font_Use_Kerning : False;
                                                                              gui_Font_Text_HAlign : alCenter;
                                                                              gui_Font_Text_VAlign : avCenter);
-                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                             gui_Mouse_Over_Texture_ID    : 677;
-                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                           gui_Mouse_Over_Texture_ID : 678));
-                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                             gui_ColorPress       : $FFF0F0F0;
-                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                                gui_Enabled                : True;
                                                gui_Visible                : True
                                                {$ENDREGION}
@@ -3413,13 +3660,13 @@ var
                                                                              gui_Font_Use_Kerning : False;
                                                                              gui_Font_Text_HAlign : alCenter;
                                                                              gui_Font_Text_VAlign : avCenter);
-                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                             gui_Mouse_Over_Texture_ID    : 677;
-                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                           gui_Mouse_Over_Texture_ID : 678));
-                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                             gui_ColorPress       : $FFF0F0F0;
-                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                                gui_Enabled                : True;
                                                gui_Visible                : True
                                                {$ENDREGION}
@@ -3439,13 +3686,13 @@ var
                                                                              gui_Font_Use_Kerning : False;
                                                                              gui_Font_Text_HAlign : alCenter;
                                                                              gui_Font_Text_VAlign : avCenter);
-                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                             gui_Mouse_Over_Texture_ID    : 677;
-                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                           gui_Mouse_Over_Texture_ID : 678));
-                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                             gui_ColorPress       : $FFF0F0F0;
-                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                                gui_Enabled                : True;
                                                gui_Visible                : True
                                                {$ENDREGION}
@@ -3465,13 +3712,13 @@ var
                                                                              gui_Font_Use_Kerning : False;
                                                                              gui_Font_Text_HAlign : alCenter;
                                                                              gui_Font_Text_VAlign : avCenter);
-                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                             gui_Mouse_Over_Texture_ID    : 677;
-                                                                             gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                           gui_Mouse_Over_Texture_ID : 678));
-                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                             gui_ColorPress       : $FFF0F0F0;
-                                                                             gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                                gui_Enabled                : True;
                                                gui_Visible                : True
                                                {$ENDREGION}
@@ -3491,13 +3738,13 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 677;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                          gui_Mouse_Over_Texture_ID : 678));
-                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                            gui_ColorPress       : $FFF0F0F0;
-                                                                            gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3517,13 +3764,13 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 677;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                          gui_Mouse_Over_Texture_ID : 678));
-                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                            gui_ColorPress       : $FFF0F0F0;
-                                                                            gui_ColorDisabled    : $FF808080);
+                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                             gui_Mouse_Over_Texture_ID : 678;
+                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                          gui_Mouse_Over_Texture_ID : 679));
+                                               gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                             gui_ColorPress    : $FFF0F0F0;
+                                                                             gui_ColorDisabled : $FF808080);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3543,13 +3790,13 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 677;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                          gui_Mouse_Over_Texture_ID : 678));
-                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                            gui_ColorPress       : $FFF0F0F0;
-                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 678;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                         gui_Mouse_Over_Texture_ID : 679));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                            gui_ColorPress    : $FFF0F0F0;
+                                                                            gui_ColorDisabled : $FF808080);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3569,13 +3816,13 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 677;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                          gui_Mouse_Over_Texture_ID : 678));
-                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                            gui_ColorPress       : $FFF0F0F0;
-                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 678;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                         gui_Mouse_Over_Texture_ID : 679));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                            gui_ColorPress    : $FFF0F0F0;
+                                                                            gui_ColorDisabled : $FF808080);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3595,13 +3842,13 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 677;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                          gui_Mouse_Over_Texture_ID : 678));
-                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                            gui_ColorPress       : $FFF0F0F0;
-                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 678;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                         gui_Mouse_Over_Texture_ID : 679));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                            gui_ColorPress    : $FFF0F0F0;
+                                                                            gui_ColorDisabled : $FF808080);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3621,13 +3868,13 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 677;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                          gui_Mouse_Over_Texture_ID : 678));
-                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                            gui_ColorPress       : $FFF0F0F0;
-                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 678;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                         gui_Mouse_Over_Texture_ID : 679));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                            gui_ColorPress    : $FFF0F0F0;
+                                                                            gui_ColorDisabled : $FF808080);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3647,13 +3894,13 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 677;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                          gui_Mouse_Over_Texture_ID : 678));
-                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                            gui_ColorPress       : $FFF0F0F0;
-                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 678;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                         gui_Mouse_Over_Texture_ID : 679));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                            gui_ColorPress    : $FFF0F0F0;
+                                                                            gui_ColorDisabled : $FF808080);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3673,13 +3920,13 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 677;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 678;
-                                                                                                          gui_Mouse_Over_Texture_ID : 678));
-                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
-                                                                            gui_ColorPress       : $FFF0F0F0;
-                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 678;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 679;
+                                                                                                         gui_Mouse_Over_Texture_ID : 679));
+                                              gui_Btn_Font_Color         : (gui_ColorSelect   : $FFAF9400;
+                                                                            gui_ColorPress    : $FFF0F0F0;
+                                                                            gui_ColorDisabled : $FF808080);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3747,7 +3994,7 @@ var
 
       {$ENDREGION}     
 
-      {$REGION ' - Menue Bar UI System             '}
+      {$REGION ' - Menu Bar UI System             '}
       FInGame_UI_Menue_Bar_Background         : ({$REGION ' - FInGame_UI_Menue_Bar_Background    '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MENUEBAR_UI_WINDOW;
                                               gui_Type                   : ctForm;
@@ -3758,8 +4005,8 @@ var
                                               gui_Height                 : 512;
                                               gui_Width                  : 256;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 310);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 311);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -3779,8 +4026,8 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 311);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 312);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -3803,8 +4050,8 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 311);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 312);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -3827,8 +4074,8 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 311);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 312);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -3851,8 +4098,8 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 311);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 312);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -3875,8 +4122,8 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 311);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 312);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -3899,8 +4146,8 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 311);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 312);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -3923,8 +4170,8 @@ var
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 311);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 312);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -3936,19 +4183,19 @@ var
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MENUEBAR_UI_BTN_EXIT;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_Top                    : 337;
+                                              gui_Top                    : 372;
                                               gui_Left                   : 83;
                                               gui_Height                 : 20;
                                               gui_Width                  : 89;
                                               gui_Blend_Size             : 255;
-                                              gui_CaptionID              : 88;
+                                              gui_CaptionID              : 89;
                                               gui_Font                   : (gui_Font_Size        : 18;
                                                                             gui_Font_Color       : $FFD47A6B;
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 311);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 312);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFA47A6B;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -3960,19 +4207,19 @@ var
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MENUEBAR_UI_BTN_FEATURE;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_Top                    : 372;
+                                              gui_Top                    : 337;
                                               gui_Left                   : 83;
                                               gui_Height                 : 20;
                                               gui_Width                  : 89;
                                               gui_Blend_Size             : 255;
-                                              gui_CaptionID              : 89;
+                                              gui_CaptionID              : 88;
                                               gui_Font                   : (gui_Font_Size        : 18;
                                                                             gui_Font_Color       : $FFFF9400;
                                                                             gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 311);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 312);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -3989,9 +4236,9 @@ var
                                           gui_Height                 : 30;
                                           gui_Width                  : 32;
                                           gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID    : 1221;
-                                                                        gui_Mouse_Down_Texture_ID    : 1222);
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Mouse_Over_Texture_ID : 1222;
+                                                                        gui_Mouse_Down_Texture_ID : 1223);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -4009,8 +4256,8 @@ var
                                               gui_Height                 : 512;
                                               gui_Width                  : 512;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 290);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 291);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4024,9 +4271,9 @@ var
                                               gui_Height                 : 30;
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 1221;
-                                                                            gui_Mouse_Down_Texture_ID    : 1222);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 1222;
+                                                                            gui_Mouse_Down_Texture_ID : 1223);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4044,7 +4291,6 @@ var
                                               gui_CaptionID              : 101;
                                               gui_Font                   : (gui_Font_Size        : 18;
                                                                             gui_Font_Color       : $FFF0F0F0;
-                                                                            gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter;
                                                                             gui_Font_Setting     : [fsBold]);
@@ -4067,7 +4313,6 @@ var
                                               gui_CaptionID              : 102;
                                               gui_Font                   : (gui_Font_Size        : 18;
                                                                             gui_Font_Color       : $FFF0F0F0;
-                                                                            gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter;
                                                                             gui_Font_Setting     : [fsBold]);
@@ -4090,7 +4335,6 @@ var
                                               gui_CaptionID              : 103;
                                               gui_Font                   : (gui_Font_Size        : 18;
                                                                             gui_Font_Color       : $FFF0F0F0;
-                                                                            gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter;
                                                                             gui_Font_Setting     : [fsBold]);
@@ -4110,10 +4354,9 @@ var
                                               gui_Height                 : 23;
                                               gui_Width                  : 60;
                                               gui_Blend_Size             : 255;
-                                              gui_CaptionID              : 104;                  //bdbdff
+                                              gui_CaptionID              : 104;                 
                                               gui_Font                   : (gui_Font_Size        : 18;
                                                                             gui_Font_Color       : $FFF0F0F0;
-                                                                            gui_Font_Use_Kerning : False;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter;
                                                                             gui_Font_Setting     : [fsBold]);
@@ -4134,8 +4377,8 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 295);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 296);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4170,10 +4413,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4208,10 +4451,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4247,10 +4490,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4286,10 +4529,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4325,10 +4568,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4364,10 +4607,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4405,8 +4648,8 @@ var
                                           gui_Width                  : 180;
                                           gui_Blend_Size             : 255;
                                           gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Background_Texture_ID : 305;
-                                                                        gui_Slider_Texture_ID     : 303);
+                                                                        gui_Background_Texture_ID : 306;
+                                                                        gui_Slider_Texture_ID     : 304);
                                           gui_Slider_Setup           : (gui_Min      : 0;
                                                                         gui_Max      : 100;
                                                                         gui_Value    : 50;
@@ -4427,11 +4670,11 @@ var
                                           gui_Width                  : 180;
                                           gui_Blend_Size             : 255;
                                           gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Background_Texture_ID  : 305;
-                                                                        gui_Slider_Texture_ID      : 303);
+                                                                        gui_Background_Texture_ID  : 306;
+                                                                        gui_Slider_Texture_ID      : 304);
                                           gui_Slider_Setup           : (gui_Min      : 0;
                                                                         gui_Max      : 100;
-                                                                        gui_Value    : 90;
+                                                                        gui_Value    : 50;
                                                                         gui_Btn_Size : (Left:0; Top:0; Right:8; Bottom:22));                                                                        
                                           gui_Enabled                : True;
                                           gui_Visible                : True
@@ -4450,11 +4693,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300)
-                                                                            );
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4490,11 +4732,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300)
-                                                                            );
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4530,11 +4771,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300)
-                                                                            );
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4570,11 +4810,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300)
-                                                                            );
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4610,11 +4849,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300)
-                                                                            );
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4653,10 +4891,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4692,10 +4930,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4732,10 +4970,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4772,7 +5010,7 @@ var
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 306);
+                                                                            gui_Mouse_Over_Texture_ID    : 307);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4811,10 +5049,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4850,10 +5088,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4889,10 +5127,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4928,10 +5166,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -4967,10 +5205,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5006,10 +5244,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5045,10 +5283,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5075,7 +5313,7 @@ var
                                               {$ENDREGION}
                 );
       { MiniMap Monster Display (On/Off) }
-      FInGame_UI_GameSetting_Btn_8_P4         : ({$REGION ' - FInGame_UI_GameSetting_Btn_8_P4  '}
+      FInGame_UI_GameSetting_Btn_8_P4         : ({$REGION ' - FInGame_UI_GameSetting_Btn_8_P4        '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_8_P4;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
@@ -5084,10 +5322,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5114,7 +5352,7 @@ var
                                               {$ENDREGION}
                 );
       { HP Gauge Display (Show HP Gauge) (On/Off) }
-      FInGame_UI_GameSetting_Btn_9_P4         : ({$REGION ' - FInGame_UI_GameSetting_Btn_9_P4  '}
+      FInGame_UI_GameSetting_Btn_9_P4         : ({$REGION ' - FInGame_UI_GameSetting_Btn_9_P4        '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_9_P4;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
@@ -5123,10 +5361,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5162,10 +5400,10 @@ var
                                               gui_Height                 : 22;
                                               gui_Width                  : 64;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID        : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID  : 297;
-                                                                            gui_Extra_Texture_Set      : (gui_Background_Texture_ID : 299;
-                                                                                                          gui_Mouse_Over_Texture_ID : 300));
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 298;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 300;
+                                                                                                         gui_Mouse_Over_Texture_ID : 301));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5208,8 +5446,8 @@ var
                                               gui_Height                 : 512;
                                               gui_Width                  : 512;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 180);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 181);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5223,9 +5461,9 @@ var
                                               gui_Height                 : 30;
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 1221;
-                                                                            gui_Mouse_Down_Texture_ID    : 1222);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 1222;
+                                                                            gui_Mouse_Down_Texture_ID : 1223);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5243,17 +5481,17 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_Blend_Mode             : Blend_Add;
                                               gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_EQUIP_INT;
-                                                                            gui_Background_Texture_ID     : -1);
+                                                                            gui_Background_Texture_ID     : 0);
                                               gui_Animation              : (gui_Animation_Texture_File_ID : GAME_TEXTURE_PROGUSE_INT;
-                                                                            gui_Animation_Texture_From    : 900;
-                                                                            gui_Animation_Texture_To      : 909;
+                                                                            gui_Animation_Texture_From    : 901;
+                                                                            gui_Animation_Texture_To      : 910;
                                                                             gui_Animation_Blend_Mode      : Blend_Add;
                                                                             gui_Animation_Interval        : 200
                                                                            );
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
                                               gui_Use_Animation_Texture  : True;
                                               gui_Use_Null_Point_Calc    : True;
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5270,8 +5508,8 @@ var
                                               gui_Null_Point_Y           : 243;
                                               gui_Blend_Size             : 255;
                                               gui_Blend_Mode             : BLEND_DEFAULT;
-                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_PROGUSE_INT;
-                                                                            gui_Background_Texture_ID     : 0);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_PROGUSE_INT;
+                                                                            gui_Background_Texture_ID : 1);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);                              
                                               gui_Use_Null_Point_Calc    : True;
                                               gui_Enabled                : True;
@@ -5290,11 +5528,11 @@ var
                                               gui_Null_Point_Y           : 243;
                                               gui_Blend_Size             : 255;
                                               gui_Blend_Mode             : BLEND_DEFAULT;
-                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_EQUIP_INT;
-                                                                            gui_Background_Texture_ID     : 962);//3361);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_EQUIP_INT;
+                                                                            gui_Background_Texture_ID : 963);//3361);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
                                               gui_Use_Null_Point_Calc    : True;
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5311,11 +5549,11 @@ var
                                               gui_Null_Point_Y           : 243;
                                               gui_Blend_Size             : 255;
                                               gui_Blend_Mode             : BLEND_DEFAULT;
-                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_PROGUSE_INT;
-                                                                            gui_Background_Texture_ID     : 63);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_PROGUSE_INT;
+                                                                            gui_Background_Texture_ID : 64);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
                                               gui_Use_Null_Point_Calc    : True;
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5332,11 +5570,11 @@ var
                                               gui_Null_Point_Y           : 243;
                                               gui_Blend_Size             : 255;
                                               gui_Blend_Mode             : BLEND_DEFAULT;
-                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_EQUIP_INT;
-                                                                            gui_Background_Texture_ID     : 356);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_EQUIP_INT;
+                                                                            gui_Background_Texture_ID : 357);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
                                               gui_Use_Null_Point_Calc    : True;
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5354,17 +5592,17 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_EQUIP_INT;
-                                                                            gui_Background_Texture_ID     : 3450);//1076);//3421);
+                                                                            gui_Background_Texture_ID     : 3451);//1076);//3421);
                                               gui_Animation              : (gui_Animation_Texture_File_ID : GAME_TEXTURE_PROGUSE_INT;
-                                                                            gui_Animation_Texture_From    : 420;
-                                                                            gui_Animation_Texture_To      : 429;
+                                                                            gui_Animation_Texture_From    : 421;
+                                                                            gui_Animation_Texture_To      : 430;
                                                                             gui_Animation_Blend_Mode      : 100;
                                                                             gui_Animation_Interval        : 200
                                                                            );
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
                                               gui_Use_Animation_Texture  : False;
                                               gui_Use_Null_Point_Calc    : True;
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5381,11 +5619,11 @@ var
                                               gui_Null_Point_Y           : 243;
                                               gui_Blend_Size             : 255;
                                               gui_Blend_Mode             : BLEND_DEFAULT;
-                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_EQUIP_INT;
-                                                                            gui_Background_Texture_ID     : -1);//6013);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_EQUIP_INT;
+                                                                            gui_Background_Texture_ID : 0);//6013);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
                                               gui_Use_Null_Point_Calc    : True;
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5403,18 +5641,17 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_Blend_Mode             : Blend_Add;
                                               gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID     : -1
-                                                                           );
+                                                                            gui_Background_Texture_ID     : 0);
                                               gui_Animation              : (gui_Animation_Texture_File_ID : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Animation_Texture_From    : 1990;
-                                                                            gui_Animation_Texture_To      : 2001;
+                                                                            gui_Animation_Texture_From    : 1991;
+                                                                            gui_Animation_Texture_To      : 2002;
                                                                             gui_Animation_Blend_Mode      : 100;
                                                                             gui_Animation_Interval        : 200
                                                                            );
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
                                               gui_Use_Animation_Texture  : True;
                                               gui_Use_Null_Point_Calc    : True;
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5430,7 +5667,7 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1298);
+                                                                            gui_Background_Texture_ID : 1299);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5447,11 +5684,10 @@ var
                                               gui_Height                 : 36;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_EQUIP_INT;
-                                                                            gui_Background_Texture_ID     : 1800
-                                                                           );
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_EQUIP_INT;
+                                                                            gui_Background_Texture_ID : 1801);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
-                                              //gui_ShowBorder             : True;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5465,12 +5701,11 @@ var
                                               gui_Height                 : 37;
                                               gui_Width                  : 37;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_Align             : taCenter;
-                                                                            gui_Texture_File_ID           : GAME_TEXTURE_INVENTORY_INT;
-                                                                            gui_Background_Texture_ID     : 923
-                                                                           );
+                                              gui_Control_Texture        : (gui_Texture_Align         : taCenter;
+                                                                            gui_Texture_File_ID       : GAME_TEXTURE_INVENTORY_INT;
+                                                                            gui_Background_Texture_ID : 924);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5484,12 +5719,11 @@ var
                                               gui_Height                 : 37;
                                               gui_Width                  : 37;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_Align             : taCenter;
-                                                                            gui_Texture_File_ID           : GAME_TEXTURE_INVENTORY_INT;
-                                                                            gui_Background_Texture_ID     : 706
-                                                                           );
+                                              gui_Control_Texture        : (gui_Texture_Align         : taCenter;
+                                                                            gui_Texture_File_ID       : GAME_TEXTURE_INVENTORY_INT;
+                                                                            gui_Background_Texture_ID : 707);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5503,12 +5737,11 @@ var
                                               gui_Height                 : 37;
                                               gui_Width                  : 37;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_Align             : taCenter;
-                                                                            gui_Texture_File_ID           : GAME_TEXTURE_INVENTORY_INT;
-                                                                            gui_Background_Texture_ID     : 706
-                                                                           );
+                                              gui_Control_Texture        : (gui_Texture_Align         : taCenter;
+                                                                            gui_Texture_File_ID       : GAME_TEXTURE_INVENTORY_INT;
+                                                                            gui_Background_Texture_ID : 707);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5522,12 +5755,11 @@ var
                                               gui_Height                 : 37;
                                               gui_Width                  : 37;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_Align             : taCenter;
-                                                                            gui_Texture_File_ID           : GAME_TEXTURE_INVENTORY_INT;
-                                                                            gui_Background_Texture_ID     : 521
-                                                                           );
+                                              gui_Control_Texture        : (gui_Texture_Align         : taCenter;
+                                                                            gui_Texture_File_ID       : GAME_TEXTURE_INVENTORY_INT;
+                                                                            gui_Background_Texture_ID : 522);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5541,12 +5773,11 @@ var
                                               gui_Height                 : 37;
                                               gui_Width                  : 37;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_Align             : taCenter;
-                                                                            gui_Texture_File_ID           : GAME_TEXTURE_INVENTORY_INT;
-                                                                            gui_Background_Texture_ID     : 521
-                                                                           );
+                                              gui_Control_Texture        : (gui_Texture_Align         : taCenter;
+                                                                            gui_Texture_File_ID       : GAME_TEXTURE_INVENTORY_INT;
+                                                                            gui_Background_Texture_ID : 522);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5560,12 +5791,11 @@ var
                                               gui_Height                 : 72;
                                               gui_Width                  : 37;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_Align             : taCenter;
-                                                                            gui_Texture_File_ID           : GAME_TEXTURE_INVENTORY_INT;
-                                                                            gui_Background_Texture_ID     : 1388
-                                                                           );
+                                              gui_Control_Texture        : (gui_Texture_Align         : taCenter;
+                                                                            gui_Texture_File_ID       : GAME_TEXTURE_INVENTORY_INT;
+                                                                            gui_Background_Texture_ID : 1389);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5579,12 +5809,11 @@ var
                                               gui_Height                 : 37;
                                               gui_Width                  : 37;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_Align             : taCenter;
-                                                                            gui_Texture_File_ID           : GAME_TEXTURE_INVENTORY_INT;
-                                                                            gui_Background_Texture_ID     : 291
-                                                                           );
+                                              gui_Control_Texture        : (gui_Texture_Align         : taCenter;
+                                                                            gui_Texture_File_ID       : GAME_TEXTURE_INVENTORY_INT;
+                                                                            gui_Background_Texture_ID : 292);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5598,12 +5827,11 @@ var
                                               gui_Height                 : 72;
                                               gui_Width                  : 37;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_Align             : taCenter;
-                                                                            gui_Texture_File_ID           : GAME_TEXTURE_INVENTORY_INT;
-                                                                            gui_Background_Texture_ID     : 330
-                                                                           );
+                                              gui_Control_Texture        : (gui_Texture_Align         : taCenter;
+                                                                            gui_Texture_File_ID       : GAME_TEXTURE_INVENTORY_INT;
+                                                                            gui_Background_Texture_ID : 331);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5617,12 +5845,11 @@ var
                                               gui_Height                 : 37;
                                               gui_Width                  : 37;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_Align             : taCenter;
-                                                                            gui_Texture_File_ID           : GAME_TEXTURE_EQUIP_INT;
-                                                                            gui_Background_Texture_ID     : 78
-                                                                           );
+                                              gui_Control_Texture        : (gui_Texture_Align         : taCenter;
+                                                                            gui_Texture_File_ID       : GAME_TEXTURE_EQUIP_INT;
+                                                                            gui_Background_Texture_ID : 79);
                                               gui_Color                  : (gui_BorderColor : $FFFF1212);
-                                              gui_ShowBorder             : False;
+                                              gui_ShowBorder             : False; //For Debug
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -5906,7 +6133,7 @@ var
                                                                             gui_Font_Text_HAlign : alLeft;
                                                                             gui_Font_Text_VAlign : avCenter);
                                               gui_Enabled                : True;
-                                              gui_Visible                : True
+                                              gui_Visible                : False
                                               {$ENDREGION}
                 );
       FInGame_UI_Body_Text_AC                 : ({$REGION ' - FInGame_UI_Body_Text_AC  '}
@@ -6564,7 +6791,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 226;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1510);
+                                                                            gui_Background_Texture_ID : 1511);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6581,7 +6808,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 227;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1510);
+                                                                            gui_Background_Texture_ID : 1511);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6598,7 +6825,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 228;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1520);
+                                                                            gui_Background_Texture_ID : 1521);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6615,7 +6842,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 229;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1511);
+                                                                            gui_Background_Texture_ID : 1512);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6632,7 +6859,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 230;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1511);
+                                                                            gui_Background_Texture_ID : 1512);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6649,7 +6876,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 231;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1521);
+                                                                            gui_Background_Texture_ID : 1522);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6666,7 +6893,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 232;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1512);
+                                                                            gui_Background_Texture_ID : 1513);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6683,7 +6910,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 233;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1512);
+                                                                            gui_Background_Texture_ID : 1513);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6700,7 +6927,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 234;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1522);
+                                                                            gui_Background_Texture_ID : 1523);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6717,7 +6944,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 235;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1513);
+                                                                            gui_Background_Texture_ID : 1514);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6734,7 +6961,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 236;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1513);
+                                                                            gui_Background_Texture_ID : 1514);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6751,7 +6978,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 237;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1523);
+                                                                            gui_Background_Texture_ID : 1524);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6768,7 +6995,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 238;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1514);
+                                                                            gui_Background_Texture_ID : 1515);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6785,7 +7012,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 239;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1514);
+                                                                            gui_Background_Texture_ID : 1515);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6802,7 +7029,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 240;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1524);
+                                                                            gui_Background_Texture_ID : 1525);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6819,7 +7046,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 241;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1525);
+                                                                            gui_Background_Texture_ID : 1526);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6836,7 +7063,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 242;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1515);
+                                                                            gui_Background_Texture_ID : 1516);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6853,7 +7080,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 243;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1525);
+                                                                            gui_Background_Texture_ID : 1526);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6870,7 +7097,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 244;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1516);
+                                                                            gui_Background_Texture_ID : 1517);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6887,7 +7114,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 245;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1516);
+                                                                            gui_Background_Texture_ID : 1517);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6904,7 +7131,7 @@ var
                                               gui_Blend_Mode             : BLEND_DEFAULT;
                                               gui_HintID                 : 246;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1526);
+                                                                            gui_Background_Texture_ID : 1527);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6924,8 +7151,8 @@ var
                                               gui_Height                 : 512;
                                               gui_Width                  : 512;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 200);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 201);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6940,8 +7167,8 @@ var
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 1221;
-                                                                            gui_Mouse_Down_Texture_ID    : 1222);
+                                                                            gui_Mouse_Over_Texture_ID    : 1222;
+                                                                            gui_Mouse_Down_Texture_ID    : 1223);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6949,10 +7176,8 @@ var
       {$ENDREGION}      
 
       {$REGION ' - Magic Window UI System          '}
-        //TODO : Class Controler (War/Wiz/Tao - Ass View)
-        //TODO : Real Hint Message 
-         {$REGION ' - Magic War/Wiz/Tao '}
-
+ 
+      {$REGION ' - Magic War/Wiz/Tao '}
       FInGame_UI_Magic_WWT_Window             : ({$REGION ' - FInGame_UI_Magic_WWT_Window     '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_WINDOW;
                                               gui_Type                   : ctForm;
@@ -6964,7 +7189,7 @@ var
                                               gui_Width                  : 360;
                                               gui_Blend_Size             : 240;
                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 710);
+                                                                            gui_Background_Texture_ID    : 711);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6979,8 +7204,8 @@ var
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 1221;
-                                                                            gui_Mouse_Down_Texture_ID    : 1222);
+                                                                            gui_Mouse_Over_Texture_ID    : 1222;
+                                                                            gui_Mouse_Down_Texture_ID    : 1223);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6992,17 +7217,29 @@ var
                                               gui_WorkField              : (Left:0; Top:0; Right:303; Bottom:335);
                                               gui_Top                    : 75;
                                               gui_Left                   : 94;
-                                              gui_Height                 : 335;
+                                              gui_Height                 : 320;
                                               gui_Width                  : 303;
-                                              gui_Cut_Rect_Position_Y    : 265; // Max for Scroll 
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 711);
+                                                                            gui_Background_Texture_ID    : 712);
+                                              gui_Use_Cut_Rect           : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Text_Info          : ({$REGION ' - FInGame_UI_Magic_WWT_Text_Info  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_TEXT_INFO;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 427;
+                                              gui_Left                   : 95;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 286;
+                                              gui_Blend_Size             : 205;
                                               gui_Color                  : (gui_ControlColor : $FF131313;
                                                                             gui_BorderColor  : $FF030303);
-                                              gui_Use_Cut_Rect           : True;
                                               gui_ShowBorder             : True;
-                                              gui_ShowPanel              : True;
+                                              //gui_ShowPanel              : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -7018,10 +7255,10 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 720;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 721;
-                                                                                                         gui_Mouse_Over_Texture_ID : 721;
-                                                                                                         gui_Mouse_Down_Texture_ID : 721);
+                                                                            gui_Mouse_Over_Texture_ID : 721;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 722;
+                                                                                                         gui_Mouse_Over_Texture_ID : 722;
+                                                                                                         gui_Mouse_Down_Texture_ID : 722);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -7038,10 +7275,10 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 722;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 723;
-                                                                                                         gui_Mouse_Over_Texture_ID : 723;
-                                                                                                         gui_Mouse_Down_Texture_ID : 723);
+                                                                            gui_Mouse_Over_Texture_ID : 723;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 724;
+                                                                                                         gui_Mouse_Over_Texture_ID : 724;
+                                                                                                         gui_Mouse_Down_Texture_ID : 724);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -7058,10 +7295,10 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 724;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 725;
-                                                                                                         gui_Mouse_Over_Texture_ID : 725;
-                                                                                                         gui_Mouse_Down_Texture_ID : 725);
+                                                                            gui_Mouse_Over_Texture_ID : 725;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 726;
+                                                                                                         gui_Mouse_Over_Texture_ID : 726;
+                                                                                                         gui_Mouse_Down_Texture_ID : 726);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -7078,10 +7315,10 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 726;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 727;
-                                                                                                         gui_Mouse_Over_Texture_ID : 727;
-                                                                                                         gui_Mouse_Down_Texture_ID : 727);
+                                                                            gui_Mouse_Over_Texture_ID : 727;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 728;
+                                                                                                         gui_Mouse_Over_Texture_ID : 728;
+                                                                                                         gui_Mouse_Down_Texture_ID : 728);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -7098,10 +7335,10 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 728;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 729;
-                                                                                                         gui_Mouse_Over_Texture_ID : 729;
-                                                                                                         gui_Mouse_Down_Texture_ID : 729);
+                                                                            gui_Mouse_Over_Texture_ID : 729;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 730;
+                                                                                                         gui_Mouse_Over_Texture_ID : 730;
+                                                                                                         gui_Mouse_Down_Texture_ID : 730);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -7118,10 +7355,10 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 730;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 731;
-                                                                                                         gui_Mouse_Over_Texture_ID : 731;
-                                                                                                         gui_Mouse_Down_Texture_ID : 731);
+                                                                            gui_Mouse_Over_Texture_ID : 731;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 732;
+                                                                                                         gui_Mouse_Over_Texture_ID : 732;
+                                                                                                         gui_Mouse_Down_Texture_ID : 732);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -7138,10 +7375,10 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 732;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 733;
-                                                                                                         gui_Mouse_Over_Texture_ID : 733;
-                                                                                                         gui_Mouse_Down_Texture_ID : 733);
+                                                                            gui_Mouse_Over_Texture_ID : 733;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 734;
+                                                                                                         gui_Mouse_Over_Texture_ID : 734;
+                                                                                                         gui_Mouse_Down_Texture_ID : 734);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -7158,33 +7395,2003 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 734;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 735;
-                                                                                                         gui_Mouse_Over_Texture_ID : 735;
-                                                                                                         gui_Mouse_Down_Texture_ID : 735);
+                                                                            gui_Mouse_Over_Texture_ID : 735;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 736;
+                                                                                                         gui_Mouse_Over_Texture_ID : 736;
+                                                                                                         gui_Mouse_Down_Texture_ID : 736);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
-      (*
-        OK damit alles ein wenig schmaler ist nutzen wir nur eine Page als Pltzhalter
-
-       FInGame_UI_Magic_WWT_PageControl            711
-
-      *)
-
-
-      // Page Button Mouse Over 720 Selected 721 
-
-      (* Pages 1 - 8 *)
-
-      //Page 1 : 711
-
-
-         {$ENDREGION}
+      FInGame_UI_Magic_WWT_ScrollBar          : ({$REGION ' - FInGame_UI_Magic_WWT_ScrollBar  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR;
+                                              gui_Type                   : ctScrollbar;
+                                              gui_Form_Type              : ftNone;
+                                              gui_WorkField              : (Left:0; Top:0; Right:13; Bottom:327);
+                                              gui_Top                    : 79;
+                                              gui_Left                   : 411;
+                                              gui_Height                 : 327;
+                                              gui_Width                  : 14;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Slider_Texture_ID : 1673);
+                                              gui_ScrollBar_Setup        : (gui_ScrollKind : skVertical;
+                                                                            gui_Slider_Info    : (gui_Min:0;
+                                                                                                  gui_Max:132;
+                                                                                                  gui_Btn_Size:(Left:0; Top:0; Right:16; Bottom:16));
+                                                                           );
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      (* Begin WWT Page 1 *)                
+      FInGame_UI_Magic_WWT_Btn_Page_1_B1      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_1_B1  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 91;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 1;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 1;
+                                                                                                     gui_Mouse_Over_Texture_ID : 1;
+                                                                                                     gui_Mouse_Down_Texture_ID : 1));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_1_B2      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_1_B2  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 9;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 9;
+                                                                                                     gui_Mouse_Over_Texture_ID : 9;
+                                                                                                     gui_Mouse_Down_Texture_ID : 9));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+      FInGame_UI_Magic_WWT_Btn_Page_1_B3      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_1_B3  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 225;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 225;
+                                                                                                     gui_Mouse_Over_Texture_ID : 225;
+                                                                                                     gui_Mouse_Down_Texture_ID : 225));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_1_B4      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_1_B4  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 17;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 17;
+                                                                                                     gui_Mouse_Over_Texture_ID : 17;
+                                                                                                     gui_Mouse_Down_Texture_ID : 17));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_1_B5      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_1_B5  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 43;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 43;
+                                                                                                     gui_Mouse_Over_Texture_ID : 43;
+                                                                                                     gui_Mouse_Down_Texture_ID : 43));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );     
+      FInGame_UI_Magic_WWT_Btn_Page_1_B6      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_1_B6  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B6;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 45;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 45;
+                                                                                                     gui_Mouse_Over_Texture_ID : 45;
+                                                                                                     gui_Mouse_Down_Texture_ID : 45));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      (* Begin WWT Page 2 *)
+      FInGame_UI_Magic_WWT_Btn_Page_2_B1      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_2_B1  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 91;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 77;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 77;
+                                                                                                     gui_Mouse_Over_Texture_ID : 77;
+                                                                                                     gui_Mouse_Down_Texture_ID : 77));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_2_B2      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_2_B2  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 79;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 79;
+                                                                                                     gui_Mouse_Over_Texture_ID : 79;
+                                                                                                     gui_Mouse_Down_Texture_ID : 79));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_2_B3      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_2_B3  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 105;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 105;
+                                                                                                     gui_Mouse_Over_Texture_ID : 105;
+                                                                                                     gui_Mouse_Down_Texture_ID : 105));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_2_B4      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_2_B4  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 219;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 219;
+                                                                                                     gui_Mouse_Over_Texture_ID : 219;
+                                                                                                     gui_Mouse_Down_Texture_ID : 219));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_2_B5      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_2_B5  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 65;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 65;
+                                                                                                     gui_Mouse_Over_Texture_ID : 65;
+                                                                                                     gui_Mouse_Down_Texture_ID : 65));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+      (* Begin WWT Page 3 *)
+      FInGame_UI_Magic_WWT_Btn_Page_3_B1      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_3_B1  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 91;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 81;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 81;
+                                                                                                     gui_Mouse_Over_Texture_ID : 81;
+                                                                                                     gui_Mouse_Down_Texture_ID : 81));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_3_B2      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_3_B2  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 21;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 21;
+                                                                                                     gui_Mouse_Over_Texture_ID : 21;
+                                                                                                     gui_Mouse_Down_Texture_ID : 21));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_3_B3      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_3_B3  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 267;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 267;
+                                                                                                     gui_Mouse_Over_Texture_ID : 267;
+                                                                                                     gui_Mouse_Down_Texture_ID : 267));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_3_B4      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_3_B4  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 19;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 19;
+                                                                                                     gui_Mouse_Over_Texture_ID : 19;
+                                                                                                     gui_Mouse_Down_Texture_ID : 19));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+      FInGame_UI_Magic_WWT_Btn_Page_3_B5      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_3_B5  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 265;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 265;
+                                                                                                     gui_Mouse_Over_Texture_ID : 265;
+                                                                                                     gui_Mouse_Down_Texture_ID : 265));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_3_B6      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_3_B6  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B6;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 47;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 47;
+                                                                                                     gui_Mouse_Over_Texture_ID : 47;
+                                                                                                     gui_Mouse_Down_Texture_ID : 47));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_3_B7      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_3_B7  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B7;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 221;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 221;
+                                                                                                     gui_Mouse_Over_Texture_ID : 221;
+                                                                                                     gui_Mouse_Down_Texture_ID : 221));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                 
+      (* Begin WWT Page 4 *)
+      FInGame_UI_Magic_WWT_Btn_Page_4_B1      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_4_B1  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 91;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 133;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 133;
+                                                                                                     gui_Mouse_Over_Texture_ID : 133;
+                                                                                                     gui_Mouse_Down_Texture_ID : 133));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_4_B2      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_4_B2  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 147;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 147;
+                                                                                                     gui_Mouse_Over_Texture_ID : 147;
+                                                                                                     gui_Mouse_Down_Texture_ID : 147));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      FInGame_UI_Magic_WWT_Btn_Page_4_B3      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_4_B3  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 145;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 145;
+                                                                                                     gui_Mouse_Over_Texture_ID : 145;
+                                                                                                     gui_Mouse_Down_Texture_ID : 145));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_4_B4      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_4_B4  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 143;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 143;
+                                                                                                     gui_Mouse_Over_Texture_ID : 143;
+                                                                                                     gui_Mouse_Down_Texture_ID : 143));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_4_B5      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_4_B5  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 227;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 227;
+                                                                                                     gui_Mouse_Over_Texture_ID : 227;
+                                                                                                     gui_Mouse_Down_Texture_ID : 227));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );     
+      FInGame_UI_Magic_WWT_Btn_Page_4_B6      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_4_B6  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B6;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 15;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 15;
+                                                                                                     gui_Mouse_Over_Texture_ID : 15;
+                                                                                                     gui_Mouse_Down_Texture_ID : 15));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      FInGame_UI_Magic_WWT_Btn_Page_4_B7      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_4_B7  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B7;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 61;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 61;
+                                                                                                     gui_Mouse_Over_Texture_ID : 61;
+                                                                                                     gui_Mouse_Down_Texture_ID : 61));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      (* Begin WWT Page 5 *)
+      FInGame_UI_Magic_WWT_Btn_Page_5_B1      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_5_B1  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 91;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 3;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 3;
+                                                                                                     gui_Mouse_Over_Texture_ID : 3;
+                                                                                                     gui_Mouse_Down_Texture_ID : 3));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_5_B2      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_5_B2  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 57;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 57;
+                                                                                                     gui_Mouse_Over_Texture_ID : 57;
+                                                                                                     gui_Mouse_Down_Texture_ID : 57));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_5_B3      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_5_B3  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 153;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 153;
+                                                                                                     gui_Mouse_Over_Texture_ID : 153;
+                                                                                                     gui_Mouse_Down_Texture_ID : 153));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+      FInGame_UI_Magic_WWT_Btn_Page_5_B4      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_5_B4  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 271;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 271;
+                                                                                                     gui_Mouse_Over_Texture_ID : 271;
+                                                                                                     gui_Mouse_Down_Texture_ID : 271));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      FInGame_UI_Magic_WWT_Btn_Page_5_B5      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_5_B5  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 391;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 257;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 257;
+                                                                                                     gui_Mouse_Over_Texture_ID : 257;
+                                                                                                     gui_Mouse_Down_Texture_ID : 257));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+      FInGame_UI_Magic_WWT_Btn_Page_5_B6      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_5_B6  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B6;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 73;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 73;
+                                                                                                     gui_Mouse_Over_Texture_ID : 73;
+                                                                                                     gui_Mouse_Down_Texture_ID : 73);
+                                                                            );
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_5_B7      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_5_B7  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B7;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 75;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 75;
+                                                                                                     gui_Mouse_Over_Texture_ID : 75;
+                                                                                                     gui_Mouse_Down_Texture_ID : 75));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_5_B8      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_5_B8  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B8;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 239;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 239;
+                                                                                                     gui_Mouse_Over_Texture_ID : 239;
+                                                                                                     gui_Mouse_Down_Texture_ID : 239));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_5_B9      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_5_B9  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B9;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 243;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 243;
+                                                                                                     gui_Mouse_Over_Texture_ID : 243;
+                                                                                                     gui_Mouse_Down_Texture_ID : 243));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+      (* Begin WWT Page 6 *)
+      FInGame_UI_Magic_WWT_Btn_Page_6_B1      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B1  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 91;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 11;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 11;
+                                                                                                     gui_Mouse_Over_Texture_ID : 11;
+                                                                                                     gui_Mouse_Down_Texture_ID : 11));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      FInGame_UI_Magic_WWT_Btn_Page_6_B2      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B2  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 25;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 25;
+                                                                                                     gui_Mouse_Over_Texture_ID : 25;
+                                                                                                     gui_Mouse_Down_Texture_ID : 25));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_6_B3      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B3  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 391;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 247;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 247;
+                                                                                                     gui_Mouse_Over_Texture_ID : 247;
+                                                                                                     gui_Mouse_Down_Texture_ID : 247));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_WWT_Btn_Page_6_B4      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B4  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 461;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 269;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 269;
+                                                                                                     gui_Mouse_Over_Texture_ID : 269;
+                                                                                                     gui_Mouse_Down_Texture_ID : 269));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_WWT_Btn_Page_6_B5      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B5  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 27;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 27;
+                                                                                                     gui_Mouse_Over_Texture_ID : 27;
+                                                                                                     gui_Mouse_Down_Texture_ID : 27));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_6_B6      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B6  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B6;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 29;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 29;
+                                                                                                     gui_Mouse_Over_Texture_ID : 29;
+                                                                                                     gui_Mouse_Down_Texture_ID : 29));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_6_B7      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B7  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B7;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 177;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 177;
+                                                                                                     gui_Mouse_Over_Texture_ID : 177;
+                                                                                                     gui_Mouse_Down_Texture_ID : 177));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_WWT_Btn_Page_6_B8      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B8  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B8;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 391;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 187;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 187;
+                                                                                                     gui_Mouse_Over_Texture_ID : 187;
+                                                                                                     gui_Mouse_Down_Texture_ID : 187));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_6_B9      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B9  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B9;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 35;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 35;
+                                                                                                     gui_Mouse_Over_Texture_ID : 35;
+                                                                                                     gui_Mouse_Down_Texture_ID : 35));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_6_B10     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B10 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B10;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 37;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 37;
+                                                                                                     gui_Mouse_Over_Texture_ID : 37;
+                                                                                                     gui_Mouse_Down_Texture_ID : 37));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      FInGame_UI_Magic_WWT_Btn_Page_6_B11     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B11 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B11;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 31;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 31;
+                                                                                                     gui_Mouse_Over_Texture_ID : 31;
+                                                                                                     gui_Mouse_Down_Texture_ID : 31));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );       
+      FInGame_UI_Magic_WWT_Btn_Page_6_B12     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_6_B12 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B12;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 391;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 241;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 241;
+                                                                                                     gui_Mouse_Over_Texture_ID : 241;
+                                                                                                     gui_Mouse_Down_Texture_ID : 241));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      (* Begin WWT Page 7 *)    
+      FInGame_UI_Magic_WWT_Btn_Page_7_B1      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B1  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 91;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 33;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 33;
+                                                                                                     gui_Mouse_Over_Texture_ID : 33;
+                                                                                                     gui_Mouse_Down_Texture_ID : 33));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_WWT_Btn_Page_7_B2      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B2  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 59;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 59;
+                                                                                                     gui_Mouse_Over_Texture_ID : 59;
+                                                                                                     gui_Mouse_Down_Texture_ID : 59));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      FInGame_UI_Magic_WWT_Btn_Page_7_B3      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B3  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 209;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 209;
+                                                                                                     gui_Mouse_Over_Texture_ID : 209;
+                                                                                                     gui_Mouse_Down_Texture_ID : 209));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_7_B4      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B4  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 273;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 273;
+                                                                                                     gui_Mouse_Over_Texture_ID : 273;
+                                                                                                     gui_Mouse_Down_Texture_ID : 273));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      FInGame_UI_Magic_WWT_Btn_Page_7_B5      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B5  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 451;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 305;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 305;
+                                                                                                     gui_Mouse_Over_Texture_ID : 305;
+                                                                                                     gui_Mouse_Down_Texture_ID : 305));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                 
+      FInGame_UI_Magic_WWT_Btn_Page_7_B6      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B6  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B6;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 245;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 245;
+                                                                                                     gui_Mouse_Over_Texture_ID : 245;
+                                                                                                     gui_Mouse_Down_Texture_ID : 245));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_7_B7      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B7  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B7;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 511;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 307;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 307;
+                                                                                                     gui_Mouse_Over_Texture_ID : 307;
+                                                                                                     gui_Mouse_Down_Texture_ID : 307));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_7_B8      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B8  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B8;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 91;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 39;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 39;
+                                                                                                     gui_Mouse_Over_Texture_ID : 39;
+                                                                                                     gui_Mouse_Down_Texture_ID : 39));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_7_B9      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B9  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B9;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 63;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 63;
+                                                                                                     gui_Mouse_Over_Texture_ID : 63;
+                                                                                                     gui_Mouse_Down_Texture_ID : 63));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_7_B10     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B10 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B10;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 223;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 223;
+                                                                                                     gui_Mouse_Over_Texture_ID : 223;
+                                                                                                     gui_Mouse_Down_Texture_ID : 223));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_7_B11     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B11 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B11;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 285;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 41;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 41;
+                                                                                                     gui_Mouse_Over_Texture_ID : 41;
+                                                                                                     gui_Mouse_Down_Texture_ID : 41));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_7_B12     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B12 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B12;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 285;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 207;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 207;
+                                                                                                     gui_Mouse_Over_Texture_ID : 207;
+                                                                                                     gui_Mouse_Down_Texture_ID : 207));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+      FInGame_UI_Magic_WWT_Btn_Page_7_B13     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_7_B13 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B13;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 285;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 253;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 253;
+                                                                                                     gui_Mouse_Over_Texture_ID : 253;
+                                                                                                     gui_Mouse_Down_Texture_ID : 253));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      (* Begin WWT Page 8 *)
+      FInGame_UI_Magic_WWT_Btn_Page_8_B1      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B1  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 91;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 5;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 5;
+                                                                                                     gui_Mouse_Over_Texture_ID : 5;
+                                                                                                     gui_Mouse_Down_Texture_ID : 5));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      FInGame_UI_Magic_WWT_Btn_Page_8_B2      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B2  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 151;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 13;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 13;
+                                                                                                     gui_Mouse_Over_Texture_ID : 13;
+                                                                                                     gui_Mouse_Down_Texture_ID : 13));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_8_B3      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B3  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 211;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 23;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 23;
+                                                                                                     gui_Mouse_Over_Texture_ID : 23;
+                                                                                                     gui_Mouse_Down_Texture_ID : 23));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_8_B4      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B4  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 49;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 49;
+                                                                                                     gui_Mouse_Over_Texture_ID : 49;
+                                                                                                     gui_Mouse_Down_Texture_ID : 49));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_8_B5      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B5  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 69;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 69;
+                                                                                                     gui_Mouse_Over_Texture_ID : 69;
+                                                                                                     gui_Mouse_Down_Texture_ID : 69));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_8_B6      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B6  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B6;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 391;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 205;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 205;
+                                                                                                     gui_Mouse_Over_Texture_ID : 205;
+                                                                                                     gui_Mouse_Down_Texture_ID : 205));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_8_B7      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B7  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B7;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 511;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 263;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 263;
+                                                                                                     gui_Mouse_Over_Texture_ID : 263;
+                                                                                                     gui_Mouse_Down_Texture_ID : 263));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_8_B8      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B8  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B8;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 631;
+                                              gui_Left                   : 105;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 275;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 275;
+                                                                                                     gui_Mouse_Over_Texture_ID : 275;
+                                                                                                     gui_Mouse_Down_Texture_ID : 275));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+      FInGame_UI_Magic_WWT_Btn_Page_8_B9      : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B9  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B9;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 51;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 51;
+                                                                                                     gui_Mouse_Over_Texture_ID : 51;
+                                                                                                     gui_Mouse_Down_Texture_ID : 51));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_8_B10     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B10 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B10;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 391;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 67;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 67;
+                                                                                                     gui_Mouse_Over_Texture_ID : 67;
+                                                                                                     gui_Mouse_Down_Texture_ID : 67));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_8_B11     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B11 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B11;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 571;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 261;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 261;
+                                                                                                     gui_Mouse_Over_Texture_ID : 261;
+                                                                                                     gui_Mouse_Down_Texture_ID : 261));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_8_B12     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B12 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B12;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 631;
+                                              gui_Left                   : 165;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 277;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 277;
+                                                                                                     gui_Mouse_Over_Texture_ID : 277;
+                                                                                                     gui_Mouse_Down_Texture_ID : 277));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_8_B13     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B13 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B13;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 53;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 53;
+                                                                                                     gui_Mouse_Over_Texture_ID : 53;
+                                                                                                     gui_Mouse_Down_Texture_ID : 53));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_WWT_Btn_Page_8_B14     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B14 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B14;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 331;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 213;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 213;
+                                                                                                     gui_Mouse_Over_Texture_ID : 213;
+                                                                                                     gui_Mouse_Down_Texture_ID : 213));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_8_B15     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B15 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B15;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 391;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 215;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 215;
+                                                                                                     gui_Mouse_Over_Texture_ID : 215;
+                                                                                                     gui_Mouse_Down_Texture_ID : 215));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_WWT_Btn_Page_8_B16     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B16 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B16;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 451;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 217;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 217;
+                                                                                                     gui_Mouse_Over_Texture_ID : 217;
+                                                                                                     gui_Mouse_Down_Texture_ID : 217));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_8_B17     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B17 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B17;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 511;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 255;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 255;
+                                                                                                     gui_Mouse_Over_Texture_ID : 255;
+                                                                                                     gui_Mouse_Down_Texture_ID : 255));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_8_B18     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B18 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B18;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 631;
+                                              gui_Left                   : 225;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 299;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 299;
+                                                                                                     gui_Mouse_Over_Texture_ID : 299; 
+                                                                                                     gui_Mouse_Down_Texture_ID : 299));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_WWT_Btn_Page_8_B19     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B19 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B19;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 391;
+                                              gui_Left                   : 285;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 203;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 203;
+                                                                                                     gui_Mouse_Over_Texture_ID : 203;
+                                                                                                     gui_Mouse_Down_Texture_ID : 203));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_8_B20     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B20 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B20;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 451;
+                                              gui_Left                   : 285;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 211;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 211;
+                                                                                                     gui_Mouse_Over_Texture_ID : 211;
+                                                                                                     gui_Mouse_Down_Texture_ID : 211));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_8_B21     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B21 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B21;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 511;
+                                              gui_Left                   : 285;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 251;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 251;
+                                                                                                     gui_Mouse_Over_Texture_ID : 251;
+                                                                                                     gui_Mouse_Down_Texture_ID : 251));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );     
+      FInGame_UI_Magic_WWT_Btn_Page_8_B22     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B22 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B22;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 571;
+                                              gui_Left                   : 285;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 259;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 259;
+                                                                                                     gui_Mouse_Over_Texture_ID : 259;
+                                                                                                     gui_Mouse_Down_Texture_ID : 259));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_WWT_Btn_Page_8_B23     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B23 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B23;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 631;
+                                              gui_Left                   : 285;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 301;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 301;
+                                                                                                     gui_Mouse_Over_Texture_ID : 301;
+                                                                                                     gui_Mouse_Down_Texture_ID : 301));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_8_B24     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B24 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B24;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 91;
+                                              gui_Left                   : 345;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 7;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 7;
+                                                                                                     gui_Mouse_Over_Texture_ID : 7;
+                                                                                                     gui_Mouse_Down_Texture_ID : 7));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_WWT_Btn_Page_8_B25     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B25 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B25;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 271;
+                                              gui_Left                   : 345;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 71;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 71;
+                                                                                                     gui_Mouse_Over_Texture_ID : 71;
+                                                                                                     gui_Mouse_Down_Texture_ID : 71));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_WWT_Btn_Page_8_B26     : ({$REGION ' - FInGame_UI_Magic_WWT_Btn_Page_8_B26 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B26;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 391;
+                                              gui_Left                   : 345;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 249;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 249;
+                                                                                                     gui_Mouse_Over_Texture_ID : 249;
+                                                                                                     gui_Mouse_Down_Texture_ID : 249));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      {$ENDREGION}
          
-         {$REGION ' - Magic Assassin '}
+      {$REGION ' - Magic Assassin '}
       FInGame_UI_Magic_ASS_Window             : ({$REGION ' - FInGame_UI_Magic_ASS_Window     '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW;
                                               gui_Type                   : ctForm;
@@ -7196,7 +9403,7 @@ var
                                               gui_Width                  : 360;
                                               gui_Blend_Size             : 240;
                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 740);
+                                                                            gui_Background_Texture_ID    : 741);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -7211,8 +9418,8 @@ var
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 1221;
-                                                                            gui_Mouse_Down_Texture_ID    : 1222);
+                                                                            gui_Mouse_Over_Texture_ID    : 1222;
+                                                                            gui_Mouse_Down_Texture_ID    : 1223);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -7226,15 +9433,28 @@ var
                                               gui_Left                   : 18;
                                               gui_Height                 : 335;
                                               gui_Width                  : 303;
-                                              gui_Cut_Rect_Position_Y    : 265; // Max for Scroll 
+                                              gui_Cut_Rect_Position_Y    : 0; 
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 741);
-                                              gui_Color                  : (gui_ControlColor : $FF131313;
-                                                                            gui_BorderColor  : $FF030303);
+                                                                            gui_Background_Texture_ID    : 742);
                                               gui_Use_Cut_Rect           : True;
-                                              gui_ShowBorder             : True;
-                                              gui_ShowPanel              : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_ASS_Text_Info          : ({$REGION ' - FInGame_UI_Magic_ASS_Text_Info  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_TEXT_INFO;
+                                              gui_Type                   : ctPanel;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 406;
+                                              gui_Left                   : 19;
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 286;
+                                              gui_Blend_Size             : 205;
+                                              //gui_Color                  : (gui_ControlColor : $FF131313;
+                                              //                              gui_BorderColor  : $FF030303);
+                                              //gui_ShowBorder             : True;
+                                              //gui_ShowPanel              : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -7250,10 +9470,10 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 750;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 751;
-                                                                                                         gui_Mouse_Over_Texture_ID : 751;
-                                                                                                         gui_Mouse_Down_Texture_ID : 751);
+                                                                            gui_Mouse_Over_Texture_ID : 751;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 752;
+                                                                                                         gui_Mouse_Over_Texture_ID : 752;
+                                                                                                         gui_Mouse_Down_Texture_ID : 752);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -7270,10 +9490,10 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 752;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 753;
-                                                                                                         gui_Mouse_Over_Texture_ID : 753;
-                                                                                                         gui_Mouse_Down_Texture_ID : 753);
+                                                                            gui_Mouse_Over_Texture_ID : 753;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 754;
+                                                                                                         gui_Mouse_Over_Texture_ID : 754;
+                                                                                                         gui_Mouse_Down_Texture_ID : 754);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -7290,44 +9510,892 @@ var
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 754;
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 755;
-                                                                                                         gui_Mouse_Over_Texture_ID : 755;
-                                                                                                         gui_Mouse_Down_Texture_ID : 755);
+                                                                            gui_Mouse_Over_Texture_ID : 755;
+                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 756;
+                                                                                                         gui_Mouse_Over_Texture_ID : 756;
+                                                                                                         gui_Mouse_Down_Texture_ID : 756);
                                                                             );
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
-     (* Pages 1 - 3
-
-    FInGame_UI_Magic_WWT_Button_Page_1        : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Magic_WWT_Button_Page_2        : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Magic_WWT_Button_Page_3        : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Magic_WWT_Button_Page_4        : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Magic_WWT_Button_Page_5        : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Magic_WWT_Button_Page_6        : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Magic_WWT_Button_Page_7        : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Magic_WWT_Button_Page_8        : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Magic_ASS_Button_Page_1        : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Magic_ASS_Button_Page_2        : TMir3_GUI_Ground_Info;  //
-    FInGame_UI_Magic_ASS_Button_Page_3        : TMir3_GUI_Ground_Info;  //
-
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1          = 752;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_2          = 753;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_3          = 754;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_4          = 755;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_5          = 756;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_6          = 757;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_7          = 758;
-  GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_8          = 759;
-
-  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1          = 802;
-  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_2          = 803;
-  GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_3          = 804;
-     *)
-
-         {$ENDREGION}         
+      FInGame_UI_Magic_ASS_ScrollBar          : ({$REGION ' - FInGame_UI_Magic_ASS_ScrollBar  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR;
+                                              gui_Type                   : ctScrollbar;
+                                              gui_Form_Type              : ftNone;
+                                              gui_WorkField              : (Left:0; Top:0; Right:13; Bottom:327);
+                                              gui_Top                    : 58;
+                                              gui_Left                   : 335;
+                                              gui_Height                 : 327;
+                                              gui_Width                  : 14;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Slider_Texture_ID : 1673);
+                                              gui_ScrollBar_Setup        : (gui_ScrollKind : skVertical;
+                                                                            gui_Slider_Info    : (gui_Min:0;
+                                                                                                  gui_Max:4;
+                                                                                                  gui_Btn_Size:(Left:0; Top:0; Right:16; Bottom:16));
+                                                                           );
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      (* Begin ASS Page 1 *)                 
+      FInGame_UI_Magic_ASS_Btn_Page_1_B1      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B1 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 70; 
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 309;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 309;
+                                                                                                     gui_Mouse_Over_Texture_ID : 309;
+                                                                                                     gui_Mouse_Down_Texture_ID : 309));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_ASS_Btn_Page_1_B2      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B2 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 130;
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 311;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 311;
+                                                                                                     gui_Mouse_Over_Texture_ID : 311;
+                                                                                                     gui_Mouse_Down_Texture_ID : 311));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_ASS_Btn_Page_1_B3      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B3 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 190;
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 313;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 313;
+                                                                                                     gui_Mouse_Over_Texture_ID : 313;
+                                                                                                     gui_Mouse_Down_Texture_ID : 313));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_ASS_Btn_Page_1_B4      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B4 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 250;
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 361;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 361;
+                                                                                                     gui_Mouse_Over_Texture_ID : 361;
+                                                                                                     gui_Mouse_Down_Texture_ID : 361));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_ASS_Btn_Page_1_B5      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B5 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 310; 
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 363;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 363;
+                                                                                                     gui_Mouse_Over_Texture_ID : 363;
+                                                                                                     gui_Mouse_Down_Texture_ID : 363));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_ASS_Btn_Page_1_B6      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B6 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B6;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 70; 
+                                              gui_Left                   : 89; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 315;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 315;
+                                                                                                     gui_Mouse_Over_Texture_ID : 315;
+                                                                                                     gui_Mouse_Down_Texture_ID : 315));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_ASS_Btn_Page_1_B7      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B7 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B7;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 130; 
+                                              gui_Left                   : 89; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 317;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 317;
+                                                                                                     gui_Mouse_Over_Texture_ID : 317;
+                                                                                                     gui_Mouse_Down_Texture_ID : 317));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_ASS_Btn_Page_1_B8      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B8 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B8;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 250; 
+                                              gui_Left                   : 89; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 355;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 355;
+                                                                                                     gui_Mouse_Over_Texture_ID : 355;
+                                                                                                     gui_Mouse_Down_Texture_ID : 355));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_ASS_Btn_Page_1_B9      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B9 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B9;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 310; 
+                                              gui_Left                   : 89; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 367;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 367;
+                                                                                                     gui_Mouse_Over_Texture_ID : 367;
+                                                                                                     gui_Mouse_Down_Texture_ID : 367));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_ASS_Btn_Page_1_B10     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B10 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B10;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 370; 
+                                              gui_Left                   : 89; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 371;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 371;
+                                                                                                     gui_Mouse_Over_Texture_ID : 371;
+                                                                                                     gui_Mouse_Down_Texture_ID : 371));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_ASS_Btn_Page_1_B11     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B11 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B11;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 190; 
+                                              gui_Left                   : 149; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 319;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 319;
+                                                                                                     gui_Mouse_Over_Texture_ID : 319;
+                                                                                                     gui_Mouse_Down_Texture_ID : 319));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_ASS_Btn_Page_1_B12     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B12 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B12;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 310; 
+                                              gui_Left                   : 149; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 323;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 323;
+                                                                                                     gui_Mouse_Over_Texture_ID : 323;
+                                                                                                     gui_Mouse_Down_Texture_ID : 323));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_ASS_Btn_Page_1_B13     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B13 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B13;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 370; 
+                                              gui_Left                   : 149; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 373;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 373;
+                                                                                                     gui_Mouse_Over_Texture_ID : 373;
+                                                                                                     gui_Mouse_Down_Texture_ID : 373));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+      FInGame_UI_Magic_ASS_Btn_Page_1_B14     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B14 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B14;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 70; 
+                                              gui_Left                   : 209; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 353;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 353;
+                                                                                                     gui_Mouse_Over_Texture_ID : 353;
+                                                                                                     gui_Mouse_Down_Texture_ID : 353));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_ASS_Btn_Page_1_B15     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B15 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B15;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 130; 
+                                              gui_Left                   : 209; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 357;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 357;
+                                                                                                     gui_Mouse_Over_Texture_ID : 357;
+                                                                                                     gui_Mouse_Down_Texture_ID : 357));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_ASS_Btn_Page_1_B16     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B16 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B16;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 250; 
+                                              gui_Left                   : 209; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 321;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 321;
+                                                                                                     gui_Mouse_Over_Texture_ID : 321;  
+                                                                                                     gui_Mouse_Down_Texture_ID : 321));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_ASS_Btn_Page_1_B17     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B17 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B17;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 310; 
+                                              gui_Left                   : 209; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 369;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 369;
+                                                                                                     gui_Mouse_Over_Texture_ID : 369;
+                                                                                                     gui_Mouse_Down_Texture_ID : 369));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_ASS_Btn_Page_1_B18     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B18 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B18;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 70; 
+                                              gui_Left                   : 269; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 325;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 325;
+                                                                                                     gui_Mouse_Over_Texture_ID : 325; 
+                                                                                                     gui_Mouse_Down_Texture_ID : 325));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      FInGame_UI_Magic_ASS_Btn_Page_1_B19     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B19 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B19;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 130; 
+                                              gui_Left                   : 269; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 327;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 327;
+                                                                                                     gui_Mouse_Over_Texture_ID : 327;
+                                                                                                     gui_Mouse_Down_Texture_ID : 327));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_ASS_Btn_Page_1_B20     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B20 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B20;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 190; 
+                                              gui_Left                   : 269; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 359;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 359;
+                                                                                                     gui_Mouse_Over_Texture_ID : 359;
+                                                                                                     gui_Mouse_Down_Texture_ID : 359));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_ASS_Btn_Page_1_B21     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B21 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B21;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 250; 
+                                              gui_Left                   : 269; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 365;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 365;
+                                                                                                     gui_Mouse_Over_Texture_ID : 365;
+                                                                                                     gui_Mouse_Down_Texture_ID : 365));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      (* Begin ASS Page 2 *) 
+      FInGame_UI_Magic_ASS_Btn_Page_2_B1      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_2_B1 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 70; 
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 329;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 329;
+                                                                                                     gui_Mouse_Over_Texture_ID : 329;
+                                                                                                     gui_Mouse_Down_Texture_ID : 329));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_ASS_Btn_Page_2_B2      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_2_B2 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 130; 
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 331;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 331;
+                                                                                                     gui_Mouse_Over_Texture_ID : 331; 
+                                                                                                     gui_Mouse_Down_Texture_ID : 331));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_ASS_Btn_Page_2_B3      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_2_B3 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 310; 
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 337;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 337;
+                                                                                                     gui_Mouse_Over_Texture_ID : 337;  
+                                                                                                     gui_Mouse_Down_Texture_ID : 337));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_ASS_Btn_Page_2_B4      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_2_B4 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 430; 
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 339;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 339;
+                                                                                                     gui_Mouse_Over_Texture_ID : 339;
+                                                                                                     gui_Mouse_Down_Texture_ID : 339));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_ASS_Btn_Page_2_B5      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_2_B5 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 190; 
+                                              gui_Left                   : 89; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 333;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 333;
+                                                                                                     gui_Mouse_Over_Texture_ID : 333;
+                                                                                                     gui_Mouse_Down_Texture_ID : 333));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_ASS_Btn_Page_2_B6      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_2_B6 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B6;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 250; 
+                                              gui_Left                   : 149; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 335;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 335;
+                                                                                                     gui_Mouse_Over_Texture_ID : 335;  
+                                                                                                     gui_Mouse_Down_Texture_ID : 335));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_ASS_Btn_Page_2_B7      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_2_B7 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B7;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 310; 
+                                              gui_Left                   : 149; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 375;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 375;
+                                                                                                     gui_Mouse_Over_Texture_ID : 375; 
+                                                                                                     gui_Mouse_Down_Texture_ID : 375));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Magic_ASS_Btn_Page_2_B8      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_2_B8 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B8;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 70; 
+                                              gui_Left                   : 269; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 341;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 341;
+                                                                                                     gui_Mouse_Over_Texture_ID : 341;
+                                                                                                     gui_Mouse_Down_Texture_ID : 341));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_ASS_Btn_Page_2_B9      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_2_B9 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B9;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 130; 
+                                              gui_Left                   : 269; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 377;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 377;
+                                                                                                     gui_Mouse_Over_Texture_ID : 377; 
+                                                                                                     gui_Mouse_Down_Texture_ID : 377));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+      (* Begin ASS Page 3 *) 
+      FInGame_UI_Magic_ASS_Btn_Page_3_B1      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_3_B1 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B1;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 70; 
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 343;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 343;
+                                                                                                     gui_Mouse_Over_Texture_ID : 343;
+                                                                                                     gui_Mouse_Down_Texture_ID : 343));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_ASS_Btn_Page_3_B2      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_3_B2 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B2;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 130; 
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 345;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 345;
+                                                                                                     gui_Mouse_Over_Texture_ID : 345;
+                                                                                                     gui_Mouse_Down_Texture_ID : 345));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                ); 
+      FInGame_UI_Magic_ASS_Btn_Page_3_B3      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_3_B3 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B3;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 250; 
+                                              gui_Left                   : 29; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 349;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 349;
+                                                                                                     gui_Mouse_Over_Texture_ID : 349; 
+                                                                                                     gui_Mouse_Down_Texture_ID : 349));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_ASS_Btn_Page_3_B4      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_3_B4 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B4;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 70; 
+                                              gui_Left                   : 89; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 379;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 379;
+                                                                                                     gui_Mouse_Over_Texture_ID : 379;
+                                                                                                     gui_Mouse_Down_Texture_ID : 379));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );  
+      FInGame_UI_Magic_ASS_Btn_Page_3_B5      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_3_B5 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B5;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 190; 
+                                              gui_Left                   : 89; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 347;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 347;
+                                                                                                     gui_Mouse_Over_Texture_ID : 347;
+                                                                                                     gui_Mouse_Down_Texture_ID : 347));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_ASS_Btn_Page_3_B6      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_3_B6 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B6;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 70; 
+                                              gui_Left                   : 269; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 351;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 351;
+                                                                                                     gui_Mouse_Over_Texture_ID : 351;
+                                                                                                     gui_Mouse_Down_Texture_ID : 351));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );   
+      FInGame_UI_Magic_ASS_Btn_Page_3_B7      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_3_B7 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B7;
+                                              gui_Type                   : ctMagicButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 130; 
+                                              gui_Left                   : 269; 
+                                              gui_Height                 : 32;
+                                              gui_Width                  : 36;
+                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Blend_Size             : 255;
+                                              gui_MagicHintID            : 381;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFFFFF00;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_MICON_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 381;
+                                                                                                     gui_Mouse_Over_Texture_ID : 381;
+                                                                                                     gui_Mouse_Down_Texture_ID : 381));
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
+         {$ENDREGION}    
+         
       {$ENDREGION}  
 
       {$REGION ' - Quest Window UI System          '}
@@ -7349,14 +10417,14 @@ var
                                               gui_Height                 : 256;
                                               gui_Width                  : 256;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 170);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 171);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
-      FInGame_UI_Group_Window_Text            : ({$REGION ' - FInGame_UI_Group_Window_Text  '}
-                                              gui_Unique_Control_Number  : GUI_ID_INGAME_GROUP_UI_WINDOW_TEXT;
+      FInGame_UI_Group_Text_Group_Leader      : ({$REGION ' - FInGame_UI_Group_Text_Group_Leader  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_GROUP_UI_TEXT_LEADER;
                                               gui_Type                   : ctTextLabel;
                                               gui_Form_Type              : ftNone;
                                               gui_Top                    : 32;
@@ -7385,9 +10453,9 @@ var
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 252;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 1221;
-                                                                            gui_Mouse_Down_Texture_ID    : 1222);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 1222;
+                                                                            gui_Mouse_Down_Texture_ID : 1223);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -7402,8 +10470,8 @@ var
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 253;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Down_Texture_ID    : 172);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Down_Texture_ID : 173);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -7418,8 +10486,8 @@ var
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 254;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Down_Texture_ID    : 174);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Down_Texture_ID : 175);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -7434,8 +10502,8 @@ var
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Down_Texture_ID    : 176);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Down_Texture_ID : 177);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -7450,28 +10518,13 @@ var
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 256;
-                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-
-                                                                            gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 178;
-                                                                                                         gui_Mouse_Over_Texture_ID : 178
-                                                                                                        );
-                                                                            );
+                                              gui_Control_Texture        : (gui_Texture_File_ID   : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Extra_Texture_Set : (gui_Background_Texture_ID : 179;
+                                                                                                     gui_Mouse_Over_Texture_ID : 179));
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
-
-(*
-  GUI_ID_INGAME_GROUP_UI_WINDOW                   = 216;
-  GUI_ID_INGAME_GROUP_UI_WINDOW_TEXT              = 217;
-  GUI_ID_INGAME_GROUP_UI_LIST_MEMBER              = 218;
-  GUI_ID_INGAME_GROUP_UI_BTN_ADD_MEMBER           = 219;
-  GUI_ID_INGAME_GROUP_UI_BTN_DEL_MEMBER           = 220;
-  GUI_ID_INGAME_GROUP_UI_BTN_CREATE_GROUP         = 221;
-  GUI_ID_INGAME_GROUP_UI_BTN_PERMIT_GROUP         = 222;
-  GUI_ID_INGAME_GROUP_UI_BTN_CLOSE                = 223;
-*)
-
       {$ENDREGION}        
       
       {$REGION ' - Guild Window UI System          '}
@@ -7529,8 +10582,8 @@ var
                                               gui_Height                 : 128;
                                               gui_Width                  : 256;
                                               gui_Blend_Size             : 255;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID    : 410);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 411);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -7569,8 +10622,8 @@ var
                                                                             gui_Font_Color       : $FFF5F5F5;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 411);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 412);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -7593,8 +10646,8 @@ var
                                                                             gui_Font_Color       : $FFF5F5F5;
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter);
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 411);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 412);
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
                                                                             gui_ColorPress       : $FFF0F0F0;
                                                                             gui_ColorDisabled    : $FF808080);
@@ -7612,9 +10665,9 @@ var
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 195;
-                                              gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID    : 1221;
-                                                                            gui_Mouse_Down_Texture_ID    : 1222);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 1222;
+                                                                            gui_Mouse_Down_Texture_ID : 1223);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -7624,34 +10677,6 @@ var
     {$ENDREGION}
 
   );
-
-
-
-  
-(*
-
-                                   gui_WorkField              : (Left:0; Top:0; Right:306; Bottom:226);
-
-                                   gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
-                                                                 gui_Background_Texture_ID    : 420;
-                                                                 gui_Mouse_Over_Texture_ID    : 0;
-                                                                 gui_Mouse_Down_Texture_ID    : 0;
-                                                                 gui_Mouse_Select_Texture_ID  : 0;
-                                                                 gui_Mouse_Disable_Texture_ID : 0;
-                                                                 gui_Slider_Texture_ID        : 0;
-                                                                 gui_Random_Texture_From      : 0;
-                                                                 gui_Random_Texture_To        : 0);
-
-                                     gui_Font                   : (gui_Font_Size        : 16;
-                                                                   gui_Font_Color       : $FFF2F2F2;
-                                                                   gui_Font_Use_Kerning : False;
-                                                                   gui_Font_Text_HAlign : alCenter;
-                                                                   gui_Font_Text_VAlign : avCenter;
-                                                                   gui_Font_Setting     : [fsBold]);
-
-*)
-
-
 
 implementation
 

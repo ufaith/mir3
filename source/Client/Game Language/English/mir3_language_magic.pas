@@ -45,7 +45,7 @@ begin
     (*******************************************************************
     *                  Magic  Informations strings                     *
     *******************************************************************)
-    1: Value := '';
+    1: Value := 'Fix me in Language File';
     //...
   199: Value := '';
     else Value := 'Unsupport';

@@ -1,32 +1,35 @@
-(*******************************************************************
- *   LomCN Mir3 InGame Scene File 2013                             *
- *                                                                 *
- *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.1                                           *
- *                                                                 *
- *   - File Info -                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- * Change History                                                  *
- *                                                                 *
- *  - 0.0.0.1 [2013-01-01] Coly : first init                       *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- *  - TODO List for this *.pas file -                              *
- *-----------------------------------------------------------------*
- *  if a todo finished, then delete it here...                     *
- *  if you find a global TODO thats need to do, then add it here.. *
- *-----------------------------------------------------------------*
- *                                                                 *
- *  - TODO : -all -fill *.pas header information                   *
- *                 (how to need this file etc.)                    *
- *                                                                 *
- *******************************************************************)
+(*****************************************************************************************
+ *   LomCN Mir3 InGame Scene File 2013                                                   *
+ *                                                                                       *
+ *   Web       : http://www.lomcn.co.uk                                                  *
+ *   Version   : 0.0.0.4                                                                 *
+ *                                                                                       *
+ *   - File Info -                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ * Change History                                                                        *
+ *                                                                                       *
+ *  - 0.0.0.1 [2013-01-01] Coly : first init                                             *
+ *  - 0.0.0.2 [2013-03-24] Coly : Add Body Window with many new functions                * 
+ *  - 0.0.0.3 [2013-03-24] Coly : Add Group Window                                       *
+ *  - 0.0.0.4 [2013-03-25] Coly : Add Magic Window (War,Wiz,Tao,Ass) with logic          *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ *  - TODO List for this *.pas file -                                                    *
+ *---------------------------------------------------------------------------------------*
+ *  if a todo finished, then delete it here...                                           *
+ *  if you find a global TODO thats need to do, then add it here..                       *
+ *---------------------------------------------------------------------------------------*
+ *                                                                                       *
+ *  - TODO : -all -fill *.pas header information                                         *
+ *                 (how to need this file etc.)                                          *
+ *                                                                                       *
+ *****************************************************************************************)
 
 unit mir3_game_scene_ingame;
 
@@ -73,6 +76,8 @@ type
     FRushTime           : LongWord;
     FMoveTick           : Boolean;
     FMoveStepCount      : Integer;
+    FMagicWWTPageActive : Integer;  // Used for War,Wiz,Tao Magic Window (get active Page back)
+    FMagicASSPageActive : Integer;  // Used for Assassin Magic Window (get active Page back)
   strict private
     procedure Create_ExitWindow_UI_Interface;
     procedure Create_Bottm_UI_Interface;
@@ -110,7 +115,7 @@ type
     procedure EventGameSettingWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventBodyWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventBodyShowWindow(AEventType: Integer; AEventControl: Integer);
-    procedure EventMagicWindowWindow(AEventType: Integer; AEventControl: Integer);
+    procedure EventMagicWindow(AEventType: Integer; AEventControl: Integer);
   public
     (* Game Process Functions *)
     function GamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT;
@@ -523,7 +528,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FGroupForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Group_Window, False));
-          Self.AddControl(FGroupForm, FInGame_UI_Group_Window_Text       , True);
+          Self.AddControl(FGroupForm, FInGame_UI_Group_Text_Group_Leader , True);    
           Self.AddControl(FGroupForm, FInGame_UI_Group_Btn_Close         , True);
           Self.AddControl(FGroupForm, FInGame_UI_Group_Btn_Add_Member    , True);
           Self.AddControl(FGroupForm, FInGame_UI_Group_Btn_Delete_Member , True);
@@ -541,7 +546,9 @@ uses mir3_misc_ingame, mir3_game_backend;
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FMagicWWTForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Magic_WWT_Window, False));
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_ScrollBar     , True);
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_PageControl   , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Text_Info     , True);
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Close     , True);
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_1 , True);
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_2 , True);
@@ -552,18 +559,293 @@ uses mir3_misc_ingame, mir3_game_backend;
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_7 , True);
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_8 , True);
 
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_1_B1 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_1_B2 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_1_B3 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_1_B4 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_1_B5 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_1_B6 , True);
+
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_2_B1 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_2_B2 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_2_B3 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_2_B4 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_2_B5 , False);
+                                                                            
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_3_B1 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_3_B2 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_3_B3 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_3_B4 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_3_B5 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_3_B6 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_3_B7 , False);
+
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_4_B1 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_4_B2 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_4_B3 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_4_B4 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_4_B5 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_4_B6 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_4_B7 , False);
+
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_5_B1 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_5_B2 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_5_B3 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_5_B4 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_5_B5 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_5_B6 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_5_B7 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_5_B8 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_5_B9 , False);
+
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B1 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B2 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B3 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B4 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B5 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B6 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B7 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B8 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B9 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B10, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B11, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_6_B12, False);
+
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B1 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B2 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B3 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B4 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B5 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B6 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B7 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B8 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B9 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B10, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B11, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B12, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_7_B13, False);
+               
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B1 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B2 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B3 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B4 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B5 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B6 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B7 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B8 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B9 , False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B10, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B11, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B12, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B13, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B14, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B15, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B16, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B17, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B18, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B19, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B20, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B21, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B22, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B23, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B24, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B25, False);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B26, False);
+
         (* Assassin Magic Window *)
         FMagicASSForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Magic_ASS_Window, False));
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_ScrollBar     , True);
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_PageControl   , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Text_Info     , True);        
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Close     , True);
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_1 , True);
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_2 , True);
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_3 , True);
 
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B1 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B2 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B3 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B4 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B5 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B6 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B7 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B8 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B9 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B10, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B11, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B12, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B13, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B14, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B15, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B16, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B17, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B18, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B19, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B20, True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B21, True);
+        
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_2_B1 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_2_B2 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_2_B3 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_2_B4 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_2_B5 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_2_B6 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_2_B7 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_2_B8 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_2_B9 , False);
+
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_3_B1 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_3_B2 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_3_B3 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_3_B4 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_3_B5 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_3_B6 , False);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_3_B7 , False);
+        
         (* Setup First Start *)
         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1)).SwitchOn := True;
         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1)).SwitchOn := True;
+        
+        FMagicWWTPageActive := 1;
+        FMagicASSPageActive := 1;
+        
+        // Only for test view
+        (* Page 1 *)
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B5)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B6)).SwitchOn  := True;
+        (* Page 2 *)                                                                            
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B5)).SwitchOn  := True;      
+        (* Page 3 *)                                                                            
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B5)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B6)).SwitchOn  := True; 
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B7)).SwitchOn  := True;
+        (* Page 4 *)                                                                            
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B5)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B6)).SwitchOn  := True; 
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B7)).SwitchOn  := True;
+        (* Page 5 *)                                                                            
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B5)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B6)).SwitchOn  := True; 
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B7)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B8)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B9)).SwitchOn  := True;
+        (* Page 6 *)                                                                            
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B5)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B6)).SwitchOn  := True; 
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B7)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B8)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B9)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B10)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B11)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B12)).SwitchOn := True;
+        (* Page 7 *)                                                                            
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B5)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B6)).SwitchOn  := True; 
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B7)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B8)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B9)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B10)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B11)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B12)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B13)).SwitchOn := True;
+        (* Page 8 *)                                                                            
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B5)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B6)).SwitchOn  := True; 
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B7)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B8)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B9)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B10)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B11)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B12)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B13)).SwitchOn := True;                 
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B14)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B15)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B16)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B17)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B18)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B19)).SwitchOn := True; 
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B20)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B21)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B22)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B23)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B24)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B25)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B26)).SwitchOn := True;
 
+        (* Assassen Test Button *)
+        
+        (* Page 1 *)
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B5)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B6)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B7)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B8)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B9)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B10)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B11)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B12)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B13)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B14)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B15)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B16)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B17)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B18)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B19)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B20)).SwitchOn := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B21)).SwitchOn := True;
+        (* Page 2 *)
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B5)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B6)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B7)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B8)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B9)).SwitchOn  := True;
+        (* Page 2 *)
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B1)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B2)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B3)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B4)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B5)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B6)).SwitchOn  := True;
+        TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B7)).SwitchOn  := True;
       end;
     end;
 
@@ -1223,7 +1505,7 @@ uses mir3_misc_ingame, mir3_game_backend;
             GUI_ID_INGAME_GAME_SETTING_UI_BTN_CLOSE    : TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).Visible := False;
             GUI_ID_INGAME_GAME_SETTING_UI_BTN_BASIC    : begin
               // Show Page 1  -- Hide Page 2-4
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(290);
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(291);
               ChangeVisiblePage2(False);
               ChangeVisiblePage3(False);
               ChangeVisiblePage4(False);
@@ -1231,7 +1513,7 @@ uses mir3_misc_ingame, mir3_game_backend;
             end;
             GUI_ID_INGAME_GAME_SETTING_UI_BTN_PERMIT   : begin
               // Show Page 2  -- Hide Page 1,3-4
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(291);
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(292);
               ChangeVisiblePage1(False);
               ChangeVisiblePage3(False);
               ChangeVisiblePage4(False);
@@ -1239,7 +1521,7 @@ uses mir3_misc_ingame, mir3_game_backend;
             end;
             GUI_ID_INGAME_GAME_SETTING_UI_BTN_CHATTING : begin
               // Show Page 3  -- Hide Page 1-2,4
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(292);
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(293);
               ChangeVisiblePage1(False);
               ChangeVisiblePage2(False);
               ChangeVisiblePage4(False);
@@ -1247,7 +1529,7 @@ uses mir3_misc_ingame, mir3_game_backend;
             end;
             GUI_ID_INGAME_GAME_SETTING_UI_BTN_VISUAL   : begin
               // Show Page 4  -- Hide Page 1-3
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(293);
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(294);
               ChangeVisiblePage1(False);
               ChangeVisiblePage2(False);
               ChangeVisiblePage3(False);
@@ -1295,64 +1577,201 @@ uses mir3_misc_ingame, mir3_game_backend;
         end;
       end;
     end;
-    
-    procedure TMir3GameSceneInGame.EventMagicWindowWindow(AEventType: Integer; AEventControl: Integer);
 
+    procedure TMir3GameSceneInGame.EventMagicWindow(AEventType: Integer; AEventControl: Integer);
+    
        procedure ChangeVisiblePageWWT_1(APageVisible: Boolean);
        begin
-         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1)).SwitchOn := APageVisible;
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1)).SwitchOn    := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B3)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B4)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B5)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B6)).Visible := APageVisible;
        end;
 
        procedure ChangeVisiblePageWWT_2(APageVisible: Boolean);
        begin
-         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_2)).SwitchOn := APageVisible;
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_2)).SwitchOn    := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B1)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B2)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B3)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B4)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B5)).Visible := APageVisible;      
        end;
 
        procedure ChangeVisiblePageWWT_3(APageVisible: Boolean);
        begin
-         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_3)).SwitchOn := APageVisible;
-       end;
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_3)).SwitchOn    := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B1)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B2)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B3)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B4)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B5)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B6)).Visible := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B7)).Visible := APageVisible;      
+      end;
 
        procedure ChangeVisiblePageWWT_4(APageVisible: Boolean);
        begin
-         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_4)).SwitchOn := APageVisible;
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_4)).SwitchOn    := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B1)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B2)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B3)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B4)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B5)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B6)).Visible := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B7)).Visible := APageVisible; 
        end;
 
        procedure ChangeVisiblePageWWT_5(APageVisible: Boolean);
        begin
-         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_5)).SwitchOn := APageVisible;
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_5)).SwitchOn    := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B1)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B2)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B3)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B4)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B5)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B6)).Visible := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B7)).Visible := APageVisible; 
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B8)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B9)).Visible := APageVisible;
        end;
 
        procedure ChangeVisiblePageWWT_6(APageVisible: Boolean);
        begin
-         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_6)).SwitchOn := APageVisible;
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_6)).SwitchOn     := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B1)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B2)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B3)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B4)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B5)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B6)).Visible  := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B7)).Visible  := APageVisible; 
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B8)).Visible  := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B9)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B10)).Visible := APageVisible; 
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B11)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B12)).Visible := APageVisible;
        end;
 
        procedure ChangeVisiblePageWWT_7(APageVisible: Boolean);
        begin
-         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_7)).SwitchOn := APageVisible;
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_7)).SwitchOn     := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B1)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B2)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B3)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B4)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B5)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B6)).Visible  := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B7)).Visible  := APageVisible; 
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B8)).Visible  := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B9)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B10)).Visible := APageVisible; 
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B11)).Visible := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B12)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B13)).Visible := APageVisible;
        end;
 
        procedure ChangeVisiblePageWWT_8(APageVisible: Boolean);
        begin
-         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_8)).SwitchOn := APageVisible;
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_8)).SwitchOn     := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B1)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B2)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B3)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B4)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B5)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B6)).Visible  := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B7)).Visible  := APageVisible; 
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B8)).Visible  := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B9)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B10)).Visible := APageVisible; 
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B11)).Visible := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B12)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B13)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B14)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B15)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B16)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B17)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B18)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B19)).Visible := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B20)).Visible := APageVisible; 
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B21)).Visible := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B22)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B23)).Visible := APageVisible; 
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B24)).Visible := APageVisible;      
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B25)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B26)).Visible := APageVisible;         
        end;
 
        procedure ChangeVisiblePageASS_1(APageVisible: Boolean);
        begin
-         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1)).SwitchOn := APageVisible;
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1)).SwitchOn     := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B1)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B2)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B3)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B4)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B5)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B6)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B7)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B8)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B9)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B10)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B11)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B12)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B13)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B14)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B15)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B16)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B17)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B18)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B19)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B20)).Visible := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B21)).Visible := APageVisible;                  
        end;
 
        procedure ChangeVisiblePageASS_2(APageVisible: Boolean);
        begin
-         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_2)).SwitchOn := APageVisible;
+         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_2)).SwitchOn     := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B1)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B2)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B3)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B4)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B5)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B6)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B7)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B8)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B9)).Visible  := APageVisible;         
        end;
 
        procedure ChangeVisiblePageASS_3(APageVisible: Boolean);
        begin
          TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_3)).SwitchOn := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B1)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B2)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B3)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B4)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B5)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B6)).Visible  := APageVisible;
+         TMIR3_GUI_MagicButton(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B7)).Visible  := APageVisible;         
        end;
-
+       
+       procedure CalculateButton(AOffset: Integer; AButton: TMIR3_GUI_Button);
+       begin
+         with TMIR3_GUI_Button(AButton) , FGUI_Defination do
+         begin
+//           gui_Extra_Offset_Y := AOffset;
+//           if (FTop - AOffset) < 0 then
+//             Visible := False
+//           else Visible := True;
+           gui_Extra_Offset_Y :=  -AOffset;
+         end;             
+       end;
+       
+    var
+      FTempTop    : Integer;
+      FTempOffset : Integer;
     begin
       case AEventType of
         EVENT_BUTTON_UP   : begin
@@ -1364,7 +1783,8 @@ uses mir3_misc_ingame, mir3_game_backend;
               TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW)).Visible := False;
             end;
             GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(711);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(712);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
               ChangeVisiblePageWWT_2(False);
               ChangeVisiblePageWWT_3(False);
               ChangeVisiblePageWWT_4(False);
@@ -1373,9 +1793,11 @@ uses mir3_misc_ingame, mir3_game_backend;
               ChangeVisiblePageWWT_7(False);
               ChangeVisiblePageWWT_8(False);
               ChangeVisiblePageWWT_1(True);
+              FMagicWWTPageActive := 1;
             end;
             GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_2 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(712);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(713);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
               ChangeVisiblePageWWT_1(False);
               ChangeVisiblePageWWT_3(False);
               ChangeVisiblePageWWT_4(False);
@@ -1384,9 +1806,11 @@ uses mir3_misc_ingame, mir3_game_backend;
               ChangeVisiblePageWWT_7(False);
               ChangeVisiblePageWWT_8(False);
               ChangeVisiblePageWWT_2(True);
+              FMagicWWTPageActive := 2;
             end;
             GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_3 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(713);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(714);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
               ChangeVisiblePageWWT_1(False);
               ChangeVisiblePageWWT_2(False);
               ChangeVisiblePageWWT_4(False);
@@ -1395,9 +1819,11 @@ uses mir3_misc_ingame, mir3_game_backend;
               ChangeVisiblePageWWT_7(False);
               ChangeVisiblePageWWT_8(False);
               ChangeVisiblePageWWT_3(True);
+              FMagicWWTPageActive := 3;
             end;
             GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_4 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(714);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(715);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
               ChangeVisiblePageWWT_1(False);
               ChangeVisiblePageWWT_2(False);
               ChangeVisiblePageWWT_3(False);
@@ -1406,9 +1832,11 @@ uses mir3_misc_ingame, mir3_game_backend;
               ChangeVisiblePageWWT_7(False);
               ChangeVisiblePageWWT_8(False);
               ChangeVisiblePageWWT_4(True);
+              FMagicWWTPageActive := 4;
             end;
             GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_5 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(715);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(716);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
               ChangeVisiblePageWWT_1(False);
               ChangeVisiblePageWWT_2(False);
               ChangeVisiblePageWWT_3(False);
@@ -1417,9 +1845,11 @@ uses mir3_misc_ingame, mir3_game_backend;
               ChangeVisiblePageWWT_7(False);
               ChangeVisiblePageWWT_8(False);
               ChangeVisiblePageWWT_5(True);
+              FMagicWWTPageActive := 5;
             end;
             GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_6 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(716);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(717);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
               ChangeVisiblePageWWT_1(False);
               ChangeVisiblePageWWT_2(False);
               ChangeVisiblePageWWT_3(False);
@@ -1428,9 +1858,11 @@ uses mir3_misc_ingame, mir3_game_backend;
               ChangeVisiblePageWWT_7(False);
               ChangeVisiblePageWWT_8(False);
               ChangeVisiblePageWWT_6(True);
+              FMagicWWTPageActive := 6;
             end;
             GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_7 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(717);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(718);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
               ChangeVisiblePageWWT_1(False);
               ChangeVisiblePageWWT_2(False);
               ChangeVisiblePageWWT_3(False);
@@ -1439,9 +1871,11 @@ uses mir3_misc_ingame, mir3_game_backend;
               ChangeVisiblePageWWT_6(False);
               ChangeVisiblePageWWT_8(False);
               ChangeVisiblePageWWT_7(True);
+              FMagicWWTPageActive := 7;
             end;
             GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_8 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(718);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(719);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 138;
               ChangeVisiblePageWWT_1(False);
               ChangeVisiblePageWWT_2(False);
               ChangeVisiblePageWWT_3(False);
@@ -1450,31 +1884,271 @@ uses mir3_misc_ingame, mir3_game_backend;
               ChangeVisiblePageWWT_6(False);
               ChangeVisiblePageWWT_7(False);
               ChangeVisiblePageWWT_8(True);
+              FMagicWWTPageActive := 8;
             end;
             (* Assassin *)
             GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(741);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(742);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)).Maximum := 132;
               ChangeVisiblePageASS_2(False);
               ChangeVisiblePageASS_3(False);
               ChangeVisiblePageASS_1(True);
+              FMagicASSPageActive := 1;
             end;
             GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_2 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(742);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(743);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)).Maximum := 132;
               ChangeVisiblePageASS_1(False);
               ChangeVisiblePageASS_3(False);
               ChangeVisiblePageASS_2(True);
+              FMagicASSPageActive := 2;
             end;
             GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_3 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(743);
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(744);
+              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)).Maximum := 132;
               ChangeVisiblePageASS_1(False);
               ChangeVisiblePageASS_2(False);
               ChangeVisiblePageASS_3(True);
+              FMagicASSPageActive := 3;
             end;
           end;          
         end;
         EVENT_BUTTON_DOWN : begin
           case AEventControl of
             0:;
+          end;
+        end;
+        EVENT_SCROLLBAR_VALUE_CHANGED : begin
+          case AEventControl of
+            GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR : begin
+               
+              with TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)) do
+              begin
+                FTempOffset := (Value * 2);
+              end;
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).FGUI_Defination.gui_Cut_Rect_Position_Y := FTempOffset;
+              case FMagicWWTPageActive of
+                1: begin   // Scollen berechnen in Magic Feldern !?? würde einiges sparen
+
+
+                  //Test if Visible or not
+                  // 265 / 60 = 4 (Max Scroll = 4)
+                  //0 | 1=60 | 2=120 | 3=180 ...
+                  // if Button.Top - FTempOffset < 0 then
+                  //   Visible := False;
+                  // else Visible := True;
+                  // add gui_MagicHintID und füge Hint zu MagicButton Render wo nur das gemacht wird
+                  // 
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B5)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B6)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)));
+
+
+
+
+
+
+                  // 141 Controls = 122 Magic Button, 2 Close Button, 11 Page Button, 2 PageControler, 2 Window Conainer, 2 ScrollBars
+                  (* Spell Name here *)
+                  (* with TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1)) do
+                  begin 
+                    gui_Extra_Offset_Y := -FTempOffset;
+                    if (Top - FTempOffset) < 0 then
+                    begin
+                      Visible := False;
+                    else Visible := True;
+                  end;  
+                  { Spell Name here }
+                  with TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)) do
+                  begin
+                    gui_Extra_Offset_Y := -FTempOffset;
+                    if (Top - FTempOffset) < 0 then
+                    begin
+                      Visible := False;
+                    else Visible := True;
+                  end;
+                  
+                      oder Function like this : 
+                      Wen es geht mit Pointern Teste...
+                      CalculateButton(TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1)));
+                      CalculateButton(TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)));
+                      
+                      procedure CalculateButton(AButton: TMIR3_GUI_Button);
+                      begin
+                        with TMIR3_GUI_Button(AButton) , FGUI_Defination do
+                        begin
+                          gui_Extra_Offset_Y := -FTempOffset;
+                          if (Top - FTempOffset) < 0 then
+                          begin
+                            Visible := False;
+                          else Visible := True;
+                        end;             
+                      end;  
+                   *)
+
+                end;
+                2: begin
+                  //Test if Visible or not
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B5)));
+                end;   
+                3: begin
+                  //Test if Visible or not
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B5)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B6)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B7)));
+                end;
+                4: begin
+                  //Test if Visible or not
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B5)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B6)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B7)));
+                end;
+                5: begin
+                  //Test if Visible or not
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B5)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B6)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B7)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B8)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B9)));
+                end;
+                6: begin
+                  //Test if Visible or not
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B5)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B6)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B7)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B8)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B9)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B10)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B11)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B12)));
+                end;
+                7: begin
+                  //Test if Visible or not
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B5)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B6)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B7)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B8)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B9)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B10)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B11)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B12)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B13)));
+                end;
+                8: begin
+                  //Test if Visible or not
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B5)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B6)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B7)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B8)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B9)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B10)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B11)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B12)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B13)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B14)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B15)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B16)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B17)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B18)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B19)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B20)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B21)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B22)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B23)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B24)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B25)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B26)));
+                end;
+              end;                 
+            end;
+            GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR : begin
+              with TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)) do
+              begin
+                FTempOffset := (Value * 2);
+              end;
+              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).FGUI_Defination.gui_Cut_Rect_Position_Y := FTempOffset;
+              case FMagicASSPageActive of
+                1: begin
+                  //Test if Visible or not
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B5)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B6)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B7)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B8)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B9)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B10)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B11)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B12)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B13)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B14)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B15)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B16)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B17)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B18)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B19)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B20)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B21)));
+
+                end;
+                2: begin
+                  //Test if Visible or not
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B5)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B6)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B7)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B8)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B9)));
+                end;
+                3: begin
+                  //Test if Visible or not
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B1)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B2)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B3)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B4)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B5)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B6)));
+                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B7)));
+                end;
+              end;
+            end;            
           end;
         end;
       end;
@@ -1490,7 +2164,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       case AEventID of
         EVENT_BUTTON_UP   : begin
           with GGameEngine.SceneInGame do
-          begin                                    
+          begin
             case AControl.ControlIdentifier of
               { Mini Map UI Events }
                50..100   : EventMiniMapWindow(AEventID, AControl.ControlIdentifier);
@@ -1506,12 +2180,14 @@ uses mir3_misc_ingame, mir3_game_backend;
               481..488   : EventBeltWindow(AEventID, AControl.ControlIdentifier);
               { Game Setting UI Events }
               601..647   : EventGameSettingWindow(AEventID, AControl.ControlIdentifier);
-              { Magic Window }
-              750..820   : EventMagicWindowWindow(AEventID, AControl.ControlIdentifier);
+              { Free }
+              750..820   : ;
               { Body UI Events }
               901..902   : EventBodyWindow(AEventID, AControl.ControlIdentifier);
               { Body Show UI Events }
               1000..1010 : EventBodyShowWindow(AEventID, AControl.ControlIdentifier);
+              { Magic Windows (WWT and ASS) }
+              2000..2500 : EventMagicWindow(AEventID, AControl.ControlIdentifier);
               (* System Buttons *)
               GUI_ID_SYSINFO_BUTTON_OK   : GGameEngine.SceneInGame.Event_System_Ok;
               GUI_ID_SYSINFO_BUTTON_YES  : GGameEngine.SceneInGame.Event_System_Yes;
@@ -1524,7 +2200,15 @@ uses mir3_misc_ingame, mir3_game_backend;
             0:;
           end;
         end;
-	     end;
+        EVENT_SCROLLBAR_VALUE_CHANGED : begin
+          with GGameEngine.SceneInGame do
+          begin
+            case AControl.ControlIdentifier of
+              2000..2500 : EventMagicWindow(AEventID, AControl.ControlIdentifier);
+            end;
+          end;
+        end;
+	    end;
     end;
 
     ////////////////////////////////////////////////////////////////////////////////
