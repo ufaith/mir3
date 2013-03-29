@@ -153,7 +153,7 @@ begin
                  'you cannot create another character with'   + #10#13 +
                  'the same name for a while. If you wish to'  + #10#13 +
                  'continue, please type your password and'    + #10#13 +
-                 'press the Yes button.';     // 'Yes' sounds awkward but what does the button actually say? It should probably say "Confirm"   Coly: I can use a Text Button with own Text...
+                 'press the "Confirm" button.';     //Coly: I can use a Text Button with own Text... SE: Fixed
     67: Value := 'You cannot create more than %d characters.';
     68: Value := 'Please create a character first.';// by'+ #10#13 +'clicking the New Character button.';
     69: Value := 'Character information cannot be accessed.';
@@ -185,17 +185,17 @@ begin
     91..100 : Value := 'Reserved';
     {Game Settings}
     101: Value := 'Basic';
-    102: Value := 'Permit'; // not great, but I can't find another word that's short enough    Coly: give me some words and I test it...
+    102: Value := 'Permissions'; //'Security'; //'Privileges'; // SE: Try these - I'm pretty sure they will be too long though. //'Permit';
     103: Value := 'Chat';
     104: Value := 'Visual';
     { Page 1 Basic }
-    105: Value := 'Attack Stance (All)';
-    106: Value := 'Attack Stance (Peaceful)';
-    107: Value := 'Attack Stance (Lover)'; //(Dear)'; - Lover, Partner, Spouse, Couple, Marriage
-    108: Value := 'Attack Stance (Master)';
-    109: Value := 'Attack Stance (Group)';
-    110: Value := 'Attack Stance (Guild)';
-    111: Value := 'Attack Stance (Red vs. White)';
+    105: Value := 'Attack Stance: All';
+    106: Value := 'Attack Stance: Peaceful';
+    107: Value := 'Attack Stance: Lover'; //(Dear)'; - Lover, Partner, Spouse, Couple, Marriage
+    108: Value := 'Attack Stance: Master';
+    109: Value := 'Attack Stance: Group';
+    110: Value := 'Attack Stance: Guild';
+    111: Value := 'Attack Stance: Red vs. White';
     112: Value := 'Reserved';
     113: Value := 'Reserved';
     114: Value := 'Change Attack Stance';           // Hint for Attack Mode
@@ -222,8 +222,8 @@ begin
     135: Value := '[ Allow Recall On/Off ]';
     136: Value := 'Allow Trading';
     137: Value := '[ Allow Trading On/Off ]';
-    138: Value := 'Blood Display';                      // I have no idea what this is.  Coly: It is for  blood spatter (we have Textures for it (Only From 18 years up))
-    139: Value := '[ Blood Display On/Off ]';
+    138: Value := 'Blood Splatter Effects (18+)'; // Fixed
+    139: Value := '[ Blood Splatter Effects On/Off ]';
     140: Value := 'Reserved';
     141: Value := 'hint reserved';
     142: Value := 'Reserved';
@@ -242,8 +242,8 @@ begin
     154: Value := 'Guild Messages';
     155: Value := '[ Listen to Guild Messages On/Off ]';
     156: Value := 'Block whispering from User';
-    158: Value := '[ Whispering from User blocked ]';    // Should it be "User %s"?  Coly: no idea, if so we need to add it
-    157: Value := 'Reserved'; //<-- Hint for "Whispering from User blocked"
+    158: Value := '[ Whispering from User blocked ]'; //'[ Whispering from User %s blocked ]'; // SE: it would be nice for the %s to let you know who is blocked - not necessary though
+    157: Value := '[ Whispering from User allowed ]'; //'[ Whispering from User %s allowed ]'; //<-- Hint for "Whispering from User blocked"
     159: Value := 'Reserved';
     160: Value := 'hint reserved';
     161: Value := 'Reserved';
@@ -269,7 +269,7 @@ begin
     180: Value := '[ Dyed Hair Colours On/Off ]';
     181: Value := 'Display Avatar';
     182: Value := '[ Avatar On/Off ]';
-    183: Value := 'Display Monsters on Mini-map';  // The text is a bit to long
+    183: Value := 'Show Monsters on Mini-map';  // The text is a bit too long - SE: fixed?
     184: Value := '[ Monsters on Mini-map On/Off ]';
     185: Value := 'Display Player HP Gauge';
     186: Value := '[ Player HP Gauge On/Off ]';
@@ -368,7 +368,7 @@ begin
     1070: Value := '*';
 
     1071..2000: Value := 'Reserved';
-    else Value := 'Unsupport';
+    else Value := 'Unsupported';
   end;
 
   ////////////////////////////////////////////////////////////////////////////
