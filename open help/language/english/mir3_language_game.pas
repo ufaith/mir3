@@ -15,6 +15,7 @@
  *  - 0.0.0.2 [2013-03-10] Coly : change all and reorg all                    *
  *  - 0.0.0.3 [2013-03-11] Coly : add new lines                               *
  *  - 0.0.0.4 [2013-03-27] SomebodyElse : fix language                        *
+ *  - 0.0.0.4 [2013-02-02] Coly : change some text (use Script Engine)        *
  *                                                                            *
  *                                                                            *
  *                                                                            *
@@ -54,35 +55,35 @@ begin
     2 : Value := 'Exit';                                                                // Button
     3 : Value := 'New Account';                                                         // Button URL
     4 : Value := 'Change Password';                                                     // Button URL
-    5 : Value := 'ID                              PASSWORD';                            // Button
+    5 : Value := 'ID                                      PASSWORD¦CE¦';                // Button
     6 : Value := 'Log In (L)';                                                          // [1] Hint
     7 : Value := 'Exit (X)';                                                            // [2] Hint
     8 : Value := 'New Account (N)';                                                     // [3] Hint
     9 : Value := 'Change Password (P)';                                                 // [4] Hint
     10: Value := 'You have been disconnected.';                                         // Infoboard
-    11: Value := 'The server is currently'+#10#13+'down for maintenance.';              // Infoboard
-    12: Value := 'Cannot connect to the server.'+#10#13+'The server is unreachable.';   // Infoboard
+    11: Value := 'The server is currently\down for maintenance.';                       // Infoboard
+    12: Value := 'Cannot connect to the server.\The server is unreachable.';            // Infoboard
     13: Value := 'Are you sure you want to quit?';
     14: Value := 'Reserved';
     15: Value := 'Reserved';
     { SM_LOGIN_PASSWORD_FAIL }
-    16: Value := 'Your ID or password is incorrect.'      +#10#13+'Please try again.';
-    17: Value := 'You have entered the wrong account'     +#10#13+'information three times.'           +#10#13+'Please try again later.';//'Please restart the game client.';
-    18: Value := 'Unable to access account information.'  +#10#13+'Please try again.';
-    19: Value := 'Your account has been disabled.'        +#10#13+'Please visit www.lomcn.co.uk'+#10#13+'for more information.';
-    20: Value := 'Your game subscription has expired.'    +#10#13+'Please visit www.lomcn.co.uk'+#10#13+'for more information.';
-    21: Value := 'Unknown errors have occurred!'          +#10#13+'Please visit www.lomcn.co.uk'+#10#13+'for more information.';
+    16: Value := 'Your ID or password is incorrect.\Please try again.';
+    17: Value := 'You have entered the wrong account\information three times.\Please try again later.';
+    18: Value := 'Unable to access account information.\Please try again.';
+    19: Value := 'Your account has been disabled.\Please visit www.lomcn.org\for more information.';
+    20: Value := 'Your game subscription has expired.\Please visit www.lomcn.org\for more information.';
+    21: Value := 'Unknown errors have occurred!\Please visit www.lomcn.org\for more information.';
     22: Value := 'Reserved';
     23: Value := 'Reserved';
     24: Value := 'Reserved';
     25: Value := 'Reserved';
     { SM_LOGIN_PASSWORD_OK Verify Subscription }
-    26: Value := 'Your subscription expires today!'     +#10#13+'Please visit http://www.lomcn.co.uk'+#10#13+'for more information.';
-    27: Value := 'Your subscription will expire in'     +#10#13+'%d days.';
-    28: Value := 'Your IP access will be valid for'     +#10#13+'another %d days.';            //'Your IP in use has remaining'         +#10#13+' %d days to access.';
-    29: Value := 'Your IP access expires today!';                                              //'Your IP in use expires today.';
-    30: Value := 'Your IP access will be valid for'     +#10#13+'another %d hours.';           //'Your IP in use has remaining'         +#10#13+' %d hours to access.';
-    31: Value := 'Your ID will be valid for another'    +#10#13+'%d hours.';                   //'Your ID in use has remaining'         +#10#13+' %d hours to access.';
+    26: Value := 'Your subscription expires today!\Please visit http://www.lomcn.org\for more information.';
+    27: Value := 'Your subscription will expire in\ %d days.';
+    28: Value := 'Your IP access will be valid for\another %d days.';
+    29: Value := 'Your IP access expires today!';
+    30: Value := 'Your IP access will be valid for\another %d hours.';
+    31: Value := 'Your ID will be valid for another\ %d hours.';
     32: Value := 'Reserved';
     33: Value := 'Reserved';
     34: Value := 'Reserved';
@@ -107,8 +108,8 @@ begin
     50: Value := 'Class';
     51: Value := 'Gold';
     52: Value := 'Exp';
-    53: Value := '[ ';
-    54: Value := ' ]';
+    53: Value := 'Reserved';
+    54: Value := 'Reserved';
     55: Value := 'Male';
     56: Value := 'Female';
     57: Value := 'Warrior';
@@ -116,56 +117,60 @@ begin
     59: Value := 'Taoist';
     60: Value := 'Assassin';
     { Information about Warriors }
-    61: Value := 'Warriors are a class of great strength and vitality. They are not easily    ' + #10#13 +
-                 'killed in battle and have the advantage of being able to use a variety of   ' + #10#13 +
-                 'heavy weapons and armour. Warriors favour attacks that are based on close   ' + #10#13 +
-                 'range physical damage, and are weak against ranged attacks. The             ' + #10#13 +
-                 'variety of equipment that is developed specifically for Warriors complements' + #10#13 +
-                 'their weakness in ranged combat. Warrior characters are recommended for     ' + #10#13 +
-                 'beginners because of their simple yet powerful abilities.                   ';
+    61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [Warrior %s]¦CE¦\¦Y08¦'
+               + ' Warriors are a class of great strength and vitality. They are not easily\'
+               + ' killed in battle and have the advantage of being able to use a variety of\'
+               + ' heavy weapons and armour. Warriors favour attacks that are based on close\'
+               + ' range physical damage, and are weak against ranged attacks. The variety\'
+               + ' of equipment that is developed specifically for Warriors complements\'
+               + ' their weakness in ranged combat. Warrior characters are recommended for\'
+               + ' beginners because of their simple yet powerful abilities.\';
     { Information about Wizards }
-    62: Value := 'Wizards are a class of low strength and stamina, but have the ability to use' + #10#13 +
-                 'powerful spells. Their offensive spells are very effective, but the time it ' + #10#13 +
-                 'takes to cast these spells is likely to leave them vulnerable to enemy      ' + #10#13 +
-                 'counterattacks. Therefore, a Wizard must always aim to attack his enemies   ' + #10#13 +
-                 'from a safe distance. Being physically weak, Wizards are difficult to train ' + #10#13 +
-                 'in the early stages of the game, but grow into powerful characters as they  ' + #10#13 +
-                 'learn the more advanced spells. Because of their many advantages and        ' + #10#13 +
-                 'drawbacks, Wizards require a lot of attention and skill. ';
+    62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [Wizard %s]¦CE¦\¦Y08¦'
+               + ' Wizards are a class of low strength and stamina, but have the ability to use\'
+               + ' powerful spells. Their offensive spells are very effective, but the time it\'
+               + ' takes to cast these spells is likely to leave them vulnerable to enemy\'
+               + ' counterattacks. Therefore, a Wizard must always aim to attack his enemies\'
+               + ' from a safe distance. Being physically weak, Wizards are difficult to train\'
+               + ' in the early stages of the game, but grow into powerful characters as they\'
+               + ' learn the more advanced spells. Because of their many advantages and\'
+               + ' drawbacks, Wizards require a lot of attention and skill.\';
     { Information about Taoists }
-    63: Value := 'Taoists lie between Wizards and Warriors in terms of strength and            ' + #10#13 +
-                 'survivability, but rather than directly engaging their enemies, their true   ' + #10#13 +
-                 'strength lies in supporting others. Their most essential skills are the      ' + #10#13 +
-                 'ability to heal and protect other characters. They can also summon powerful  ' + #10#13 +
-                 'creatures to assist them, and have a few well balanced offensive options.    ' + #10#13 +
-                 'Even though Taoists have many skills, their lack of physical power makes them' + #10#13 +
-                 'difficult to train. They must always look out for other players to fight with.';
+    63: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [Taoist %s]¦CE¦\¦Y08¦'
+               + ' Taoists lie between Wizards and Warriors in terms of strength and\'
+               + ' survivability, but rather than directly engaging their enemies, their true\'
+               + ' strength lies in supporting others. Their most essential skills are the\'
+               + ' ability to heal and protect other characters. They can also summon powerful\'
+               + ' creatures to assist them, and have a few well balanced offensive options.\'
+               + ' Even though Taoists have many skills, their lack of physical power makes them\'
+               + ' difficult to train. They must always look out for other players to fight with.\';
     { Information about Assassins }
-    64:Value :=  'Assassins are members of a secret organization and their history is relatively' + #10#13 +
-                 'unknown. They are physically weak but are capable of hiding themselves and    ' + #10#13 +
-                 'performing attacks while being unseen by others, and are naturally excellent  ' + #10#13 +
-                 'at making fast kills. However they must be careful to avoid engagements       ' + #10#13 +
-                 'against multiple opponents as they have less defensive options than other     ' + #10#13 +
-                 'characters. Assassins are recommended for experienced players, as they require' + #10#13 +
-                 'smart moves, cunning decisions and quick thinking.';
-    65: Value := 'Character deleted.';             
-    66: Value := 'Deleted characters cannot be recovered, and'+ #10#13 +
-                 'you cannot create another character with'   + #10#13 +
-                 'the same name for a while. If you wish to'  + #10#13 +
-                 'continue, please type your password and'    + #10#13 +
-                 'press the "Confirm" button.';     //Coly: I can use a Text Button with own Text... SE: Fixed
+    64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [Assassin %s]¦CE¦\¦Y08¦'
+               + '¦C1D1AD69¦¦C2C19D59¦ Assassins are members of a secret organization and their history is relatively\'
+               + ' unknown. They are physically weak but are capable of hiding themselves and\'
+               + ' performing attacks while being unseen by others, and are naturally excellent\'
+               + ' at making fast kills. However they must be careful to avoid engagements\'
+               + ' against multiple opponents as they have less defensive options than other\'
+               + ' characters. Assassins are recommended for experienced players, as they\'
+               + ' require smart moves, cunning decisions and quick thinking.¦CE¦\';
+    65: Value := 'Character deleted.';
+    66: Value := 'Deleted characters cannot be recovered, and\'
+               + 'you cannot create another character with\'
+               + 'the same name for a while. If you wish to\'
+               + 'continue, please type your password and\'
+               + 'press the "Confirm" button.';     //Coly: I can use a Text Button with own Text... SE: Fixed
     67: Value := 'You cannot create more than %d characters.';
-    68: Value := 'Please create a character first.';// by'+ #10#13 +'clicking the New Character button.';
+    68: Value := 'Please create a character first.';
     69: Value := 'Character information cannot be accessed.';
     70: Value := 'A character with this name already exists.';
     71: Value := 'You cannot create another character.';
     72: Value := 'Character creation failure - Error code 4';
-    73: Value := 'Unknown errors have occurred.'+#10#13+'Please visit www.lomcn.co.uk'+#10#13+'for more information.';
-    74: Value := 'An error has occurred while deleting'      + #10#13 +'your character.';
-    75: Value := 'Reserved';
-    76: Value := 'Reserved';
-    77: Value := 'Reserved';
-    78: Value := 'Reserved';
+    73: Value := 'Unknown errors have occurred.\Please visit www.lomcn.org\for more information.';
+    74: Value := 'An error has occurred while deleting\your character.';
+    75: Value := 'Start Game¦CE¦';
+    76: Value := 'New Character¦CE¦';
+    77: Value := 'Delete Character¦CE¦';
+    78: Value := 'Exit¦CE¦';
     79: Value := 'Reserved';
     80: Value := 'Reserved';
     (*******************************************************************
@@ -198,17 +203,17 @@ begin
     111: Value := 'Attack Stance: Red vs. White';
     112: Value := 'Reserved';
     113: Value := 'Reserved';
-    114: Value := 'Change Attack Stance';           // Hint for Attack Mode
+    114: Value := 'Change Attack Stance';                   // Hint for Attack Mode
     116: Value := 'Normal Attack Stance';
-    117: Value := 'Change Attack Stance';             // Hint for Attack Mode
+    117: Value := 'Change Attack Stance';                   // Hint for Attack Mode
     118: Value := 'Background Music';
-    119: Value := '[ Background Music On/Off ]';  // Hint Background Music
+    119: Value := '[ Background Music On/Off ]';            // Hint Background Music
     120: Value := 'Sound Effects';
-    121: Value := '[ Sound Effects On/Off ]';     // Hint Sound Effects
+    121: Value := '[ Sound Effects On/Off ]';               // Hint Sound Effects
     122: Value := 'Directional (Stereo) Sound';
-    123: Value := '[ Directional Sound On/Off ]';          // Hint Sound Effects
+    123: Value := '[ Directional Sound On/Off ]';           // Hint Sound Effects
     124: Value := 'Automatic Pick-up';
-    125: Value := '[ Automatic Pick-up On/Off ]'; // Hint Sound Effects
+    125: Value := '[ Automatic Pick-up On/Off ]';           // Hint Sound Effects
     126: Value := 'Show names of dropped items';
     127: Value := '[ Show names of dropped items On/Off ]'; // Hint Sound Effects
     { Page 2 Permissions }
@@ -242,8 +247,8 @@ begin
     154: Value := 'Guild Messages';
     155: Value := '[ Listen to Guild Messages On/Off ]';
     156: Value := 'Block whispering from User';
-    158: Value := '[ Whispering from User blocked ]'; //'[ Whispering from User %s blocked ]'; // SE: it would be nice for the %s to let you know who is blocked - not necessary though
-    157: Value := '[ Whispering from User allowed ]'; //'[ Whispering from User %s allowed ]'; //<-- Hint for "Whispering from User blocked"
+    157: Value := '[ Whispering from User blocked ]';    // SE: it would be nice for the %s to let you know who is blocked - not necessary though | Coly: Prio 8 or so...
+    158: Value := 'Reserved';
     159: Value := 'Reserved';
     160: Value := 'hint reserved';
     161: Value := 'Reserved';
@@ -311,28 +316,28 @@ begin
     220: Value := 'Ele(Atk)';
     221: Value := 'Ele(Def)';
     222: Value := 'Ele(Wkn)';
-    223: Value := 'Element Atk (Attack)';     //Hint
+    223: Value := 'Element Atk (Attack)';           //Hint
     224: Value := 'Element Def (Defence)';          //Hint
     225: Value := 'Element Wkn (Weakness)';         //Hint
-    226: Value := 'Element Fire (Attack)';    //Hint
+    226: Value := 'Element Fire (Attack)';          //Hint
     227: Value := 'Element Fire (Defence)';         //Hint
     228: Value := 'Element Fire (Weakness)';        //Hint
-    229: Value := 'Element Ice (Attack)';     //Hint
+    229: Value := 'Element Ice (Attack)';           //Hint
     230: Value := 'Element Ice (Defence)';          //Hint
     231: Value := 'Element Ice (Weakness)';         //Hint
-    232: Value := 'Element Thunder (Attack)'; //Hint
+    232: Value := 'Element Thunder (Attack)';       //Hint
     233: Value := 'Element Thunder (Defence)';      //Hint
     234: Value := 'Element Thunder (Weakness)';     //Hint
-    235: Value := 'Element Wind (Attack)';    //Hint
+    235: Value := 'Element Wind (Attack)';          //Hint
     236: Value := 'Element Wind (Defence)';         //Hint
     237: Value := 'Element Wind (Weakness)';        //Hint
-    238: Value := 'Element Holy (Attack)';    //Hint
+    238: Value := 'Element Holy (Attack)';          //Hint
     239: Value := 'Element Holy (Defence)';         //Hint
     240: Value := 'Element Holy (Weakness)';        //Hint
-    241: Value := 'Element Dark (Attack)';    //Hint
+    241: Value := 'Element Dark (Attack)';          //Hint
     242: Value := 'Element Dark (Defence)';         //Hint
     243: Value := 'Element Dark (Weakness)';        //Hint
-    244: Value := 'Element Phantom (Attack)'; //Hint
+    244: Value := 'Element Phantom (Attack)';       //Hint
     245: Value := 'Element Phantom (Defence)';      //Hint
     246: Value := 'Element Phantom (Weakness)';     //Hint
     247..250: Value := 'Reserved';
@@ -340,9 +345,23 @@ begin
     251: Value := 'Group';
     252: Value := 'Close group window';             //Hint
     253: Value := 'Add Member to Group';            //Hint
-    254: Value := 'Delete a Member from Group';       //Hint
+    254: Value := 'Delete a Member from Group';     //Hint
     255: Value := 'Create a Group';                 //Hint
     256: Value := 'Allow Group Invitations';        //Hint
+    257..260: Value := 'Reserved';
+    { Magic Window }
+    261: Value := ' Fire  ';                        //Hint
+    262: Value := ' Ice  ';                         //Hint
+    263: Value := ' Lightning  ';                   //Hint
+    264: Value := ' Wind  ';                        //Hint
+    265: Value := ' Holy  ';                        //Hint
+    266: Value := ' Dark  ';                        //Hint
+    267: Value := ' Phantom  ';                     //Hint
+    268: Value := ' Matrial Art  ';                 //Hint
+    269: Value := 'Close Magic Window';             //Hint
+    270: Value := ' Atrocity  ';                    //Hint
+    271: Value := ' Assa  ';                        //Hint
+    272: Value := ' Assassinate  ';                 //Hint
 
     (* Development Strings, not for real play *)
     1050: Value := 'DC 1000-1000';
