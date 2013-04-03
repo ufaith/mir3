@@ -117,7 +117,7 @@ begin
     59: Value := 'Taoist';
     60: Value := 'Assassin';
     { Information about Warriors }
-    61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [Warrior %s]¦CE¦\¦Y08¦'
+    61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Warrior]¦CE¦\¦Y08¦'             // SE: Better to have gender first
                + ' Warriors are a class of great strength and vitality. They are not easily\'
                + ' killed in battle and have the advantage of being able to use a variety of\'
                + ' heavy weapons and armour. Warriors favour attacks that are based on close\'
@@ -126,7 +126,7 @@ begin
                + ' their weakness in ranged combat. Warrior characters are recommended for\'
                + ' beginners because of their simple yet powerful abilities.\';
     { Information about Wizards }
-    62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [Wizard %s]¦CE¦\¦Y08¦'
+    62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Wizard]¦CE¦\¦Y08¦'
                + ' Wizards are a class of low strength and stamina, but have the ability to use\'
                + ' powerful spells. Their offensive spells are very effective, but the time it\'
                + ' takes to cast these spells is likely to leave them vulnerable to enemy\'
@@ -136,7 +136,7 @@ begin
                + ' learn the more advanced spells. Because of their many advantages and\'
                + ' drawbacks, Wizards require a lot of attention and skill.\';
     { Information about Taoists }
-    63: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [Taoist %s]¦CE¦\¦Y08¦'
+    63: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Taoist]¦CE¦\¦Y08¦'
                + ' Taoists lie between Wizards and Warriors in terms of strength and\'
                + ' survivability, but rather than directly engaging their enemies, their true\'
                + ' strength lies in supporting others. Their most essential skills are the\'
@@ -145,7 +145,7 @@ begin
                + ' Even though Taoists have many skills, their lack of physical power makes them\'
                + ' difficult to train. They must always look out for other players to fight with.\';
     { Information about Assassins }
-    64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [Assassin %s]¦CE¦\¦Y08¦'
+    64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Assassin]¦CE¦\¦Y08¦'
                + '¦C1D1AD69¦¦C2C19D59¦ Assassins are members of a secret organization and their history is relatively\'
                + ' unknown. They are physically weak but are capable of hiding themselves and\'
                + ' performing attacks while being unseen by others, and are naturally excellent\'
@@ -190,7 +190,7 @@ begin
     91..100 : Value := 'Reserved';
     {Game Settings}
     101: Value := 'Basic';
-    102: Value := 'Permissions'; //'Security'; //'Privileges'; // SE: Try these - I'm pretty sure they will be too long though. //'Permit';
+    102: Value := 'Security'; //'Permissions'; //'Privileges'; // SE: Security should fit! //'Permit';
     103: Value := 'Chat';
     104: Value := 'Visual';
     { Page 1 Basic }
@@ -350,18 +350,18 @@ begin
     256: Value := 'Allow Group Invitations';        //Hint
     257..260: Value := 'Reserved';
     { Magic Window }
-    261: Value := ' Fire  ';                        //Hint
-    262: Value := ' Ice  ';                         //Hint
-    263: Value := ' Lightning  ';                   //Hint
-    264: Value := ' Wind  ';                        //Hint
-    265: Value := ' Holy  ';                        //Hint
-    266: Value := ' Dark  ';                        //Hint
-    267: Value := ' Phantom  ';                     //Hint
-    268: Value := ' Matrial Art  ';                 //Hint
-    269: Value := 'Close Magic Window';             //Hint
-    270: Value := ' Atrocity  ';                    //Hint
-    271: Value := ' Assa  ';                        //Hint
-    272: Value := ' Assassinate  ';                 //Hint
+    261: Value := ' Fire  ';                            //Hint
+    262: Value := ' Ice  ';                             //Hint
+    263: Value := ' Lightning  ';                       //Hint
+    264: Value := ' Wind  ';                            //Hint
+    265: Value := ' Holy  ';                            //Hint
+    266: Value := ' Dark  ';                            //Hint
+    267: Value := ' Phantom  ';                         //Hint
+    268: Value := ' Physical ';//'Martial Art';         //Hint
+    269: Value := 'Close Window';//'Close Magic Window';//Hint
+    270: Value := ' Atrocity  ';                        //Hint - SE: I have no idea what these 3 should actually be...
+    271: Value := ' Assa  ';                            //Hint - ??
+    272: Value := ' Assassinate  ';                     //Hint - ??
 
     (* Development Strings, not for real play *)
     1050: Value := 'DC 1000-1000';
