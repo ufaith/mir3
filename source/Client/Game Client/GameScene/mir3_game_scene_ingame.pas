@@ -550,14 +550,6 @@ uses mir3_misc_ingame, mir3_game_backend;
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_PageControl   , True);
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Text_Info     , True);
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Close     , True);
-        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_1 , True);
-        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_2 , True);
-        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_3 , True);
-        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_4 , True);
-        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_5 , True);
-        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_6 , True);
-        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_7 , True);
-        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_8 , True);
 
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_1_B1 , True);
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_1_B2 , True);
@@ -652,15 +644,21 @@ uses mir3_misc_ingame, mir3_game_backend;
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B25, False);
         Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Btn_Page_8_B26, False);
 
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_1 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_2 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_3 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_4 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_5 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_6 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_7 , True);
+        Self.AddControl(FMagicWWTForm, FInGame_UI_Magic_WWT_Button_Page_8 , True);
+
         (* Assassin Magic Window *)
         FMagicASSForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Magic_ASS_Window, False));
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_ScrollBar     , True);
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_PageControl   , True);
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Text_Info     , True);        
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Close     , True);
-        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_1 , True);
-        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_2 , True);
-        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_3 , True);
 
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B1 , True);
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_1_B2 , True);
@@ -701,7 +699,10 @@ uses mir3_misc_ingame, mir3_game_backend;
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_3_B5 , False);
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_3_B6 , False);
         Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Btn_Page_3_B7 , False);
-        
+
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_1 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_2 , True);
+        Self.AddControl(FMagicASSForm, FInGame_UI_Magic_ASS_Button_Page_3 , True);
         (* Setup First Start *)
         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1)).SwitchOn := True;
         TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1)).SwitchOn := True;
@@ -1761,157 +1762,176 @@ uses mir3_misc_ingame, mir3_game_backend;
        begin
          with TMIR3_GUI_Button(AButton) , FGUI_Defination do
          begin
-//           gui_Extra_Offset_Y := AOffset;
-//           if (FTop - AOffset) < 0 then
-//             Visible := False
-//           else Visible := True;
            gui_Extra_Offset_Y :=  -AOffset;
-         end;             
+         end;
        end;
        
     var
-      FTempTop    : Integer;
       FTempOffset : Integer;
     begin
       case AEventType of
         EVENT_BUTTON_UP   : begin
-          case AEventControl of
-            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_CLOSE  : begin
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_WWT_WINDOW)).Visible := False;
+          {$REGION ' - Magic Button UP Event '}
+            case AEventControl of
+              GUI_ID_INGAME_MAGIC_UI_WWT_BTN_CLOSE  : begin
+                TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_WWT_WINDOW)).Visible := False;
+              end;
+              GUI_ID_INGAME_MAGIC_UI_ASS_BTN_CLOSE  : begin
+                TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW)).Visible := False;
+              end;
+              GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(712);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
+                ChangeVisiblePageWWT_2(False);
+                ChangeVisiblePageWWT_3(False);
+                ChangeVisiblePageWWT_4(False);
+                ChangeVisiblePageWWT_5(False);
+                ChangeVisiblePageWWT_6(False);
+                ChangeVisiblePageWWT_7(False);
+                ChangeVisiblePageWWT_8(False);
+                ChangeVisiblePageWWT_1(True);
+                FMagicWWTPageActive := 1;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR);
+              end;
+              GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_2 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(713);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
+                ChangeVisiblePageWWT_1(False);
+                ChangeVisiblePageWWT_3(False);
+                ChangeVisiblePageWWT_4(False);
+                ChangeVisiblePageWWT_5(False);
+                ChangeVisiblePageWWT_6(False);
+                ChangeVisiblePageWWT_7(False);
+                ChangeVisiblePageWWT_8(False);
+                ChangeVisiblePageWWT_2(True);
+                FMagicWWTPageActive := 2;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR);
+              end;
+              GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_3 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(714);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
+                ChangeVisiblePageWWT_1(False);
+                ChangeVisiblePageWWT_2(False);
+                ChangeVisiblePageWWT_4(False);
+                ChangeVisiblePageWWT_5(False);
+                ChangeVisiblePageWWT_6(False);
+                ChangeVisiblePageWWT_7(False);
+                ChangeVisiblePageWWT_8(False);
+                ChangeVisiblePageWWT_3(True);
+                FMagicWWTPageActive := 3;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR);
+              end;
+              GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_4 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(715);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
+                ChangeVisiblePageWWT_1(False);
+                ChangeVisiblePageWWT_2(False);
+                ChangeVisiblePageWWT_3(False);
+                ChangeVisiblePageWWT_5(False);
+                ChangeVisiblePageWWT_6(False);
+                ChangeVisiblePageWWT_7(False);
+                ChangeVisiblePageWWT_8(False);
+                ChangeVisiblePageWWT_4(True);
+                FMagicWWTPageActive := 4;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR);
+              end;
+              GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_5 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(716);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
+                ChangeVisiblePageWWT_1(False);
+                ChangeVisiblePageWWT_2(False);
+                ChangeVisiblePageWWT_3(False);
+                ChangeVisiblePageWWT_4(False);
+                ChangeVisiblePageWWT_6(False);
+                ChangeVisiblePageWWT_7(False);
+                ChangeVisiblePageWWT_8(False);
+                ChangeVisiblePageWWT_5(True);
+                FMagicWWTPageActive := 5;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR);
+              end;
+              GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_6 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(717);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
+                ChangeVisiblePageWWT_1(False);
+                ChangeVisiblePageWWT_2(False);
+                ChangeVisiblePageWWT_3(False);
+                ChangeVisiblePageWWT_4(False);
+                ChangeVisiblePageWWT_5(False);
+                ChangeVisiblePageWWT_7(False);
+                ChangeVisiblePageWWT_8(False);
+                ChangeVisiblePageWWT_6(True);
+                FMagicWWTPageActive := 6;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR);
+              end;
+              GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_7 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(718);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
+                ChangeVisiblePageWWT_1(False);
+                ChangeVisiblePageWWT_2(False);
+                ChangeVisiblePageWWT_3(False);
+                ChangeVisiblePageWWT_4(False);
+                ChangeVisiblePageWWT_5(False);
+                ChangeVisiblePageWWT_6(False);
+                ChangeVisiblePageWWT_8(False);
+                ChangeVisiblePageWWT_7(True);
+                FMagicWWTPageActive := 7;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR);
+              end;
+              GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_8 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(719);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 138;
+                ChangeVisiblePageWWT_1(False);
+                ChangeVisiblePageWWT_2(False);
+                ChangeVisiblePageWWT_3(False);
+                ChangeVisiblePageWWT_4(False);
+                ChangeVisiblePageWWT_5(False);
+                ChangeVisiblePageWWT_6(False);
+                ChangeVisiblePageWWT_7(False);
+                ChangeVisiblePageWWT_8(True);
+                FMagicWWTPageActive := 8;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR);              
+              end;
+              (* Assassin *)
+              GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(742);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)).Maximum := 132;
+                ChangeVisiblePageASS_2(False);
+                ChangeVisiblePageASS_3(False);
+                ChangeVisiblePageASS_1(True);
+                FMagicASSPageActive := 1;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR);
+              end;
+              GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_2 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(743);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)).Maximum := 132;
+                ChangeVisiblePageASS_1(False);
+                ChangeVisiblePageASS_3(False);
+                ChangeVisiblePageASS_2(True);
+                FMagicASSPageActive := 2;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR);
+              end;
+              GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_3 : begin
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(744);
+                TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)).Maximum := 132;
+                ChangeVisiblePageASS_1(False);
+                ChangeVisiblePageASS_2(False);
+                ChangeVisiblePageASS_3(True);
+                FMagicASSPageActive := 3;
+                //Reset all Controls
+                EventMagicWindow(EVENT_SCROLLBAR_VALUE_CHANGED, GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR);
+              end;
             end;
-            GUI_ID_INGAME_MAGIC_UI_ASS_BTN_CLOSE  : begin
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW)).Visible := False;
-            end;
-            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_1 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(712);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
-              ChangeVisiblePageWWT_2(False);
-              ChangeVisiblePageWWT_3(False);
-              ChangeVisiblePageWWT_4(False);
-              ChangeVisiblePageWWT_5(False);
-              ChangeVisiblePageWWT_6(False);
-              ChangeVisiblePageWWT_7(False);
-              ChangeVisiblePageWWT_8(False);
-              ChangeVisiblePageWWT_1(True);
-              FMagicWWTPageActive := 1;
-            end;
-            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_2 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(713);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
-              ChangeVisiblePageWWT_1(False);
-              ChangeVisiblePageWWT_3(False);
-              ChangeVisiblePageWWT_4(False);
-              ChangeVisiblePageWWT_5(False);
-              ChangeVisiblePageWWT_6(False);
-              ChangeVisiblePageWWT_7(False);
-              ChangeVisiblePageWWT_8(False);
-              ChangeVisiblePageWWT_2(True);
-              FMagicWWTPageActive := 2;
-            end;
-            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_3 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(714);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
-              ChangeVisiblePageWWT_1(False);
-              ChangeVisiblePageWWT_2(False);
-              ChangeVisiblePageWWT_4(False);
-              ChangeVisiblePageWWT_5(False);
-              ChangeVisiblePageWWT_6(False);
-              ChangeVisiblePageWWT_7(False);
-              ChangeVisiblePageWWT_8(False);
-              ChangeVisiblePageWWT_3(True);
-              FMagicWWTPageActive := 3;
-            end;
-            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_4 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(715);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
-              ChangeVisiblePageWWT_1(False);
-              ChangeVisiblePageWWT_2(False);
-              ChangeVisiblePageWWT_3(False);
-              ChangeVisiblePageWWT_5(False);
-              ChangeVisiblePageWWT_6(False);
-              ChangeVisiblePageWWT_7(False);
-              ChangeVisiblePageWWT_8(False);
-              ChangeVisiblePageWWT_4(True);
-              FMagicWWTPageActive := 4;
-            end;
-            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_5 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(716);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
-              ChangeVisiblePageWWT_1(False);
-              ChangeVisiblePageWWT_2(False);
-              ChangeVisiblePageWWT_3(False);
-              ChangeVisiblePageWWT_4(False);
-              ChangeVisiblePageWWT_6(False);
-              ChangeVisiblePageWWT_7(False);
-              ChangeVisiblePageWWT_8(False);
-              ChangeVisiblePageWWT_5(True);
-              FMagicWWTPageActive := 5;
-            end;
-            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_6 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(717);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
-              ChangeVisiblePageWWT_1(False);
-              ChangeVisiblePageWWT_2(False);
-              ChangeVisiblePageWWT_3(False);
-              ChangeVisiblePageWWT_4(False);
-              ChangeVisiblePageWWT_5(False);
-              ChangeVisiblePageWWT_7(False);
-              ChangeVisiblePageWWT_8(False);
-              ChangeVisiblePageWWT_6(True);
-              FMagicWWTPageActive := 6;
-            end;
-            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_7 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(718);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 132;
-              ChangeVisiblePageWWT_1(False);
-              ChangeVisiblePageWWT_2(False);
-              ChangeVisiblePageWWT_3(False);
-              ChangeVisiblePageWWT_4(False);
-              ChangeVisiblePageWWT_5(False);
-              ChangeVisiblePageWWT_6(False);
-              ChangeVisiblePageWWT_8(False);
-              ChangeVisiblePageWWT_7(True);
-              FMagicWWTPageActive := 7;
-            end;
-            GUI_ID_INGAME_MAGIC_UI_WWT_BTN_PAGE_8 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).SetTextureID(719);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)).Maximum := 138;
-              ChangeVisiblePageWWT_1(False);
-              ChangeVisiblePageWWT_2(False);
-              ChangeVisiblePageWWT_3(False);
-              ChangeVisiblePageWWT_4(False);
-              ChangeVisiblePageWWT_5(False);
-              ChangeVisiblePageWWT_6(False);
-              ChangeVisiblePageWWT_7(False);
-              ChangeVisiblePageWWT_8(True);
-              FMagicWWTPageActive := 8;
-            end;
-            (* Assassin *)
-            GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_1 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(742);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)).Maximum := 132;
-              ChangeVisiblePageASS_2(False);
-              ChangeVisiblePageASS_3(False);
-              ChangeVisiblePageASS_1(True);
-              FMagicASSPageActive := 1;
-            end;
-            GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_2 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(743);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)).Maximum := 132;
-              ChangeVisiblePageASS_1(False);
-              ChangeVisiblePageASS_3(False);
-              ChangeVisiblePageASS_2(True);
-              FMagicASSPageActive := 2;
-            end;
-            GUI_ID_INGAME_MAGIC_UI_ASS_BTN_PAGE_3 : begin
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).SetTextureID(744);
-              TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)).Maximum := 132;
-              ChangeVisiblePageASS_1(False);
-              ChangeVisiblePageASS_2(False);
-              ChangeVisiblePageASS_3(True);
-              FMagicASSPageActive := 3;
-            end;
-          end;          
+          {$ENDREGION}          
         end;
         EVENT_BUTTON_DOWN : begin
           case AEventControl of
@@ -1919,237 +1939,175 @@ uses mir3_misc_ingame, mir3_game_backend;
           end;
         end;
         EVENT_SCROLLBAR_VALUE_CHANGED : begin
-          case AEventControl of
-            GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR : begin
-               
-              with TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)) do
-              begin
-                FTempOffset := (Value * 2);
-              end;
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).FGUI_Defination.gui_Cut_Rect_Position_Y := FTempOffset;
-              case FMagicWWTPageActive of
-                1: begin   // Scollen berechnen in Magic Feldern !?? würde einiges sparen
-
-
-                  //Test if Visible or not
-                  // 265 / 60 = 4 (Max Scroll = 4)
-                  //0 | 1=60 | 2=120 | 3=180 ...
-                  // if Button.Top - FTempOffset < 0 then
-                  //   Visible := False;
-                  // else Visible := True;
-                  // add gui_MagicHintID und füge Hint zu MagicButton Render wo nur das gemacht wird
-                  // 
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B5)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B6)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)));
-
-
-
-
-
-
-                  // 141 Controls = 122 Magic Button, 2 Close Button, 11 Page Button, 2 PageControler, 2 Window Conainer, 2 ScrollBars
-                  (* Spell Name here *)
-                  (* with TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1)) do
-                  begin 
-                    gui_Extra_Offset_Y := -FTempOffset;
-                    if (Top - FTempOffset) < 0 then
-                    begin
-                      Visible := False;
-                    else Visible := True;
-                  end;  
-                  { Spell Name here }
-                  with TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)) do
-                  begin
-                    gui_Extra_Offset_Y := -FTempOffset;
-                    if (Top - FTempOffset) < 0 then
-                    begin
-                      Visible := False;
-                    else Visible := True;
+          {$REGION ' - Magic Scroll Bar Event '}
+            case AEventControl of
+              GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR : begin
+  
+                with TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_SCROLL_BAR)) do
+                begin
+                  FTempOffset := (Value * 2);
+                end;
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).FGUI_Defination.gui_Cut_Rect_Position_Y := FTempOffset;
+                case FMagicWWTPageActive of
+                  1: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B5)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B6)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)));
                   end;
-                  
-                      oder Function like this : 
-                      Wen es geht mit Pointern Teste...
-                      CalculateButton(TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1)));
-                      CalculateButton(TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B2)));
-                      
-                      procedure CalculateButton(AButton: TMIR3_GUI_Button);
-                      begin
-                        with TMIR3_GUI_Button(AButton) , FGUI_Defination do
-                        begin
-                          gui_Extra_Offset_Y := -FTempOffset;
-                          if (Top - FTempOffset) < 0 then
-                          begin
-                            Visible := False;
-                          else Visible := True;
-                        end;             
-                      end;  
-                   *)
-
+                  2: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B5)));
+                  end;   
+                  3: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B5)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B6)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B7)));
+                  end;
+                  4: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B5)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B6)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B7)));
+                  end;
+                  5: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B5)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B6)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B7)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B8)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B9)));
+                  end;
+                  6: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B5)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B6)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B7)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B8)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B9)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B10)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B11)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B12)));
+                  end;
+                  7: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B5)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B6)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B7)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B8)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B9)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B10)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B11)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B12)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B13)));
+                  end;
+                  8: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B5)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B6)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B7)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B8)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B9)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B10)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B11)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B12)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B13)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B14)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B15)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B16)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B17)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B18)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B19)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B20)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B21)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B22)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B23)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B24)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B25)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B26)));
+                  end;
+                end;                 
+              end;
+              GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR : begin
+                with TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)) do
+                begin
+                  FTempOffset := (Value * 2);
                 end;
-                2: begin
-                  //Test if Visible or not
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P2_B5)));
-                end;   
-                3: begin
-                  //Test if Visible or not
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B5)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B6)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P3_B7)));
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).FGUI_Defination.gui_Cut_Rect_Position_Y := FTempOffset;
+                case FMagicASSPageActive of
+                  1: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B5)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B6)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B7)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B8)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B9)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B10)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B11)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B12)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B13)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B14)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B15)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B16)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B17)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B18)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B19)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B20)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B21)));
+  
+                  end;
+                  2: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B5)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B6)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B7)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B8)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B9)));
+                  end;
+                  3: begin
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B1)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B2)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B3)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B4)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B5)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B6)));
+                    CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B7)));
+                  end;
                 end;
-                4: begin
-                  //Test if Visible or not
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B5)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B6)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P4_B7)));
-                end;
-                5: begin
-                  //Test if Visible or not
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B5)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B6)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B7)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B8)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P5_B9)));
-                end;
-                6: begin
-                  //Test if Visible or not
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B5)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B6)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B7)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B8)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B9)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B10)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B11)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P6_B12)));
-                end;
-                7: begin
-                  //Test if Visible or not
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B5)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B6)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B7)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B8)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B9)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B10)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B11)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B12)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P7_B13)));
-                end;
-                8: begin
-                  //Test if Visible or not
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B5)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B6)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B7)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B8)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B9)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B10)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B11)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B12)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B13)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B14)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B15)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B16)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B17)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B18)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B19)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B20)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B21)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B22)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B23)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B24)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B25)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P8_B26)));
-                end;
-              end;                 
+              end;            
             end;
-            GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR : begin
-              with TMIR3_GUI_Scrollbar(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_SCROLL_BAR)) do
-              begin
-                FTempOffset := (Value * 2);
-              end;
-              TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).FGUI_Defination.gui_Cut_Rect_Position_Y := FTempOffset;
-              case FMagicASSPageActive of
-                1: begin
-                  //Test if Visible or not
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B5)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B6)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B7)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B8)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B9)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B10)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B11)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B12)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B13)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B14)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B15)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B16)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B17)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B18)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B19)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B20)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B21)));
-
-                end;
-                2: begin
-                  //Test if Visible or not
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B5)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B6)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B7)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B8)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P2_B9)));
-                end;
-                3: begin
-                  //Test if Visible or not
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B1)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B2)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B3)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B4)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B5)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B6)));
-                  CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P3_B7)));
-                end;
-              end;
-            end;            
-          end;
+          {$ENDREGION}
         end;
       end;
     end;

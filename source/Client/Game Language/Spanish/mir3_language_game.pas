@@ -21,7 +21,14 @@
  * The Maximum of String Literale is 255 so you need to add ' + '             *
  * at the end of 255 Char...                                                  *
  * The String it self can have a length of 1024                               *
- *****************************************************************************)
+ *                                                                            *
+ * !! Don't localize or delete things with "¦" !!                             *
+ * !! it is part of the Script Engine Commands !!                             *
+ *                                                                            *
+ * !!! Attention, only the Spanish language files are                         * 
+ * !!! matched by the development team, not other languages??.                *
+ *                                                                            * 
+ ******************************************************************************)
 
 unit mir3_language_game;
 

@@ -45,6 +45,7 @@ function GetClassAsString(AClass: Integer): String;
 function _MIN(n1, n2: Integer): Integer;
 function _MAX(n1, n2: Integer): Integer;
 
+function HexToInt(AValue: string): LongInt;
 
 implementation
 
@@ -395,6 +396,27 @@ function _MAX(n1, n2: Integer): Integer;
 begin
   if n1 > n2 then Result := n1
   else Result := n2;
+end;
+
+function HexToInt(AValue: string): LongInt;
+var
+  digit: Char;
+  Count, I: Integer;
+  cur, Val: LongInt;
+begin
+  Val   := 0;
+  Count := Length(AValue);
+  for I := 1 to Count do
+  begin
+    digit := AValue[I];
+    if (digit >= '0') and (digit <= '9') then cur := Ord(digit) - Ord('0')
+    else if (digit >= 'A') and (digit <= 'F') then cur := Ord(digit) - Ord('A') + 10
+    else if (digit >= 'a') and (digit <= 'f') then cur := Ord(digit) - Ord('a') + 10
+    else cur := 0;
+    Val := Val + (cur shl (4 * (Count - I)));
+  end;
+  Result := Val;
+  //   Result := (Val and $0000FF00) or ((Val shl 16) and $00FF0000) or ((Val shr 16) and $000000FF);
 end;
 
 end.

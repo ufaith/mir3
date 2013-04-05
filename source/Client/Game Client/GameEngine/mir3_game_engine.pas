@@ -614,6 +614,7 @@ type
     procedure Rectangle1Color(X, Y, Width, Height: Single; Color1, Color2: Cardinal; Filled: Boolean; BlendMode: Integer=BLEND_DEFAULT);
     procedure Polygon(Points: array of TPoint; NumPoints: Integer; Color: Cardinal; Filled: Boolean; BlendMode: Integer=BLEND_DEFAULT); overload;
     procedure Polygon(Points: array of TPoint; Color: Cardinal; Filled: Boolean; BlendMode: Integer=BLEND_DEFAULT); overload;
+    procedure RoundRect(AX, AY, AWidth, AHeight: Integer; AColor1, AColor2 : Cardinal; ABlendMode: Integer=BLEND_DEFAULT);
     procedure System_Snapshot(const Filename: String);
     function GetFontEngine: ID3DXFont;
     function GetGameHWND: HWND;
@@ -1149,6 +1150,7 @@ type
     procedure Rectangle1Color(X, Y, Width, Height: Single; Color1, Color2: Cardinal; Filled: Boolean; BlendMode: Integer=BLEND_DEFAULT);
     procedure Polygon(Points: array of TPoint; NumPoints: Integer; Color: Cardinal; Filled: Boolean; BlendMode: Integer=BLEND_DEFAULT); overload;
     procedure Polygon(Points: array of TPoint; Color: Cardinal; Filled: Boolean; BlendMode: Integer=BLEND_DEFAULT); overload;
+    procedure RoundRect(AX, AY, AWidth, AHeight: Integer; AColor1, AColor2 : Cardinal; ABlendMode: Integer=BLEND_DEFAULT);
   private
     //////// Implementation ////////
     Vertices: array[0..1000] of THGEVertex;
@@ -6146,9 +6148,9 @@ var
 begin
   for i := 0 to 255 do
  begin
-  FGammaRamp.red[i] := i * (Red + 1);
+  FGammaRamp.red[i]   := i * (Red + 1);
   FGammaRamp.green[i] := i * (Green + 1);
-  FGammaRamp.blue[i] := i * (Blue + 1);
+  FGammaRamp.blue[i]  := i * (Blue + 1);
  end;
 
  with FGammaRamp do
@@ -6500,19 +6502,18 @@ begin
     FD3DDevice.SetTexture(0,nil);
     FCurTexture := nil;
   end;
+
   if Filled then
   begin
     CopyVertices(@Vertices, NumPoints);
     FD3DDevice.DrawPrimitive(D3DPT_TRIANGLEFAN, 0, NumPoints - 2);
-  end
-  else
-  begin
+  end else begin
     Vertices[NumPoints].X := Points[0].X;
     Vertices[NumPoints].y := Points[0].Y;
     Vertices[NumPoints].Col := Color;
     CopyVertices(@Vertices, NumPoints + 1);
     FD3DDevice.DrawPrimitive(D3DPT_LINESTRIP, 0, NumPoints);
- end;
+  end;
 end;
 
 procedure THGEImpl.Polygon(Points: array of TPoint; Color: Cardinal; Filled: Boolean; BlendMode: Integer=BLEND_DEFAULT);
@@ -6520,6 +6521,92 @@ begin
   Polygon(Points, High(Points) + 1, Color, Filled, BlendMode);
 end;
 
+procedure THGEImpl.RoundRect(AX, AY, AWidth, AHeight: Integer; AColor1, AColor2: Cardinal; ABlendMode: Integer=BLEND_DEFAULT);
+begin
+  (* Left Top *)
+  Vertices[0].X   := AX;
+  Vertices[0].Y   := AY;
+  Vertices[0].Col := AColor1;
+  Vertices[1].X   := AX + 1;
+  Vertices[1].Y   := AY - 2;
+  Vertices[1].Col := AColor1;
+  Vertices[2].X   := AX + 2;
+  Vertices[2].Y   := AY - 3;
+  Vertices[2].Col := AColor1;
+  Vertices[3].X   := AX + 3;
+  Vertices[3].Y   := AY - 4;
+  Vertices[3].Col := AColor1;
+  Vertices[4].X   := AX + 5;
+  Vertices[4].Y   := AY - 5;
+  Vertices[4].Col := AColor1;
+
+  (* Right Top *)
+  Vertices[5].X   := AX + AWidth - 5;
+  Vertices[5].Y   := AY - 5;
+  Vertices[5].Col := AColor1;
+  Vertices[6].X   := AX + AWidth - 2;
+  Vertices[6].Y   := AY - 4;
+  Vertices[6].Col := AColor1;
+  Vertices[7].X   := AX + AWidth - 1;
+  Vertices[7].Y   := AY - 3;
+  Vertices[7].Col := AColor1;
+  Vertices[8].X   := AX + AWidth - 1;
+  Vertices[8].Y   := AY - 2;
+  Vertices[8].Col := AColor1;
+  Vertices[9].X   := AX + AWidth;
+  Vertices[9].Y   := AY;
+  Vertices[9].Col := AColor1;
+
+  (* Right Bottom *)
+  Vertices[10].X   := AX + AWidth;
+  Vertices[10].Y   := AY + AHeight - 5;
+  Vertices[10].Col := AColor2;
+  Vertices[11].X   := AX + AWidth  - 1;
+  Vertices[11].Y   := AY + AHeight - 3;
+  Vertices[11].Col := AColor2;
+  Vertices[12].X   := AX + AWidth  - 1;
+  Vertices[12].Y   := AY + AHeight - 2;
+  Vertices[12].Col := AColor2;
+  Vertices[13].X   := AX + AWidth  - 3;
+  Vertices[13].Y   := AY + AHeight - 1;
+  Vertices[13].Col := AColor2;
+  Vertices[14].X   := AX + AWidth  - 5;
+  Vertices[14].Y   := AY + AHeight;
+  Vertices[14].Col := AColor2;
+
+  (* Left Bottom *)
+  Vertices[15].X   := AX + 5;
+  Vertices[15].Y   := AY + AHeight;
+  Vertices[15].Col := AColor2;
+  Vertices[16].X   := AX           + 3;
+  Vertices[16].Y   := AY + AHeight - 1;
+  Vertices[16].Col := AColor2;
+  Vertices[17].X   := AX           + 1;
+  Vertices[17].Y   := AY + AHeight - 2;
+  Vertices[17].Col := AColor2;
+  Vertices[18].X   := AX           + 2;
+  Vertices[18].Y   := AY + AHeight - 3;
+  Vertices[18].Col := AColor2;
+  Vertices[19].X   := AX;
+  Vertices[19].Y   := AY + AHeight -5;
+  Vertices[19].Col := AColor2;
+  (* Close Splean *)
+  Vertices[20].X   := AX;
+  Vertices[20].Y   := AY;
+  Vertices[20].Col := AColor1;
+
+  RenderBatch;
+  FCurPrimType := HGEPRIM_LINES;
+  SetBlendMode(ABlendMode);
+
+  if (FCurTexture <> nil) then
+  begin
+    FD3DDevice.SetTexture(0,nil);
+    FCurTexture := nil;
+  end;
+  CopyVertices(@Vertices, 20);
+  FD3DDevice.DrawPrimitive(D3DPT_TRIANGLEFAN, 0, 20 - 2);
+end;
 
 
 (****************************************************************************

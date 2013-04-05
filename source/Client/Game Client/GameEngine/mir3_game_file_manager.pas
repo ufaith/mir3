@@ -190,8 +190,8 @@ type
     FWIX              : PByte;    
     (* LMT System *)
     FHeaderLMTInfo    : TLMT_Header;
-    FHeaderImageLMT   : TLMT_Img_Header;
-    FDumpImageInfoLMT : TWIL_Img_Header;
+    //FHeaderImageLMT   : TLMT_Img_Header;
+    //FDumpImageInfoLMT : TWIL_Img_Header;
     FLMT              : PByte;
   private
     procedure CreateFilesMMF(FFileName: String);
@@ -1579,8 +1579,6 @@ procedure TMir3_FileManager.DrawClipRect(AImageID, AFileID: Integer; AX, AY: Int
 var
   FOldQuad : THGEQuad;
   FImage   : TMir3_Texture;
-  FTX      : Single;
-  FTY      : Single;
   Tx1, Ty1,
   Tx2, Ty2 : single;
   W, H       : Single;

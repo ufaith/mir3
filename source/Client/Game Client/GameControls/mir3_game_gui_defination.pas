@@ -1514,8 +1514,11 @@ var
                                      gui_Width                  : 800;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 5;
-                                     gui_Font                   : (gui_Font_Size  : 22;
-                                                                   gui_Font_Color : $FFF0F0F0);
+
+                                     gui_Font                   : (gui_Font_Use_ID: 2;
+                                                                   gui_Font_Size  : 21;
+                                                                   gui_Font_Color : $FFF0F0F0;
+                                                                   gui_Font_Script_MouseNormal   : '¦C16F6F6F¦¦C2EFEFEF¦');
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -1530,7 +1533,7 @@ var
                                      gui_Height                 : 23;
                                      gui_Width                  : 126;
                                      gui_Blend_Size             : 245;
-                                     gui_Font                   : (gui_Font_Use_ID      : 3;
+                                     gui_Font                   : (gui_Font_Use_ID      : 15;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Text_VAlign : avCenter);
@@ -1555,7 +1558,7 @@ var
                                      gui_Height                 : 23;
                                      gui_Width                  : 126;
                                      gui_Blend_Size             : 245;
-                                     gui_Font                   : (gui_Font_Use_ID      : 3;
+                                     gui_Font                   : (gui_Font_Use_ID      : 15;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Text_HAlign : alLeft;
@@ -1575,19 +1578,20 @@ var
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_EXIT; 
                                      gui_Type                   : ctTextButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:12);
+                                     gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:21);
                                      gui_Top                    : 445;
                                      gui_Left                   : 565;
-                                     gui_Height                 : 12;
+                                     gui_Height                 : 21;
                                      gui_Width                  : 28;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 2;
                                      gui_HintID                 : 7;
-                                     gui_Font                   : (gui_Font_Size        : 21;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Text_HAlign : alLeft;
-                                                                   gui_Font_Text_VAlign : avCenter;
-                                                                   gui_Font_Setting     : [fsBold]);
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -1596,19 +1600,20 @@ var
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_LOGIN;
                                      gui_Type                   : ctTextButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:45; Bottom:13);
-                                     gui_Top                    : 515;
+                                     gui_WorkField              : (Left:0; Top:0; Right:45; Bottom:21);
+                                     gui_Top                    : 510;
                                      gui_Left                   : 565;
-                                     gui_Height                 : 12;
+                                     gui_Height                 : 21;
                                      gui_Width                  : 44;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 1;
                                      gui_HintID                 : 6;
-                                     gui_Font                   : (gui_Font_Size        : 21;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Text_HAlign : alLeft;
-                                                                   gui_Font_Text_VAlign : avCenter;
-                                                                   gui_Font_Setting     : [fsBold]);
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -1617,19 +1622,20 @@ var
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_URL_1;
                                      gui_Type                   : ctTextButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:111; Bottom:13);
+                                     gui_WorkField              : (Left:0; Top:0; Right:111; Bottom:21);
                                      gui_Top                    : 445;
                                      gui_Left                   : 160;
-                                     gui_Height                 : 12;   
+                                     gui_Height                 : 21;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 3;
                                      gui_HintID                 : 8;
-                                     gui_Font                   : (gui_Font_Size        : 21;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Text_HAlign : alLeft;
-                                                                   gui_Font_Text_VAlign : avCenter;
-                                                                   gui_Font_Setting     : [fsBold]);
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -1638,19 +1644,20 @@ var
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_URL_1;
                                      gui_Type                   : ctTextButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:140; Bottom:13);
+                                     gui_WorkField              : (Left:0; Top:0; Right:140; Bottom:21);
                                      gui_Top                    : 445;
                                      gui_Left                   : 350;
-                                     gui_Height                 : 12;
+                                     gui_Height                 : 21;
                                      gui_Width                  : 132;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 4;
                                      gui_HintID                 : 9;
-                                     gui_Font                   : (gui_Font_Size        : 21;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Text_HAlign : alLeft;
-                                                                   gui_Font_Text_VAlign : avCenter;
-                                                                   gui_Font_Setting     : [fsBold]);
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -1757,72 +1764,88 @@ var
               );
     FSelectChar_Button_Start         : ({$REGION ' - FSelectChar_Button_Start         '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_START;
-                                     gui_Type                   : ctButton;
+                                     gui_Type                   : ctTextButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:92; Bottom:16);
-                                     gui_Top                    : 89;
-                                     gui_Left                   : 330;
-                                     gui_Height                 : 16;
+                                     gui_WorkField              : (Left:0; Top:0; Right:92; Bottom:21);
+                                     gui_Top                    : 50;
+                                     gui_Left                   : 365;
+                                     gui_Height                 : 21;
                                      gui_Width                  : 92;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 56;
-                                                                   gui_Mouse_Over_Texture_ID : 57;
-                                                                   gui_Mouse_Down_Texture_ID : 56);
+                                     gui_CaptionID              : 75;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Setting     : [fsBold];
+                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf¦');
                                      gui_Enabled                : True;
-                                     gui_Visible                : True                                    
+                                     gui_Visible                : True
                                      {$ENDREGION}
               );
     FSelectChar_Button_Exit          : ({$REGION ' - FSelectChar_Button_Exit          '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_EXIT;
-                                     gui_Type                   : ctButton;
+                                     gui_Type                   : ctTextButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:40; Bottom:18);
+                                     gui_WorkField              : (Left:0; Top:0; Right:40; Bottom:21);
                                      gui_Top                    : 476;
-                                     gui_Left                   : 37;
-                                     gui_Height                 : 18;
+                                     gui_Left                   : 45;
+                                     gui_Height                 : 21;
                                      gui_Width                  : 40;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 58;
-                                                                   gui_Mouse_Over_Texture_ID : 59;
-                                                                   gui_Mouse_Down_Texture_ID : 58);
+                                     gui_CaptionID              : 78;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Setting     : [fsBold];
+                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf¦');
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                     
                                      {$ENDREGION}
               );
     FSelectChar_Button_Delete_Char   : ({$REGION ' - FSelectChar_Button_Delete_Char   '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_DELETE_CHAR;
-                                     gui_Type                   : ctButton;
+                                     gui_Type                   : ctTextButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:14);
-                                     gui_Top                    : 282;
-                                     gui_Left                   : 105;
-                                     gui_Height                 : 14;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:21);
+                                     gui_Top                    : 289;
+                                     gui_Left                   : 90;
+                                     gui_Height                 : 21;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 54;
-                                                                   gui_Mouse_Over_Texture_ID : 55;
-                                                                   gui_Mouse_Down_Texture_ID : 54);
+                                     gui_CaptionID              : 77;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Setting     : [fsBold];
+                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf¦');
                                      gui_Enabled                : True;
                                      gui_Visible                : True      
                                      {$ENDREGION}
               );
     FSelectChar_Button_New_Char      : ({$REGION ' - FSelectChar_Button_New_Char      '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_NEW_CHAR;
-                                     gui_Type                   : ctButton;
+                                     gui_Type                   : ctTextButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:104; Bottom:14);
+                                     gui_WorkField              : (Left:0; Top:0; Right:104; Bottom:21);
                                      gui_Top                    : 135;
                                      gui_Left                   : 553;
-                                     gui_Height                 : 14;
+                                     gui_Height                 : 21;
                                      gui_Width                  : 104;
                                      gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 52;
-                                                                   gui_Mouse_Over_Texture_ID : 53;
-                                                                   gui_Mouse_Down_Texture_ID : 52);
+                                     gui_CaptionID              : 76;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Setting     : [fsBold];
+                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf¦');
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -2097,6 +2120,7 @@ var
                                      gui_Height                 : 84;
                                      gui_Width                  : 164;
                                      gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                    gui_Background_Texture_ID : 82);
                                      gui_Enabled                : True;
@@ -2227,7 +2251,7 @@ var
                                      gui_Height                 : 16;
                                      gui_Width                  : 100;
                                      gui_Blend_Size             : 240;
-                                     gui_Font                   : (gui_Font_Use_ID      : 1;
+                                     gui_Font                   : (gui_Font_Use_ID      : 13;
                                                                    gui_Font_Size        : 16;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Text_VAlign : avCenter);
@@ -2251,11 +2275,9 @@ var
                                      gui_Height                 : 220;
                                      gui_Width                  : 640;
                                      gui_Blend_Size             : 205;
-                                     gui_CaptionID              : 61;
                                      gui_Font                   : (gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFD1AD69;
-                                                                   gui_Font_Text_HAlign : alCenter;
-                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Text_HAlign : alLeft;
                                                                    gui_Font_Setting     : [fsBold]);
                                      gui_Color                  : (gui_ControlColor : $8F131313;
                                                                    gui_BorderColor  : $9F030303);
@@ -2435,13 +2457,13 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_CLASS;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 16;
+                                            gui_Top                    : 15;
                                             gui_Left                   : 233;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
                                             gui_Blend_Size             : 255;
                                             gui_CaptionID              : 60;                                        
-                                            gui_Font                   : (gui_Font_Size        : 16;
+                                            gui_Font                   : (gui_Font_Size        : 15;
                                                                           gui_Font_Color       : $FFF3F3F3;
                                                                           gui_Font_Text_HAlign : alCenter;
                                                                           gui_Font_Text_VAlign : avCenter);
@@ -2455,13 +2477,13 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_LEVEL;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 33;
+                                            gui_Top                    : 32;
                                             gui_Left                   : 233;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
                                             gui_Blend_Size             : 255;
                                             gui_CaptionID              : 1058;
-                                            gui_Font                   : (gui_Font_Size        : 16;
+                                            gui_Font                   : (gui_Font_Size        : 15;
                                                                           gui_Font_Color       : $FFF3F3F3;
                                                                           gui_Font_Text_HAlign : alCenter;
                                                                           gui_Font_Text_VAlign : avCenter);
@@ -2475,13 +2497,13 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_FAIME;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 16;
+                                            gui_Top                    : 15;
                                             gui_Left                   : 301;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
                                             gui_Blend_Size             : 255;
                                             gui_CaptionID              : 1064;
-                                            gui_Font                   : (gui_Font_Size        : 16;
+                                            gui_Font                   : (gui_Font_Size        : 15;
                                                                           gui_Font_Color       : $FFF3F3F3;
                                                                           gui_Font_Text_HAlign : alCenter;
                                                                           gui_Font_Text_VAlign : avCenter);
@@ -2495,7 +2517,7 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_POWER;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 33;
+                                            gui_Top                    : 32;
                                             gui_Left                   : 301;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
@@ -2515,7 +2537,7 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_AC;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 16;
+                                            gui_Top                    : 15;
                                             gui_Left                   : 368;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
@@ -2535,7 +2557,7 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_MA;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 33;
+                                            gui_Top                    : 32;
                                             gui_Left                   : 368;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
@@ -2562,7 +2584,7 @@ var
                                             gui_Height                 : 12;
                                             gui_Width                  : 180;
                                             gui_Blend_Size             : 255;
-                                            gui_Font                   : (gui_Font_Size        : 16;
+                                            gui_Font                   : (gui_Font_Size        : 15;
                                                                           gui_Font_Color       : $FFFFFFFF;
                                                                           gui_Font_Text_HAlign : alCenter;
                                                                           gui_Font_Text_VAlign : avCenter);
@@ -2586,7 +2608,7 @@ var
                                             gui_Height                 : 12;
                                             gui_Width                  : 180;
                                             gui_Blend_Size             : 255;
-                                            gui_Font                   : (gui_Font_Size        : 16;
+                                            gui_Font                   : (gui_Font_Size        : 15;
                                                                           gui_Font_Color       : $FFFFFFFF;
                                                                           gui_Font_Text_HAlign : alCenter;
                                                                           gui_Font_Text_VAlign : avCenter);                                            
@@ -5025,7 +5047,7 @@ var
                                               gui_Width                  : 180;
                                               gui_Blend_Size             : 255;
                                               gui_CaptionID              : 156;
-                                              gui_HintID                 : 157;
+                                              gui_HintID                 : 157;  
                                               gui_Font                   : (gui_Font_Size        : 16;
                                                                             gui_Font_Color       : $FFFF9400;
                                                                             gui_Font_Text_HAlign : alCenter;
@@ -6172,13 +6194,16 @@ var
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
+      {$ENDREGION}
+
+      {$REGION ' - Element Image and Text    '}
       (* Element Info Text *)
       FInGame_UI_Body_Text_EL_ATT             : ({$REGION ' - FInGame_UI_Body_Text_EL_ATT  '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_BODY_UI_TEXT_16_EL_ATT;
                                               gui_Type                   : ctTextLabel;
                                               gui_Form_Type              : ftNone;
                                               gui_Top                    : 410;
-                                              gui_Left                   : 104;
+                                              gui_Left                   : 103;
                                               gui_Height                 : 18;
                                               gui_Width                  : 48;
                                               gui_Blend_Size             : 255;
@@ -6197,7 +6222,7 @@ var
                                               gui_Type                   : ctTextLabel;
                                               gui_Form_Type              : ftNone;
                                               gui_Top                    : 435;
-                                              gui_Left                   : 104;
+                                              gui_Left                   : 103;
                                               gui_Height                 : 18;
                                               gui_Width                  : 48;
                                               gui_Blend_Size             : 255;
@@ -6216,7 +6241,7 @@ var
                                               gui_Type                   : ctTextLabel;
                                               gui_Form_Type              : ftNone;
                                               gui_Top                    : 460;
-                                              gui_Left                   : 104;
+                                              gui_Left                   : 103;
                                               gui_Height                 : 18;
                                               gui_Width                  : 48;
                                               gui_Blend_Size             : 255;
@@ -6230,9 +6255,6 @@ var
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
-      {$ENDREGION}
-
-      {$REGION ' - Element Image and Text    '}
       FInGame_UI_Body_Text_EL_FI_1            : ({$REGION ' - FInGame_UI_Body_Text_EL_FI_1  '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_BODY_UI_TEXT_EL_FI_1;
                                               gui_Type                   : ctTextLabel;
@@ -7203,6 +7225,7 @@ var
                                               gui_Height                 : 30;
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
+                                              gui_HintID                 : 269;
                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID    : 1222;
                                                                             gui_Mouse_Down_Texture_ID    : 1223);
@@ -7235,10 +7258,14 @@ var
                                               gui_Left                   : 95;
                                               gui_Height                 : 32;
                                               gui_Width                  : 286;
-                                              gui_Blend_Size             : 205;
-                                              gui_Color                  : (gui_ControlColor : $FF131313;
-                                                                            gui_BorderColor  : $FF030303);
-                                              gui_ShowBorder             : True;
+                                              gui_Blend_Size             : 255;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFF2F2F2;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              //gui_Color                  : (gui_ControlColor : $FF131313;
+                                              //                              gui_BorderColor  : $FF030303);
+                                              //gui_ShowBorder             : True;
                                               //gui_ShowPanel              : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -7253,7 +7280,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 261;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 721;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 722;
@@ -7273,7 +7300,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 262;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 723;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 724;
@@ -7293,7 +7320,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 263;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 725;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 726;
@@ -7313,7 +7340,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 264;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 727;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 728;
@@ -7333,7 +7360,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 265;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 729;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 730;
@@ -7353,7 +7380,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 266;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 731;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 732;
@@ -7373,7 +7400,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 267;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 733;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 734;
@@ -7393,7 +7420,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 268;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 735;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 736;
@@ -7459,7 +7486,7 @@ var
                                               gui_Width                  : 36;
                                               gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
                                               gui_Blend_Size             : 255;
-                                              gui_MagicHintID            : 9;
+                                              gui_MagicHintID            : 5;
                                               gui_Font                   : (gui_Font_Size        : 16;
                                                                             gui_Font_Color       : $FFFFFF00;
                                                                             gui_Font_Text_HAlign : alCenter;
@@ -7482,7 +7509,7 @@ var
                                               gui_Width                  : 36;
                                               gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
                                               gui_Blend_Size             : 255;
-                                              gui_MagicHintID            : 225;
+                                              gui_MagicHintID            : 113;
                                               gui_Font                   : (gui_Font_Size        : 16;
                                                                             gui_Font_Color       : $FFFFFF00;
                                                                             gui_Font_Text_HAlign : alCenter;
@@ -7505,7 +7532,7 @@ var
                                               gui_Width                  : 36;
                                               gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
                                               gui_Blend_Size             : 255;
-                                              gui_MagicHintID            : 17;
+                                              gui_MagicHintID            : 9;
                                               gui_Font                   : (gui_Font_Size        : 16;
                                                                             gui_Font_Color       : $FFFFFF00;
                                                                             gui_Font_Text_HAlign : alCenter;
@@ -8015,7 +8042,7 @@ var
                                               gui_Width                  : 36;
                                               gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
                                               gui_Blend_Size             : 255;
-                                              gui_MagicHintID            : 3;
+                                              gui_MagicHintID            : 2;
                                               gui_Font                   : (gui_Font_Size        : 16;
                                                                             gui_Font_Color       : $FFFFFF00;
                                                                             gui_Font_Text_HAlign : alCenter;
@@ -8801,7 +8828,7 @@ var
                                               gui_Width                  : 36;
                                               gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
                                               gui_Blend_Size             : 255;
-                                              gui_MagicHintID            : 5;
+                                              gui_MagicHintID            : 3;
                                               gui_Font                   : (gui_Font_Size        : 16;
                                                                             gui_Font_Color       : $FFFFFF00;
                                                                             gui_Font_Text_HAlign : alCenter;
@@ -9330,7 +9357,7 @@ var
                                               gui_Width                  : 36;
                                               gui_Clip_Rect              : (Left:94; Top:75; Right:398; Bottom:410);
                                               gui_Blend_Size             : 255;
-                                              gui_MagicHintID            : 7;
+                                              gui_MagicHintID            : 4;
                                               gui_Font                   : (gui_Font_Size        : 16;
                                                                             gui_Font_Color       : $FFFFFF00;
                                                                             gui_Font_Text_HAlign : alCenter;
@@ -9417,6 +9444,7 @@ var
                                               gui_Height                 : 30;
                                               gui_Width                  : 32;
                                               gui_Blend_Size             : 255;
+                                              gui_HintID                 : 269;
                                               gui_Control_Texture        : (gui_Texture_File_ID          : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID    : 1222;
                                                                             gui_Mouse_Down_Texture_ID    : 1223);
@@ -9450,7 +9478,11 @@ var
                                               gui_Left                   : 19;
                                               gui_Height                 : 32;
                                               gui_Width                  : 286;
-                                              gui_Blend_Size             : 205;
+                                              gui_Blend_Size             : 255;
+                                              gui_Font                   : (gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFF2F2F2;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
                                               //gui_Color                  : (gui_ControlColor : $FF131313;
                                               //                              gui_BorderColor  : $FF030303);
                                               //gui_ShowBorder             : True;
@@ -9468,7 +9500,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 270;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 751;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 752;
@@ -9488,7 +9520,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 271;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 753;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 754;
@@ -9508,7 +9540,7 @@ var
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
                                               gui_Blend_Size             : 255;
-                                              gui_HintID                 : 256;
+                                              gui_HintID                 : 272;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                             gui_Mouse_Over_Texture_ID : 755;
                                                                             gui_Extra_Texture_Set     : (gui_Background_Texture_ID : 756;
@@ -9533,7 +9565,7 @@ var
                                                                             gui_Slider_Texture_ID : 1673);
                                               gui_ScrollBar_Setup        : (gui_ScrollKind : skVertical;
                                                                             gui_Slider_Info    : (gui_Min:0;
-                                                                                                  gui_Max:4;
+                                                                                                  gui_Max:132;
                                                                                                   gui_Btn_Size:(Left:0; Top:0; Right:16; Bottom:16));
                                                                            );
                                               gui_Enabled                : True;
@@ -9549,7 +9581,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 309;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9572,7 +9604,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 311;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9595,7 +9627,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 313;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9618,7 +9650,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 361;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9641,7 +9673,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 363;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9664,7 +9696,7 @@ var
                                               gui_Left                   : 89; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 315;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9687,7 +9719,7 @@ var
                                               gui_Left                   : 89; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 317;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9710,7 +9742,7 @@ var
                                               gui_Left                   : 89; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 355;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9724,7 +9756,7 @@ var
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
-                );   
+                );
       FInGame_UI_Magic_ASS_Btn_Page_1_B9      : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B9 '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B9;
                                               gui_Type                   : ctMagicButton;
@@ -9733,7 +9765,7 @@ var
                                               gui_Left                   : 89; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 367;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9747,7 +9779,7 @@ var
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
-                );  
+                );
       FInGame_UI_Magic_ASS_Btn_Page_1_B10     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B10 '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B10;
                                               gui_Type                   : ctMagicButton;
@@ -9756,7 +9788,7 @@ var
                                               gui_Left                   : 89; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 371;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9779,7 +9811,7 @@ var
                                               gui_Left                   : 149; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 319;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9802,7 +9834,7 @@ var
                                               gui_Left                   : 149; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 323;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9825,7 +9857,7 @@ var
                                               gui_Left                   : 149; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 373;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9848,7 +9880,7 @@ var
                                               gui_Left                   : 209; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 353;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9871,7 +9903,7 @@ var
                                               gui_Left                   : 209; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 357;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9885,7 +9917,7 @@ var
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
-                );   
+                );
       FInGame_UI_Magic_ASS_Btn_Page_1_B16     : ({$REGION ' - FInGame_UI_Magic_ASS_Btn_Page_1_B16 '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B16;
                                               gui_Type                   : ctMagicButton;
@@ -9894,7 +9926,7 @@ var
                                               gui_Left                   : 209; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 321;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9917,7 +9949,7 @@ var
                                               gui_Left                   : 209; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 369;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9940,7 +9972,7 @@ var
                                               gui_Left                   : 269; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 325;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9963,7 +9995,7 @@ var
                                               gui_Left                   : 269; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 327;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -9986,7 +10018,7 @@ var
                                               gui_Left                   : 269; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 359;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10009,7 +10041,7 @@ var
                                               gui_Left                   : 269; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 365;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10033,7 +10065,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 329;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10056,7 +10088,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 331;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10079,7 +10111,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 337;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10102,7 +10134,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 339;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10125,7 +10157,7 @@ var
                                               gui_Left                   : 89; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 333;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10148,7 +10180,7 @@ var
                                               gui_Left                   : 149; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 335;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10171,7 +10203,7 @@ var
                                               gui_Left                   : 149; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 375;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10194,7 +10226,7 @@ var
                                               gui_Left                   : 269; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 341;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10217,7 +10249,7 @@ var
                                               gui_Left                   : 269; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 377;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10241,7 +10273,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 343;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10264,7 +10296,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 345;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10287,7 +10319,7 @@ var
                                               gui_Left                   : 29; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 349;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10310,7 +10342,7 @@ var
                                               gui_Left                   : 89; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 379;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10333,7 +10365,7 @@ var
                                               gui_Left                   : 89; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 347;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10356,7 +10388,7 @@ var
                                               gui_Left                   : 269; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 351;
                                               gui_Font                   : (gui_Font_Size        : 16;
@@ -10379,7 +10411,7 @@ var
                                               gui_Left                   : 269; 
                                               gui_Height                 : 32;
                                               gui_Width                  : 36;
-                                              gui_Clip_Rect              : (Left:0; Top:0; Right:300; Bottom:600);
+                                              gui_Clip_Rect              : (Left:18; Top:54; Right:322; Bottom:391);
                                               gui_Blend_Size             : 255;
                                               gui_MagicHintID            : 381;
                                               gui_Font                   : (gui_Font_Size        : 16;

@@ -57,7 +57,7 @@ implementation
 uses mir3_game_backend;
 
 const
-  GBufferSize = 10000;
+  GBufferSize = 20000;
 
 var
   GBuffer  : PChar;
@@ -201,7 +201,7 @@ begin
         begin
           ZeroMemory(GBuffer, GBufferSize);
           FGetLangGameString(ATextID, GBuffer);
-          Result := Trim(StrPas(GBuffer));
+          Result := StrPas(GBuffer);
         end;
       end else Result := '.';
     end else Result := '.';
@@ -248,7 +248,7 @@ begin
         begin
           ZeroMemory(GBuffer, GBufferSize);
           FGetLangMagicString(ATextID, GBuffer);
-          Result := Trim(StrPas(GBuffer));
+          Result := StrPas(GBuffer);
         end;
       end else Result := '.';
     end else Result := '.';

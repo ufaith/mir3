@@ -406,8 +406,8 @@ implementation
             FServer_1_Name := EncodeString('TestServer');
             FServer_1_IP   := EncodeString('127.0.0.1');
             FServer_1_Port := 7000;
-            FRegister_URL  := EncodeString('http:\\www.LomCn.co.uk\');
-            FAccount_URL   := EncodeString('http:\\www.LomCn.co.uk\');
+            FRegister_URL  := EncodeString('http:\\www.LomCn.org\');
+            FAccount_URL   := EncodeString('http:\\www.LomCn.org\');
             FFull_Screen   := False;
             FUseStartVideo := True;
             FVideoVolume   := -2000;
