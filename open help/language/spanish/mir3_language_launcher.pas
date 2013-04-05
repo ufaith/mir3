@@ -1,19 +1,17 @@
-(******************************************************************************
+(******************************************************************           *
  *   LomCN Mir3 Spanish Launcher Language LGU File 2013                       *
  *                                                                            *
- *   Web       : http://www.lomcn.org                                         *
+ *   Web       : http://www.lomcn.co.uk                                       *
  *   Version   : 0.0.0.1                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
- *   It holds the mir3 spanish language strings.                              *
+ *   It holds the mir3 Spanish language strings.                              *
  *                                                                            *
  ******************************************************************************
  * Change History                                                             *
  *                                                                            *
- *  - 0.0.0.1 [2013-04-05]] Coly  : first init                                *
- *                                                                            *
- *                                                                            *
+ *  - 0.0.0.1 [2013-02-11] Elamo : first init                                 *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -25,7 +23,7 @@
  * !! Don't localize or delete things with "¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
  *                                                                            *
- * !!! Attention, only the English language files are                         * 
+ * !!! Attention, only the Spanish language files are                         * 
  * !!! matched by the development team, not other languages??.                *
  *                                                                            * 
  ******************************************************************************)
@@ -43,7 +41,7 @@ implementation
 
 function GetLauncherLine(): Integer; stdcall;
 begin
-  Result := 2000;
+  Result := 1;
 end;
 
 function GetLauncherString(ID: Integer; Buffer: PChar): Integer; stdcall;
@@ -54,7 +52,7 @@ begin
     (*******************************************************************
     *                  Server Informations strings                     *
     *******************************************************************)
-    1..2000 : Value :='reserve';
+    1: Value :='';
 
     (*******************************************************************
     *                         Option strings                           *
@@ -68,7 +66,7 @@ begin
     *                       Update Game strings                        *
     *******************************************************************)
 
-    else Value := 'Unsupport';
+    else Value := 'No soportado';
   end;
 
   ////////////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 (******************************************************************************
  *   LomCN Mir3 Spanish Game Language LGU File 2013                           *
  *                                                                            *
- *   Web       : http://www.lomcn.org                                         *
+ *   Web       : http://www.lomcn.co.uk                                       *
  *   Version   : 0.0.0.1                                                      *
  *                                                                            *
  *   - File Info -                                                            *
@@ -11,7 +11,7 @@
  ******************************************************************************
  * Change History                                                             *
  *                                                                            *
- *  - 0.0.0.1 [2013-04-05]] Coly : first init                                 *
+ *  - 0.0.0.1 [2013-04-05] Elamo : first init                                 *
  *                                                                            *
  *                                                                            *
  *                                                                            *
@@ -25,7 +25,7 @@
  * !! Don't localize or delete things with "¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
  *                                                                            *
- * !!! Attention, only the English language files are                         * 
+ * !!! Attention, only the Spanish language files are                         * 
  * !!! matched by the development team, not other languages??.                *
  *                                                                            * 
  ******************************************************************************)
@@ -54,317 +54,300 @@ begin
     (*******************************************************************
     *                     Login, Server Selection.                     *
     *******************************************************************)
-    1 : Value := 'Log in';                                                              // Button
-    2 : Value := 'Exit';                                                                // Button
-    3 : Value := 'New Account';                                                         // Button URL
-    4 : Value := 'Change Password';                                                     // Button URL
-    5 : Value := 'ID                                      PASSWORD¦CE¦';                // Button
-    6 : Value := 'Log In (L)';                                                          // [1] Hint
-    7 : Value := 'Exit (X)';                                                            // [2] Hint
-    8 : Value := 'New Account (N)';                                                     // [3] Hint
-    9 : Value := 'Change Password (P)';                                                 // [4] Hint
-    10: Value := 'You have been disconnected.';                                         // Infoboard
-    11: Value := 'The server is currently\down for maintenance.';                       // Infoboard
-    12: Value := 'Cannot connect to the server.\The server is unreachable.';            // Infoboard
-    13: Value := 'Are you sure you want to quit?';
-    14: Value := 'Reserved';
-    15: Value := 'Reserved';
+    1 : Value := 'Iniciar Sesión';                                                              // Button
+    2 : Value := 'Salir';                                                                // Button
+    3 : Value := 'Registrar Cuenta';                                                         // Button URL
+    4 : Value := 'Cambiar Contraseña';                                                     // Button URL
+    5 : Value := 'ID                            CONTRASEÑA';                            // Button
+    6 : Value := 'Iniciar Sesión (L)';                                                          // [1] Hint
+    7 : Value := 'Salir (X)';                                                            // [2] Hint
+    8 : Value := 'Registrar Cuenta (N)';                                                     // [3] Hint
+    9 : Value := 'Cambiar Contraseña (P)';                                                 // [4] Hint
+    10: Value := 'Has sido desconectado.';                                         // Infoboard
+    11: Value := 'El server esta actualmente'+#10#13+'cerrado por mantenimiento.';              // Infoboard
+    12: Value := 'No se ha podido establecer la conexión con el servidor.'+#10#13+'El servidor es inaccesible.';   // Infoboard
+    13: Value := '¿Estas seguro de que deseas salir?';
+    14: Value := 'Reservado';
+    15: Value := 'Reservado';
     { SM_LOGIN_PASSWORD_FAIL }
-    16: Value := 'Your ID or password is incorrect.\Please try again.';
-    17: Value := 'You have entered the wrong account\information three times.\Please try again later.';
-    18: Value := 'Unable to access account information.\Please try again.';
-    19: Value := 'Your account has been disabled.\Please visit www.lomcn.org\for more information.';
-    20: Value := 'Your game subscription has expired.\Please visit www.lomcn.org\for more information.';
-    21: Value := 'Unknown errors have occurred!\Please visit www.lomcn.org\for more information.';
-    22: Value := 'Reserved';
-    23: Value := 'Reserved';
-    24: Value := 'Reserved';
-    25: Value := 'Reserved';
+    16: Value := 'Tu usuario y/o contraseña no es correcto'      +#10#13+'Por favor intentalo de nuevo.';
+    17: Value := 'Has intentado iniciar sesión tres veces '     +#10#13+'con unos datos de cuenta invalidos.'           +#10#13+'Por favor intentalo de nuevo.';//'Please restart the game client.';
+    18: Value := 'No ha sido posible acceder a la'  +#10#13+'información de su cuenta.'  +#10#13+'Por favor intentalo de nuevo.';
+    19: Value := 'Su cuenta ha sido bloqueada.'        +#10#13+'Por favor visita www.lomcn.co.uk'+#10#13+'para más información.';
+    20: Value := 'Tu suscripción ha terminado.'    +#10#13+'Por favor visita www.lomcn.co.uk'+#10#13+'para más información.';
+    21: Value := '¡Ha ocurrido un error desconocido!'          +#10#13+'Por favor visita www.lomcn.co.uk'+#10#13+'para más información.';
+    22: Value := 'Reservado';
+    23: Value := 'Reservado';
+    24: Value := 'Reservado';
+    25: Value := 'Reservado';
     { SM_LOGIN_PASSWORD_OK Verify Subscription }
-    26: Value := 'Your subscription expires today!\Please visit http://www.lomcn.org\for more information.';
-    27: Value := 'Your subscription will expire in\ %d days.';
-    28: Value := 'Your IP access will be valid for\another %d days.';
-    29: Value := 'Your IP access expires today!';
-    30: Value := 'Your IP access will be valid for\another %d hours.';
-    31: Value := 'Your ID will be valid for another\ %d hours.';
-    32: Value := 'Reserved';
-    33: Value := 'Reserved';
-    34: Value := 'Reserved';
-    35: Value := 'Reserved';
-    36: Value := 'Reserved';
-    37: Value := 'Reserved';
-    38: Value := 'Reserved';
-    39: Value := 'Reserved';
-    40: Value := 'Reserved';
+    26: Value := '¡Tu suscripción termina hoy!'     +#10#13+'Por favor visita www.lomcn.co.uk'+#10#13+'para más información.';
+    27: Value := 'Tu suscripción termina en'     +#10#13+'%d dias.';
+    28: Value := 'Tu acceso por IP expira en'     +#10#13+'%d dias.';            //'Your IP in use has remaining'         +#10#13+' %d days to access.';
+    29: Value := '¡Tu acceso por IP expira hoy!';                                              //'Your IP in use expires today.';
+    30: Value := 'Tu acceso por IP expira en'     +#10#13+'%d horas.';           //'Your IP in use has remaining'         +#10#13+' %d hours to access.';
+    31: Value := 'Tu cuenta sera valida durante'    +#10#13+'%d horas más.';                   //'Your ID in use has remaining'         +#10#13+' %d hours to access.';
+    32: Value := 'Reservado';
+    33: Value := 'Reservado';
+    34: Value := 'Reservado';
+    35: Value := 'Reservado';
+    36: Value := 'Reservado';
+    37: Value := 'Reservado';
+    38: Value := 'Reservado';
+    39: Value := 'Reservado';
+    40: Value := 'Reservado';
     (*******************************************************************
     *               Character Selection / Creation                     *
     *******************************************************************)
-    41: Value := 'Loading character information, please wait.';
-    42: Value := 'Select Warrior';
-    43: Value := 'Select Wizard';
-    44: Value := 'Select Taoist';
-    45: Value := 'Select Assassin';
-    46: Value := 'Confirm';
-    47: Value := 'Cancel';
-    48: Value := 'Name';
-    49: Value := 'Level';
-    50: Value := 'Class';
-    51: Value := 'Gold';
+    41: Value := 'Cargando la información de los personajes, por favor espere.';
+    42: Value := 'Seleccionar Guerrero';
+    43: Value := 'Seleccionar Mago';
+    44: Value := 'Seleccionar Taoista';
+    45: Value := 'Seleccionar Asesino';
+    46: Value := 'Confirmar';
+    47: Value := 'Cancelar';
+    48: Value := 'Nombre';
+    49: Value := 'Nivel';
+    50: Value := 'Clase';
+    51: Value := 'Oro';
     52: Value := 'Exp';
-    53: Value := 'Reserved';
-    54: Value := 'Reserved';
-    55: Value := 'Male';
-    56: Value := 'Female';
-    57: Value := 'Warrior';
-    58: Value := 'Wizard';
-    59: Value := 'Taoist';
-    60: Value := 'Assassin';
+    53: Value := '[ ';
+    54: Value := ' ]';
+    55: Value := 'Hombre';
+    56: Value := 'Mujer';
+    57: Value := 'Guerrero';
+    58: Value := 'Mago';
+    59: Value := 'Taoista';
+    60: Value := 'Asesino';
     { Information about Warriors }
-    61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Warrior]¦CE¦\¦Y08¦'             // SE: Better to have gender first
-               + ' Warriors are a class of great strength and vitality. They are not easily\'
-               + ' killed in battle and have the advantage of being able to use a variety of\'
-               + ' heavy weapons and armour. Warriors favour attacks that are based on close\'
-               + ' range physical damage, and are weak against ranged attacks. The variety\'
-               + ' of equipment that is developed specifically for Warriors complements\'
-               + ' their weakness in ranged combat. Warrior characters are recommended for\'
-               + ' beginners because of their simple yet powerful abilities.\';
+    61: Value := 'Los guerreros son una clase de gran fuerza y vitalidad. No son fácilmente   ' + #10#13 +
+                 'de matar en combate y tienen la ventaja de ser capaces de utilizar una gran ' + #10#13 +
+                 'variedad de armas y armaduras muy pesadas. Los guerreros son muy fuertes en ' + #10#13 +
+                 'ataques a corta distancia, pero débiles en larga distancia. La gran         ' + #10#13 +
+                 'variedad de equipo que se ha desarrollado especificamente para guerreros    ' + #10#13 +
+                 'complementa su debilidad en ataques a larga distancia. Son muy recomendados ' + #10#13 +
+                 'para principiantes por la simplicidad de sus ataques pero de gran fuerza    ';
     { Information about Wizards }
-    62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Wizard]¦CE¦\¦Y08¦'
-               + ' Wizards are a class of low strength and stamina, but have the ability to use\'
-               + ' powerful spells. Their offensive spells are very effective, but the time it\'
-               + ' takes to cast these spells is likely to leave them vulnerable to enemy\'
-               + ' counterattacks. Therefore, a Wizard must always aim to attack his enemies\'
-               + ' from a safe distance. Being physically weak, Wizards are difficult to train\'
-               + ' in the early stages of the game, but grow into powerful characters as they\'
-               + ' learn the more advanced spells. Because of their many advantages and\'
-               + ' drawbacks, Wizards require a lot of attention and skill.\';
+    62: Value := 'Los magos son una clase de baja fuerza fisica y vitalidad, pero tienen la   ' + #10#13 +
+                 'habilidad de utilizar poderosos hechizos. Sus hechizos ofensivos son muy    ' + #10#13 +
+                 'eficaces pero el tiempo que se tarda en volver a lanzar los conjuros lo     ' + #10#13 +
+                 'pueden dejar vulnerable en un contraaque del enemigo. Por eso un mago       ' + #10#13 +
+                 'siempre debe lanzar sus hechizos desde una distancia segura. Al ser una     ' + #10#13 +
+                 'fisicamente debil, la hace al principio dificil de entrenar. Pero se        ' + #10#13 +
+                 'convierten en personajes poderosos a medida que van aprendiendo hechizos.   ' + #10#13 +
+                 'Debido a su cantidad de ventajes y desventajas es necesario tener cierta    ' + #10#13 +
+				 'atención y destreza para sacarle el máximo partido a su poder.              ';
     { Information about Taoists }
-    63: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Taoist]¦CE¦\¦Y08¦'
-               + ' Taoists lie between Wizards and Warriors in terms of strength and\'
-               + ' survivability, but rather than directly engaging their enemies, their true\'
-               + ' strength lies in supporting others. Their most essential skills are the\'
-               + ' ability to heal and protect other characters. They can also summon powerful\'
-               + ' creatures to assist them, and have a few well balanced offensive options.\'
-               + ' Even though Taoists have many skills, their lack of physical power makes them\'
-               + ' difficult to train. They must always look out for other players to fight with.\';
+    63: Value := 'Los taoístas estan entre los guerreros y magos en terminos de resistencia  y' + #10#13 +
+                 'supervivencia, pero no así su fuerza directa contra enemigos, su verdadero  ' + #10#13 +
+                 'poder esta en apoyar a los demás. Sus habilidades especiales son la de curar' + #10#13 +
+                 'y proteger a los demás. También pueden invocar a criaturas poderosas para   ' + #10#13 +
+                 'ayudarles, y tienen pocas opciones ofensivas balanceadas. A pesar de que los' + #10#13 +
+                 'taoístas tienen muchas habilidades, su falta de fuerza física los hace muy  ' + #10#13 +
+                 'complicados de entrenar. Siempre debe colaborar para luchar con otros.';
     { Information about Assassins }
-    64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Assassin]¦CE¦\¦Y08¦'
-               + '¦C1D1AD69¦¦C2C19D59¦ Assassins are members of a secret organization and their history is relatively\'
-               + ' unknown. They are physically weak but are capable of hiding themselves and\'
-               + ' performing attacks while being unseen by others, and are naturally excellent\'
-               + ' at making fast kills. However they must be careful to avoid engagements\'
-               + ' against multiple opponents as they have less defensive options than other\'
-               + ' characters. Assassins are recommended for experienced players, as they\'
-               + ' require smart moves, cunning decisions and quick thinking.¦CE¦\';
-    65: Value := 'Character deleted.';
-    66: Value := 'Deleted characters cannot be recovered, and\'
-               + 'you cannot create another character with\'
-               + 'the same name for a while. If you wish to\'
-               + 'continue, please type your password and\'
-               + 'press the "Confirm" button.';  
-    67: Value := 'You cannot create more than %d characters.';
-    68: Value := 'Please create a character first.';
-    69: Value := 'Character information cannot be accessed.';
-    70: Value := 'A character with this name already exists.';
-    71: Value := 'You cannot create another character.';
-    72: Value := 'Character creation failure - Error code 4';
-    73: Value := 'Unknown errors have occurred.\Please visit www.lomcn.org\for more information.';
-    74: Value := 'An error has occurred while deleting\your character.';
-    75: Value := 'Start Game¦CE¦';
-    76: Value := 'New Character¦CE¦';
-    77: Value := 'Delete Character¦CE¦';
-    78: Value := 'Exit¦CE¦';
-    79: Value := 'Reserved';
-    80: Value := 'Reserved';
+    64:Value :=  'Los asesinos pertenecen a una organización secreta y su historia es           ' + #10#13 +
+                 'relativamente desconicida. Son físicamente débiles, pero son capaces de       ' + #10#13 +
+                 'esconderse y de realizar ataques sin ser vistos. Son muy eficaces realizando  ' + #10#13 +
+                 'muertes realmente rápidas. Sin embargo deben tener cuidado con enfretamientos ' + #10#13 +
+                 'multiples ya que su defensa es menor comparada con el resto de personajes.    ' + #10#13 +
+                 'characters. Los asesinos son recomendados para jugadores con experiencia ya   ' + #10#13 +
+                 'requiere de movimientos inteligentes, decisiones astutas y pensamiento rápido.';
+    65: Value := 'Personaje eliminado.';             
+    66: Value := 'Los personajes eliminado no pueden ser ' + #10#13 +
+                 'recuperados y no se podra crear otro '   + #10#13 +
+                 'con el mismo nombre durante un tiempo.'  + #10#13 +
+                 'Si estas seguro continua, escribe tu contraseña'    + #10#13 +
+                 'y pulsa el botón Sí';     // 'Yes' sounds awkward but what does the button actually say? It should probably say "Confirm"   Coly: I can use a Text Button with own Text...
+    67: Value := 'No puedes crear más de %d personajes.';
+    68: Value := 'Por favor crea un personaje primero.';// by'+ #10#13 +'clicking the New Character button.';
+    69: Value := 'No se ha podido acceder a la información de los personajes.';
+    70: Value := 'El personaje ya existe con este nombre.';
+    71: Value := 'No puedes crear otro personaje.';
+    72: Value := 'La creación del personaje ha fallado - Código de error: 4';
+    73: Value := 'Ha ocurrido un error desconocido.'+#10#13+'Por favor visita www.lomcn.co.uk'+#10#13+'para más información.';
+    74: Value := 'Ha ocurrido un error al borrar'      + #10#13 +'tu personaje.';
+    75: Value := 'Reservado';
+    76: Value := 'Reservado';
+    77: Value := 'Reservado';
+    78: Value := 'Reservado';
+    79: Value := 'Reservado';
+    80: Value := 'Reservado';
     (*******************************************************************
     *                        InGame Text                               *
     *******************************************************************)
     {Menu Bar}
-    81: Value := 'Settings';
+    81: Value := 'Configuración';
     82: Value := 'Chat';
-    83: Value := 'Message';
-    84: Value := 'Group';
-    85: Value := 'Guild';
+    83: Value := 'Mensajes';
+    84: Value := 'Grupo';
+    85: Value := 'Clan';
     86: Value := 'Avatar';
     87: Value := 'Siege';
     88: Value := 'Auto-Features';
-    89: Value := 'Exit';
-    90: Value := 'Close';
-    91..100 : Value := 'Reserved';
+    89: Value := 'Salir';
+    90: Value := 'Cerrar';
+    91..100 : Value := 'Reservado';
     {Game Settings}
-    101: Value := 'Basic';
-    102: Value := 'Security';
+    101: Value := 'Basico';
+    102: Value := 'Permitir'; // not great, but I can't find another word that's short enough    Coly: give me some words and I test it...
     103: Value := 'Chat';
     104: Value := 'Visual';
     { Page 1 Basic }
-    105: Value := 'Attack Stance: All';
-    106: Value := 'Attack Stance: Peaceful';
-    107: Value := 'Attack Stance: Lover'; //(Dear)'; - Lover, Partner, Spouse, Couple, Marriage
-    108: Value := 'Attack Stance: Master';
-    109: Value := 'Attack Stance: Group';
-    110: Value := 'Attack Stance: Guild';
-    111: Value := 'Attack Stance: Red vs. White';
-    112: Value := 'Reserved';
-    113: Value := 'Reserved';
-    114: Value := 'Change Attack Stance';                   // Hint for Attack Mode
-    116: Value := 'Normal Attack Stance';
-    117: Value := 'Change Attack Stance';                   // Hint for Attack Mode
-    118: Value := 'Background Music';
-    119: Value := '[ Background Music On/Off ]';            // Hint Background Music
-    120: Value := 'Sound Effects';
-    121: Value := '[ Sound Effects On/Off ]';               // Hint Sound Effects
-    122: Value := 'Directional (Stereo) Sound';
-    123: Value := '[ Directional Sound On/Off ]';           // Hint Sound Effects
-    124: Value := 'Automatic Pick-up';
-    125: Value := '[ Automatic Pick-up On/Off ]';           // Hint Sound Effects
-    126: Value := 'Show names of dropped items';
-    127: Value := '[ Show names of dropped items On/Off ]'; // Hint Sound Effects
+    105: Value := 'Modo Ataque (All)';
+    106: Value := 'Modo Ataque (Peaceful)';
+    107: Value := 'Modo Ataque (Lover)'; //(Dear)'; - Lover, Partner, Spouse, Couple, Marriage
+    108: Value := 'Modo Ataque (Master)';
+    109: Value := 'Modo Ataque (Group)';
+    110: Value := 'Modo Ataque (Guild)';
+    111: Value := 'Modo Ataque (Red vs. White)';
+    112: Value := 'Resevado';
+    113: Value := 'Resevado';
+    114: Value := 'Cambiar modo de ataque';           // Hint for Attack Mode
+    116: Value := 'Modo Ataque Normal';
+    117: Value := 'Cambiar modo de ataque';             // Hint for Attack Mode
+    118: Value := 'Música de fondo';
+    119: Value := '[ Música Fondo On/Off ]';  // Hint Background Music
+    120: Value := 'Efectos de Sonido';
+    121: Value := '[ Efectos Sonido On/Off ]';     // Hint Sound Effects
+    122: Value := 'Dirección (Estéreo) Sonido';
+    123: Value := '[ Dirección Sonido On/Off ]';          // Hint Sound Effects
+    124: Value := 'Recogida Automática';
+    125: Value := '[ Recogida Automática On/Off ]'; // Hint Sound Effects
+    126: Value := 'Mostrar los nombres de los objetos tirados';
+    127: Value := '[ Mostrar Nombre Objetos Tirados On/Off ]'; // Hint Sound Effects
     { Page 2 Permissions }
-    128: Value := 'Allow Group Invitations';
-    129: Value := '[ Allow Group Invitations On/Off ]';
-    130: Value := 'Allow Guild Invitations';
-    131: Value := '[ Allow Guild Invitations On/Off ]';
-    132: Value := 'Allow Resurrection';
-    133: Value := '[ Allow Resurrection On/Off ]';
-    134: Value := 'Allow Recall';
-    135: Value := '[ Allow Recall On/Off ]';
-    136: Value := 'Allow Trading';
-    137: Value := '[ Allow Trading On/Off ]';
-    138: Value := 'Blood Splatter Effects (18+)'; // Fixed
-    139: Value := '[ Blood Splatter Effects On/Off ]';
-    140: Value := 'Reserved';
-    141: Value := 'hint reserved';
-    142: Value := 'Reserved';
-    143: Value := 'hint reserved';
-    144: Value := 'Reserved';
-    145: Value := 'hint reserved';
-    146: Value := 'Reserved';
-    147: Value := 'hint reserved';
+    128: Value := 'Permitir Invitaciones de Grupo';
+    129: Value := '[ Permitir Invitaciones de Grupo On/Off ]';
+    130: Value := 'Permitir Invitaciones de Clanes';
+    131: Value := '[ Permitir Invitaciones de Clanes On/Off ]';
+    132: Value := 'Permitir Resurección';
+    133: Value := '[ Permitir Resurección On/Off ]';
+    134: Value := 'Permitir desplazamiento';
+    135: Value := '[ Permitir desplazamiento On/Off ]';
+    136: Value := 'Permitir Comerciar';
+    137: Value := '[ Pertimir Comerciar On/Off ]';
+    138: Value := 'Mostrar Sangre';                      // I have no idea what this is.  Coly: It is for  blood spatter (we have Textures for it (Only From 18 years up))
+    139: Value := '[ Mostrar Sangre On/Off ]';
+    140: Value := 'Reservado';
+    141: Value := 'Insinuar reservado';
+    142: Value := 'Reservado';
+    143: Value := 'Insinuar reservado';
+    144: Value := 'Reservado';
+    145: Value := 'Insinuar reservado';
+    146: Value := 'Reservado';
+    147: Value := 'Insinuar reservado';
     { Page 3 Chatting }
-    148: Value := 'Whispering';
-    149: Value := '[ Listen to Whispering On/Off ]';
-    150: Value := 'Shouting';
-    151: Value := '[ Listen to Shouting On/Off ]';
-    152: Value := 'Reserved';
-    153: Value := 'hint reserved';
-    154: Value := 'Guild Messages';
-    155: Value := '[ Listen to Guild Messages On/Off ]';
-    156: Value := 'Block whispering from User';
-    157: Value := '[ Whispering from User blocked ]';    // SE: it would be nice for the %s to let you know who is blocked - not necessary though | Coly: Prio 8 or so...
-    158: Value := 'Reserved';
-    159: Value := 'Reserved';
-    160: Value := 'hint reserved';
-    161: Value := 'Reserved';
-    162: Value := 'hint reserved';
-    163: Value := 'Reserved';
-    164: Value := 'hint reserved';
-    165: Value := 'Reserved';
-    166: Value := 'hint reserved';
-    167: Value := 'Reserved';
-    168: Value := 'hint reserved';
+    148: Value := 'Susurro';
+    149: Value := '[ Escuchar susurros On/Off ]';
+    150: Value := 'Gritos';
+    151: Value := '[ Escuchar gritos On/Off ]';
+    152: Value := 'Reservado';
+    153: Value := 'Insinuar Reservado';
+    154: Value := 'Mensajes Clan';
+    155: Value := '[ Escuchar Mensajes Clan On/Off ]';
+    156: Value := 'Bloquear susurro de usuarios';
+    158: Value := '[ Bloquear susurro de usuarios ]';    // Should it be "User %s"?  Coly: no idea, if so we need to add it
+    157: Value := 'Reservado'; //<-- Hint for "Whispering from User blocked"
+    159: Value := 'Reservado';
+    160: Value := 'Insinuar reservado';
+    161: Value := 'Reservado';
+    162: Value := 'Insinuar reservado';
+    163: Value := 'Reservado';
+    164: Value := 'Insinuar reservado';
+    165: Value := 'Reservado';
+    166: Value := 'Insinuar reservado';
+    167: Value := 'Reservado';
+    168: Value := 'Insinuar reservado';
     { Page 4 Visual }
-    169: Value := 'HP Change Indicator';
-    170: Value := '[ HP Change Indicator On/Off ]';
-    171: Value := 'Display Magic Graphics';
-    172: Value := '[ Magic Graphics On/Off ]';
-    173: Value := 'Display Bright Shadows';
-    174: Value := '[ Bright Shadows On/Off ]';
-    175: Value := 'Display Helmet Graphics';
-    176: Value := '[ Helmet Graphics On/Off ]';
-    177: Value := 'Display Monster Effects';
-    178: Value := '[ Monster Effects On/Off ]';
-    179: Value := 'Display dyed hair colours';
-    180: Value := '[ Dyed Hair Colours On/Off ]';
-    181: Value := 'Display Avatar';
+    169: Value := 'HP Cambiar Indicador';
+    170: Value := '[ HP Cambiar Indicador On/Off ]';
+    171: Value := 'Mostrar Graficos Magias';
+    172: Value := '[ Graficos Magias On/Off ]';
+    173: Value := 'Mostrar sombras brillantes';
+    174: Value := '[ Sombras Brillantes On/Off ]';
+    175: Value := 'Mostrar graficos del casco';
+    176: Value := '[ Graficos Casco On/Off ]';
+    177: Value := 'Mostrar efectos de monstruos';
+    178: Value := '[ Montruos Efectos On/Off ]';
+    179: Value := 'Mostrar colores teñidos del pelo';
+    180: Value := '[ Colores Teñidos Pelo On/Off ]';
+    181: Value := 'Mostrar Avatar';
     182: Value := '[ Avatar On/Off ]';
-    183: Value := 'Show Monsters on Mini-map';  
-    184: Value := '[ Monsters on Mini-map On/Off ]';
-    185: Value := 'Display Player HP Gauge';
-    186: Value := '[ Player HP Gauge On/Off ]';
-    187: Value := 'Display Monster HP Gauge';
-    188: Value := '[ Monster HP Gauge On/Off ]';
-    189: Value := 'Reserved';
+    183: Value := 'Mostrar Monstruos en el Mini-mapa';  // The text is a bit to long
+    184: Value := '[ Mostruos en el Mini-mapa On/Off ]';
+    185: Value := 'Mostrar HP Personaje';
+    186: Value := '[ Mostrar HP Personaje On/Off ]';
+    187: Value := 'Mostrar HP Monstruo';
+    188: Value := '[ Mostrar HP Monstruo On/Off ]';
+    189: Value := 'Reservado';
     { Exit Window }
-    190: Value := 'Exit';
-    191: Value := 'Exit the game.';
-    192: Value := 'Log out';
-    193: Value := 'Log out and select a new character.';
-    194: Value := 'Are you sure you want to quit?';
-    195: Value := 'Cancel';
+    190: Value := 'Salir';
+    191: Value := 'Salir del juego.';
+    192: Value := 'Cerrar sesión';
+    193: Value := 'Cerrar sesión y seleccionar un nuevo personaje.';
+    194: Value := '¿Estas seguro que deseas salir?';
+    195: Value := 'Cancelar';
     { Belt Window }
-    196: Value := 'Rotate';         //Hint
-    197: Value := 'Close';          //Hint
-    198: Value := 'Reserved';
-    199: Value := 'Reserved';
-    200: Value := 'Reserved';
+    196: Value := 'Girar';         //Hint
+    197: Value := 'Cerrar';          //Hint
+    198: Value := 'Reservado';
+    199: Value := 'Reservado';
+    200: Value := 'Reservado';
     { Mini Map }
     201: Value := ''; //Hint
     202: Value := ''; //Hint
     203: Value := ''; //Hint
     204: Value := ''; //Hint
-    205: Value := 'No Mini-map';
-    206: Value := 'No map available!';
-    207: Value := 'Not Used';
-    208..210: Value := 'Reserved';
+    205: Value := 'No Mini-mapa';
+    206: Value := 'No hay mapa disponible!';
+    207: Value := 'No se usa';
+    208..210: Value := 'Reservado';
     { Body Window }
-    211: Value := 'Level';
-    212: Value := 'Experience';
-    213: Value := 'Health Points (HP)';
-    214: Value := 'Mana Points (MP)';
-    215: Value := 'Bag Weight';
-    216: Value := 'Body Weight';
-    217: Value := 'Hand Weight';
-    218: Value := 'Accuracy';
-    219: Value := 'Agility';
+    211: Value := 'Nivel';
+    212: Value := 'Experiencia';
+    213: Value := 'Puntos Vitalidad (HP)';
+    214: Value := 'Puntos Energia (MP)';
+    215: Value := 'Peso Bolsa';
+    216: Value := 'Peso Cuerpo';
+    217: Value := 'Peso Mano';
+    218: Value := 'Preción';
+    219: Value := 'Agilidad';
     220: Value := 'Ele(Atk)';
     221: Value := 'Ele(Def)';
     222: Value := 'Ele(Wkn)';
-    223: Value := 'Element Atk (Attack)';           //Hint
-    224: Value := 'Element Def (Defence)';          //Hint
-    225: Value := 'Element Wkn (Weakness)';         //Hint
-    226: Value := 'Element Fire (Attack)';          //Hint
-    227: Value := 'Element Fire (Defence)';         //Hint
-    228: Value := 'Element Fire (Weakness)';        //Hint
-    229: Value := 'Element Ice (Attack)';           //Hint
-    230: Value := 'Element Ice (Defence)';          //Hint
-    231: Value := 'Element Ice (Weakness)';         //Hint
-    232: Value := 'Element Thunder (Attack)';       //Hint
-    233: Value := 'Element Thunder (Defence)';      //Hint
-    234: Value := 'Element Thunder (Weakness)';     //Hint
-    235: Value := 'Element Wind (Attack)';          //Hint
-    236: Value := 'Element Wind (Defence)';         //Hint
-    237: Value := 'Element Wind (Weakness)';        //Hint
-    238: Value := 'Element Holy (Attack)';          //Hint
-    239: Value := 'Element Holy (Defence)';         //Hint
-    240: Value := 'Element Holy (Weakness)';        //Hint
-    241: Value := 'Element Dark (Attack)';          //Hint
-    242: Value := 'Element Dark (Defence)';         //Hint
-    243: Value := 'Element Dark (Weakness)';        //Hint
-    244: Value := 'Element Phantom (Attack)';       //Hint
-    245: Value := 'Element Phantom (Defence)';      //Hint
-    246: Value := 'Element Phantom (Weakness)';     //Hint
-    247..250: Value := 'Reserved';
+    223: Value := 'Elemento Atk (Attack)';     //Hint
+    224: Value := 'Elemento Def (Defence)';          //Hint
+    225: Value := 'Elemento Wkn (Weakness)';         //Hint
+    226: Value := 'Elemento Fire (Attack)';    //Hint
+    227: Value := 'Elemento Fire (Defence)';         //Hint
+    228: Value := 'Elemento Fire (Weakness)';        //Hint
+    229: Value := 'Elemento Ice (Attack)';     //Hint
+    230: Value := 'Elemento Ice (Defence)';          //Hint
+    231: Value := 'Elemento Ice (Weakness)';         //Hint
+    232: Value := 'Elemento Thunder (Attack)'; //Hint
+    233: Value := 'Elemento Thunder (Defence)';      //Hint
+    234: Value := 'Elemento Thunder (Weakness)';     //Hint
+    235: Value := 'Elemento Wind (Attack)';    //Hint
+    236: Value := 'Elemento Wind (Defence)';         //Hint
+    237: Value := 'Elemento Wind (Weakness)';        //Hint
+    238: Value := 'Elemento Holy (Attack)';    //Hint
+    239: Value := 'Elemento Holy (Defence)';         //Hint
+    240: Value := 'Elemento Holy (Weakness)';        //Hint
+    241: Value := 'Elemento Dark (Attack)';    //Hint
+    242: Value := 'Elemento Dark (Defence)';         //Hint
+    243: Value := 'Elemento Dark (Weakness)';        //Hint
+    244: Value := 'Elemento Phantom (Attack)'; //Hint
+    245: Value := 'Elemento Phantom (Defence)';      //Hint
+    246: Value := 'Elemento Phantom (Weakness)';     //Hint
+    247..250: Value := 'Reservado';
     { Group Window }
-    251: Value := 'Group';
-    252: Value := 'Close group window';             //Hint
-    253: Value := 'Add Member to Group';            //Hint
-    254: Value := 'Delete a Member from Group';     //Hint
-    255: Value := 'Create a Group';                 //Hint
-    256: Value := 'Allow Group Invitations';        //Hint
-    257..260: Value := 'Reserved';
-    { Magic Window }
-    261: Value := ' Fire  ';                            //Hint
-    262: Value := ' Ice  ';                             //Hint
-    263: Value := ' Lightning  ';                       //Hint
-    264: Value := ' Wind  ';                            //Hint
-    265: Value := ' Holy  ';                            //Hint
-    266: Value := ' Dark  ';                            //Hint
-    267: Value := ' Phantom  ';                         //Hint
-    268: Value := ' Physical ';//'Martial Art';         //Hint
-    269: Value := 'Close Window';//'Close Magic Window';//Hint
-    270: Value := ' Atrocity  ';                        //Hint - SE: I have no idea what these 3 should actually be...
-    271: Value := ' Assa  ';                            //Hint - ??
-    272: Value := ' Assassinate  ';                     //Hint - ??
+    251: Value := 'Grupo';
+    252: Value := 'Cerrar ventana de grupo';             //Hint
+    253: Value := 'Añadir miembro al grupo';            //Hint
+    254: Value := 'Borrar miembro del grupo';       //Hint
+    255: Value := 'Crear un grupo';                 //Hint
+    256: Value := 'Permitir invitaciones al grupo';        //Hint
 
     (* Development Strings, not for real play *)
     1050: Value := 'DC 1000-1000';
@@ -389,8 +372,8 @@ begin
     1069: Value := 'x';
     1070: Value := '*';
 
-    1071..2000: Value := 'Reserved';
-    else Value := 'Unsupported';
+    1071..2000: Value := 'Reservado';
+    else Value := 'No soportado';
   end;
 
   ////////////////////////////////////////////////////////////////////////////
