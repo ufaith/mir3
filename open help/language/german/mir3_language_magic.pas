@@ -1,17 +1,19 @@
 (******************************************************************************
- *   LomCN Mir3 English Launcher Language LGU File 2013                       *
+ *   LomCN Mir3 German Magic Language LGU File 2013                           *
  *                                                                            *
- *   Web       : http://www.lomcn.org                                         *
+ *   Web       : http://www.lomcn.co.uk                                       *
  *   Version   : 0.0.0.1                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
- *   It holds the mir3 english language strings.                              *
+ *   It holds the mir3 german language strings.                               *
  *                                                                            *
  ******************************************************************************
  * Change History                                                             *
  *                                                                            *
  *  - 0.0.0.1 [2013-02-11] Coly  : first init                                 *
+ *                                                                            *
+ *                                                                            *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -22,46 +24,38 @@
  *                                                                            *
  * !! Don't localize or delete things with "¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
+ *                                                                            *
+ * !!! Attention, only the English language files are                         * 
+ * !!! matched by the development team, not other languages??.                *
+ *                                                                            * 
  ******************************************************************************)
 
-unit mir3_language_launcher;
+unit mir3_language_magic;
 
 interface
 
 uses Windows, SysUtils, Classes;
 
-function GetLauncherLine(): Integer; stdcall;
-function GetLauncherString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetMagicLine(): Integer; stdcall;
+function GetMagicString(ID: Integer; Buffer: PChar): Integer; stdcall;
 
 implementation
 
-function GetLauncherLine(): Integer; stdcall;
+function GetMagicLine(): Integer; stdcall;
 begin
   Result := 2000;
 end;
 
-function GetLauncherString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetMagicString(ID: Integer; Buffer: PChar): Integer; stdcall;
 var
   Value : String;
 begin
   case ID of
     (*******************************************************************
-    *                  Server Informations strings                     *
+    *                  Magic  Informations strings                     *
     *******************************************************************)
-    1..2000 : Value :='reserve';
-
-    (*******************************************************************
-    *                         Option strings                           *
-    *******************************************************************)
-
-    (*******************************************************************
-    *                     Account Manager strings                      *
-    *******************************************************************)
-
-    (*******************************************************************
-    *                       Update Game strings                        *
-    *******************************************************************)
-
+    1..2000: Value := 'Fix me in Language File';
+	(*the real file comes later*)
     else Value := 'Unsupport';
   end;
 
@@ -70,5 +64,4 @@ begin
     CopyMemory(Buffer, PChar(Value), Length(Value));
   Result := Length(Value);
 end;
-
 end.

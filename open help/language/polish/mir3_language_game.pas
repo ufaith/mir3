@@ -1,21 +1,17 @@
 (******************************************************************************
- *   LomCN Mir3 English Game Language LGU File 2013                           *
+ *   LomCN Mir3 Polish Game Language LGU File 2013                            *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
- *   Version   : 0.0.0.5                                                      *
+ *   Version   : 0.0.0.1                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
- *   It holds the mir3 game english language strings.                         *
+ *   It holds the mir3 game polish language strings.                          *
  *                                                                            *
  ******************************************************************************
  * Change History                                                             *
  *                                                                            *
- *  - 0.0.0.1 [2013-02-11] Azura : first init                                 *
- *  - 0.0.0.2 [2013-03-10] Coly : change all and reorg all                    *
- *  - 0.0.0.3 [2013-03-11] Coly : add new lines                               *
- *  - 0.0.0.4 [2013-03-27] SomebodyElse : fix language                        *
- *  - 0.0.0.5 [2013-02-02] Coly : change some text (use Script Engine)        *
+ *  - 0.0.0.1 [2013-04-05]] Coly : first init                                 *
  *                                                                            *
  *                                                                            *
  *                                                                            *
@@ -28,6 +24,10 @@
  *                                                                            *
  * !! Don't localize or delete things with "¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
+ *                                                                            *
+ * !!! Attention, only the English language files are                         * 
+ * !!! matched by the development team, not other languages??.                *
+ *                                                                            * 
  ******************************************************************************)
 
 unit mir3_language_game;
@@ -161,7 +161,7 @@ begin
                + 'you cannot create another character with\'
                + 'the same name for a while. If you wish to\'
                + 'continue, please type your password and\'
-               + 'press the "Confirm" button.';     //Coly: I can use a Text Button with own Text... SE: Fixed
+               + 'press the "Confirm" button.';  
     67: Value := 'You cannot create more than %d characters.';
     68: Value := 'Please create a character first.';
     69: Value := 'Character information cannot be accessed.';
@@ -193,7 +193,7 @@ begin
     91..100 : Value := 'Reserved';
     {Game Settings}
     101: Value := 'Basic';
-    102: Value := 'Security'; //'Permissions'; //'Privileges'; // SE: Security should fit! //'Permit';
+    102: Value := 'Security';
     103: Value := 'Chat';
     104: Value := 'Visual';
     { Page 1 Basic }
@@ -277,7 +277,7 @@ begin
     180: Value := '[ Dyed Hair Colours On/Off ]';
     181: Value := 'Display Avatar';
     182: Value := '[ Avatar On/Off ]';
-    183: Value := 'Show Monsters on Mini-map';  // The text is a bit too long - SE: fixed?
+    183: Value := 'Show Monsters on Mini-map';  
     184: Value := '[ Monsters on Mini-map On/Off ]';
     185: Value := 'Display Player HP Gauge';
     186: Value := '[ Player HP Gauge On/Off ]';

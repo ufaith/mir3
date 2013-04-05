@@ -1,21 +1,17 @@
 (******************************************************************************
- *   LomCN Mir3 English Game Language LGU File 2013                           *
+ *   LomCN Mir3 German Game Language LGU File 2013                            *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
  *   Version   : 0.0.0.5                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
- *   It holds the mir3 game english language strings.                         *
+ *   It holds the mir3 game german language strings.                          *
  *                                                                            *
  ******************************************************************************
  * Change History                                                             *
  *                                                                            *
- *  - 0.0.0.1 [2013-02-11] Azura : first init                                 *
- *  - 0.0.0.2 [2013-03-10] Coly : change all and reorg all                    *
- *  - 0.0.0.3 [2013-03-11] Coly : add new lines                               *
- *  - 0.0.0.4 [2013-03-27] SomebodyElse : fix language                        *
- *  - 0.0.0.5 [2013-02-02] Coly : change some text (use Script Engine)        *
+ *  - 0.0.0.1 [2013-02-11] Coly : first init                                  *
  *                                                                            *
  *                                                                            *
  *                                                                            *
@@ -28,6 +24,10 @@
  *                                                                            *
  * !! Don't localize or delete things with "¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
+ *                                                                            *
+ * !!! Attention, only the English language files are                         * 
+ * !!! matched by the development team, not other languages??.                *
+ *                                                                            * 
  ******************************************************************************)
 
 unit mir3_language_game;

@@ -1,17 +1,19 @@
 (******************************************************************************
- *   LomCN Mir3 English Launcher Language LGU File 2013                       *
+ *   LomCN Mir3 German Launcher Language LGU File 2013                        *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
  *   Version   : 0.0.0.1                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
- *   It holds the mir3 english language strings.                              *
+ *   It holds the mir3 german language strings.                               *
  *                                                                            *
  ******************************************************************************
  * Change History                                                             *
  *                                                                            *
  *  - 0.0.0.1 [2013-02-11] Coly  : first init                                 *
+ *                                                                            *
+ *                                                                            *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -22,6 +24,10 @@
  *                                                                            *
  * !! Don't localize or delete things with "¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
+ *                                                                            *
+ * !!! Attention, only the English language files are                         * 
+ * !!! matched by the development team, not other languages??.                *
+ *                                                                            * 
  ******************************************************************************)
 
 unit mir3_language_launcher;
