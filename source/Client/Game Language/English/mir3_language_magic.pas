@@ -1,17 +1,17 @@
 (*******************************************************************
- *   LomCN Mir3 German Magic Language LGU File 2013                *
+ *   LomCN Mir3 Spanish Magic Language LGU File 2013                *
  *                                                                 *
  *   Web       : http://www.lomcn.co.uk                            *
  *   Version   : 0.0.0.1                                           *
  *                                                                 *
  *   - File Info -                                                 *
  *                                                                 *
- *   It holds the mir3 German language strings.                    *
+ *   It holds the mir3 Spanish language strings.                    *
  *                                                                 *
  *******************************************************************
  * Change History                                                  *
  *                                                                 *
- *  - 0.0.0.1 [2013-02-11] Coly  : first init                      *
+ *  - 0.0.0.1 [2013-02-11] Elamo  : first init                      *
  *                                                                 *
  *                                                                 *
  *******************************************************************
@@ -45,10 +45,10 @@ begin
     (*******************************************************************
     *                  Magic  Informations strings                     *
     *******************************************************************)
-    1: Value := 'Fix me in Language File';
+    1: Value := 'Corrigeme en el fichero de idiomas';
     //...
   199: Value := '';
-    else Value := 'Unsupport';
+    else Value := 'No soportado';
   end;
 
   ////////////////////////////////////////////////////////////////////////////
