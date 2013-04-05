@@ -295,13 +295,30 @@ implementation
           Result := True
         else Result := False;
       end;
+      {$IFDEF TEST_LANGUAGE_FILE}
+        {$IFDEF CHECK_ENGLISH}
+          //Debug English
+          FGameLauncherSetting.FLanguageId := C_LANGUAGE_ENGLISH;
+        {$ENDIF}
+        {$IFDEF CHECK_GERMAN}
+          //Debug German
+          FGameLauncherSetting.FLanguageId := C_LANGUAGE_GERMAN;
+        {$ENDIF}
+        {$IFDEF CHECK_POLISH}
+          //Debug Polish
+          FGameLauncherSetting.FLanguageId := C_LANGUAGE_POLISH;
+        {$ENDIF}
+        {$IFDEF CHECK_SPANISH}
+          //Debug Spanish
+          FGameLauncherSetting.FLanguageId := C_LANGUAGE_SPANISH;
+        {$ENDIF}
+      {$ENDIF}
       FGameLanguageEngine := TMir3_GameLanguageEngine.Create(FGameLauncherSetting.FLanguageId);
       FGameFontManager    := TMIR3_Font.Create;
 
       FSceneLogon         := TMir3GameSceneLogon.Create;
       FSceneSelectChar    := TMir3GameSceneSelectChar.Create;
       FSceneInGame        := TMir3GameSceneInGame.Create;
-
 
       with FGameNetwork do
       begin
@@ -406,12 +423,12 @@ implementation
             FServer_1_Name := EncodeString('TestServer');
             FServer_1_IP   := EncodeString('127.0.0.1');
             FServer_1_Port := 7000;
-            FRegister_URL  := EncodeString('http:\\www.LomCn.org\');
-            FAccount_URL   := EncodeString('http:\\www.LomCn.org\');
+            FRegister_URL  := EncodeString('http:\\www.lomcn.org\');
+            FAccount_URL   := EncodeString('http:\\www.lomcn.org\');
             FFull_Screen   := False;
             FUseStartVideo := True;
             FVideoVolume   := -2000;
-            FLanguageId    := 1;    //English
+            FLanguageId    := C_LANGUAGE_ENGLISH;
           end;
           FFileMemory.Position := 0;
           FFileMemory.Write(FGameLauncherSetting, SizeOf(TMir3_GameLauncherSetting));

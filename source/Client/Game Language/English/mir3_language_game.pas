@@ -174,7 +174,7 @@ begin
     76: Value := 'New Character¦CE¦';
     77: Value := 'Delete Character¦CE¦';
     78: Value := 'Exit¦CE¦';
-    79: Value := 'Reserved';
+    79: Value := 'Confirm';
     80: Value := 'Reserved';
     (*******************************************************************
     *                        InGame Text                               *

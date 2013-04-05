@@ -10,15 +10,6 @@
     <BorlandProject>
 <BorlandProject xmlns=""><Default.Personality></Default.Personality></BorlandProject></BorlandProject>
   </ProjectExtensions>
-  <Target Name="Mir3Client">
-    <MSBuild Projects="Client\Game Client\Mir3Client.dproj" Targets="" />
-  </Target>
-  <Target Name="Mir3Client:Clean">
-    <MSBuild Projects="Client\Game Client\Mir3Client.dproj" Targets="Clean" />
-  </Target>
-  <Target Name="Mir3Client:Make">
-    <MSBuild Projects="Client\Game Client\Mir3Client.dproj" Targets="Make" />
-  </Target>
   <Target Name="English">
     <MSBuild Projects="Client\Game Language\English\English.dproj" Targets="" />
   </Target>
@@ -37,6 +28,24 @@
   <Target Name="German:Make">
     <MSBuild Projects="Client\Game Language\German\German.dproj" Targets="Make" />
   </Target>
+  <Target Name="Polish">
+    <MSBuild Projects="Client\Game Language\Polish\Polish.dproj" Targets="" />
+  </Target>
+  <Target Name="Polish:Clean">
+    <MSBuild Projects="Client\Game Language\Polish\Polish.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="Polish:Make">
+    <MSBuild Projects="Client\Game Language\Polish\Polish.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Spanish">
+    <MSBuild Projects="Client\Game Language\Spanish\Spanish.dproj" Targets="" />
+  </Target>
+  <Target Name="Spanish:Clean">
+    <MSBuild Projects="Client\Game Language\Spanish\Spanish.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="Spanish:Make">
+    <MSBuild Projects="Client\Game Language\Spanish\Spanish.dproj" Targets="Make" />
+  </Target>
   <Target Name="Mir3Launcher">
     <MSBuild Projects="Client\Game Launcher\Mir3Launcher.dproj" Targets="" />
   </Target>
@@ -45,24 +54,6 @@
   </Target>
   <Target Name="Mir3Launcher:Make">
     <MSBuild Projects="Client\Game Launcher\Mir3Launcher.dproj" Targets="Make" />
-  </Target>
-  <Target Name="LoginGate">
-    <MSBuild Projects="Server\Gate\Login Gate\LoginGate.dproj" Targets="" />
-  </Target>
-  <Target Name="LoginGate:Clean">
-    <MSBuild Projects="Server\Gate\Login Gate\LoginGate.dproj" Targets="Clean" />
-  </Target>
-  <Target Name="LoginGate:Make">
-    <MSBuild Projects="Server\Gate\Login Gate\LoginGate.dproj" Targets="Make" />
-  </Target>
-  <Target Name="SelectCharGate">
-    <MSBuild Projects="Server\Gate\SelectChar Gate\SelectCharGate.dproj" Targets="" />
-  </Target>
-  <Target Name="SelectCharGate:Clean">
-    <MSBuild Projects="Server\Gate\SelectChar Gate\SelectCharGate.dproj" Targets="Clean" />
-  </Target>
-  <Target Name="SelectCharGate:Make">
-    <MSBuild Projects="Server\Gate\SelectChar Gate\SelectCharGate.dproj" Targets="Make" />
   </Target>
   <Target Name="ServerControlCenter">
     <MSBuild Projects="Server\Server Control Center\ServerControlCenter.dproj" Targets="" />
@@ -73,13 +64,22 @@
   <Target Name="ServerControlCenter:Make">
     <MSBuild Projects="Server\Server Control Center\ServerControlCenter.dproj" Targets="Make" />
   </Target>
+  <Target Name="Mir3Client">
+    <MSBuild Projects="Client\Game Client\Mir3Client.dproj" Targets="" />
+  </Target>
+  <Target Name="Mir3Client:Clean">
+    <MSBuild Projects="Client\Game Client\Mir3Client.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="Mir3Client:Make">
+    <MSBuild Projects="Client\Game Client\Mir3Client.dproj" Targets="Make" />
+  </Target>
   <Target Name="Build">
-    <CallTarget Targets="Mir3Client;English;German;Mir3Launcher;LoginGate;SelectCharGate;ServerControlCenter" />
+    <CallTarget Targets="English;German;Polish;Spanish;Mir3Launcher;ServerControlCenter;Mir3Client" />
   </Target>
   <Target Name="Clean">
-    <CallTarget Targets="Mir3Client:Clean;English:Clean;German:Clean;Mir3Launcher:Clean;LoginGate:Clean;SelectCharGate:Clean;ServerControlCenter:Clean" />
+    <CallTarget Targets="English:Clean;German:Clean;Polish:Clean;Spanish:Clean;Mir3Launcher:Clean;ServerControlCenter:Clean;Mir3Client:Clean" />
   </Target>
   <Target Name="Make">
-    <CallTarget Targets="Mir3Client:Make;English:Make;German:Make;Mir3Launcher:Make;LoginGate:Make;SelectCharGate:Make;ServerControlCenter:Make" />
+    <CallTarget Targets="English:Make;German:Make;Polish:Make;Spanish:Make;Mir3Launcher:Make;ServerControlCenter:Make;Mir3Client:Make" />
   </Target>
 </Project>

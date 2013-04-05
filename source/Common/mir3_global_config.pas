@@ -157,10 +157,12 @@ const
  (****************************************************
   *     Global Help for Language Consts              *
   ****************************************************)
-  C_LANGUAGE_MAX                 = 2;
+  C_LANGUAGE_MAX                 = 4;
   C_LANGUAGE_GERMAN              = 0;
   C_LANGUAGE_ENGLISH             = 1;
-  
+  C_LANGUAGE_POLISH              = 2;
+  C_LANGUAGE_SPANISH             = 3;
+
  (****************************************************
   *        Attack Mode Consts                        *
   ****************************************************)

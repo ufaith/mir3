@@ -1,7 +1,7 @@
 (*******************************************************************
  *   LomCN Mir3 Spanish Language LGU File 2012                     *
  *                                                                 *
- *   Web       : http://www.lomcn.co.uk                            *
+ *   Web       : http://www.lomcn.org                              *
  *   Version   : 0.0.0.1                                           *
  *                                                                 *
  *   - File Info -                                                 *

@@ -94,6 +94,28 @@ begin
         end;
       end;
     end;
+    C_LANGUAGE_POLISH  : begin
+      FLang_Handle    := LoadLibrary(PChar('lib/Polish.lgu'));
+      if FLang_Handle = 0 then
+      begin
+        if Assigned(GRenderEngine) then
+        begin
+          GRenderEngine.System_Log('No polish language file found..');
+          GRenderEngine.System_Log('Initialize language engine fail..');
+        end;
+      end;
+    end;
+    C_LANGUAGE_SPANISH  : begin
+      FLang_Handle    := LoadLibrary(PChar('lib/Spanish.lgu'));
+      if FLang_Handle = 0 then
+      begin
+        if Assigned(GRenderEngine) then
+        begin
+          GRenderEngine.System_Log('No spanish language file found..');
+          GRenderEngine.System_Log('Initialize language engine fail..');
+        end;
+      end;
+    end;
   end;
 
   if FLang_Handle <> 0 then                          
