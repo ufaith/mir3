@@ -4,8 +4,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
-    <DCC_DependencyCheckOutputName>..\..\..\..\release\client\lib\Spanish.lgu</DCC_DependencyCheckOutputName>
-    <MainSource>Spanish.dpr</MainSource>
+    <DCC_DependencyCheckOutputName>..\..\..\..\release\client\lib\English.lgu</DCC_DependencyCheckOutputName>
+    <MainSource>English.dpr</MainSource>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Version>7.0</Version>
@@ -43,7 +43,7 @@
     <Borland.Personality>Delphi.Personality</Borland.Personality>
     <Borland.ProjectType />
     <BorlandProject>
-<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">0</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">13</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">2057</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">LomCN Mir3 Team</VersionInfoKeys><VersionInfoKeys Name="FileDescription">Client Language File Spanish</VersionInfoKeys><VersionInfoKeys Name="FileVersion">0.0.0.13</VersionInfoKeys><VersionInfoKeys Name="InternalName">spanish language</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright">© LomCN Mir3 Team</VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">spanish.lgu</VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">0.0.0.1</VersionInfoKeys><VersionInfoKeys Name="Comments">Create by Elamo</VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">0</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">13</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">2057</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">LomCN Mir3 Team</VersionInfoKeys><VersionInfoKeys Name="FileDescription">Client Language File English</VersionInfoKeys><VersionInfoKeys Name="FileVersion">0.0.0.13</VersionInfoKeys><VersionInfoKeys Name="InternalName">english language</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright">© LomCN Mir3 Team</VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">english.lgu</VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">0.0.0.3</VersionInfoKeys><VersionInfoKeys Name="Comments">Create by Azura</VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
       
       
       
@@ -60,14 +60,14 @@
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\D7WinNetworkSocket.bpl">WinSocket Server / Client</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dclsdac105.bpl">SQL Server Data Access Components</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dcldac105.bpl">Devart Data Access Components</Excluded_Packages>
-    </Excluded_Packages><Source><Source Name="MainSource">Spanish.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+    </Excluded_Packages><Source><Source Name="MainSource">English.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
   </ProjectExtensions>
   <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
   <PropertyGroup>
     <PostBuildEvent>clean_release.bat</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <DelphiCompile Include="Spanish.dpr">
+    <DelphiCompile Include="English.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
     <DCCReference Include="mir3_language_game.pas" />

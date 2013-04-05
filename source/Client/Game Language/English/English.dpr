@@ -1,17 +1,19 @@
 (*******************************************************************
- *   LomCN Mir3 Spanish Language LGU File 2012                     *
+ *   LomCN Mir3 English Language LGU File 2012                     *
  *                                                                 *
  *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.1                                           *
+ *   Version   : 0.0.0.3                                           *
  *                                                                 *
  *   - File Info -                                                 *
  *                                                                 *
- *   It holds the mir3 spanish language strings.                   *
+ *   It holds the mir3 english language strings.                   *
  *                                                                 *
  *******************************************************************
  * Change History                                                  *
  *                                                                 *
- *  - 0.0.0.1 [2013-02-11] Elamo  : first init                     *
+ *  - 0.0.0.1 [2013-02-11] Coly  : first init                      *
+ *  - 0.0.0.2 [2013-02-11] Coly  : Splitt to more systems          *
+ *  - 0.0.0.3 [2013-02-27] SomebodyElse : Fix Game lang            *
  *                                                                 *
  *                                                                 *
  *                                                                 *
@@ -19,7 +21,7 @@
  *                                                                 *
  *******************************************************************)
 
-library Spanish;
+library English;
 
 uses
   Windows, 
@@ -33,8 +35,8 @@ uses
 {$R *.res}
 
 const
-  LANGUAGE_FILE_AUTOR   = 'Elamo';
-  LANGUAGE_FILE_VERSION = $00000001;
+  LANGUAGE_FILE_AUTOR   = 'Azura, Coly, SomebodyElse';
+  LANGUAGE_FILE_VERSION = $00000003;
 
 
 function GetFileAutor(Buffer: PChar) : Integer; stdcall;
