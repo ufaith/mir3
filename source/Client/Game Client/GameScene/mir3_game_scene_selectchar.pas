@@ -57,7 +57,7 @@ type
   public
     procedure ResetScene;
     procedure ReceiveMessagePacket(AReceiveData: String);
-    procedure SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+    procedure SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
     procedure ResetCreateCharScene;
     procedure TestAndSetNewSelection;
     function GetCharacterCount: Integer;
@@ -151,11 +151,14 @@ uses mir3_game_backend;
 
       {$REGION ' - System Forms and Controls        '}
       FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_System.FSys_Dialog_Info, False));
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Dialog_Text       , True);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Ok         , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Yes        , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_No         , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Dialog_Edit_Field , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Dialog_Text        , True);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Ok          , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Yes         , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_No          , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Free_Center , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Free_Left   , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Free_Right  , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Dialog_Edit_Field  , False);
       {$ENDREGION}
 
     end;
@@ -176,7 +179,7 @@ uses mir3_game_backend;
   {$ENDREGION}
 
   {$REGION ' - TMir3GameSceneSelectChar :: Scene Funtions   '}
-    procedure TMir3GameSceneSelectChar.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+    procedure TMir3GameSceneSelectChar.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
     begin
       if mbOK in AButtons then
         TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_OK)).Visible := True
@@ -191,12 +194,33 @@ uses mir3_game_backend;
       else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_NO)).Visible := False;
 
       if mbEditField in AButtons then
-        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_EDIT_FIELD)).Visible := True
-      else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_EDIT_FIELD)).Visible := False;
+      begin
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_EDIT_FIELD)).Visible := True;
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_EDIT_FIELD)).SetFocus;
+      end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_EDIT_FIELD)).Visible := False;
+
+      if mbExtraText_C in AButtons then
+      begin
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).FGUI_Defination.gui_CaptionID := AButtonTextID1;
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).Visible                       := True;
+      end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).Visible := False;
+
+      if mbExtraText_L in AButtons then
+      begin
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).FGUI_Defination.gui_CaptionID := AButtonTextID1;
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).Visible                       := True;
+      end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).Visible := False;
+
+      if mbExtraText_R in AButtons then
+      begin
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).FGUI_Defination.gui_CaptionID := AButtonTextID2;
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible                       := True;
+      end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible := False;
 
       TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SYSINFO_PANEL)).Caption := AMessage;
       TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID  := AEventType;
       TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible      := True;
+
     end;
 
     procedure TMir3GameSceneSelectChar.ResetCreateCharScene;
@@ -279,7 +303,7 @@ uses mir3_game_backend;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := GetClassAsString(FCharacterList[0].Char_Job);
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := IntToStr(FCharacterList[0].Char_Level);
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_GOLD_INFO)).Caption  := IntToStr(FCharacterList[0].Char_Gold);
-          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := FloatToStr(FCharacterList[0].Char_Exp) + '%';
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := FCharacterList[0].Char_Exp + '%';
           TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).Selected   := True;
           case FCharacterList[0].Char_Job of
             C_WARRIOR  : case FCharacterList[0].Char_Gender of
@@ -306,7 +330,7 @@ uses mir3_game_backend;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := GetClassAsString(FCharacterList[1].Char_Job);
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := IntToStr(FCharacterList[1].Char_Level);
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_GOLD_INFO)).Caption  := IntToStr(FCharacterList[1].Char_Gold);
-          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := FloatToStr(FCharacterList[1].Char_Exp) + '%';
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := FCharacterList[1].Char_Exp + '%';
           TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_2)).Selected   := True;
           case FCharacterList[1].Char_Job of
             C_WARRIOR  : case FCharacterList[1].Char_Gender of
@@ -333,7 +357,7 @@ uses mir3_game_backend;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := GetClassAsString(FCharacterList[2].Char_Job);
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := IntToStr(FCharacterList[2].Char_Level);
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_GOLD_INFO)).Caption  := IntToStr(FCharacterList[2].Char_Gold);
-          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := FloatToStr(FCharacterList[2].Char_Exp) + '%';
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := FCharacterList[2].Char_Exp + '%';
           TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_3)).Selected   := True;
           case FCharacterList[2].Char_Job of
             C_WARRIOR  : case FCharacterList[2].Char_Gender of
@@ -395,6 +419,7 @@ uses mir3_game_backend;
           (* read the character from connection stream *)
           for I := 0 to 2 do
           begin
+            //Result + FCharName + '/' + FJob + '/' + FGold + '/' + FLevel + '/' + FGender + '/' + FExp +'/';
             with FCharacterList[I] do
             begin
               FTempBody := GetValidStr3(FTempBody,  FTempString, ['/']);
@@ -407,6 +432,8 @@ uses mir3_game_backend;
               FCharacterList[I].Char_Level := StrToIntDef(FTempString, 0);
               FTempBody := GetValidStr3(FTempBody, FTempString, ['/']);
               FCharacterList[I].Char_Gender := StrToIntDef(FTempString, 0);
+              FTempBody := GetValidStr3(FTempBody, FTempString, ['/']);
+              FCharacterList[I].Char_Exp := FTempString;              
             end;
           end;
 
@@ -515,7 +542,7 @@ uses mir3_game_backend;
       begin
         FCharacterList[GetSelectedCharacterID(False)].Char_Delete := True;
         SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(65) + ' ' + FCharacterList[GetSelectedCharacterID(False)].Char_Name + #10#13 +
-                      GGameEngine.GameLanguage.GetTextFromLangSystem(66), [mbYes, mbNo, mbEditField], 1);
+                      GGameEngine.GameLanguage.GetTextFromLangSystem(66), [mbExtraText_L, mbExtraText_R, mbEditField], 1, 79, 80);
       end;
     end;
 
@@ -748,7 +775,11 @@ uses mir3_game_backend;
     begin
       case TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID of
         0:;
-        1: FCharacterList[GetSelectedCharacterID(False)].Char_Delete := False;
+        1: begin
+          FCharacterList[0].Char_Delete := False;
+          FCharacterList[1].Char_Delete := False;
+          FCharacterList[2].Char_Delete := False;
+        end;
       end;
       TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := False;
     end;
@@ -784,6 +815,8 @@ uses mir3_game_backend;
             GUI_ID_SYSINFO_BUTTON_OK             : GGameEngine.SceneSelectChar.Event_System_Ok;
             GUI_ID_SYSINFO_BUTTON_YES            : GGameEngine.SceneSelectChar.Event_System_Yes;
             GUI_ID_SYSINFO_BUTTON_NO             : GGameEngine.SceneSelectChar.Event_System_No;
+            GUI_ID_SYSINFO_BUTTON_FREE_LEFT      : GGameEngine.SceneSelectChar.Event_System_Yes;
+            GUI_ID_SYSINFO_BUTTON_FREE_RIGHT     : GGameEngine.SceneSelectChar.Event_System_No;
             {$ENDREGION}
           end;
           {$ENDREGION}

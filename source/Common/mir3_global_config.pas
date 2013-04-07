@@ -48,7 +48,7 @@ uses
 
   
 const
-  GGameClientVersion             = '0.0.1.2';
+  GGameClientVersion             = '0.0.1.3';
 
   KEY                            = 20100730;
   RUNGATEMAX                     = 20;
@@ -1090,7 +1090,7 @@ type
     gos_HP_Gauge_Display             : Boolean;
     gos_Display_Monster_HP           : Boolean;   
     gos_Blood_Display                : Boolean;	
-	gos_ShowHealthActionStatus       : Boolean;
+    gos_ShowHealthActionStatus       : Boolean;
   end;
 
 
@@ -1102,7 +1102,7 @@ type
     Char_Name   : String[50];
     Char_Job    : Byte;
     Char_Hair   : Byte;
-    Char_Exp    : Double;
+    Char_Exp    : String[50];//Double;
     Char_Gold   : Cardinal;
     Char_Level  : Word;
     Char_Gender : Byte;

@@ -1318,8 +1318,7 @@ var
                                                                    gui_Font_Color       : $FFF2F2F2;
                                                                    gui_Font_Use_Kerning : False;
                                                                    gui_Font_Text_HAlign : alCenter;
-                                                                   gui_Font_Text_VAlign : avCenter;
-                                                                   gui_Font_Setting     : [fsBold]);
+                                                                   gui_Font_Text_VAlign : avCenter);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -1334,12 +1333,12 @@ var
                                      gui_Height                 : 21;
                                      gui_Width                  : 264;
                                      gui_Blend_Size             : 245;
-                                     gui_Font                   : (gui_Font_Use_ID      : 3;
+                                     gui_Font                   : (gui_Font_Use_ID      : 15;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Use_Kerning : False;
                                                                    gui_Font_Text_VAlign : avCenter);
-                                     gui_Password_Char          : '';
+                                     gui_Password_Char          : '*';
                                      gui_Edit_Max_Length        : 25;
                                      gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9'];
                                      gui_Color                  : (gui_ControlColor : $F5050505;
@@ -1405,7 +1404,7 @@ var
               );
     FSys_Button_Free_Center          : ({$REGION ' - FSys_Button_Free_Center          '}
                                      gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_FREE_CENTER;
-                                     gui_Type                   : ctTextButton;
+                                     gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
                                      gui_Top                    : 145;
@@ -1413,17 +1412,25 @@ var
                                      gui_Height                 : 26;
                                      gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Use_Kerning : False;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter);
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                    gui_Background_Texture_ID : 3612;
                                                                    gui_Mouse_Over_Texture_ID : 3612;
                                                                    gui_Mouse_Down_Texture_ID : 3613);
+                                     gui_Btn_Font_Color         : (gui_ColorSelect      : $FFFFFFFF;
+                                                                   gui_ColorPress       : $FFA0A0A0;
+                                                                   gui_ColorDisabled    : $FF808080);
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                      {$ENDREGION}
               );
     FSys_Button_Free_Left            : ({$REGION ' - FSys_Button_Free_Left            '}
                                      gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_FREE_LEFT;
-                                     gui_Type                   : ctTextButton;
+                                     gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
                                      gui_Top                    : 145;
@@ -1431,30 +1438,46 @@ var
                                      gui_Height                 : 26;
                                      gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Use_Kerning : False;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter);
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                    gui_Background_Texture_ID : 3612;
                                                                    gui_Mouse_Over_Texture_ID : 3612;
                                                                    gui_Mouse_Down_Texture_ID : 3613);
+                                     gui_Btn_Font_Color         : (gui_ColorSelect      : $FFFFFFFF;
+                                                                   gui_ColorPress       : $FFA0A0A0;
+                                                                   gui_ColorDisabled    : $FF808080);
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                      {$ENDREGION}
               );
     FSys_Button_Free_Right           : ({$REGION ' - FSys_Button_Free_Right           '}
-                                   gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_FREE_RIGHT;
-                                   gui_Type                   : ctTextButton;
-                                   gui_Form_Type              : ftNone;
-                                   gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
-                                   gui_Top                    : 145;
-                                   gui_Left                   : 180;
-                                   gui_Height                 : 26;
-                                   gui_Width                  : 80;
-                                   gui_Blend_Size             : 255;
-                                   gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                 gui_Background_Texture_ID : 3612;
-                                                                 gui_Mouse_Over_Texture_ID : 3612;
-                                                                 gui_Mouse_Down_Texture_ID : 3613);
-                                   gui_Enabled                : True;
-                                   gui_Visible                : False 
+                                     gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_FREE_RIGHT;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
+                                     gui_Top                    : 145;
+                                     gui_Left                   : 180;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 80;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Use_Kerning : False;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 3612;
+                                                                   gui_Mouse_Over_Texture_ID : 3612;
+                                                                   gui_Mouse_Down_Texture_ID : 3613);
+                                     gui_Btn_Font_Color         : (gui_ColorSelect      : $FFFFFFFF;
+                                                                   gui_ColorPress       : $FFA0A0A0;
+                                                                   gui_ColorDisabled    : $FF808080);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False 
                                    {$ENDREGION}
               );                
     {$ENDREGION}
@@ -2256,7 +2279,7 @@ var
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Text_VAlign : avCenter);
                                      gui_Password_Char          : '';
-                                     gui_Edit_Max_Length        : 15;
+                                     gui_Edit_Max_Length        : 14;
                                      gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9'];
                                      gui_Color                  : (gui_ControlColor : $FF312C27;
                                                                    gui_BorderColor  : $FF946D45);
@@ -2457,7 +2480,7 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_CLASS;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 15;
+                                            gui_Top                    : 16;
                                             gui_Left                   : 233;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
@@ -2477,7 +2500,7 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_LEVEL;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 32;
+                                            gui_Top                    : 33;
                                             gui_Left                   : 233;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
@@ -2497,7 +2520,7 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_FAIME;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 15;
+                                            gui_Top                    : 16;
                                             gui_Left                   : 301;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
@@ -2517,7 +2540,7 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_POWER;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 32;
+                                            gui_Top                    : 33;
                                             gui_Left                   : 301;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
@@ -2537,7 +2560,7 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_AC;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 15;
+                                            gui_Top                    : 16;
                                             gui_Left                   : 368;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;
@@ -2557,7 +2580,7 @@ var
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_TEXT_FIELD_MA;
                                             gui_Type                   : ctTextLabel;
                                             gui_Form_Type              : ftNone;
-                                            gui_Top                    : 32;
+                                            gui_Top                    : 33;
                                             gui_Left                   : 368;
                                             gui_Height                 : 16;
                                             gui_Width                  : 45;

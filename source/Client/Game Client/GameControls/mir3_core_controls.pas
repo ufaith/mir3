@@ -2,7 +2,7 @@
  *   LomCN Mir3 Control core File 2012                                                   *
  *                                                                                       *
  *   Web       : http://www.lomcn.co.uk                                                  *
- *   Version   : 0.0.0.10                                                                *
+ *   Version   : 0.0.0.11                                                                *
  *                                                                                       *
  *   - File Info -                                                                       *
  *                                                                                       *
@@ -22,7 +22,8 @@
  *  - 0.0.0.7 [2013-03-09] Coly : hint render system                                     *
  *  - 0.0.0.8 [2013-03-10] Coly : add Sound to Create Char                               *
  *  - 0.0.0.9 [2013-03-10] Coly : create PageControl                                     * 
- *  - 0.0.0.10[2013-03-25] Coly : create Scrollbar and MagicButton                       * 
+ *  - 0.0.0.10[2013-03-25] Coly : create Scrollbar and MagicButton                       *
+ *  - 0.0.0.11[2013-04-07] Coly : add TextButton Auto Adjustmend for Multi Language use  *
  *                                                                                       *
  *                                                                                       *
  *                                                                                       *
@@ -49,12 +50,12 @@ uses
 {Game   }  mir3_game_language_engine, mir3_game_sound, mir3_misc_utils;
 
 
-    const
-      // Minimum scroll bar thumb size
-      SCROLLBAR_MINTHUMBSIZE      = 8;
-      // Delay and repeat period when clicking on the scroll bar arrows
-      SCROLLBAR_ARROWCLICK_DELAY  = 0.33;
-      SCROLLBAR_ARROWCLICK_REPEAT = 0.05;
+const
+  // Minimum scroll bar thumb size
+  SCROLLBAR_MINTHUMBSIZE      = 8;
+  // Delay and repeat period when clicking on the scroll bar arrows
+  SCROLLBAR_ARROWCLICK_DELAY  = 0.33;
+  SCROLLBAR_ARROWCLICK_REPEAT = 0.05;
 
 const
   EVENT_SYSTEM_TOOL_X           =   100;
@@ -116,10 +117,10 @@ type
   TMIR3_ScrollKind       = (skVertical, skHorizontal);
   TMIR3_TexturAlign      = (taTop, taCenter, taBottom);
   TMIR3_ProgressType     = (ptHorizontal, ptVertical, ptSpecial);
-  TMIR3_DLG_Btn          = (mbYes, mbNo, mbOK, mbCancel, mbEditField);
+  TMIR3_DLG_Btn          = (mbYes, mbNo, mbOK, mbCancel, mbEditField, mbExtraText_C, mbExtraText_L, mbExtraText_R);
   TMIR3_DLG_Buttons      = set of TMIR3_DLG_Btn;
   TCharSet               = set of Char;
-  
+
   (* Forward Declaration *)
   TMIR3_GUI_Manager      = class;
   TMIR3_GUI_Default      = class;
@@ -165,6 +166,11 @@ type
     GUIObject              : TMIR3_GUI_Default;
     DrawSetting            : TDrawSetting;
     Caption                : array [0..1024] of Char;
+  end;
+
+  TMir3_DrawSetting_Set    = record
+    dsDrawSetting          : TDrawSetting;
+    dsDrawSettingHint      : TDrawSetting;
   end;
   
   TMIR3_UI_Animation              = record
@@ -699,6 +705,8 @@ type
 
   (* class TMIR3_GUI_TextButton *)
   TMIR3_GUI_TextButton  = class(TMIR3_GUI_Button)
+  private
+    FDrawOptionSet : TMir3_DrawSetting_Set;
   public
     constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
@@ -4635,6 +4643,12 @@ var
         FGUI_Defination := PGUI_Defination^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctTextButton;
+      with FDrawOptionSet do
+      begin
+        dsDrawSetting.dsOptimizeSet     := False;
+        dsDrawSettingHint.dsOptimizeSet := False;
+      end;
+
       with FGUI_Defination.gui_Btn_Font_Color do
       begin
         if gui_ColorSelect <> 0 then
@@ -4656,9 +4670,9 @@ var
     //..............................................................................  
     procedure TMIR3_GUI_TextButton.RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
     var
+      FScriptWidth : Single;
       FScriptText  : String;
       FRenderColor : TD3DColor;
-      FDrawSetting : TDrawSetting;
     begin
     // @override
       (* Render Button *)
@@ -4720,40 +4734,54 @@ var
           end;
 
          (* Render Button with given Texture *)
-          with FDrawSetting do
+
+
+          with FDrawOptionSet.dsDrawSetting do
           begin
-            dsControlWidth  := FWidth;
-            dsControlHeigth := FHeight;
-            dsAX            := FParentGUIForm.FLeft + FLeft + 1;
-            dsAY            := FParentGUIForm.FTop  + FTop  + 2;
-            dsFontHeight    := gui_Font_Size;
-            dsFontSetting   := gui_Font_Setting;
-            dsFontType      := gui_Font_Use_ID;
-            dsFontSpacing   := 0;
-            dsUseKerning    := gui_Font_Use_Kerning;
-            dsColor         := FRenderColor;
-            dsHAlign        := gui_Font_Text_HAlign;
-            dsVAlign        := gui_Font_Text_VAlign;
-            dsMagicUse      := False;
+            if not dsOptimizeSet then
+            begin
+              dsControlWidth  := FWidth;
+              dsControlHeigth := FHeight;
+              dsAX            := FParentGUIForm.FLeft + FLeft + 1;
+              dsAY            := FParentGUIForm.FTop  + FTop  + 2;
+              dsFontHeight    := gui_Font_Size;
+              dsFontSetting   := gui_Font_Setting;
+              dsFontType      := gui_Font_Use_ID;
+              dsFontSpacing   := 0;
+              dsUseKerning    := gui_Font_Use_Kerning;
+              dsColor         := FRenderColor;
+              dsHAlign        := gui_Font_Text_HAlign;
+              dsVAlign        := gui_Font_Text_VAlign;
+              dsMagicUse      := False;
+              dsOptimizeSet   := True;
+              // Get Line width and auto adjust Control width (Special hack for Multilanguage use)
+              FScriptWidth := GGameEngine.FontManager.GetScriptedTextWidth(0,PChar(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawOptionSet.dsDrawSetting);
+              if FWidth < FScriptWidth then
+                 FWidth := Round(FScriptWidth);
+            end;
           end;
-          GGameEngine.FontManager.DrawTextColor(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
-          //GGameEngine.FontManager.DrawControlText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
+          GGameEngine.FontManager.DrawTextColor(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawOptionSet.dsDrawSetting);
+
           (* Render Hint *)
           if ((FButtonState = bsMouseOver) or (FButtonState = bsPress)) and (gui_HintID <> 0) then
           begin
-            with FDrawSetting do
+            with FDrawOptionSet.dsDrawSettingHint do
             begin
-              dsFontHeight    := 18;
-              dsFontSetting   := [];
-              dsFontType      := 0;
-              dsFontSpacing   := 0;              
-              dsHAlign        := alLeft;
-              dsVAlign        := avTop;
-              dsUseKerning    := False;
-              dsColor         := $FFF7F767;
-              dsMagicUse      := False;
+              if not dsOptimizeSet then
+              begin
+                dsFontHeight    := 18;
+                dsFontSetting   := [];
+                dsFontType      := 0;
+                dsFontSpacing   := 0;
+                dsHAlign        := alLeft;
+                dsVAlign        := avTop;
+                dsUseKerning    := False;
+                dsColor         := $FFF7F767;
+                dsMagicUse      := False;
+                dsOptimizeSet   := True;
+              end;
             end;
-            FParentGUIContainer.AddHintMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_HintID), FDrawSetting, Self);
+            FParentGUIContainer.AddHintMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_HintID), FDrawOptionSet.dsDrawSettingHint, Self);
           end;
         end;
       end;

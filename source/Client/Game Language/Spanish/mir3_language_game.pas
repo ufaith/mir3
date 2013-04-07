@@ -155,9 +155,9 @@ begin
                + ' astucia en las decisiones y pensamiento rápido.\';
     65: Value := 'Personaje borrado.';
     66: Value := 'Los personajes borrados no pueden ser\'
-               + 'recuperados y no podrás crear otro personaje'\
-               + 'con el mismo nombre por un tiempo. Si quieres'\
-               + 'continuar, introduce tu contraseña'\
+               + 'recuperados y no podrás crear otro personaje\'
+               + 'con el mismo nombre por un tiempo. Si quieres\'
+               + 'continuar, introduce tu contraseña\'
                + 'y pulsa el botón de "Confirmar".';
     67: Value := 'No puedes crear más de %d personajes.';
     68: Value := 'Debes crear un personaje antes.';

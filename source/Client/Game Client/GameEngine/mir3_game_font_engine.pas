@@ -84,6 +84,7 @@ type
     dsUseMultiColor  : Boolean;
     dsMaxWidth       : Integer;
     dsMagicUse       : Boolean;
+    dsOptimizeSet    : Boolean; // Only for Internal Optimization
   end;
 
   TTextScrollInfo = record

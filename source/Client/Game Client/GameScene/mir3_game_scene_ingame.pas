@@ -65,19 +65,19 @@ type
   TMir3GameSceneInGame = class(TMIR3_GUI_Manager)
   strict private
 	{ .... }
-    FTextureListNPC     : TList;   // 
-    FTextureListBag     : TList;   // 
-    FTextureListGround  : TList;   // 
-    FTextureListEquip   : TList;   // 
-    FTextureListWeapon  : TList;   // 
-    FTextureListHuman   : TList;   //
-    FLastMessageError   : Integer;
-    FMoveTime           : LongWord;
-    FRushTime           : LongWord;
-    FMoveTick           : Boolean;
-    FMoveStepCount      : Integer;
-    FMagicWWTPageActive : Integer;  // Used for War,Wiz,Tao Magic Window (get active Page back)
-    FMagicASSPageActive : Integer;  // Used for Assassin Magic Window (get active Page back)
+    FTextureListNPC     : TList;      //
+    FTextureListBag     : TList;      //
+    FTextureListGround  : TList;      //
+    FTextureListEquip   : TList;      //
+    FTextureListWeapon  : TList;      //
+    FTextureListHuman   : TList;      //
+    FLastMessageError   : Integer;    //
+    FMoveTime           : LongWord;   //
+    FRushTime           : LongWord;   //
+    FMoveTick           : Boolean;    //
+    FMoveStepCount      : Integer;    //
+    FMagicWWTPageActive : Integer;    // Used for War,Wiz,Tao Magic Window (get active Page back)
+    FMagicASSPageActive : Integer;    // Used for Assassin Magic Window (get active Page back)
   strict private
     procedure Create_ExitWindow_UI_Interface;
     procedure Create_Bottm_UI_Interface;
@@ -101,7 +101,7 @@ type
   public
     procedure ResetScene;
     procedure ReceiveMessagePacket(AReceiveData: String);
-    procedure SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+    procedure SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
     {Event Function}
     procedure Event_System_Ok;
     procedure Event_System_Yes;
@@ -854,7 +854,7 @@ uses mir3_misc_ingame, mir3_game_backend;
   {$ENDREGION}
 
   {$REGION ' - TMir3GameSceneInGame :: Scene Funtions             '}
-  procedure TMir3GameSceneInGame.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+  procedure TMir3GameSceneInGame.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
   begin
     if mbOK in AButtons then
       TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_OK)).Visible := True
@@ -871,6 +871,24 @@ uses mir3_misc_ingame, mir3_game_backend;
     if mbEditField in AButtons then
       TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_EDIT_FIELD)).Visible := True
     else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_EDIT_FIELD)).Visible := False;
+
+    if mbExtraText_C in AButtons then
+    begin
+      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).FGUI_Defination.gui_CaptionID := AButtonTextID1;
+      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).Visible                       := True;
+    end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).Visible := False;
+
+    if mbExtraText_L in AButtons then
+    begin
+      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).FGUI_Defination.gui_CaptionID := AButtonTextID1;
+      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).Visible                       := True;
+    end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).Visible := False;
+
+    if mbExtraText_R in AButtons then
+    begin
+      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).FGUI_Defination.gui_CaptionID := AButtonTextID2;
+      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible                       := True;
+    end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible := False;
 
     TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SYSINFO_PANEL)).Caption := AMessage;
     TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID  := AEventType;
@@ -934,11 +952,14 @@ uses mir3_misc_ingame, mir3_game_backend;
       with FGame_GUI_Defination_System do
       begin
         FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info, False));
-        Self.AddControl(FSystemForm, FSys_Dialog_Text       , True);
-        Self.AddControl(FSystemForm, FSys_Dialog_Edit_Field , False);
-        Self.AddControl(FSystemForm, FSys_Button_Ok         , False);
-        Self.AddControl(FSystemForm, FSys_Button_Yes        , False);
-        Self.AddControl(FSystemForm, FSys_Button_No         , False);
+        Self.AddControl(FSystemForm, FSys_Dialog_Text        , True);
+        Self.AddControl(FSystemForm, FSys_Dialog_Edit_Field  , False);
+        Self.AddControl(FSystemForm, FSys_Button_Ok          , False);
+        Self.AddControl(FSystemForm, FSys_Button_Yes         , False);
+        Self.AddControl(FSystemForm, FSys_Button_No          , False);
+        Self.AddControl(FSystemForm, FSys_Button_Free_Center , False);
+        Self.AddControl(FSystemForm, FSys_Button_Free_Left   , False);
+        Self.AddControl(FSystemForm, FSys_Button_Free_Right  , False);
       end;
       {$IFDEF DEVELOP_INGAME}
       with GGameEngine.GameNetwork do

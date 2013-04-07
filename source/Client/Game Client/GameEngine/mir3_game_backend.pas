@@ -28,6 +28,8 @@
  *  - TODO : -all -fill *.pas header information                   *
  *                 (how to need this file etc.)                    *
  *                                                                 *
+ *  - TODO : -all -Add User based option set                       *
+ *                -Include Language etc...                         * 
  *******************************************************************)
 
 unit mir3_game_backend;
