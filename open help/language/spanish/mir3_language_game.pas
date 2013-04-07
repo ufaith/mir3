@@ -14,7 +14,7 @@
  *  - 0.0.0.1 [2013-04-05] Elamo : first init                                 *
  *  - 0.0.0.2 [2013-04-06] Ashran : translated, needs in-game checking!       *
  *  - 0.0.0.3 [2013-04-05] Coly : fix and clean up file                       *
- *                                                                            *
+ *  - 0.0.0.4 [2013-04-07] Ashran : fix according to in-game check            *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -59,7 +59,7 @@ begin
     2 : Value := 'Salir';                                                               // Button
     3 : Value := 'Nueva cuenta';                                                        // Button URL
     4 : Value := 'Cambiar contraseña';                                                  // Button URL
-    5 : Value := 'ID                                      CONTRASEÑA¦CE¦';              // Button
+    5 : Value := 'ID                                CONTRASEÑA¦CE¦';              // Button
     6 : Value := 'Entrar (L)';                                                          // [1] Hint
     7 : Value := 'Salir (X)';                                                           // [2] Hint
     8 : Value := 'Nueva cuenta (N)';                                                    // [3] Hint
@@ -124,9 +124,10 @@ begin
     61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Guerrero]¦CE¦\¦Y08¦'             // SE: Better to have gender first
                + ' Los Guerreros son excelentes en ataque cuerpo a cuerpo debido a su poder y\'
                + ' resistencia. Éstos pueden aprender varios estilos de artes marciales: desde\'
-               + ' el básico Swordmanship al poderoso BladeStorm. Llegan a ser realmente formidables\'
-               + ' cuando unen todos sus poderes, aunque son débiles si son atacados a distancia.\'
-               + ' Son fáciles de manejar y consiguen subir antes de nivel al principio.\';
+               + ' el básico Swordmanship al poderoso BladeStorm. Llegan a ser realmente\'
+               + ' formidables cuando unen todos sus poderes, aunque son débiles si son\'
+               + ' atacados a distancia. Son fáciles de manejar y consiguen subir antes\'
+               + ' de nivel al principio.\';
     { Information about Wizards }
     62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Mago]¦CE¦\¦Y08¦'
                + ' Los Magos pueden lanzar variados hechizos, por lo que son interesantes y\'
@@ -145,20 +146,20 @@ begin
                + ' a convertirse en personajes indispensables para los demás.\';
     { Information about Assassins }
     64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Asesino]¦CE¦\¦Y08¦'
-               + '¦C1D1AD69¦¦C2C19D59¦ Los Asesinos son miembros de una organización secreta y su historia es relativamente\'
-               + ' desconocida. Son débiles físicamente, pero pueden esconderse y realizar\'
-               + ' ataques mientras los demás no pueden verlos. También son excelentes en\'
-               + ' matar rápidamente. Sin embargo tienen que ir con mucho cuidado a no\'
-               + ' encontrarse con múltiples adversarios, ya que tienen menos técnicas\'
-               + ' defensivas que los otros personajes. Los Asesinos son recomendados\'
+               + '¦C1D1AD69¦¦C2C19D59¦ Los Asesinos son miembros de una organización secreta y su historia es\'
+               + ' relativamente desconocida. Son débiles físicamente, pero pueden esconderse\'
+               + ' y realizar ataques mientras los demás no pueden verlos. También son\'
+               + ' excelentes en matar rápidamente. Sin embargo tienen que ir con mucho\'
+               + ' cuidado a no encontrarse con múltiples adversarios, ya que tienen menos\'
+               + ' técnicas defensivas que los otros personajes. Los Asesinos son recomendados\'
                + ' para jugadores experimentados, porque necesitan movimientos ágiles,\'
                + ' astucia en las decisiones y pensamiento rápido.\';
     65: Value := 'Personaje borrado.';
     66: Value := 'Los personajes borrados no pueden ser\'
-               + 'recuperados y no podrás crear otro personaje\'
-               + 'con el mismo nombre por un tiempo. Si quieres\'
-               + 'continuar, introduce tu contraseña\'
-               + 'y pulsa el botón de "Confirmar".';
+               + 'recuperados y no podrás crear otro\'
+               + 'personaje con el mismo nombre por un\'
+               + 'tiempo. Si quieres continuar, introduce\'
+               + 'tu contraseña a continuación.';
     67: Value := 'No puedes crear más de %d personajes.';
     68: Value := 'Debes crear un personaje antes.';
     69: Value := 'No se pudo acceder a la información de los personajes.';
@@ -260,8 +261,8 @@ begin
     167: Value := 'Reserved';
     168: Value := 'hint reserved';
     { Page 4 Visual }
-    169: Value := 'Mostrar HP';
-    170: Value := '[ Mostrar HP: On/Off ]';
+    169: Value := 'Mostrar daño';
+    170: Value := '[ Mostrar daño: On/Off ]';
     171: Value := 'Mostrar efectos de magias';
     172: Value := '[ Mostrar efectos de magias: On/Off ]';
     173: Value := 'Mejorar sombras';
@@ -276,10 +277,10 @@ begin
     182: Value := '[ Avatar: On/Off ]';
     183: Value := 'Mostrar criaturas en minimapa';  
     184: Value := '[ Mostrar criaturas en minimapa: On/Off ]';
-    185: Value := 'Mostrar barra de HP de los jugadores';
-    186: Value := '[ Barra de HP de los jugadores: On/Off ]';
-    187: Value := 'Mostrar barra de HP de las critaturas';
-    188: Value := '[ Barra de HP de las criaturas: On/Off ]';
+    185: Value := 'Barra HP de los jugadores';
+    186: Value := '[ Barra HP de los jugadores: On/Off ]';
+    187: Value := 'Barra HP de las critaturas';
+    188: Value := '[ Barra HP de las criaturas: On/Off ]';
     189: Value := 'Reservado';
     { Exit Window }
     190: Value := 'Salir';
