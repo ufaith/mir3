@@ -161,7 +161,7 @@ begin
                + 'you cannot create another character with\'
                + 'the same name for a while. If you wish to\'
                + 'continue, please type your password and\'
-               + 'press the "Confirm" button.';     //Coly: I can use a Text Button with own Text... SE: Fixed
+               + 'press the "Confirm" button.';     //SE: Fixed... Coly: used ID 79 and 80 for this one
     67: Value := 'You cannot create more than %d characters.';
     68: Value := 'Please create a character first.';
     69: Value := 'Character information cannot be accessed.';
@@ -174,8 +174,8 @@ begin
     76: Value := 'New Character¦CE¦';
     77: Value := 'Delete Character¦CE¦';
     78: Value := 'Exit¦CE¦';
-    79: Value := 'Confirm';
-    80: Value := 'Reserved';
+    79: Value := 'Confirm';                       //Button Text
+    80: Value := 'Cancel';                        //Button Text
     (*******************************************************************
     *                        InGame Text                               *
     *******************************************************************)
@@ -362,6 +362,7 @@ begin
     267: Value := ' Phantom  ';                         //Hint
     268: Value := ' Physical ';//'Martial Art';         //Hint
     269: Value := 'Close Window';//'Close Magic Window';//Hint
+    { Assassin Magic Window }
     270: Value := ' Atrocity  ';                        //Hint - SE: I have no idea what these 3 should actually be...
     271: Value := ' Assa  ';                            //Hint - ??
     272: Value := ' Assassinate  ';                     //Hint - ??
