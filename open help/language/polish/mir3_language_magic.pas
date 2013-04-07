@@ -54,7 +54,7 @@ begin
     *******************************************************************)
     1..2000: Value := 'Fix me in Language File';
 	(*the real file comes later*)
-    else Value := 'Unsupport';
+    else Value := 'nieobs³ugiwane';
   end;
 
   ////////////////////////////////////////////////////////////////////////////
