@@ -1,4 +1,4 @@
-(******************************************************************************
+ï»¿(******************************************************************************
  *   LomCN Mir3 Polish Game Language LGU File 2013                            *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
@@ -13,7 +13,7 @@
  *                                                                            *
  *  - 0.0.0.1 [2013-04-05] Coly : first init                                  *
  *  - 0.0.0.2 [2013-04-07] budyniowski: translation                           *
- *                                                                            *
+ *  - 0.0.0.3 [2013-04-08] budyniowski: change to UTF8 + little clean up      *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -22,7 +22,7 @@
  * at the end of 255 Char...                                                  *
  * The String it self can have a length of 1024                               *
  *                                                                            *
- * !! Don't localize or delete things with "¦" !!                             *
+ * !! Don't localize or delete things with "Â¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
  *                                                                            *
  * !!! Attention, only the English language files are                         * 
@@ -54,39 +54,39 @@ begin
     (*******************************************************************
     *                     Login, Server Selection.                     *
     *******************************************************************)
-    1 : Value := 'Zaloguj Siê';                                                              // Button
-    2 : Value := 'Wyjœcie';                                                                // Button
-    3 : Value := 'Nowe Konto';                                                         // Button URL
-    4 : Value := 'Zmiana Has³a';                                                     // Button URL
-    5 : Value := 'LOGIN                                   HAS£O¦CE¦';                // Button
-    6 : Value := 'Zaloguj Siê (L)';                                                          // [1] Hint
-    7 : Value := 'Wyjœcie (X)';                                                            // [2] Hint
-    8 : Value := 'Nowe Konto (N)';                                                     // [3] Hint
-    9 : Value := 'Zmiana Has³a (P)';                                                 // [4] Hint
-    10: Value := 'Zosta³eœ od³¹czony.';                                         // Infoboard
-    11: Value := 'Serwer jest niedostêpny poniewa¿\trwaj¹ prace konserwacyjne.';                       // Infoboard
-    12: Value := 'Nie mo¿na po³¹czyæ z serwerem.\Serwer jest nieosi¹galny.';            // Infoboard
-    13: Value := 'Czy na pewno chcesz wyjœæ?';
+    1 : Value := 'ZALOGUJ SIÄ˜';                                                                        // Button
+    2 : Value := 'WYJÅšCIE';                                                                            // Button
+    3 : Value := 'NOWE KONTO';                                                                         // Button URL
+    4 : Value := 'ZMIANA HASÅA';                                                                       // Button URL
+    5 : Value := 'ID                                   HASÅOÂ¦CEÂ¦';                                     // Button
+    6 : Value := 'Zaloguj SiÄ™ (L)';                                                                    // [1] Hint
+    7 : Value := 'WyjÅ›cie (X)';                                                                        // [2] Hint
+    8 : Value := 'Nowe Konto (N)';                                                                     // [3] Hint
+    9 : Value := 'Zmiana HasÅ‚a (P)';                                                                   // [4] Hint
+    10: Value := 'ZostaÅ‚eÅ› odÅ‚Ä…czony.';                                                                // Infoboard
+    11: Value := 'Serwer jest niedostÄ™pny poniewaÅ¼\trwajÄ… prace konserwacyjne.';                       // Infoboard
+    12: Value := 'Nie moÅ¼na poÅ‚Ä…czyÄ‡ z serwerem.\Serwer jest nieosiÄ…galny.';                           // Infoboard
+    13: Value := 'Czy na pewno chcesz wyjÅ›Ä‡?';
     14: Value := 'Reserved';
     15: Value := 'Reserved';
     { SM_LOGIN_PASSWORD_FAIL }
-    16: Value := 'Twój login lub has³o s¹ niepoprawne.\Proszê spróbuj ponownie.';
-    17: Value := 'Wprowadzono b³êdne dane logowania\trzy razy.\Proszê spróbuj ponownie póŸniej.';
-    18: Value := 'Nie mo¿na uzyskaæ informacji o koncie.\Proszê spróbuj ponownie póŸniej.';
-    19: Value := 'Twoje konto zosta³o zablokowane.\WejdŸ na stronê www.lomcn.org\po wiêcej informacji.';
-    20: Value := 'Twój abonament wygas³.\WejdŸ na stronê www.lomcn.org\po wiêcej informacji.';
-    21: Value := 'Wyst¹pi³y nieznane b³êdy!\WejdŸ na stronê www.lomcn.org\po wiêcej informacji.';
+    16: Value := 'TwÃ³j login lub hasÅ‚o sÄ… niepoprawne.\ProszÄ™ sprÃ³buj ponownie.';
+    17: Value := 'Wprowadzono bÅ‚Ä™dne dane logowania\trzy razy.\ProszÄ™ sprÃ³buj ponownie pÃ³Åºniej.';
+    18: Value := 'Nie moÅ¼na uzyskaÄ‡ informacji o koncie.\ProszÄ™ sprÃ³buj ponownie pÃ³Åºniej.';
+    19: Value := 'Twoje konto zostaÅ‚o zablokowane.\WejdÅº na stronÄ™ www.lomcn.org\po wiÄ™cej informacji.';
+    20: Value := 'TwÃ³j abonament wygasÅ‚.\WejdÅº na stronÄ™ www.lomcn.org\po wiÄ™cej informacji.';
+    21: Value := 'WystÄ…piÅ‚y nieznane bÅ‚Ä™dy!\WejdÅº na stronÄ™ www.lomcn.org\po wiÄ™cej informacji.';
     22: Value := 'Reserved';
     23: Value := 'Reserved';
     24: Value := 'Reserved';
     25: Value := 'Reserved';
     { SM_LOGIN_PASSWORD_OK Verify Subscription }
-    26: Value := 'Dzisiaj wygasa twój abonament!\WejdŸ na stronê http://www.lomcn.org\po wiêcej informacji.';
-    27: Value := 'Twój abonament wygaœnie za\ %d dni.';
-    28: Value := 'Dostêp z twojego IP bêdzie wa¿ny przez\nastêpnych %d dni.';
-    29: Value := 'Dzisiaj wygasa dostêp z twojego IP!';
-    30: Value := 'Dostêp z twojego IP bêdzie wa¿ny przez\nastêpnych %d godzin.';
-    31: Value := 'Twój login bêdzie wa¿ny przez\nastêpnych %d godzin.';
+    26: Value := 'Dzisiaj wygasa twÃ³j abonament!\WejdÅº na stronÄ™ http://www.lomcn.org\po wiÄ™cej informacji.';
+    27: Value := 'TwÃ³j abonament wygaÅ›nie za\ %d dni.';
+    28: Value := 'DostÄ™p z twojego IP bÄ™dzie waÅ¼ny przez\nastÄ™pnych %d dni.';
+    29: Value := 'Dzisiaj wygasa dostÄ™p z twojego IP!';
+    30: Value := 'DostÄ™p z twojego IP bÄ™dzie waÅ¼ny przez\nastÄ™pnych %d godzin.';
+    31: Value := 'TwÃ³j login bÄ™dzie waÅ¼ny przez\nastÄ™pnych %d godzin.';
     32: Value := 'Reserved';
     33: Value := 'Reserved';
     34: Value := 'Reserved';
@@ -99,83 +99,83 @@ begin
     (*******************************************************************
     *               Character Selection / Creation                     *
     *******************************************************************)
-    41: Value := 'Wczytywanie informacji o postaci, proszê czekaj...';
+    41: Value := 'Wczytywanie informacji o postaci, proszÄ™ czekaj...';
     42: Value := 'Wybierz Wojownika';
     43: Value := 'Wybierz Czarodzieja';
-    44: Value := 'Wybierz Taoistê';
-    45: Value := 'Wybierz Skrytobójcê';
-    46: Value := 'PotwierdŸ';
+    44: Value := 'Wybierz TaoistÄ™';
+    45: Value := 'Wybierz SkrytobÃ³jcÄ™';
+    46: Value := 'PotwierdÅº';
     47: Value := 'Anuluj';
-    48: Value := 'Imiê';
+    48: Value := 'ImiÄ™';
     49: Value := 'Poziom';
     50: Value := 'Klasa';
-    51: Value := 'Z³oto';
+    51: Value := 'ZÅ‚oto';
     52: Value := 'Exp';
     53: Value := 'Reserved';
     54: Value := 'Reserved';
-    55: Value := 'Mê¿czyzna';
+    55: Value := 'MÄ™Å¼czyzna';
     56: Value := 'Kobieta';
     57: Value := 'Wojownik';
     58: Value := 'Czarodziej';
     59: Value := 'Taoista';
-    60: Value := 'Skrytobójca';
+    60: Value := 'SkrytobÃ³jca';
     { Information about Warriors }
-    61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Wojownik]¦CE¦\¦Y08¦'             // SE: Better to have gender first
-               + ' Wojownicy s³yn¹ ze swojej ogromnej si³y i witalnoœci. Nie jest ³atwo\'
-               + ' pokonaæ ich w boju, a ich dodatkowym atutem jest mo¿liwoœæ u¿ywania\'
-               + ' ciê¿kiego orê¿a oraz zbroi. Wojownicy s¹ niezrównani w zwarciu, natomiast\'
-               + ' s³abo sobie radz¹ z odpieraniem ataków dystansowych. Ró¿norodnoœci ekwipunku\'
-               + ' zaprojektowanego specjalnie dla Wojowników umo¿liwia wyrównanie jego szans\'
-               + ' w walce z przeciwnikami dystansowymi. Wojownik jest dobr¹ klas¹ dla\'
-               + ' pocz¹tkuj¹cych ze wzglêdu na jego proste lecz potê¿ne umiejêtnoœci.\';
+    61: Value := 'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s Wojownik]Â¦CEÂ¦\Â¦Y08Â¦'             // SE: Better to have gender first
+               + ' Wojownicy sÅ‚ynÄ… ze swojej ogromnej siÅ‚y i witalnoÅ›ci. Nie jest Å‚atwo\'
+               + ' pokonaÄ‡ ich w boju, a ich dodatkowym atutem jest moÅ¼liwoÅ›Ä‡ uÅ¼ywania\'
+               + ' ciÄ™Å¼kiego orÄ™Å¼a oraz zbroi. Wojownicy sÄ… niezrÃ³wnani w zwarciu, natomiast\'
+               + ' sÅ‚abo sobie radzÄ… z odpieraniem atakÃ³w dystansowych. RÃ³Å¼norodnoÅ›ci ekwipunku\'
+               + ' zaprojektowanego specjalnie dla WojownikÃ³w umoÅ¼liwia wyrÃ³wnanie jego szans\'
+               + ' w walce z przeciwnikami dystansowymi. Wojownik jest dobrÄ… klasÄ… dla\'
+               + ' poczÄ…tkujÄ…cych ze wzglÄ™du na jego proste lecz potÄ™Å¼ne umiejÄ™tnoÅ›ci.\';
     { Information about Wizards }
-    62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Czarodziej]¦CE¦\¦Y08¦'
-               + ' Czarodzieje posiadaj¹ ma³o si³y oraz wytrzyma³oœci, ale potrafi¹ u¿ywaæ\'
-               + ' potê¿nej magii. Ich zaklêcia bojowe s¹ bardzo skuteczne, ale czas potrzebny\'
-               + ' na inkantacjê ods³ania Czarodzieja na ewentualny kontratak ze strony wroga.\'
-               + ' Dlatego, graj¹c Czarodziejem musisz zawsze d¹¿yæ do tego aby atakowaæ wrogów\'
-               + ' z bezpiecznej odleg³oœci. Czarodzieje s¹ s³abi fizycznie, dlatego ciê¿ko jest\'
-               + ' ich trenowaæ we wczesnych etapach gry, natomiast staj¹ siê bardzo potê¿ni\'
-               + ' kiedy tylko naucz¹ siê bardziej zaawansowanych zaklêæ. Ze wzglêdu na liczne\'
-               + ' zalety i wady, gra Czarodziejem wymaga du¿o uwagi i umiejêtnoœci.\';
+    62: Value := 'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s Czarodziej]Â¦CEÂ¦\Â¦Y08Â¦'
+               + ' Czarodzieje posiadajÄ… maÅ‚o siÅ‚y oraz wytrzymaÅ‚oÅ›ci, ale potrafiÄ… uÅ¼ywaÄ‡\'
+               + ' potÄ™Å¼nej magii. Ich zaklÄ™cia bojowe sÄ… bardzo skuteczne, ale czas potrzebny\'
+               + ' na inkantacjÄ™ odsÅ‚ania Czarodzieja na ewentualny kontratak ze strony wroga.\'
+               + ' Dlatego, grajÄ…c Czarodziejem musisz zawsze dÄ…Å¼yÄ‡ do tego aby atakowaÄ‡ wrogÃ³w\'
+               + ' z bezpiecznej odlegÅ‚oÅ›ci. Czarodzieje sÄ… sÅ‚abi fizycznie, dlatego ciÄ™Å¼ko jest\'
+               + ' ich trenowaÄ‡ we wczesnych etapach gry, natomiast stajÄ… siÄ™ bardzo potÄ™Å¼ni\'
+               + ' kiedy tylko nauczÄ… siÄ™ bardziej zaawansowanych zaklÄ™Ä‡. Ze wzglÄ™du na liczne\'
+               + ' zalety i wady, gra Czarodziejem wymaga duÅ¼o uwagi i umiejÄ™tnoÅ›ci.\';
     { Information about Taoists }
-    63: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Taoista]¦CE¦\¦Y08¦'
-               + ' Taoiœci s¹ uosobieniem równowagi miêdzy si³¹ a witalnoœci¹, ale zamiast\'
-               + ' bezpoœrednio anga¿owaæ siê w walkê z wrogiem, wol¹ trzymaæ siê z boku,\'
-               + ' poniewa¿ ich prawdziw¹ si³¹ jest wspieranie innych klas. Ich podstawowe\'
-               + ' zaklêcia s³u¿¹ do leczenia i ochrony towarzyszy broni. Mog¹ oni równie¿\'
-               + ' przyzywaæ do pomocy potê¿ne chowañce, oraz rzucaæ kilka dobrze wywa¿onych\'
-               + ' zaklêæ bojowych. Pomimo wielu przydatnych umiejêtnoœci, brak tê¿yzny fizycznej\'
-               + ' czyni Taoistów trudnymi do wyszkolenia. Najlepiej radz¹ sobie oni w towarzystwie\'
-			   + ' jednej z pozosta³ych klas postaci.\';
+    63: Value := 'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s Taoista]Â¦CEÂ¦\Â¦Y08Â¦'
+               + ' TaoiÅ›ci sÄ… uosobieniem rÃ³wnowagi miÄ™dzy siÅ‚Ä… a witalnoÅ›ciÄ…, ale zamiast\'
+               + ' bezpoÅ›rednio angaÅ¼owaÄ‡ siÄ™ w walkÄ™ z wrogiem, wolÄ… trzymaÄ‡ siÄ™ z boku,\'
+               + ' poniewaÅ¼ ich prawdziwÄ… siÅ‚Ä… jest wspieranie innych klas. Ich podstawowe\'
+               + ' zaklÄ™cia sÅ‚uÅ¼Ä… do leczenia i ochrony towarzyszy broni. MogÄ… oni rÃ³wnieÅ¼\'
+               + ' przyzywaÄ‡ do pomocy potÄ™Å¼ne chowaÅ„ce, oraz rzucaÄ‡ kilka dobrze wywaÅ¼onych\'
+               + ' zaklÄ™Ä‡ bojowych. Pomimo wielu przydatnych umiejÄ™tnoÅ›ci, brak tÄ™Å¼yzny fizycznej\'
+               + ' czyni TaoistÃ³w trudnymi do wyszkolenia. Najlepiej radzÄ… sobie oni w towarzystwie\'
+			   + ' jednej z pozostaÅ‚ych klas postaci.\';
     { Information about Assassins }
-    64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Skrytobójca]¦CE¦\¦Y08¦'
-               + '¦C1D1AD69¦¦C2C19D59¦ Skrytobójcy s¹ cz³onkami tajemniczej organizacji a ich historia jest prawie\'
-               + ' ca³kowicie nieznana. S¹ oni s³abi fizycznie ale potrafi¹ siê doskonale\'
-               + ' kamuflowaæ oraz atakowaæ pozostaj¹c w ukryciu, oczywiœcie s¹ równie¿ œwietni\'
-               + ' w szybkim odbieraniu ¿ycia. Jednak¿e musz¹ oni unikaæ anga¿owania siê w walkê\'
-               + ' przeciwko wielu przeciwnikom poniewa¿ maj¹ oni mniej umiejêtnoœci obronnych od\'
-               + ' innych postaci. Gra Skrytobójc¹ jest zalecana dla doœwiadczonych graczy, gdy¿\'
-               + ' wymaga wprawnych ruchów, sprytnych decyzji oraz szybkiego myœlenia.¦CE¦\';
-    65: Value := 'Postaæ usuniêta.';
-    66: Value := 'Usuniêtych postaci nie mo¿na przywróciæ, i\'
-               + 'nie mo¿na stworzyæ postaci z t¹ sam¹ nazw¹\'
-               + 'przez jakiœ czas. Je¿eli na pewno chcesz\'
-               + 'usun¹æ postaæ, wprowadŸ has³o i naciœnij\'
-               + 'przycisk "PotwierdŸ".';  
-    67: Value := 'Nie mo¿esz stworzyæ wiêcej ni¿ %d postaci.';
-    68: Value := 'Proszê stwórz najpierw postaæ.';
-    69: Value := 'Nie mo¿na uzyskaæ dostêpu do informacji o postaci.';
-    70: Value := 'Postaæ o tym imieniu ju¿ istnieje.';
-    71: Value := 'Nie mo¿esz stworzyæ nastêpnej postaci.';
-    72: Value := 'B³¹d tworzenia postaci - Kod b³êdu 4';
-    73: Value := 'Mia³ miejsce nieznany b³¹d.\WejdŸ na stronê www.lomcn.org\po wiêcej informacji.';
-    74: Value := 'Wykryto b³¹d przy usuwaniu\twojej postaci.';
-    75: Value := 'Rozpocznij Grê¦CE¦';
-    76: Value := 'Nowa Postaæ¦CE¦';
-    77: Value := 'Usuñ Postaæ¦CE¦';
-    78: Value := 'Wyjœcie¦CE¦';
-    79: Value := 'Reserved';
+    64: Value :=  'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s SkrytobÃ³jca]Â¦CEÂ¦\Â¦Y08Â¦'
+               + 'Â¦C1D1AD69Â¦Â¦C2C19D59Â¦ SkrytobÃ³jcy sÄ… czÅ‚onkami tajemniczej organizacji a ich historia jest prawie\'
+               + ' caÅ‚kowicie nieznana. SÄ… oni sÅ‚abi fizycznie ale potrafiÄ… siÄ™ doskonale\'
+               + ' kamuflowaÄ‡ oraz atakowaÄ‡ pozostajÄ…c w ukryciu, oczywiÅ›cie sÄ… rÃ³wnieÅ¼ Å›wietni\'
+               + ' w szybkim odbieraniu Å¼ycia. JednakÅ¼e muszÄ… oni unikaÄ‡ angaÅ¼owania siÄ™ w walkÄ™\'
+               + ' przeciwko wielu przeciwnikom poniewaÅ¼ majÄ… oni mniej umiejÄ™tnoÅ›ci obronnych od\'
+               + ' innych postaci. Gra SkrytobÃ³jcÄ… jest zalecana dla doÅ›wiadczonych graczy, gdyÅ¼\'
+               + ' wymaga wprawnych ruchÃ³w, sprytnych decyzji oraz szybkiego myÅ›lenia.Â¦CEÂ¦\';
+    65: Value := 'PostaÄ‡ usuniÄ™ta.';
+    66: Value := 'UsuniÄ™tych postaci nie moÅ¼na przywrÃ³ciÄ‡, i\'
+               + 'nie moÅ¼na stworzyÄ‡ postaci z tÄ… samÄ… nazwÄ…\'
+               + 'przez jakiÅ› czas. JeÅ¼eli na pewno chcesz\'
+               + 'usunÄ…Ä‡ postaÄ‡, wprowadÅº hasÅ‚o i naciÅ›nij\'
+               + 'przycisk "PotwierdÅº".';  
+    67: Value := 'Nie moÅ¼esz stworzyÄ‡ wiÄ™cej niÅ¼ %d postaci.';
+    68: Value := 'ProszÄ™ stwÃ³rz najpierw postaÄ‡.';
+    69: Value := 'Nie moÅ¼na uzyskaÄ‡ dostÄ™pu do informacji o postaci.';
+    70: Value := 'PostaÄ‡ o tym imieniu juÅ¼ istnieje.';
+    71: Value := 'Nie moÅ¼esz stworzyÄ‡ nastÄ™pnej postaci.';
+    72: Value := 'BÅ‚Ä…d tworzenia postaci - Kod bÅ‚Ä™du 4';
+    73: Value := 'MiaÅ‚ miejsce nieznany bÅ‚Ä…d.\WejdÅº na stronÄ™ www.lomcn.org\po wiÄ™cej informacji.';
+    74: Value := 'Wykryto bÅ‚Ä…d przy usuwaniu\twojej postaci.';
+    75: Value := 'Rozpocznij GrÄ™Â¦CEÂ¦';
+    76: Value := 'Nowa PostaÄ‡Â¦CEÂ¦';
+    77: Value := 'UsuÅ„ PostaÄ‡Â¦CEÂ¦';
+    78: Value := 'WyjÅ›cieÂ¦CEÂ¦';
+    79: Value := 'PotwierdÅº';
     80: Value := 'Reserved';
     (*******************************************************************
     *                        InGame Text                               *
@@ -183,56 +183,56 @@ begin
     {Menu Bar}
     81: Value := 'Ustawienia';
     82: Value := 'Chat';
-    83: Value := 'Wiadomoœæ';
+    83: Value := 'WiadomoÅ›Ä‡';
     84: Value := 'Grupa';
     85: Value := 'Gildia';
     86: Value := 'Avatar';
-    87: Value := 'Oblê¿enie';
+    87: Value := 'OblÄ™Å¼enie';
     88: Value := 'Ustawienia-Auto';
-    89: Value := 'Wyjœcie';
+    89: Value := 'WyjÅ›cie';
     90: Value := 'Zamknij';
     91..100 : Value := 'Reserved';
     {Game Settings}
     101: Value := 'Podstawowe';
-    102: Value := 'Bezpieczeñstwo';
+    102: Value := 'BezpieczeÅ„stwo';
     103: Value := 'Chat';
     104: Value := 'Graficzne';
     { Page 1 Basic }
     105: Value := 'Tryb Ataku: Wszyscy';
     106: Value := 'Tryb Ataku: Pokojowy';
-    107: Value := 'Tryb Ataku: Ma³¿eñstwo'; //(Kochanie)'; - Kochanek, Partner, Ma³¿onek, Para
-    108: Value := 'Tryb Ataku: Mistrz-Uczeñ';
+    107: Value := 'Tryb Ataku: MaÅ‚Å¼eÅ„stwo';                                    //(Kochanie)'; - Kochanek, Partner, MaÅ‚Å¼onek, Para
+    108: Value := 'Tryb Ataku: Mistrz-UczeÅ„';
     109: Value := 'Tryb Ataku: Grupowy';
     110: Value := 'Tryb Ataku: Gildiowy';
     111: Value := 'Tryb Ataku: Czerwony Kontra Biali';
     112: Value := 'Reserved';
     113: Value := 'Reserved';
-    114: Value := 'Zmiana Pozycji Ataku';                   // Hint for Atak Mode
+    114: Value := 'Zmiana Pozycji Ataku';                                      // Hint for Atak Mode
     116: Value := 'Normalna Pozycja Ataku';
-    117: Value := 'Zmiana Pozycji Ataku';                   // Hint for Atak Mode
+    117: Value := 'Zmiana Pozycji Ataku';                                      // Hint for Atak Mode
     118: Value := 'Muzyka W Tle';
-    119: Value := '[ W³¹cz/Wy³¹cz Muzykê W Tle ]';            // Hint Background Music
-    120: Value := 'Efekty DŸwiêkowe';
-    121: Value := '[ W³¹cz/Wy³¹cz Efekty DŸwiêkowe ]';               // Hint Sound Effects
-    122: Value := 'DŸwiêk Stereo';
-    123: Value := '[ W³¹cz Wy³¹cz DŸwiêk Stereo ]';           // Hint Sound Effects
+    119: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz MuzykÄ™ W Tle ]';                             // Hint Background Music
+    120: Value := 'Efekty DÅºwiÄ™kowe';
+    121: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz Efekty DÅºwiÄ™kowe ]';                         // Hint Sound Effects
+    122: Value := 'DÅºwiÄ™k Stereo';
+    123: Value := '[ WÅ‚Ä…cz WyÅ‚Ä…cz DÅºwiÄ™k Stereo ]';                            // Hint Sound Effects
     124: Value := 'Automatyczne Podnoszenia';
-    125: Value := '[ W³¹cz/Wy³¹cz Automatyczne Podnoszenie ]';           // Hint Sound Effects
-    126: Value := 'Poka¿ Nazwy Upuszczonych Przedmiotów';
-    127: Value := '[ W³¹cz/Wy³¹cz Pokazywanie Nazw Upuszczonych Przedmiotów]'; // Hint Sound Effects
+    125: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz Automatyczne Podnoszenie ]';                 // Hint Sound Effects
+    126: Value := 'PokaÅ¼ Nazwy Upuszczonych PrzedmiotÃ³w';
+    127: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz Pokazywanie Nazw Upuszczonych PrzedmiotÃ³w]'; // Hint Sound Effects
     { Page 2 Permissions }
-    128: Value := 'Dopuœæ Zaproszenia Do Grupy';
-    129: Value := '[ W³¹cz/Wy³¹cz Zaproszenia Do Grupy ]';
-    130: Value := 'Dopuœæ Zaproszenia Do Gildii';
-    131: Value := '[ W³¹cz/Wy³¹cz Zaproszenia Do Gildii ]';
-    132: Value := 'Dopuœæ Wskrzeszanie';
-    133: Value := '[ W³¹cz/Wy³¹cz Wskrzeszanie ]';
-    134: Value := 'Dopuœæ Przywo³anie';
-    135: Value := '[ W³¹cz/Wy³¹cz Przywo³anie ]';
-    136: Value := 'Dopuœæ Handel';
-    137: Value := '[ W³¹cz/Wy³¹cz Handel ]';
+    128: Value := 'DopuÅ›Ä‡ Zaproszenia Do Grupy';
+    129: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz Zaproszenia Do Grupy ]';
+    130: Value := 'DopuÅ›Ä‡ Zaproszenia Do Gildii';
+    131: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz Zaproszenia Do Gildii ]';
+    132: Value := 'DopuÅ›Ä‡ Wskrzeszanie';
+    133: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz Wskrzeszanie ]';
+    134: Value := 'DopuÅ›Ä‡ PrzywoÅ‚anie';
+    135: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz PrzywoÅ‚anie ]';
+    136: Value := 'DopuÅ›Ä‡ Handel';
+    137: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz Handel ]';
     138: Value := 'Efekty Rozlewu Krwi (18+)'; // Fixed
-    139: Value := '[ W³¹cz/Wy³¹cz Efekty Rozlewu Krwi ]';
+    139: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz Efekty Rozlewu Krwi ]';
     140: Value := 'Reserved';
     141: Value := 'hint reserved';
     142: Value := 'Reserved';
@@ -243,15 +243,15 @@ begin
     147: Value := 'hint reserved';
     { Page 3 Chatting }
     148: Value := 'Szeptanie';
-    149: Value := '[ W³¹cz/Wy³¹cz Nas³uchiwanie Szeptów ]';
+    149: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz NasÅ‚uchiwanie SzeptÃ³w ]';
     150: Value := 'Okrzyki';
-    151: Value := '[ W³¹cz/Wy³¹cz Nas³uchiwanie Okrzyków ]';
+    151: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz NasÅ‚uchiwanie OkrzykÃ³w ]';
     152: Value := 'Reserved';
     153: Value := 'hint reserved';
-    154: Value := 'Wiadomoœci Gildiowe';
-    155: Value := '[ W³¹cz/Wy³¹cz Nas³uchiwanie Wiadomoœci Gildiowych ]';
-    156: Value := 'Zablokuj Szepty Od U¿ytkownika';
-    157: Value := '[ Zablokowano Szepty Od U¿ytkownika %s ]';    // SE: it would be nice for the %s to let you know who is blocked - not necessary though | Coly: Prio 8 or so...
+    154: Value := 'WiadomoÅ›ci Gildiowe';
+    155: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz NasÅ‚uchiwanie WiadomoÅ›ci Gildiowych ]';
+    156: Value := 'Zablokuj Szepty Od UÅ¼ytkownika';
+    157: Value := '[ Zablokowano Szepty Od UÅ¼ytkownika %s ]';    // SE: it would be nice for the %s to let you know who is blocked - not necessary though | Coly: Prio 8 or so...
     158: Value := 'Reserved';
     159: Value := 'Reserved';
     160: Value := 'hint reserved';
@@ -264,36 +264,36 @@ begin
     167: Value := 'Reserved';
     168: Value := 'hint reserved';
     { Page 4 Visual }
-    169: Value := 'WskaŸnik Zmiany HP';
-    170: Value := '[ W³¹cz/Wy³¹cz WskaŸnik Zmiany HP ]';
-    171: Value := 'Wyœwietlanie Grafiki Zaklêæ';
-    172: Value := '[ W³¹cz/Wy³¹cz Wyœwietlanie Grafiki Zaklêæ ]';
-    173: Value := 'Wyœwietlanie Rozmytych Cieni';
-    174: Value := '[ W³¹cz/Wy³¹cz Wyœwietlanie Rozmytych Cieni ]';
-    175: Value := 'Wyœwietlanie Grafiki He³mu';
-    176: Value := '[ W³¹cz/Wy³¹cz Wyœwietlanie Grafiki He³mu ]';
-    177: Value := 'Wyœwietlanie Efektów Potworów';
-    178: Value := '[ W³¹cz/Wy³¹cz Wyœwietlanie Efektów Potworów ]';
-    179: Value := 'Wyœwietlanie Koloru Przefarbowanych W³osów';
-    180: Value := '[ W³¹cz/Wy³¹cz Wyœwietlanie Koloru Przefarbowanych W³osów ]';
-    181: Value := 'Wyœwietlanie Avatara';
-    182: Value := '[ W³¹cz/Wy³¹cz Wyœwietlanie Avatara ]';
-    183: Value := 'Poka¿ Potwory Na Mini-Mapie';  
-    184: Value := '[ W³¹cz/Wy³¹cz Wyœwietlanie Potworów Na Mini-Mapie ]';
-    185: Value := 'Wyœwietlanie WskaŸnika HP Gracza';
-    186: Value := '[ W³¹cz/Wy³¹cz WskaŸnik HP Gracza ]';
-    187: Value := 'Wyœwietlanie WskaŸnika HP Potworów';
-    188: Value := '[ W³¹cz/Wy³¹cz WskaŸnik HP Potworów ]';
+    169: Value := 'WskaÅºnik Zmiany HP';
+    170: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz WskaÅºnik Zmiany HP ]';
+    171: Value := 'WyÅ›wietlanie Grafiki ZaklÄ™Ä‡';
+    172: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz WyÅ›wietlanie Grafiki ZaklÄ™Ä‡ ]';
+    173: Value := 'WyÅ›wietlanie Rozmytych Cieni';
+    174: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz WyÅ›wietlanie Rozmytych Cieni ]';
+    175: Value := 'WyÅ›wietlanie Grafiki HeÅ‚mu';
+    176: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz WyÅ›wietlanie Grafiki HeÅ‚mu ]';
+    177: Value := 'WyÅ›wietlanie EfektÃ³w PotworÃ³w';
+    178: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz WyÅ›wietlanie EfektÃ³w PotworÃ³w ]';
+    179: Value := 'WyÅ›wietlanie Koloru Przefarbowanych WÅ‚osÃ³w';
+    180: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz WyÅ›wietlanie Koloru Przefarbowanych WÅ‚osÃ³w ]';
+    181: Value := 'WyÅ›wietlanie Avatara';
+    182: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz WyÅ›wietlanie Avatara ]';
+    183: Value := 'PokaÅ¼ Potwory Na Mini-Mapie';  
+    184: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz WyÅ›wietlanie PotworÃ³w Na Mini-Mapie ]';
+    185: Value := 'WyÅ›wietlanie WskaÅºnika HP Gracza';
+    186: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz WskaÅºnik HP Gracza ]';
+    187: Value := 'WyÅ›wietlanie WskaÅºnika HP PotworÃ³w';
+    188: Value := '[ WÅ‚Ä…cz/WyÅ‚Ä…cz WskaÅºnik HP PotworÃ³w ]';
     189: Value := 'Reserved';
     { Exit Window }
-    190: Value := 'Wyjœcie';
-    191: Value := 'Opuœæ grê.';
-    192: Value := 'Wyloguj siê';
-    193: Value := 'Wyloguj siê i wybierz inn¹ postaæ.';
-    194: Value := 'Jesteœ pewien, ¿e chcesz wyjœæ?';
+    190: Value := 'WyjÅ›cie';
+    191: Value := 'OpuÅ›Ä‡ grÄ™.';
+    192: Value := 'Wyloguj siÄ™';
+    193: Value := 'Wyloguj siÄ™ i wybierz innÄ… postaÄ‡.';
+    194: Value := 'JesteÅ› pewien, Å¼e chcesz wyjÅ›Ä‡?';
     195: Value := 'Anuluj';
     { Belt Window }
-    196: Value := 'Odwróæ';         //Hint
+    196: Value := 'OdwrÃ³Ä‡';           //Hint
     197: Value := 'Zamknij';          //Hint
     198: Value := 'Reserved';
     199: Value := 'Reserved';
@@ -304,68 +304,68 @@ begin
     203: Value := ''; //Hint
     204: Value := ''; //Hint
     205: Value := 'Brak Mini-Mapy';
-    206: Value := 'Brak Dostêpnej Mapy!';
-    207: Value := 'Nie u¿ywane';
+    206: Value := 'Brak DostÄ™pnej Mapy!';
+    207: Value := 'Nie uÅ¼ywane';
     208..210: Value := 'Reserved';
     { Body Window }
     211: Value := 'Poziom';
-    212: Value := 'Doœwiadczenie';
+    212: Value := 'DoÅ›wiadczenie';
     213: Value := 'Punkty Zdrowia (HP)';
     214: Value := 'Punkty Many (MP)';
-    215: Value := 'Ciê¿ar Ekwipunku';
-    216: Value := 'Ciê¿ar Zbroi';
-    217: Value := 'Ciê¿ar Orê¿a';
-    218: Value := 'Celnoœæ';
-    219: Value := 'Zwinnoœæ';
+    215: Value := 'CiÄ™Å¼ar Ekwipunku';
+    216: Value := 'CiÄ™Å¼ar Zbroi';
+    217: Value := 'CiÄ™Å¼ar OrÄ™Å¼a';
+    218: Value := 'CelnoÅ›Ä‡';
+    219: Value := 'ZwinnoÅ›Ä‡';
     220: Value := 'Prw(Atk)';
     221: Value := 'Prw(Obr)';
-    222: Value := 'Prw(S³a)';
-    223: Value := 'Pierwiastek Atk (Atak)';           //Hint
-    224: Value := 'Pierwiastek Obr (Obrona)';          //Hint
-    225: Value := 'Pierwiastek S³a (S³aboœæ)';         //Hint
-    226: Value := 'Pierwiastek Ognia (Atak)';          //Hint
-    227: Value := 'Pierwiastek Ognia (Obrona)';         //Hint
-    228: Value := 'Pierwiastek Ognia (S³aboœæ)';        //Hint
-    229: Value := 'Pierwiastek Lodu (Atak)';           //Hint
-    230: Value := 'Pierwiastek Lodu (Obrona)';          //Hint
-    231: Value := 'Pierwiastek Lodu (S³aboœæ)';         //Hint
-    232: Value := 'Pierwiastek Grzmotu (Atak)';       //Hint
-    233: Value := 'Pierwiastek Grzmotu (Obrona)';      //Hint
-    234: Value := 'Pierwiastek Grzmotu (S³aboœæ)';     //Hint
-    235: Value := 'Pierwiastek Wiatru (Atak)';          //Hint
-    236: Value := 'Pierwiastek Wiatru (Obrona)';         //Hint
-    237: Value := 'Pierwiastek Wiatru (S³aboœæ)';        //Hint
-    238: Value := 'Pierwiastek Œwiêty (Atak)';          //Hint
-    239: Value := 'Pierwiastek Œwiêty (Obrona)';         //Hint
-    240: Value := 'Pierwiastek Œwiêty (S³aboœæ)';        //Hint
-    241: Value := 'Pierwiastek Mroczny (Atak)';          //Hint
-    242: Value := 'Pierwiastek Mroczny (Obrona)';         //Hint
-    243: Value := 'Pierwiastek Mroczny (S³aboœæ)';        //Hint
-    244: Value := 'Pierwiastek Widmowy (Atak)';       //Hint
-    245: Value := 'Pierwiastek Widmowy (Obrona)';      //Hint
-    246: Value := 'Pierwiastek Widmowy (S³aboœæ)';     //Hint
+    222: Value := 'Prw(SÅ‚a)';
+    223: Value := 'Pierwiastek Atk (Atak)';                 //Hint
+    224: Value := 'Pierwiastek Obr (Obrona)';               //Hint
+    225: Value := 'Pierwiastek SÅ‚a (SÅ‚aboÅ›Ä‡)';              //Hint
+    226: Value := 'Pierwiastek Ognia (Atak)';               //Hint
+    227: Value := 'Pierwiastek Ognia (Obrona)';             //Hint
+    228: Value := 'Pierwiastek Ognia (SÅ‚aboÅ›Ä‡)';            //Hint
+    229: Value := 'Pierwiastek Lodu (Atak)';                //Hint
+    230: Value := 'Pierwiastek Lodu (Obrona)';              //Hint
+    231: Value := 'Pierwiastek Lodu (SÅ‚aboÅ›Ä‡)';             //Hint
+    232: Value := 'Pierwiastek Grzmotu (Atak)';             //Hint
+    233: Value := 'Pierwiastek Grzmotu (Obrona)';           //Hint
+    234: Value := 'Pierwiastek Grzmotu (SÅ‚aboÅ›Ä‡)';          //Hint
+    235: Value := 'Pierwiastek Wiatru (Atak)';              //Hint
+    236: Value := 'Pierwiastek Wiatru (Obrona)';            //Hint
+    237: Value := 'Pierwiastek Wiatru (SÅ‚aboÅ›Ä‡)';           //Hint
+    238: Value := 'Pierwiastek ÅšwiÄ™ty (Atak)';              //Hint
+    239: Value := 'Pierwiastek ÅšwiÄ™ty (Obrona)';            //Hint
+    240: Value := 'Pierwiastek ÅšwiÄ™ty (SÅ‚aboÅ›Ä‡)';           //Hint
+    241: Value := 'Pierwiastek Mroczny (Atak)';             //Hint
+    242: Value := 'Pierwiastek Mroczny (Obrona)';           //Hint
+    243: Value := 'Pierwiastek Mroczny (SÅ‚aboÅ›Ä‡)';          //Hint
+    244: Value := 'Pierwiastek Widmowy (Atak)';             //Hint
+    245: Value := 'Pierwiastek Widmowy (Obrona)';           //Hint
+    246: Value := 'Pierwiastek Widmowy (SÅ‚aboÅ›Ä‡)';          //Hint
     247..250: Value := 'Reserved';
     { Group Window }
     251: Value := 'Grupa';
-    252: Value := 'Zamknij Okno Grupy';             //Hint
-    253: Value := 'Dodaj Cz³onka Grupy';            //Hint
-    254: Value := 'Usuñ Cz³onka Grupy';     //Hint
-    255: Value := 'Utwórz Grupê';                 //Hint
-    256: Value := 'Dopuœæ Zaproszenia Do Grupy';        //Hint
+    252: Value := 'Zamknij Okno Grupy';                     //Hint
+    253: Value := 'Dodaj CzÅ‚onka Grupy';                    //Hint
+    254: Value := 'UsuÅ„ CzÅ‚onka Grupy';                     //Hint
+    255: Value := 'UtwÃ³rz GrupÄ™';                           //Hint
+    256: Value := 'DopuÅ›Ä‡ Zaproszenia Do Grupy';            //Hint
     257..260: Value := 'Reserved';
     { Magic Window }
-    261: Value := ' Ognia  ';                            //Hint
-    262: Value := ' Lodu  ';                             //Hint
-    263: Value := ' B³yskawicy  ';                       //Hint
-    264: Value := ' Wiatru  ';                            //Hint
-    265: Value := ' Œwiêty  ';                            //Hint
-    266: Value := ' Mroczny  ';                            //Hint
-    267: Value := ' Widmowy  ';                         //Hint
-    268: Value := ' Fizyczny ';//'Sztuka Walki';         //Hint
-    269: Value := 'Zamknij Okno';//'Zamknij Okno Zaklêæ';//Hint
-    270: Value := ' Okrucieñstwa  ';                        //Hint - SE: I have no idea what these 3 should actually be...
-    271: Value := ' Zabójczy  ';                            //Hint - ??
-    272: Value := ' Zamachu  ';                     //Hint - ??
+    261: Value := ' Ognia  ';                               //Hint
+    262: Value := ' Lodu  ';                                //Hint
+    263: Value := ' BÅ‚yskawicy  ';                          //Hint
+    264: Value := ' Wiatru  ';                              //Hint
+    265: Value := ' ÅšwiÄ™ty  ';                              //Hint
+    266: Value := ' Mroczny  ';                             //Hint
+    267: Value := ' Widmowy  ';                             //Hint
+    268: Value := ' Fizyczny ';//'Sztuka Walki';            //Hint
+    269: Value := 'Zamknij Okno';//'Zamknij Okno ZaklÄ™Ä‡';   //Hint
+    270: Value := ' OkrucieÅ„stwa  ';                        //Hint - SE: I have no idea what these 3 should actually be...
+    271: Value := ' ZabÃ³jczy  ';                            //Hint - ??
+    272: Value := ' Zamachu  ';                             //Hint - ??
 
     (* Development Strings, not for real play *)
     1050: Value := 'DC 1000-1000';
@@ -379,7 +379,7 @@ begin
     1058: Value := '194';
     1059: Value := '3.55 %';
     1060: Value := 'Coly\GameMasterGuild';
-    1061: Value := 'Coly´s Spouse';
+    1061: Value := 'ColyÂ´s Spouse';
     1062: Value := '100-100';
     1063: Value := '10000';
     1064: Value := '1000';
