@@ -14,6 +14,9 @@
  *  - 0.0.0.1 [2013-04-05] Coly : first init                                  *
  *  - 0.0.0.2 [2013-04-07] budyniowski: translation                           *
  *  - 0.0.0.3 [2013-04-08] budyniowski: change to UTF8 + little clean up      *
+ *  - 0.0.0.4 [2013-04-11] budyniowski: fitting text to frames                *
+ *                                                                            *
+ *                                                                            *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -58,7 +61,7 @@ begin
     2 : Value := 'WYJŚCIE';                                                                            // Button
     3 : Value := 'NOWE KONTO';                                                                         // Button URL
     4 : Value := 'ZMIANA HASŁA';                                                                       // Button URL
-    5 : Value := 'ID                                   HASŁO¦CE¦';                                     // Button
+    5 : Value := 'ID                                        HASŁO¦CE¦';                                // Button
     6 : Value := 'Zaloguj Się (L)';                                                                    // [1] Hint
     7 : Value := 'Wyjście (X)';                                                                        // [2] Hint
     8 : Value := 'Nowe Konto (N)';                                                                     // [3] Hint
@@ -121,19 +124,19 @@ begin
     60: Value := 'Skrytobójca';
     { Information about Warriors }
     61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Wojownik]¦CE¦\¦Y08¦'             // SE: Better to have gender first
-               + ' Wojownicy słyną ze swojej ogromnej siły i witalności. Nie jest łatwo\'
-               + ' pokonać ich w boju, a ich dodatkowym atutem jest możliwość używania\'
-               + ' ciężkiego oręża oraz zbroi. Wojownicy są niezrównani w zwarciu, natomiast\'
-               + ' słabo sobie radzą z odpieraniem ataków dystansowych. Różnorodności ekwipunku\'
-               + ' zaprojektowanego specjalnie dla Wojowników umożliwia wyrównanie jego szans\'
-               + ' w walce z przeciwnikami dystansowymi. Wojownik jest dobrą klasą dla\'
+               + ' Wojownicy słyną ze swojej ogromnej siły i witalności. Nie jest łatwo pokonać\'
+               + ' ich w boju, a ich dodatkowym atutem jest możliwość używania ciężkiego\'
+               + ' oręża oraz zbroi. Wojownicy są niezrównani w zwarciu, natomiast słabo sobie\'
+               + ' radzą z odpieraniem ataków dystansowych. Różnorodności ekwipunku\'
+               + ' zaprojektowanego specjalnie dla Wojowników umożliwia wyrównanie jego\'
+               + ' szans w walce z przeciwnikami dystansowymi. Wojownik jest dobrą klasą dla\'
                + ' początkujących ze względu na jego proste lecz potężne umiejętności.\';
     { Information about Wizards }
     62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Czarodziej]¦CE¦\¦Y08¦'
                + ' Czarodzieje posiadają mało siły oraz wytrzymałości, ale potrafią używać\'
                + ' potężnej magii. Ich zaklęcia bojowe są bardzo skuteczne, ale czas potrzebny\'
                + ' na inkantację odsłania Czarodzieja na ewentualny kontratak ze strony wroga.\'
-               + ' Dlatego, grając Czarodziejem musisz zawsze dążyć do tego aby atakować wrogów\'
+               + ' Dlatego, grając Czarodziejem musisz zawsze dążyć do tego aby atakować\'
                + ' z bezpiecznej odległości. Czarodzieje są słabi fizycznie, dlatego ciężko jest\'
                + ' ich trenować we wczesnych etapach gry, natomiast stają się bardzo potężni\'
                + ' kiedy tylko nauczą się bardziej zaawansowanych zaklęć. Ze względu na liczne\'
@@ -144,19 +147,20 @@ begin
                + ' bezpośrednio angażować się w walkę z wrogiem, wolą trzymać się z boku,\'
                + ' ponieważ ich prawdziwą siłą jest wspieranie innych klas. Ich podstawowe\'
                + ' zaklęcia służą do leczenia i ochrony towarzyszy broni. Mogą oni również\'
-               + ' przyzywać do pomocy potężne chowańce, oraz rzucać kilka dobrze wyważonych\'
-               + ' zaklęć bojowych. Pomimo wielu przydatnych umiejętności, brak tężyzny fizycznej\'
-               + ' czyni Taoistów trudnymi do wyszkolenia. Najlepiej radzą sobie oni w towarzystwie\'
-			   + ' jednej z pozostałych klas postaci.\';
+               + ' przyzywać do pomocy potężne chowańce, oraz rzucać dobrze zbalansowane\'
+               + ' zaklęcia bojowe. Pomimo wielu przydatnych umiejętności, brak tężyzny\'
+               + ' fizycznej czyni Taoistów trudnymi do wyszkolenia. Najlepiej radzą sobie oni w\'
+			   + ' towarzystwie jednej z pozostałych klas postaci.\';
     { Information about Assassins }
     64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Skrytobójca]¦CE¦\¦Y08¦'
                + '¦C1D1AD69¦¦C2C19D59¦ Skrytobójcy są członkami tajemniczej organizacji a ich historia jest prawie\'
                + ' całkowicie nieznana. Są oni słabi fizycznie ale potrafią się doskonale\'
-               + ' kamuflować oraz atakować pozostając w ukryciu, oczywiście są również świetni\'
-               + ' w szybkim odbieraniu życia. Jednakże muszą oni unikać angażowania się w walkę\'
-               + ' przeciwko wielu przeciwnikom ponieważ mają oni mniej umiejętności obronnych od\'
-               + ' innych postaci. Gra Skrytobójcą jest zalecana dla doświadczonych graczy, gdyż\'
-               + ' wymaga wprawnych ruchów, sprytnych decyzji oraz szybkiego myślenia.¦CE¦\';
+               + ' kamuflować oraz atakować pozostając w ukryciu, oczywiście są również\'
+               + ' świetni w szybkim odbieraniu życia. Jednakże muszą oni unikać angażowania się\'
+               + ' w walkę przeciwko wielu przeciwnikom ponieważ mają oni mniej umiejętności\'
+               + ' obronnych od innych postaci. Gra Skrytobójcą jest zalecana dla\'
+               + ' doświadczonych graczy, gdyż wymaga wprawnych ruchów, sprytnych decyzji\'
+			   + ' oraz szybkiego myślenia.¦CE¦\';
     65: Value := 'Postać usunięta.';
     66: Value := 'Usuniętych postaci nie można przywrócić, i\'
                + 'nie można stworzyć postaci z tą samą nazwą\'
@@ -193,18 +197,18 @@ begin
     90: Value := 'Zamknij';
     91..100 : Value := 'Reserved';
     {Game Settings}
-    101: Value := 'Podstawowe';
-    102: Value := 'Bezpieczeństwo';
+    101: Value := 'Ogólne';
+    102: Value := 'Pryw.';
     103: Value := 'Chat';
-    104: Value := 'Graficzne';
+    104: Value := 'Grafika';
     { Page 1 Basic }
-    105: Value := 'Tryb Ataku: Wszyscy';
-    106: Value := 'Tryb Ataku: Pokojowy';
-    107: Value := 'Tryb Ataku: Małżeństwo';                                    //(Kochanie)'; - Kochanek, Partner, Małżonek, Para
-    108: Value := 'Tryb Ataku: Mistrz-Uczeń';
-    109: Value := 'Tryb Ataku: Grupowy';
-    110: Value := 'Tryb Ataku: Gildiowy';
-    111: Value := 'Tryb Ataku: Czerwony Kontra Biali';
+    105: Value := 'Atak: Wszyscy';
+    106: Value := 'Atak: Pokojowy';
+    107: Value := 'Atak: Małżeństwo';                                          //(Kochanie)'; - Kochanek, Partner, Małżonek, Para
+    108: Value := 'Atak: Mistrz-Uczeń';
+    109: Value := 'Atak: Grupowy';
+    110: Value := 'Atak: Gildiowy';
+    111: Value := 'Atak: Czerwony vs. Biali';
     112: Value := 'Reserved';
     113: Value := 'Reserved';
     114: Value := 'Zmiana Pozycji Ataku';                                      // Hint for Atak Mode
@@ -215,21 +219,21 @@ begin
     120: Value := 'Efekty Dźwiękowe';
     121: Value := '[ Włącz/Wyłącz Efekty Dźwiękowe ]';                         // Hint Sound Effects
     122: Value := 'Dźwięk Stereo';
-    123: Value := '[ Włącz Wyłącz Dźwięk Stereo ]';                            // Hint Sound Effects
-    124: Value := 'Automatyczne Podnoszenia';
-    125: Value := '[ Włącz/Wyłącz Automatyczne Podnoszenie ]';                 // Hint Sound Effects
-    126: Value := 'Pokaż Nazwy Upuszczonych Przedmiotów';
+    123: Value := '[ Włącz/Wyłącz Dźwięk Stereo ]';                            // Hint Sound Effects
+    124: Value := 'Automatyczne Podnoszenie';
+    125: Value := '[ Włącz/Wyłącz Automatyczne Podnoszenie]';                 // Hint Sound Effects
+    126: Value := 'Nazwy Przedmiotów';
     127: Value := '[ Włącz/Wyłącz Pokazywanie Nazw Upuszczonych Przedmiotów]'; // Hint Sound Effects
     { Page 2 Permissions }
-    128: Value := 'Dopuść Zaproszenia Do Grupy';
+    128: Value := 'Zaproszenia Do Grupy';
     129: Value := '[ Włącz/Wyłącz Zaproszenia Do Grupy ]';
-    130: Value := 'Dopuść Zaproszenia Do Gildii';
+    130: Value := 'Zaproszenia Do Gildii';
     131: Value := '[ Włącz/Wyłącz Zaproszenia Do Gildii ]';
-    132: Value := 'Dopuść Wskrzeszanie';
+    132: Value := 'Wskrzeszanie';
     133: Value := '[ Włącz/Wyłącz Wskrzeszanie ]';
-    134: Value := 'Dopuść Przywołanie';
+    134: Value := 'Przywołanie';
     135: Value := '[ Włącz/Wyłącz Przywołanie ]';
-    136: Value := 'Dopuść Handel';
+    136: Value := 'Handel';
     137: Value := '[ Włącz/Wyłącz Handel ]';
     138: Value := 'Efekty Rozlewu Krwi (18+)'; // Fixed
     139: Value := '[ Włącz/Wyłącz Efekty Rozlewu Krwi ]';
@@ -250,7 +254,7 @@ begin
     153: Value := 'hint reserved';
     154: Value := 'Wiadomości Gildiowe';
     155: Value := '[ Włącz/Wyłącz Nasłuchiwanie Wiadomości Gildiowych ]';
-    156: Value := 'Zablokuj Szepty Od Użytkownika';
+    156: Value := 'Blokuj Szepty Od Użytkownika';
     157: Value := '[ Zablokowano Szepty Od Użytkownika %s ]';    // SE: it would be nice for the %s to let you know who is blocked - not necessary though | Coly: Prio 8 or so...
     158: Value := 'Reserved';
     159: Value := 'Reserved';
@@ -266,23 +270,23 @@ begin
     { Page 4 Visual }
     169: Value := 'Wskaźnik Zmiany HP';
     170: Value := '[ Włącz/Wyłącz Wskaźnik Zmiany HP ]';
-    171: Value := 'Wyświetlanie Grafiki Zaklęć';
+    171: Value := 'Grafika Zaklęć';
     172: Value := '[ Włącz/Wyłącz Wyświetlanie Grafiki Zaklęć ]';
-    173: Value := 'Wyświetlanie Rozmytych Cieni';
+    173: Value := 'Rozmyte Cienie';
     174: Value := '[ Włącz/Wyłącz Wyświetlanie Rozmytych Cieni ]';
-    175: Value := 'Wyświetlanie Grafiki Hełmu';
+    175: Value := 'Pokaż Hełm';
     176: Value := '[ Włącz/Wyłącz Wyświetlanie Grafiki Hełmu ]';
-    177: Value := 'Wyświetlanie Efektów Potworów';
+    177: Value := 'Efekty Potworów';
     178: Value := '[ Włącz/Wyłącz Wyświetlanie Efektów Potworów ]';
-    179: Value := 'Wyświetlanie Koloru Przefarbowanych Włosów';
+    179: Value := 'Kolor Włosów';
     180: Value := '[ Włącz/Wyłącz Wyświetlanie Koloru Przefarbowanych Włosów ]';
     181: Value := 'Wyświetlanie Avatara';
     182: Value := '[ Włącz/Wyłącz Wyświetlanie Avatara ]';
-    183: Value := 'Pokaż Potwory Na Mini-Mapie';  
+    183: Value := 'Potwory Na Mini-Mapie';  
     184: Value := '[ Włącz/Wyłącz Wyświetlanie Potworów Na Mini-Mapie ]';
-    185: Value := 'Wyświetlanie Wskaźnika HP Gracza';
+    185: Value := 'Wskaźnik HP Graczy';
     186: Value := '[ Włącz/Wyłącz Wskaźnik HP Gracza ]';
-    187: Value := 'Wyświetlanie Wskaźnika HP Potworów';
+    187: Value := 'Wskaźnik HP Potworów';
     188: Value := '[ Włącz/Wyłącz Wskaźnik HP Potworów ]';
     189: Value := 'Reserved';
     { Exit Window }
