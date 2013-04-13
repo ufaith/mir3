@@ -2,7 +2,7 @@
  *   LomCN Mir3 Spanish Magic Language LGU File 2013                          *
  *                                                                            *
  *   Web       : http://www.lomcn.co.uk                                       *
- *   Version   : 0.0.0.2                                                      *
+ *   Version   : 0.0.0.3                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -13,6 +13,7 @@
  *                                                                            *
  *  - 0.0.0.1 [2013-02-11] Elamo  : first init                                *
  *  - 0.0.0.2 [2013-04-07] Ashran : translated upto AdamantineFB              *
+ *  - 0.0.0.3 [2013-04-13] Coly : add utf8 code support                       *
  *                                                                            *
  ******************************************************************************
  * :Info:                                                                     *
@@ -35,7 +36,7 @@ interface
 uses Windows, SysUtils, Classes;
 
 function GetMagicLine(): Integer; stdcall;
-function GetMagicString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetMagicString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 
 implementation
 
@@ -44,9 +45,9 @@ begin
   Result := 1;
 end;
 
-function GetMagicString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetMagicString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 var
-  Value : String;
+  Value : WideString;
 begin
   case ID of
     (*******************************************************************
@@ -173,9 +174,13 @@ begin
     100..2000: Value := 'Fix me in Language File';
     else Value := 'Unsupport';
   end;
+  
   ////////////////////////////////////////////////////////////////////////////
+  ///
+
   if Assigned(Buffer) then
-    CopyMemory(Buffer, PChar(Value), Length(Value));
-  Result := Length(Value);
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
+
+  Result := lstrlenW(PWideChar(Value))+1;
 end;
 end.

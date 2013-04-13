@@ -1,8 +1,8 @@
-(******************************************************************************
+ï»¿(******************************************************************************
  *   LomCN Mir3 German Game Language LGU File 2013                            *
  *                                                                            *
- *   Web       : http://www.lomcn.org                                         *
- *   Version   : 0.0.0.5                                                      *
+ *   Web       : http://www.lomcn.co.uk                                       *
+ *   Version   : 0.0.0.3                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -12,8 +12,8 @@
  * Change History                                                             *
  *                                                                            *
  *  - 0.0.0.1 [2013-02-11] Coly : first init                                  *
- *                                                                            *
- *                                                                            *
+ *  - 0.0.0.2 [2013-03-11] Coly : add new lines                               *
+ *  - 0.0.0.3 [2013-04-13] Coly : change to UTF8 + code support               *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -22,12 +22,8 @@
  * at the end of 255 Char...                                                  *
  * The String it self can have a length of 1024                               *
  *                                                                            *
- * !! Don't localize or delete things with "¦" !!                             *
+ * !! Don't localize or delete things with "Â¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
- *                                                                            *
- * !!! Attention, only the English language files are                         * 
- * !!! matched by the development team, not other languages??.                *
- *                                                                            * 
  ******************************************************************************)
 
 unit mir3_language_game;
@@ -37,7 +33,7 @@ interface
 uses Windows, SysUtils, Classes;
 
 function GetGameLine(): Integer; stdcall;
-function GetGameString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetGameString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 
 implementation
 
@@ -46,9 +42,9 @@ begin
   Result := 2000;
 end;
 
-function GetGameString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetGameString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 var
-  Value : string;
+  Value : WideString;
 begin
   case ID of
     (*******************************************************************
@@ -56,19 +52,19 @@ begin
     *******************************************************************)
     1 : Value := 'Log in';                                                              // Button
     2 : Value := 'Exit';                                                                // Button
-    3 : Value := 'New Account';                                                         // Button URL
-    4 : Value := 'Change Password';                                                     // Button URL
-    5 : Value := 'ID                                      PASSWORD¦CE¦';                // Button
+    3 : Value := 'Neuer Account';                                                       // Button URL
+    4 : Value := 'Ã„nder Passwort';                                                      // Button URL
+    5 : Value := 'ID                                      PASSWORTÂ¦CEÂ¦';                // Button
     6 : Value := 'Log In (L)';                                                          // [1] Hint
     7 : Value := 'Exit (X)';                                                            // [2] Hint
-    8 : Value := 'New Account (N)';                                                     // [3] Hint
-    9 : Value := 'Change Password (P)';                                                 // [4] Hint
-    10: Value := 'You have been disconnected.';                                         // Infoboard
-    11: Value := 'The server is currently\down for maintenance.';                       // Infoboard
-    12: Value := 'Cannot connect to the server.\The server is unreachable.';            // Infoboard
-    13: Value := 'Are you sure you want to quit?';
-    14: Value := 'Reserved';
-    15: Value := 'Reserved';
+    8 : Value := 'Neuer Account (N)';                                                   // [3] Hint
+    9 : Value := 'Ã„nder Passwort (P)';                                                  // [4] Hint
+    10: Value := 'Sie wurden vom Server getrennt.';                                     // Infoboard           
+    11: Value := 'Der Server ist derzeit\fÃ¼r Wartungsarbeiten heruntergefahren.';       // Infoboard
+    12: Value := 'Kann nicht mit dem Server verbinden.\Der Server ist nicht erreichbar.';// Infoboard
+    13: Value := 'Sind Sie sicher, dass Sie\ das Spiel beenden mÃ¶chten?';
+    14: Value := 'Reserve';
+    15: Value := 'Reserve';
     { SM_LOGIN_PASSWORD_FAIL }
     16: Value := 'Your ID or password is incorrect.\Please try again.';
     17: Value := 'You have entered the wrong account\information three times.\Please try again later.';
@@ -76,10 +72,10 @@ begin
     19: Value := 'Your account has been disabled.\Please visit www.lomcn.org\for more information.';
     20: Value := 'Your game subscription has expired.\Please visit www.lomcn.org\for more information.';
     21: Value := 'Unknown errors have occurred!\Please visit www.lomcn.org\for more information.';
-    22: Value := 'Reserved';
-    23: Value := 'Reserved';
-    24: Value := 'Reserved';
-    25: Value := 'Reserved';
+    22: Value := 'Reserve';
+    23: Value := 'Reserve';
+    24: Value := 'Reserve';
+    25: Value := 'Reserve';
     { SM_LOGIN_PASSWORD_OK Verify Subscription }
     26: Value := 'Your subscription expires today!\Please visit http://www.lomcn.org\for more information.';
     27: Value := 'Your subscription will expire in\ %d days.';
@@ -87,15 +83,15 @@ begin
     29: Value := 'Your IP access expires today!';
     30: Value := 'Your IP access will be valid for\another %d hours.';
     31: Value := 'Your ID will be valid for another\ %d hours.';
-    32: Value := 'Reserved';
-    33: Value := 'Reserved';
-    34: Value := 'Reserved';
-    35: Value := 'Reserved';
-    36: Value := 'Reserved';
-    37: Value := 'Reserved';
-    38: Value := 'Reserved';
-    39: Value := 'Reserved';
-    40: Value := 'Reserved';
+    32: Value := 'Reserve';
+    33: Value := 'Reserve';
+    34: Value := 'Reserve';
+    35: Value := 'Reserve';
+    36: Value := 'Reserve';
+    37: Value := 'Reserve';
+    38: Value := 'Reserve';
+    39: Value := 'Reserve';
+    40: Value := 'Reserve';
     (*******************************************************************
     *               Character Selection / Creation                     *
     *******************************************************************)
@@ -120,7 +116,7 @@ begin
     59: Value := 'Taoist';
     60: Value := 'Assassin';
     { Information about Warriors }
-    61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Warrior]¦CE¦\¦Y08¦'             // SE: Better to have gender first
+    61: Value := 'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s Warrior]Â¦CEÂ¦\Â¦Y08Â¦'             // SE: Better to have gender first
                + ' Warriors are a class of great strength and vitality. They are not easily\'
                + ' killed in battle and have the advantage of being able to use a variety of\'
                + ' heavy weapons and armour. Warriors favour attacks that are based on close\'
@@ -129,7 +125,7 @@ begin
                + ' their weakness in ranged combat. Warrior characters are recommended for\'
                + ' beginners because of their simple yet powerful abilities.\';
     { Information about Wizards }
-    62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Wizard]¦CE¦\¦Y08¦'
+    62: Value := 'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s Wizard]Â¦CEÂ¦\Â¦Y08Â¦'
                + ' Wizards are a class of low strength and stamina, but have the ability to use\'
                + ' powerful spells. Their offensive spells are very effective, but the time it\'
                + ' takes to cast these spells is likely to leave them vulnerable to enemy\'
@@ -139,7 +135,7 @@ begin
                + ' learn the more advanced spells. Because of their many advantages and\'
                + ' drawbacks, Wizards require a lot of attention and skill.\';
     { Information about Taoists }
-    63: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Taoist]¦CE¦\¦Y08¦'
+    63: Value := 'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s Taoist]Â¦CEÂ¦\Â¦Y08Â¦'
                + ' Taoists lie between Wizards and Warriors in terms of strength and\'
                + ' survivability, but rather than directly engaging their enemies, their true\'
                + ' strength lies in supporting others. Their most essential skills are the\'
@@ -148,20 +144,20 @@ begin
                + ' Even though Taoists have many skills, their lack of physical power makes them\'
                + ' difficult to train. They must always look out for other players to fight with.\';
     { Information about Assassins }
-    64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Assassin]¦CE¦\¦Y08¦'
-               + '¦C1D1AD69¦¦C2C19D59¦ Assassins are members of a secret organization and their history is relatively\'
+    64: Value :=  'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s Assassin]Â¦CEÂ¦\Â¦Y08Â¦'
+               + 'Â¦C1D1AD69Â¦Â¦C2C19D59Â¦ Assassins are members of a secret organization and their history is relatively\'
                + ' unknown. They are physically weak but are capable of hiding themselves and\'
                + ' performing attacks while being unseen by others, and are naturally excellent\'
                + ' at making fast kills. However they must be careful to avoid engagements\'
                + ' against multiple opponents as they have less defensive options than other\'
                + ' characters. Assassins are recommended for experienced players, as they\'
-               + ' require smart moves, cunning decisions and quick thinking.¦CE¦\';
+               + ' require smart moves, cunning decisions and quick thinking.Â¦CEÂ¦\';
     65: Value := 'Character deleted.';
     66: Value := 'Deleted characters cannot be recovered, and\'
                + 'you cannot create another character with\'
                + 'the same name for a while. If you wish to\'
                + 'continue, please type your password and\'
-               + 'press the "Confirm" button.';     //Coly: I can use a Text Button with own Text... SE: Fixed
+               + 'press the "Confirm" button.';     //SE: Fixed... Coly: used ID 79 and 80 for this one
     67: Value := 'You cannot create more than %d characters.';
     68: Value := 'Please create a character first.';
     69: Value := 'Character information cannot be accessed.';
@@ -170,12 +166,12 @@ begin
     72: Value := 'Character creation failure - Error code 4';
     73: Value := 'Unknown errors have occurred.\Please visit www.lomcn.org\for more information.';
     74: Value := 'An error has occurred while deleting\your character.';
-    75: Value := 'Start Game¦CE¦';
-    76: Value := 'New Character¦CE¦';
-    77: Value := 'Delete Character¦CE¦';
-    78: Value := 'Exit¦CE¦';
-    79: Value := 'Reserved';
-    80: Value := 'Reserved';
+    75: Value := 'Start GameÂ¦CEÂ¦';
+    76: Value := 'New CharacterÂ¦CEÂ¦';
+    77: Value := 'Delete CharacterÂ¦CEÂ¦';
+    78: Value := 'ExitÂ¦CEÂ¦';
+    79: Value := 'Confirm';                       //Button Text
+    80: Value := 'Cancel';                        //Button Text
     (*******************************************************************
     *                        InGame Text                               *
     *******************************************************************)
@@ -362,6 +358,7 @@ begin
     267: Value := ' Phantom  ';                         //Hint
     268: Value := ' Physical ';//'Martial Art';         //Hint
     269: Value := 'Close Window';//'Close Magic Window';//Hint
+    { Assassin Magic Window }
     270: Value := ' Atrocity  ';                        //Hint - SE: I have no idea what these 3 should actually be...
     271: Value := ' Assa  ';                            //Hint - ??
     272: Value := ' Assassinate  ';                     //Hint - ??
@@ -378,7 +375,7 @@ begin
     1058: Value := '194';
     1059: Value := '3.55 %';
     1060: Value := 'Coly\GameMasterGuild';
-    1061: Value := 'Coly´s Spouse';
+    1061: Value := 'ColyÂ´s Spouse';
     1062: Value := '100-100';
     1063: Value := '10000';
     1064: Value := '1000';
@@ -397,8 +394,9 @@ begin
   ///
 
   if Assigned(Buffer) then
-    CopyMemory(Buffer, PChar(Value), Length(Value));
-  Result := Length(Value);
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
+
+  Result := lstrlenW(PWideChar(Value))+1;
 end;
 
 end.

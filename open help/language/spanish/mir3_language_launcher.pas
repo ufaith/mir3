@@ -2,7 +2,7 @@
  *   LomCN Mir3 Spanish Launcher Language LGU File 2013                       *
  *                                                                            *
  *   Web       : http://www.lomcn.co.uk                                       *
- *   Version   : 0.0.0.1                                                      *
+ *   Version   : 0.0.0.2                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -12,6 +12,7 @@
  * Change History                                                             *
  *                                                                            *
  *  - 0.0.0.1 [2013-02-11] Elamo : first init                                 *
+ *  - 0.0.0.2 [2013-04-13] Coly : add utf8 code support                       *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -35,7 +36,7 @@ interface
 uses Windows, SysUtils, Classes;
 
 function GetLauncherLine(): Integer; stdcall;
-function GetLauncherString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetLauncherString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 
 implementation
 
@@ -44,9 +45,9 @@ begin
   Result := 1;
 end;
 
-function GetLauncherString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetLauncherString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 var
-  Value : String;
+  Value : WideString;
 begin
   case ID of
     (*******************************************************************
@@ -70,9 +71,12 @@ begin
   end;
 
   ////////////////////////////////////////////////////////////////////////////
+  ///
+
   if Assigned(Buffer) then
-    CopyMemory(Buffer, PChar(Value), Length(Value));
-  Result := Length(Value);
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
+
+  Result := lstrlenW(PWideChar(Value))+1;
 end;
 
 end.

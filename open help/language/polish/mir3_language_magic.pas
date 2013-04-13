@@ -1,8 +1,8 @@
-(******************************************************************************
+ï»¿(******************************************************************************
  *   LomCN Mir3 Polish Magic Language LGU File 2013                           *
  *                                                                            *
  *   Web       : http://www.lomcn.co.uk                                       *
- *   Version   : 0.0.0.1                                                      *
+ *   Version   : 0.0.0.3                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -11,7 +11,8 @@
  ******************************************************************************
  * Change History                                                             *
  *                                                                            *
- *  - 0.0.0.1 [2013-04-05] Coly  : first init                                 *
+ *  - 0.0.0.1 [2013-04-05] Coly : first init                                  *
+ *  - 0.0.0.2 [2013-04-13] Coly : change to UTF8 and add code support         *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -20,7 +21,7 @@
  * at the end of 255 Char...                                                  *
  * The String it self can have a length of 1024                               *
  *                                                                            *
- * !! Don't localize or delete things with "¦" !!                             *
+ * !! Don't localize or delete things with "Â¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
  *                                                                            *
  * !!! Attention, only the English language files are                         * 
@@ -35,7 +36,7 @@ interface
 uses Windows, SysUtils, Classes;
 
 function GetMagicLine(): Integer; stdcall;
-function GetMagicString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetMagicString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 
 implementation
 
@@ -44,9 +45,9 @@ begin
   Result := 2000;
 end;
 
-function GetMagicString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetMagicString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 var
-  Value : String;
+  Value : WideString;
 begin
   case ID of
     (*******************************************************************
@@ -54,12 +55,15 @@ begin
     *******************************************************************)
     1..2000: Value := 'Fix me in Language File';
 	(*the real file comes later*)
-    else Value := 'nieobs³ugiwane';
+    else Value := 'nieobsÂ³ugiwane';
   end;
 
   ////////////////////////////////////////////////////////////////////////////
+  ///
+
   if Assigned(Buffer) then
-    CopyMemory(Buffer, PChar(Value), Length(Value));
-  Result := Length(Value);
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
+
+  Result := lstrlenW(PWideChar(Value))+1;
 end;
 end.

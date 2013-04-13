@@ -2,7 +2,7 @@
  *   LomCN Mir3 Polish Game Language LGU File 2013                            *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
- *   Version   : 0.0.0.1                                                      *
+ *   Version   : 0.0.0.5                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -15,6 +15,7 @@
  *  - 0.0.0.2 [2013-04-07] budyniowski: translation                           *
  *  - 0.0.0.3 [2013-04-08] budyniowski: change to UTF8 + little clean up      *
  *  - 0.0.0.4 [2013-04-11] budyniowski: fitting text to frames                *
+ *  - 0.0.0.5 [2013-04-13] Coly : add utf8 code support                       *
  *                                                                            *
  *                                                                            *
  *                                                                            *
@@ -40,7 +41,7 @@ interface
 uses Windows, SysUtils, Classes;
 
 function GetGameLine(): Integer; stdcall;
-function GetGameString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetGameString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 
 implementation
 
@@ -49,9 +50,9 @@ begin
   Result := 2000;
 end;
 
-function GetGameString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetGameString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 var
-  Value : string;
+  Value : WideString;
 begin
   case ID of
     (*******************************************************************
@@ -402,8 +403,9 @@ begin
   ///
 
   if Assigned(Buffer) then
-    CopyMemory(Buffer, PChar(Value), Length(Value));
-  Result := Length(Value);
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
+
+  Result := lstrlenW(PWideChar(Value))+1;
 end;
 
 end.
