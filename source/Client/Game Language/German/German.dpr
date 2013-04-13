@@ -2,7 +2,7 @@
  *   LomCN Mir3 German Language LGU File 2012                      *
  *                                                                 *
  *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.2                                           *
+ *   Version   : 0.0.0.3                                           *
  *                                                                 *
  *   - File Info -                                                 *
  *                                                                 *
@@ -13,6 +13,7 @@
  *                                                                 *
  *  - 0.0.0.1 [2013-02-11] Coly  : first init                      *
  *  - 0.0.0.2 [2013-02-11] Coly  : Splitt to more systems          *
+ *  - 0.0.0.3 [2013-04-13] Coly : change to UTF8 + code support    *
  *                                                                 *
  *                                                                 *
  *                                                                 *
@@ -35,19 +36,19 @@ uses
 
 const
   LANGUAGE_FILE_AUTOR   = 'Coly / Lycrida';
-  LANGUAGE_FILE_VERSION = $00000002;
+  LANGUAGE_FILE_VERSION = $00000003;
 
 
-function GetFileAutor(Buffer: PChar) : Integer; stdcall;
+function GetFileAutor(Buffer: PWideChar) : Integer; stdcall;
 var
   Value : String;
 begin
   if Assigned(Buffer) then
   begin
     Value := LANGUAGE_FILE_AUTOR;
-    CopyMemory(Buffer, PChar(Value), Length(Value));
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
   end;
-  Result := Length(Value);
+  Result := lstrlenW(PWideChar(Value))+1;
 end;
 
 function GetFileVersion(): Integer; stdcall;

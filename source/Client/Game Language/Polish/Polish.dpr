@@ -2,7 +2,7 @@
  *   LomCN Mir3 Polish Language LGU File 2013                      *
  *                                                                 *
  *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.1                                           *
+ *   Version   : 0.0.0.2                                           *
  *                                                                 *
  *   - File Info -                                                 *
  *                                                                 *
@@ -12,6 +12,7 @@
  * Change History                                                  *
  *                                                                 *
  *  - 0.0.0.1 [2013-04-05] Coly  : first init                      *
+ *  - 0.0.0.2 [2013-04-13] Coly : change to UTF8 + code support    *
  *                                                                 *
  *                                                                 *
  *                                                                 *
@@ -34,19 +35,19 @@ uses
 
 const
   LANGUAGE_FILE_AUTOR   = 'Budyniowski';
-  LANGUAGE_FILE_VERSION = $00000001;
+  LANGUAGE_FILE_VERSION = $00000002;
 
 
-function GetFileAutor(Buffer: PChar) : Integer; stdcall;
+function GetFileAutor(Buffer: PWideChar) : Integer; stdcall;
 var
   Value : String;
 begin
   if Assigned(Buffer) then
   begin
     Value := LANGUAGE_FILE_AUTOR;
-    CopyMemory(Buffer, PChar(Value), Length(Value));
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
   end;
-  Result := Length(Value);
+  Result := lstrlenW(PWideChar(Value))+1;
 end;
 
 function GetFileVersion(): Integer; stdcall;

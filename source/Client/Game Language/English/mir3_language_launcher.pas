@@ -1,8 +1,8 @@
-(******************************************************************************
+﻿(******************************************************************************
  *   LomCN Mir3 English Launcher Language LGU File 2013                       *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
- *   Version   : 0.0.0.1                                                      *
+ *   Version   : 0.0.0.2                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -11,7 +11,8 @@
  ******************************************************************************
  * Change History                                                             *
  *                                                                            *
- *  - 0.0.0.1 [2013-02-11] Coly  : first init                                 *
+ *  - 0.0.0.1 [2013-02-11] Coly : first init                                  *
+ *  - 0.0.0.2 [2013-04-13] Coly : change to UTF8 + code support               *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -20,7 +21,7 @@
  * at the end of 255 Char...                                                  *
  * The String it self can have a length of 1024                               *
  *                                                                            *
- * !! Don't localize or delete things with "�" !!                             *
+ * !! Don't localize or delete things with "¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
  ******************************************************************************)
 
@@ -31,7 +32,7 @@ interface
 uses Windows, SysUtils, Classes;
 
 function GetLauncherLine(): Integer; stdcall;
-function GetLauncherString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetLauncherString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 
 implementation
 
@@ -40,9 +41,9 @@ begin
   Result := 2000;
 end;
 
-function GetLauncherString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetLauncherString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 var
-  Value : String;
+  Value : WideString;
 begin
   case ID of
     (*******************************************************************
@@ -66,9 +67,12 @@ begin
   end;
 
   ////////////////////////////////////////////////////////////////////////////
+  ///
+
   if Assigned(Buffer) then
-    CopyMemory(Buffer, PChar(Value), Length(Value));
-  Result := Length(Value);
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
+
+  Result := lstrlenW(PWideChar(Value))+1;
 end;
 
 end.

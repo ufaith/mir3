@@ -49,14 +49,6 @@
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\Mir3Components2012.bpl">LomCN Map Editor Komponenten Pack 2012</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\D7WinNetworkSocket.bpl">WinSocket Server / Client</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dclsdac105.bpl">SQL Server Data Access Components</Excluded_Packages>

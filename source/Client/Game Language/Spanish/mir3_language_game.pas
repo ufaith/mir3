@@ -2,7 +2,7 @@
  *   LomCN Mir3 Spanish Game Language LGU File 2013                           *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
- *   Version   : 0.0.0.3                                                      *
+ *   Version   : 0.0.0.5                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -14,7 +14,8 @@
  *  - 0.0.0.1 [2013-04-05] Elamo : first init                                 *
  *  - 0.0.0.2 [2013-04-06] Ashran : translated, needs in-game checking!       *
  *  - 0.0.0.3 [2013-04-05] Coly : fix and clean up file                       *
- *                                                                            *
+ *  - 0.0.0.4 [2013-04-07] Ashran : fix according to in-game check            *
+ *  - 0.0.0.5 [2013-04-13] Coly : add utf8 code support                       *
  *                                                                            *
  *                                                                            *
  ******************************************************************************
@@ -23,7 +24,7 @@
  * at the end of 255 Char...                                                  *
  * The String it self can have a length of 1024                               *
  *                                                                            *
- * !! Don't localize or delete things with "¦" !!                             *
+ * !! Don't localize or delete things with "Â¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
  *                                                                            *
  * !!! Attention, only the Spanish language files are                         *
@@ -38,7 +39,7 @@ interface
 uses Windows, SysUtils, Classes;
 
 function GetGameLine(): Integer; stdcall;
-function GetGameString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetGameString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 
 implementation
 
@@ -47,9 +48,9 @@ begin
   Result := 2000;
 end;
 
-function GetGameString(ID: Integer; Buffer: PChar): Integer; stdcall;
+function GetGameString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 var
-  Value : string;
+  Value : WideString;
 begin
   case ID of
     (*******************************************************************
@@ -58,36 +59,36 @@ begin
     1 : Value := 'Entrar';                                                              // Button
     2 : Value := 'Salir';                                                               // Button
     3 : Value := 'Nueva cuenta';                                                        // Button URL
-    4 : Value := 'Cambiar contraseña';                                                  // Button URL
-    5 : Value := 'ID                                      CONTRASEÑA¦CE¦';              // Button
+    4 : Value := 'Cambiar contraseÃ±a';                                                  // Button URL
+    5 : Value := 'ID                                CONTRASEÃ‘AÂ¦CEÂ¦';              // Button
     6 : Value := 'Entrar (L)';                                                          // [1] Hint
     7 : Value := 'Salir (X)';                                                           // [2] Hint
     8 : Value := 'Nueva cuenta (N)';                                                    // [3] Hint
-    9 : Value := 'Cambiar contraseña (P)';                                              // [4] Hint
+    9 : Value := 'Cambiar contraseÃ±a (P)';                                              // [4] Hint
     10: Value := 'Has sido desconectado.';                                              // Infoboard
-    11: Value := 'El servidor está\desconectado por mantenimiento.';                    // Infoboard
+    11: Value := 'El servidor estÃ¡\desconectado por mantenimiento.';                    // Infoboard
     12: Value := 'No se puede conectar al servidor.\El servidor es inalcanzable.';      // Infoboard
-    13: Value := '¿Seguro que quieres salir?';
+    13: Value := 'Â¿Seguro que quieres salir?';
     14: Value := 'Reservado';
     15: Value := 'Reservado';
     { SM_LOGIN_PASSWORD_FAIL }
-    16: Value := 'Tu ID o contraseña es incorrecto.\Inténtalo otra vez.';
-    17: Value := 'Has introducido datos\erróneos tres veces.\Inténtalo más tarde.';
-    18: Value := 'No se puede acceder a la información de la cuenta.\Inténtalo otra vez.';
-    19: Value := 'Tu cuenta ha sido deshabilitada.\Visita www.lomcn.org\para más detalles.';
-    20: Value := 'Tu subscripción ha caducado.\Visita www.lomcn.org\para más detalles.';
-    21: Value := '¡Han ocurrido errores desconocidos!\Visita www.lomcn.org\para más detalles.';
+    16: Value := 'Tu ID o contraseÃ±a son incorrectos.\IntÃ©ntalo otra vez.';
+    17: Value := 'Has introducido datos\errÃ³neos tres veces.\IntÃ©ntalo mÃ¡s tarde.';
+    18: Value := 'No se puede acceder a la informaciÃ³n de la cuenta.\IntÃ©ntalo otra vez.';
+    19: Value := 'Tu cuenta ha sido deshabilitada.\Visita www.lomcn.org\para mÃ¡s detalles.';
+    20: Value := 'Tu subscripciÃ³n ha caducado.\Visita www.lomcn.org\para mÃ¡s detalles.';
+    21: Value := 'Â¡Han ocurrido errores desconocidos!\Visita www.lomcn.org\para mÃ¡s detalles.';
     22: Value := 'Reservado';
     23: Value := 'Reservado';
     24: Value := 'Reservado';
     25: Value := 'Reservado';
     { SM_LOGIN_PASSWORD_OK Verify Subscription }
-    26: Value := '¡Tu subscripción caduca hoy!\Visita http://www.lomcn.org\para más detalles.';
-    27: Value := 'Tu subscripción caducará en\ %d días.';
-    28: Value := 'El acceso de tu IP será válido por\otros %d días.';
-    29: Value := '¡El acceso de tu IP caduca hoy!';
-    30: Value := 'El acceso de tu IP será válido por\otras %d horas.';
-    31: Value := 'Tu ID será válido por otras\ %d horas.';
+    26: Value := 'Â¡Tu subscripciÃ³n caduca hoy!\Visita http://www.lomcn.org\para mÃ¡s detalles.';
+    27: Value := 'Tu subscripciÃ³n caducarÃ¡ en\ %d dÃ­as.';
+    28: Value := 'El acceso de tu IP serÃ¡ vÃ¡lido por\otros %d dÃ­as.';
+    29: Value := 'Â¡El acceso de tu IP caduca hoy!';
+    30: Value := 'El acceso de tu IP serÃ¡ vÃ¡lido por\otras %d horas.';
+    31: Value := 'Tu ID serÃ¡ vÃ¡lido por otras\ %d horas.';
     32: Value := 'Reservado';
     33: Value := 'Reservado';
     34: Value := 'Reservado';
@@ -100,10 +101,10 @@ begin
     (*******************************************************************
     *               Character Selection / Creation                     *
     *******************************************************************)
-    41: Value := 'Cargando la información de los personajes. Por favor, espera.';
+    41: Value := 'Cargando la informaciÃ³n de los personajes. Por favor, espera.';
     42: Value := 'Seleccionar Guerrero';
     43: Value := 'Seleccionar Mago';
-    44: Value := 'Seleccionar Taoísta';
+    44: Value := 'Seleccionar TaoÃ­sta';
     45: Value := 'Seleccionar Asesino';
     46: Value := 'Confirmar';
     47: Value := 'Cancelar';
@@ -118,59 +119,60 @@ begin
     56: Value := 'Mujer';
     57: Value := 'Guerrero';
     58: Value := 'Mago';
-    59: Value := 'Taoísta';
+    59: Value := 'TaoÃ­sta';
     60: Value := 'Asesino';
     { Information about Warriors }
-    61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Guerrero]¦CE¦\¦Y08¦'             // SE: Better to have gender first
+    61: Value := 'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s Guerrero]Â¦CEÂ¦\Â¦Y08Â¦'             // SE: Better to have gender first
                + ' Los Guerreros son excelentes en ataque cuerpo a cuerpo debido a su poder y\'
-               + ' resistencia. Éstos pueden aprender varios estilos de artes marciales: desde\'
-               + ' el básico Swordmanship al poderoso BladeStorm. Llegan a ser realmente formidables\'
-               + ' cuando unen todos sus poderes, aunque son débiles si son atacados a distancia.\'
-               + ' Son fáciles de manejar y consiguen subir antes de nivel al principio.\';
+               + ' resistencia. Ã‰stos pueden aprender varios estilos de artes marciales: desde\'
+               + ' el bÃ¡sico Swordmanship al poderoso BladeStorm. Llegan a ser realmente\'
+               + ' formidables cuando unen todos sus poderes, aunque son dÃ©biles si son\'
+               + ' atacados a distancia. Son fÃ¡ciles de manejar y consiguen subir antes\'
+               + ' de nivel al principio.\';
     { Information about Wizards }
-    62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Mago]¦CE¦\¦Y08¦'
+    62: Value := 'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s Mago]Â¦CEÂ¦\Â¦Y08Â¦'
                + ' Los Magos pueden lanzar variados hechizos, por lo que son interesantes y\'
                + ' divertidos. Son buenos en combate a distancia pero muy limitados en combate\'
-               + ' cuerpo a cuerpo debido a su debilidad física. En niveles superiores pueden\'
-               + ' ser muy poderosos con sus fantásticas artes, aunque deben estar en todo\'
+               + ' cuerpo a cuerpo debido a su debilidad fÃ­sica. En niveles superiores pueden\'
+               + ' ser muy poderosos con sus fantÃ¡sticas artes, aunque deben estar en todo\'
                + ' momento atentos a su cantidad de vida, por lo que su manejo es complicado\'
                + ' en sus inicios.\';
     { Information about Taoists }
-    63: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Taoísta]¦CE¦\¦Y08¦'
-               + ' Los Taoístas tienen habilidades físicas y espirituales. Estudian la vida y\'
-               + ' la muerte, así que tienen grandes conocimientos de medicina y técnicas de\'
-               + ' apoyo a las demás clases. Sus primeras técnicas son la curación y el uso de\'
-               + ' distintos tipos de veneno. Los usuarios inexpertos tardarán en aprender su\'
+    63: Value := 'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s TaoÃ­sta]Â¦CEÂ¦\Â¦Y08Â¦'
+               + ' Los TaoÃ­stas tienen habilidades fÃ­sicas y espirituales. Estudian la vida y\'
+               + ' la muerte, asÃ­ que tienen grandes conocimientos de medicina y tÃ©cnicas de\'
+               + ' apoyo a las demÃ¡s clases. Sus primeras tÃ©cnicas son la curaciÃ³n y el uso de\'
+               + ' distintos tipos de veneno. Los usuarios inexpertos tardarÃ¡n en aprender su\'
                + ' funcionamiento al tener que usar diferentes objetos especiales, pero llegan\'
-               + ' a convertirse en personajes indispensables para los demás.\';
+               + ' a convertirse en personajes indispensables para los demÃ¡s.\';
     { Information about Assassins }
-    64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Asesino]¦CE¦\¦Y08¦'
-               + '¦C1D1AD69¦¦C2C19D59¦ Los Asesinos son miembros de una organización secreta y su historia es relativamente\'
-               + ' desconocida. Son débiles físicamente, pero pueden esconderse y realizar\'
-               + ' ataques mientras los demás no pueden verlos. También son excelentes en\'
-               + ' matar rápidamente. Sin embargo tienen que ir con mucho cuidado a no\'
-               + ' encontrarse con múltiples adversarios, ya que tienen menos técnicas\'
-               + ' defensivas que los otros personajes. Los Asesinos son recomendados\'
-               + ' para jugadores experimentados, porque necesitan movimientos ágiles,\'
-               + ' astucia en las decisiones y pensamiento rápido.\';
+    64: Value :=  'Â¦Y05Â¦Â¦C1D1AD69Â¦Â¦C23A3A3AÂ¦ [%s Asesino]Â¦CEÂ¦\Â¦Y08Â¦'
+               + 'Â¦C1D1AD69Â¦Â¦C2C19D59Â¦ Los Asesinos son miembros de una organizaciÃ³n secreta y su historia es\'
+               + ' relativamente desconocida. Son dÃ©biles fÃ­sicamente, pero pueden esconderse\'
+               + ' y realizar ataques mientras los demÃ¡s no pueden verlos. TambiÃ©n son\'
+               + ' excelentes en matar rÃ¡pidamente. Sin embargo tienen que ir con mucho\'
+               + ' cuidado a no encontrarse con mÃºltiples adversarios, ya que tienen menos\'
+               + ' tÃ©cnicas defensivas que los otros personajes. Los Asesinos son recomendados\'
+               + ' para jugadores experimentados, porque necesitan movimientos Ã¡giles,\'
+               + ' astucia en las decisiones y pensamiento rÃ¡pido.\';
     65: Value := 'Personaje borrado.';
     66: Value := 'Los personajes borrados no pueden ser\'
-               + 'recuperados y no podrás crear otro personaje\'
-               + 'con el mismo nombre por un tiempo. Si quieres\'
-               + 'continuar, introduce tu contraseña\'
-               + 'y pulsa el botón de "Confirmar".';
-    67: Value := 'No puedes crear más de %d personajes.';
+               + 'recuperados y no podrÃ¡s crear otro\'
+               + 'personaje con el mismo nombre por un\'
+               + 'tiempo. Si quieres continuar, introduce\'
+               + 'tu contraseÃ±a a continuaciÃ³n.';
+    67: Value := 'No puedes crear mÃ¡s de %d personajes.';
     68: Value := 'Debes crear un personaje antes.';
-    69: Value := 'No se pudo acceder a la información de los personajes.';
+    69: Value := 'No se pudo acceder a la informaciÃ³n de los personajes.';
     70: Value := 'Ya existe un personaje con este nombre.';
     71: Value := 'No puedes crear otro personaje.';
-    72: Value := 'Error en la creación de personajes - código 4';
-    73: Value := 'Han ocurrido errores desconocidos.\Visita www.lomcn.org\para más detalles.';
+    72: Value := 'Error en la creaciÃ³n de personajes - cÃ³digo 4';
+    73: Value := 'Han ocurrido errores desconocidos.\Visita www.lomcn.org\para mÃ¡s detalles.';
     74: Value := 'Ha habido un error borrando\tu personaje.';
-    75: Value := 'Jugar¦CE¦';
-    76: Value := 'Nuevo personaje¦CE¦';
-    77: Value := 'Borrar personaje¦CE¦';
-    78: Value := 'Salir¦CE¦';
+    75: Value := 'JugarÂ¦CEÂ¦';
+    76: Value := 'Nuevo personajeÂ¦CEÂ¦';
+    77: Value := 'Borrar personajeÂ¦CEÂ¦';
+    78: Value := 'SalirÂ¦CEÂ¦';
     79: Value := 'Reservado';
     80: Value := 'Reservado';
     (*******************************************************************
@@ -195,7 +197,7 @@ begin
     104: Value := 'Imagen';
     { Page 1 Basic }
     105: Value := 'Modo de ataque (Todos)';
-    106: Value := 'Modo de ataque (Pacífico)';
+    106: Value := 'Modo de ataque (PacÃ­fico)';
     107: Value := 'Modo de ataque (Pareja)'; //(Dear)'; - Lover, Partner, Spouse, Couple, Marriage
     108: Value := 'Modo de ataque (Maestro)';
     109: Value := 'Modo de ataque (Grupo)';
@@ -206,8 +208,8 @@ begin
     114: Value := 'Cambiar modo de ataque';                   // Hint for Attack Mode
     116: Value := 'Modo de ataque normal';
     117: Value := 'Cambiar modo de ataque';                   // Hint for Attack Mode
-    118: Value := 'Música de fondo';
-    119: Value := '[ Música de fondo: On/Off ]';            // Hint Background Music
+    118: Value := 'MÃºsica de fondo';
+    119: Value := '[ MÃºsica de fondo: On/Off ]';            // Hint Background Music
     120: Value := 'Efectos de sonido';
     121: Value := '[ Efectos de sonido: On/Off ]';               // Hint Sound Effects
     122: Value := 'Sonido direccional (stereo)';
@@ -217,12 +219,12 @@ begin
     126: Value := 'Mostrar nombre de drops';
     127: Value := '[ Mostrar nombre de drops: On/Off ]'; // Hint Sound Effects
     { Page 2 Permissions }
-    128: Value := 'Permitir unión a grupo';
-    129: Value := '[ Permitir unión a grupo: On/Off ]';
-    130: Value := 'Permitir unión a clan';
-    131: Value := '[ Permitir unión a clan: On/Off ]';
-    132: Value := 'Permitir resurrección';
-    133: Value := '[ Permitir resurrección: On/Off ]';
+    128: Value := 'Permitir uniÃ³n a grupo';
+    129: Value := '[ Permitir uniÃ³n a grupo: On/Off ]';
+    130: Value := 'Permitir uniÃ³n a clan';
+    131: Value := '[ Permitir uniÃ³n a clan: On/Off ]';
+    132: Value := 'Permitir resurrecciÃ³n';
+    133: Value := '[ Permitir resurrecciÃ³n: On/Off ]';
     134: Value := 'Permitir recall';
     135: Value := '[ Permitir recall: On/Off ]';
     136: Value := 'Permitir comercio';
@@ -260,8 +262,8 @@ begin
     167: Value := 'Reserved';
     168: Value := 'hint reserved';
     { Page 4 Visual }
-    169: Value := 'Mostrar HP';
-    170: Value := '[ Mostrar HP: On/Off ]';
+    169: Value := 'Mostrar daÃ±o';
+    170: Value := '[ Mostrar daÃ±o: On/Off ]';
     171: Value := 'Mostrar efectos de magias';
     172: Value := '[ Mostrar efectos de magias: On/Off ]';
     173: Value := 'Mejorar sombras';
@@ -270,23 +272,23 @@ begin
     176: Value := '[ Mostrar casco: On/Off ]';
     177: Value := 'Mostrar efectos de criaturas';
     178: Value := '[ Mostrar efectos de criaturas: On/Off ]';
-    179: Value := 'Mostrar cabello teñido';
-    180: Value := '[ Mostrar cabello teñido: On/Off ]';
+    179: Value := 'Mostrar cabello teÃ±ido';
+    180: Value := '[ Mostrar cabello teÃ±ido: On/Off ]';
     181: Value := 'Mostrar avatar';
     182: Value := '[ Avatar: On/Off ]';
     183: Value := 'Mostrar criaturas en minimapa';  
     184: Value := '[ Mostrar criaturas en minimapa: On/Off ]';
-    185: Value := 'Mostrar barra de HP de los jugadores';
-    186: Value := '[ Barra de HP de los jugadores: On/Off ]';
-    187: Value := 'Mostrar barra de HP de las critaturas';
-    188: Value := '[ Barra de HP de las criaturas: On/Off ]';
+    185: Value := 'Barra HP de los jugadores';
+    186: Value := '[ Barra HP de los jugadores: On/Off ]';
+    187: Value := 'Barra HP de las critaturas';
+    188: Value := '[ Barra HP de las criaturas: On/Off ]';
     189: Value := 'Reservado';
     { Exit Window }
     190: Value := 'Salir';
     191: Value := 'Salir del juego.';
     192: Value := 'Log out';
     193: Value := 'Salir y seleccionar otro personaje.';
-    194: Value := '¿Seguro que quieres salir?';
+    194: Value := 'Â¿Seguro que quieres salir?';
     195: Value := 'Cancelar';
     { Belt Window }
     196: Value := 'Rotar';                             //Hint
@@ -300,14 +302,14 @@ begin
     203: Value := '';                                  //Hint
     204: Value := '';                                  //Hint
     205: Value := 'Sin minimapa';
-    206: Value := '¡No disponible!';
+    206: Value := 'Â¡No disponible!';
     207: Value := 'Sin usar';
     208..210: Value := 'Reservado';
     { Body Window }
     211: Value := 'Nivel';
     212: Value := 'Experiencia';
     213: Value := 'Puntos de salud (HP)';
-    214: Value := 'Puntos de maná (MP)';
+    214: Value := 'Puntos de manÃ¡ (MP)';
     215: Value := 'Peso en bolsa';
     216: Value := 'Peso en cuerpo';
     217: Value := 'Peso en mano';
@@ -337,17 +339,17 @@ begin
     241: Value := 'Ataque con elemento oscuro';            //Hint
     242: Value := 'Defensa a elemento oscuro';             //Hint
     243: Value := 'Debilidad a elemento oscuro';           //Hint
-    244: Value := 'Ataque con elemento ilusión';           //Hint
-    245: Value := 'Defensa a elemento ilusión';            //Hint
-    246: Value := 'Debilidad a elemento ilusión';          //Hint
+    244: Value := 'Ataque con elemento ilusiÃ³n';           //Hint
+    245: Value := 'Defensa a elemento ilusiÃ³n';            //Hint
+    246: Value := 'Debilidad a elemento ilusiÃ³n';          //Hint
     247..250: Value := 'Reservado';
     { Group Window }
     251: Value := 'Grupo';
     252: Value := 'Cerrar';                                //Hint
-    253: Value := 'Añadir miembro';                        //Hint
+    253: Value := 'AÃ±adir miembro';                        //Hint
     254: Value := 'Quitar miembro';                        //Hint
     255: Value := 'Crear un grupo';                        //Hint
-    256: Value := 'Permitir unión a grupo';                //Hint
+    256: Value := 'Permitir uniÃ³n a grupo';                //Hint
     257..260: Value := 'Reservado';
     { Magic Window }
     261: Value := ' Fuego  ';                              //Hint
@@ -356,8 +358,8 @@ begin
     264: Value := ' Viento  ';                             //Hint
     265: Value := ' Sagrado  ';                            //Hint
     266: Value := ' Oscuro  ';                             //Hint
-    267: Value := ' Ilusión  ';                            //Hint
-    268: Value := ' Técnicas ';//'Martial Art';            //Hint
+    267: Value := ' IlusiÃ³n  ';                            //Hint
+    268: Value := ' TÃ©cnicas ';//'Martial Art';            //Hint
     269: Value := 'Cerrar';    //'Close Magic Window';     //Hint
     270: Value := ' Atrocity  ';                           //Hint - SE: I have no idea what these 3 should actually be...
     271: Value := ' Assa  ';                               //Hint - ??
@@ -374,7 +376,7 @@ begin
     1058: Value := '194';
     1059: Value := '3.55 %';
     1060: Value := 'Coly\GameMasterGuild';
-    1061: Value := 'Coly´s Spouse';
+    1061: Value := 'ColyÂ´s Spouse';
     1062: Value := '100-100';
     1063: Value := '10000';
     1064: Value := '1000';
@@ -393,8 +395,9 @@ begin
   ///
 
   if Assigned(Buffer) then
-    CopyMemory(Buffer, PChar(Value), Length(Value));
-  Result := Length(Value);
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
+
+  Result := lstrlenW(PWideChar(Value))+1;
 end;
 
 end.
