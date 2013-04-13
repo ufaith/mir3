@@ -20,7 +20,7 @@
  * at the end of 255 Char...                                                  *
  * The String it self can have a length of 1024                               *
  *                                                                            *
- * !! Don't localize or delete things with "¦" !!                             *
+ * !! Don't localize or delete things with "Â¦" !!                             *
  * !! it is part of the Script Engine Commands !!                             *
  *                                                                            *
  * !!! Attention, only the Spanish language files are                         * 
