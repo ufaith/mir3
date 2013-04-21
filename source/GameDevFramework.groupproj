@@ -64,6 +64,24 @@
   <Target Name="ServerControlCenter:Make">
     <MSBuild Projects="Server\Server Control Center\ServerControlCenter.dproj" Targets="Make" />
   </Target>
+  <Target Name="LMTTextureManager">
+    <MSBuild Projects="Tools\LMT Texture Manager\LMTTextureManager.dproj" Targets="" />
+  </Target>
+  <Target Name="LMTTextureManager:Clean">
+    <MSBuild Projects="Tools\LMT Texture Manager\LMTTextureManager.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="LMTTextureManager:Make">
+    <MSBuild Projects="Tools\LMT Texture Manager\LMTTextureManager.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Mir3MusicListEditor">
+    <MSBuild Projects="Tools\Music List Editor\Mir3MusicListEditor.dproj" Targets="" />
+  </Target>
+  <Target Name="Mir3MusicListEditor:Clean">
+    <MSBuild Projects="Tools\Music List Editor\Mir3MusicListEditor.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="Mir3MusicListEditor:Make">
+    <MSBuild Projects="Tools\Music List Editor\Mir3MusicListEditor.dproj" Targets="Make" />
+  </Target>
   <Target Name="Mir3Client">
     <MSBuild Projects="Client\Game Client\Mir3Client.dproj" Targets="" />
   </Target>
@@ -74,12 +92,12 @@
     <MSBuild Projects="Client\Game Client\Mir3Client.dproj" Targets="Make" />
   </Target>
   <Target Name="Build">
-    <CallTarget Targets="English;German;Polish;Spanish;Mir3Launcher;ServerControlCenter;Mir3Client" />
+    <CallTarget Targets="English;German;Polish;Spanish;Mir3Launcher;ServerControlCenter;LMTTextureManager;Mir3MusicListEditor;Mir3Client" />
   </Target>
   <Target Name="Clean">
-    <CallTarget Targets="English:Clean;German:Clean;Polish:Clean;Spanish:Clean;Mir3Launcher:Clean;ServerControlCenter:Clean;Mir3Client:Clean" />
+    <CallTarget Targets="English:Clean;German:Clean;Polish:Clean;Spanish:Clean;Mir3Launcher:Clean;ServerControlCenter:Clean;LMTTextureManager:Clean;Mir3MusicListEditor:Clean;Mir3Client:Clean" />
   </Target>
   <Target Name="Make">
-    <CallTarget Targets="English:Make;German:Make;Polish:Make;Spanish:Make;Mir3Launcher:Make;ServerControlCenter:Make;Mir3Client:Make" />
+    <CallTarget Targets="English:Make;German:Make;Polish:Make;Spanish:Make;Mir3Launcher:Make;ServerControlCenter:Make;LMTTextureManager:Make;Mir3MusicListEditor:Make;Mir3Client:Make" />
   </Target>
 </Project>
