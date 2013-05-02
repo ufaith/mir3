@@ -44,9 +44,13 @@ unit mir3_global_config;
 interface
 
 uses
-  Windows, Classes, JSocket, Controls;
+  { Delphi }
+  Windows,
+  Classes,
+  Controls,
+  { Common }
+  JSocket;
 
-  
 const
   GGameClientVersion             = '0.0.1.3';
 
@@ -1026,7 +1030,6 @@ const
 {$ELSE}
   SIZEOFTHUMAN = $C63 - 1;
 {$IFEND}
-
 
 type
   PPowerBlock      = ^TPowerBlock;
@@ -2701,8 +2704,6 @@ var
   ****************************************************)
   GGame_Option                 : TGameOptionSet;
 
-
-
 function IfThenInt(AValue: Boolean; const ATrue: Integer; const AFalse: Integer): Integer;
 function APPRfeature(cfeature: Integer): Word;
 function RACEfeature(cfeature: Integer): Byte;
@@ -2776,7 +2777,7 @@ end;
 
 initialization
 begin
-  ZeroMemory(@GGame_Option, sizeOf(TGameOptionSet));
+  ZeroMemory(@GGame_Option, SizeOf(TGameOptionSet));
 end;
 
 end.

@@ -1,8 +1,5 @@
-
 {$DEFINE DEVELOP_MODE}
 {*$DEFINE DEVELOP_INGAME}
-
-
 
 {$DEFINE CHECK_LANG}
 (* Language Checking  *)

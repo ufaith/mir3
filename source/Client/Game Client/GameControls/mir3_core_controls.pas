@@ -2,7 +2,7 @@
  *   LomCN Mir3 Control core File 2012                                                   *
  *                                                                                       *
  *   Web       : http://www.lomcn.co.uk                                                  *
- *   Version   : 0.0.0.11                                                                *
+ *   Version   : 0.0.0.12                                                                *
  *                                                                                       *
  *   - File Info -                                                                       *
  *                                                                                       *
@@ -13,20 +13,18 @@
  *****************************************************************************************
  * Change History                                                                        *
  *                                                                                       *
- *  - 0.0.0.1 [2012-10-04] Coly : first init                                             *
- *  - 0.0.0.2 [2013-02-25] Coly : add new controls (TextXXX)                             *
- *  - 0.0.0.3 [2013-02-27] Coly : Fix Assassen and Form Handling                         *
- *  - 0.0.0.4 [2013-03-01] Coly : add Pre and Post Processing                            *
- *  - 0.0.0.5 [2013-03-02] Coly : Fix Wizard and Edit Control                            *
- *  - 0.0.0.6 [2013-03-07] Coly : Fix Edit Control add StringBuffer                      *
- *  - 0.0.0.7 [2013-03-09] Coly : hint render system                                     *
- *  - 0.0.0.8 [2013-03-10] Coly : add Sound to Create Char                               *
- *  - 0.0.0.9 [2013-03-10] Coly : create PageControl                                     * 
- *  - 0.0.0.10[2013-03-25] Coly : create Scrollbar and MagicButton                       *
- *  - 0.0.0.11[2013-04-07] Coly : add TextButton Auto Adjustmend for Multi Language use  *
- *                                                                                       *
- *                                                                                       *
- *                                                                                       *
+ *  - 0.0.0.1  [2012-10-04] Coly : first init                                            *
+ *  - 0.0.0.2  [2013-02-25] Coly : add new controls (TextXXX)                            *
+ *  - 0.0.0.3  [2013-02-27] Coly : Fix Assassen and Form Handling                        *
+ *  - 0.0.0.4  [2013-03-01] Coly : add Pre and Post Processing                           *
+ *  - 0.0.0.5  [2013-03-02] Coly : Fix Wizard and Edit Control                           *
+ *  - 0.0.0.6  [2013-03-07] Coly : Fix Edit Control add StringBuffer                     *
+ *  - 0.0.0.7  [2013-03-09] Coly : hint render system                                    *
+ *  - 0.0.0.8  [2013-03-10] Coly : add Sound to Create Char                              *
+ *  - 0.0.0.9  [2013-03-10] Coly : create PageControl                                    *
+ *  - 0.0.0.10 [2013-03-25] Coly : create Scrollbar and MagicButton                      *
+ *  - 0.0.0.11 [2013-04-07] Coly : add TextButton Auto Adjustmend for Multi Language use *
+ *  - 0.0.0.12 [2013-05-02] 1PKRyan : code clean-up                                      *
  *                                                                                       *
  *****************************************************************************************
  *  - TODO List for this *.pas file -                                                    *
@@ -39,16 +37,28 @@
  *                 (how to need this file etc.)                                          *
  *                                                                                       *
  *****************************************************************************************)
+
 unit mir3_core_controls;
 
 interface
 
 uses
-{Delphi }  Windows, Messages, Classes, Controls, SysUtils,
-{DirectX}  Direct3D9, D3DX9, 
-{Game   }  mir3_global_config, mir3_game_file_manager, mir3_game_font_engine,
-{Game   }  mir3_game_language_engine, mir3_game_sound, mir3_misc_utils;
-
+  { Delphi }
+  Windows,
+  Messages,
+  Classes,
+  Controls,
+  SysUtils,
+  { DirectX}
+  Direct3D9,
+  D3DX9,
+  { Mir3 Game }
+  mir3_global_config,
+  mir3_game_file_manager,
+  mir3_game_font_engine,
+  mir3_game_language_engine,
+  mir3_game_sound,
+  mir3_misc_utils;
 
 const
   // Minimum scroll bar thumb size
@@ -104,7 +114,6 @@ const
   MIR3_VK_CTRL_SLASH                     = 28; // \
   MIR3_VK_CTRL_BRACE_O                   = 29; // [
 
-
 type
   (* Enum Declaration *)
   TMIR3_GUI_Type         = (ctNone, ctForm, ctPanel, ctEdit, ctGrid, ctButton, ctListBox, ctComboBox, ctCheckBox, 
@@ -139,8 +148,7 @@ type
   TMIR3_GUI_Slider       = class;
   TMIR3_GUI_Progress     = class;
   TMIR3_GUI_Scrollbar    = class;
-  TMIR3_GUI_MagicButton  = class; 
-  
+  TMIR3_GUI_MagicButton  = class;
 
   (* Class Pointer Declaration *)
   PMIR3_GUI_Form         = ^TMIR3_GUI_Form;
@@ -340,8 +348,7 @@ type
   PCallBackEventNotify    = procedure (AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
   PCallBackPreProcessing  = function (AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
   PCallBackPostProcessing = function (AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
-  
-  
+
   {$REGION ' - ::::: Classes :::::  '}
 
   (* String Helper TStringBuffer *)
@@ -399,7 +406,6 @@ type
     property Chars[I: Integer]: WideChar read GetChar write SetChar; default;
   end;
 
-
   (* GUI Control and Manager Class Declaration *)
   TMIR3_GUI_Manager     = class
   private
@@ -440,8 +446,8 @@ type
     (* Published *)
     property DebugMode: Boolean read FDebugMode write FDebugMode;
   end;
-  
-  (* class TMIR3_GUI_Form *)  
+
+  (* class TMIR3_GUI_Form *)
   TMIR3_GUI_Form        = class
   private
     FEventTypeID        : Integer;
@@ -814,10 +820,8 @@ type
     function ContainsPoint(AMousePoint: TPoint): LongBool; override;
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
   end;
-  
 
   {$ENDREGION}  
-  
 
 implementation
  
@@ -827,8 +831,6 @@ var
   G_MousePoint      : TPoint;
   G_FControlFocus   : TMIR3_GUI_Default = nil;
   FTimeRefresh      : Double            = 0.0;
-
-
 
  /// TStringBuffer
 
@@ -845,6 +847,7 @@ var
     destructor TStringBuffer.Destroy;
     begin
       FreeMem(FBuffer);
+
       inherited;
     end;
   {$ENDREGION}
@@ -852,12 +855,12 @@ var
   {$REGION ' - TStringBuffer :: functions  '}
     function TStringBuffer.GetChar(I: Integer): WideChar;
     begin
-      Result:= FBuffer[I];
+      Result := FBuffer[I];
     end;
 
     procedure TStringBuffer.SetChar(I: Integer; ch: WideChar);
     begin
-      FBuffer[I]:= ch;
+      FBuffer[I] := ch;
     end;
 
     function TStringBuffer.GetMaxLength: Integer;
@@ -932,7 +935,7 @@ var
 
     function TStringBuffer.RemoveChar(AIndex: Integer): Boolean;
     begin
-      if (lstrlenW(FBuffer)=0) or (AIndex < 0) or (AIndex >= lstrlenW(FBuffer)) then
+      if (lstrlenW(FBuffer) = 0) or (AIndex < 0) or (AIndex >= lstrlenW(FBuffer)) then
       begin
         Result := False;  // Invalid index
         Exit;
@@ -1012,10 +1015,8 @@ var
         if not SetBufferSize(-1) then Break;
       // Check again in case out of memory occurred inside while loop.
       if (BufferSize >= FRequired) then
-      begin
-        lstrcpynW(FBuffer, AText, BufferSize);
-      end else
-        raise EOutOfMemory.Create('TStringBuffer.Grow'); // Result:= False;
+        lstrcpynW(FBuffer, AText, BufferSize)
+      else raise EOutOfMemory.Create('TStringBuffer.Grow'); // Result:= False;
     end;
 
     procedure TStringBuffer.Clear;
@@ -1034,11 +1035,12 @@ var
     constructor TMIR3_GUI_Manager.Create;
     begin
       inherited Create;
+
       FCallbackHotKeyEvent     := nil;
       FCallbackEventNotify     := nil;
       FCallBackPreProcessing   := nil;
       FCallBackPostProcessing  := nil;
-      ZeroMemory(@FHintMessage, sizeOf(THintMessage));
+      ZeroMemory(@FHintMessage, SizeOf(THintMessage));
       FFormList                := TList.Create;
     end;
     
@@ -1048,12 +1050,13 @@ var
     destructor TMIR3_GUI_Manager.Destroy;
     begin
       DeleteAllControls;
-      ZeroMemory(@FHintMessage, sizeOf(THintMessage)); 
+      ZeroMemory(@FHintMessage, SizeOf(THintMessage)); 
       if Assigned(FFormList) then
       begin
         FFormList.Clear;
         FreeAndNil(FFormList);
       end;
+
       inherited;
     end;
   {$ENDREGION}
@@ -1105,7 +1108,7 @@ var
       begin
         if FFormList[I] = AGUIForm then
         begin
-          FFormList.Move(I,FFormList.Count-1);
+          FFormList.Move(I, FFormList.Count - 1);
         end;
       end;
     end;
@@ -1172,7 +1175,7 @@ var
           GGameEngine.FontManager.DrawHint(G_MousePoint.X, G_MousePoint.Y , FHintMessage.Caption, @FHintMessage.DrawSetting);
         end;
         //GGameEngine.FontManager.DrawItemHint(G_MousePoint.X, G_MousePoint.Y , FHintMessage.Caption , @FHintMessage.DrawSetting);
-        ZeroMemory(@FHintMessage, sizeOf(THintMessage));
+        ZeroMemory(@FHintMessage, SizeOf(THintMessage));
       end;
     end;
 
@@ -1197,17 +1200,14 @@ var
       I           : Integer;
       FMousePoint : TPoint;
       FTempForm   : TMIR3_GUI_Form;
-
     begin
       Result       := False;
       FMousePoint  := Point(LOWORD(DWORD(lParam)), HIWORD(DWORD(lParam)));
-      for I := FFormList.Count-1 downto 0 do
+      for I := FFormList.Count - 1 downto 0 do
       begin
         FTempForm := TMIR3_GUI_Form(FFormList[I]);
         if Assigned(FTempForm) then
-          if  (FTempForm.FVisible)   and
-          not (FTempForm.FMinimized) and
-              (FTempForm.FEnabled)   then
+          if  (FTempForm.FVisible) and not (FTempForm.FMinimized) and (FTempForm.FEnabled)   then
           begin
             Result := FTempForm.OnMsgProc(hWnd, uMsg, wParam, lParam);
             if Result then
@@ -1224,9 +1224,7 @@ var
     procedure TMIR3_GUI_Manager.OnKeyboardProc(AChar: LongWord; AKeyDown, AAltDown: Boolean);
     begin
       if Assigned(FCallbackHotKeyEvent) and not(G_FControlFocus is TMIR3_GUI_Edit) then
-      begin
         FCallbackHotKeyEvent(AChar);
-      end;
     end;
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -1237,7 +1235,7 @@ var
       I : Integer;
     begin
       {$REGION ' - DeleteAllControls  '}
-      for I := 0 to FFormList.Count-1 do
+      for I := 0 to FFormList.Count - 1 do
       begin
         if TMIR3_GUI_Form(FFormList[I]) <> nil then
         begin
@@ -1257,7 +1255,7 @@ var
       I : Integer;
     begin
       {$REGION ' - HideAllForms  '}
-      for I := 0 to FFormList.Count-1 do
+      for I := 0 to FFormList.Count - 1 do
       begin
         if TMIR3_GUI_Form(FFormList[I]) <> nil then
         begin
@@ -1290,12 +1288,12 @@ var
     begin
       Result := nil;
       try
-        for I := 0 to FFormList.Count-1 do
+        for I := 0 to FFormList.Count - 1 do
         begin
           FTempForm := TMIR3_GUI_Form(FFormList[I]);
           if Assigned(FTempForm) and Assigned(FTempForm.FControlList) then
           begin
-            for I2 := 0 to FTempForm.FControlList.Count-1 do
+            for I2 := 0 to FTempForm.FControlList.Count - 1 do
             begin
               if TMIR3_GUI_Default(FTempForm.FControlList[I2]).FControlIdentifier = ACompID then
               begin

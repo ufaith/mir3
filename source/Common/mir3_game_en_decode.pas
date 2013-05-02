@@ -1,12 +1,15 @@
-unit mir3_game_en_decode;
+unit mir3_game_en_decode; // Ryan - Any point cleaning this file up? probably best to create new en-decode routines that is not public.
 
 interface
 
 {$WARNINGS OFF}
 
-
 uses
-  Windows, SysUtils, mir3_global_config;
+  { Delphi }
+  Windows,
+  SysUtils,
+  { Mir3 Game }
+  mir3_global_config;
 
 const
   OLDMODE      = 0;
@@ -23,8 +26,8 @@ procedure Decode6BitBuf(sSource: PChar; pBuf: PChar; nSrcLen, nBufLen: Integer);
 procedure Encode6BitBuf(pSrc, pDest: PChar; nSrcLen, nDestLen: Integer);
 function MakeDefaultMsg(wIdent: Integer; nRecog: Integer; wParam, wTag, wSeries: Integer): TDefaultMessage;
 
-
 implementation
+
 var
   n4CEEF4: Integer = $408D4D;
   n4CEEF8: Integer = $0C08BA52E;
@@ -68,15 +71,13 @@ var
     $A5, $6F, $B0, $70, $EC, $61, $5C, $06, $3B, $77, $C1, $07, $EA, $A9, $F8, $11,
     $BD, $F3, $00, $ED, $83, $EF, $3D, $A3, $51, $9E, $38, $F7, $0B, $B9, $D2, $D1
     );
-  //var
-  //  EncBuf,TempBuf:PChar;
 
 function MakeDefaultMsg(wIdent: Integer; nRecog: Integer; wParam, wTag, wSeries: Integer): TDefaultMessage;
 begin
-  Result.Recog := nRecog;
-  Result.Ident := wIdent;
-  Result.Param := wParam;
-  Result.Tag := wTag;
+  Result.Recog  := nRecog;
+  Result.Ident  := wIdent;
+  Result.Param  := wParam;
+  Result.Tag    := wTag;
   Result.Series := wSeries;
 end;
 {$IF USECODE = USEREMOTECODE}
