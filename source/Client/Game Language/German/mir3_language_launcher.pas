@@ -2,7 +2,7 @@
  *   LomCN Mir3 German Launcher Language LGU File 2013                        *
  *                                                                            *
  *   Web       : http://www.lomcn.co.uk                                       *
- *   Version   : 0.0.0.2                                                      *
+ *   Version   : 0.0.0.3                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -13,7 +13,7 @@
  *                                                                            *
  *  - 0.0.0.1 [2013-02-11] Coly : first init                                  *
  *  - 0.0.0.2 [2013-04-13] Coly : change to UTF8                              *
- *                                                                            *
+ *  - 0.0.0.3 [2013-05-02] 1PKRyan : code clean-up                            *
  *                                                                            *
  ******************************************************************************
  * :Info:                                                                     *
@@ -29,7 +29,11 @@ unit mir3_language_launcher;
 
 interface
 
-uses Windows, SysUtils, Classes;
+uses
+  { Delphi }
+  Windows,
+  SysUtils,
+  Classes;
 
 function GetLauncherLine(): Integer; stdcall;
 function GetLauncherString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
@@ -70,9 +74,9 @@ begin
   ///
 
   if Assigned(Buffer) then
-    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value)) + 1);
 
-  Result := lstrlenW(PWideChar(Value))+1;
+  Result := lstrlenW(PWideChar(Value)) + 1;
 end;
 
 end.

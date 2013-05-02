@@ -1,8 +1,10 @@
 program Mir3Client;
 
 uses
+  { Delphi }
   Windows,
   SysUtils,
+  { Mir3 Game }
   mir3_misc_utils in 'GameCommon\mir3_misc_utils.pas',
   mir3_core_controls in 'GameControls\mir3_core_controls.pas',
   mir3_game_gui_defination in 'GameControls\mir3_game_gui_defination.pas',
@@ -27,15 +29,14 @@ uses
 
 {$R Mir3Client.res}
 
-//{$R Mir3Client.res}
 begin
   ReportMemoryLeaksOnShutdown    := True;
   NeverSleepOnMMThreadContention := True;
 
   //Test if start from launcher 
   //Hier noch eine Prüfung ob Launcher Process da ist.
-//  if ParamStr(1) <> 'launcher' then
-//    Exit;
+  //if ParamStr(1) <> 'launcher' then
+  //  Exit;
 
   if GGameEngine.CreateGameClient then
   begin

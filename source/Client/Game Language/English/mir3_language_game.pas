@@ -2,7 +2,7 @@
  *   LomCN Mir3 English Game Language LGU File 2013                           *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
- *   Version   : 0.0.0.6                                                      *
+ *   Version   : 0.0.0.7                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -17,9 +17,7 @@
  *  - 0.0.0.4 [2013-03-27] SomebodyElse : fix language                        *
  *  - 0.0.0.5 [2013-02-02] Coly : change some text (use Script Engine)        *
  *  - 0.0.0.6 [2013-04-13] Coly : change to UTF8 + code support               *
- *                                                                            *
- *                                                                            *
- *                                                                            *
+ *  - 0.0.0.7 [2013-05-02] 1PKRyan : code clean-up                            *
  *                                                                            *
  ******************************************************************************
  * :Info:                                                                     *
@@ -35,7 +33,11 @@ unit mir3_language_game;
 
 interface
 
-uses Windows, SysUtils, Classes;
+uses
+  { Delphi }
+  Windows,
+  SysUtils,
+  Classes;
 
 function GetGameLine(): Integer; stdcall;
 function GetGameString(ID: Integer; Buffer: PWideChar): Integer; stdcall;
@@ -399,9 +401,9 @@ begin
   ///
 
   if Assigned(Buffer) then
-    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value))+1);
+    lstrcpynW(Buffer, PWideChar(Value), lstrlenW(PWideChar(Value)) + 1);
 
-  Result := lstrlenW(PWideChar(Value))+1;
+  Result := lstrlenW(PWideChar(Value)) + 1;
 end;
 
 end.
