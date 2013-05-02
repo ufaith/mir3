@@ -2,7 +2,7 @@
  *   LomCN Mir3 LMT Texture Manager 2013                                      *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
- *   Version   : 0.0.0.1                                                      *
+ *   Version   : 0.0.0.2                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -12,8 +12,7 @@
  * Change History                                                             *
  *                                                                            *
  *  - 0.0.0.1 [2013-04-18] Coly : first init                                  *
- *                                                                            *
- *                                                                            *
+ *  - 0.0.0.2 [2013-05-02] 1PKRyan : code clean-up                            *
  *                                                                            *
  ******************************************************************************
  *  - TODO List for this *.pas file -                                         *
@@ -31,17 +30,46 @@
  *  - TODO : -all -add other function like : Move / Delete  etc.              *
  *                                                                            *
  ******************************************************************************)
+
 unit mir3_lmt_main;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, mir3_lmt_format,
-  Dialogs, RzButton, RzStatus, ExtCtrls, ActnList, ToolWin, ActnMan, ActnCtrls,
-  ActnMenus, ActnColorMaps, XPStyleActnCtrls, StdCtrls, RzLstBox, RzPanel, PsAPI,
-  RzSplit, mir3_lmt_new_library, mir3_lmt_import_wil, RzLabel, Mask, RzEdit,
-  RzShellDialogs;
-
+  { Delphi }
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  ExtCtrls,
+  ActnList,
+  ActnMan,
+  ActnCtrls,
+  ActnMenus,
+  ActnColorMaps,
+  XPStyleActnCtrls,
+  ToolWin,
+  StdCtrls,
+  Mask,
+  PsAPI,
+  { Rauze }
+  RzButton,
+  RzStatus,
+  RzLstBox,
+  RzPanel,
+  RzSplit,
+  RzLabel,
+  RzEdit,
+  RzShellDialogs,
+  { Mir3 Game Viewer }
+  mir3_lmt_format,
+  mir3_lmt_new_library,
+  mir3_lmt_import_wil;
 
 type
   TfmtTextureManagerMain = class(TForm)
@@ -139,7 +167,7 @@ function CurrentMemoryUsage: Cardinal;
 var
   pmc: TProcessMemoryCounters;
 begin
-  pmc.cb := SizeOf(pmc) ;
+  pmc.cb := SizeOf(pmc);
   if GetProcessMemoryInfo(GetCurrentProcess, @pmc, SizeOf(pmc)) then
     Result := pmc.WorkingSetSize
   else RaiseLastOSError;
@@ -150,10 +178,11 @@ var
   MainHandle : THandle;
 begin
   try
-    MainHandle := OpenProcess(PROCESS_ALL_ACCESS, false, GetCurrentProcessID) ;
-    SetProcessWorkingSetSize(MainHandle, $FFFFFFFF, $FFFFFFFF) ;
-    CloseHandle(MainHandle) ;
+    MainHandle := OpenProcess(PROCESS_ALL_ACCESS, False, GetCurrentProcessID);
+    SetProcessWorkingSetSize(MainHandle, $FFFFFFFF, $FFFFFFFF);
+    CloseHandle(MainHandle);
   except
+    { Add Error Check }
   end;
   Application.ProcessMessages;
 end;
@@ -220,8 +249,8 @@ begin
   if FLMTLibrary.GetBMPFromIndex(FFileIndex, FBitmap) then
   begin
     ScalePercentBmp(FBitmap, FZoomFactor);
-    plBackgroundHelper.Width  := FBitmap.Width +3;
-    plBackgroundHelper.Height := FBitmap.Height+3;
+    plBackgroundHelper.Width  := FBitmap.Width  + 3;
+    plBackgroundHelper.Height := FBitmap.Height + 3;
     imgTextureDevice.Picture.Assign(FBitmap);
     meIndexBox.Text     := IntToStr(FFileIndex);
     plImageInfo.Caption := ' Image Info : Dimension ' + IntToStr(FLMTLibrary.ImageHeader.imgWidth) +'x'+ IntToStr(FLMTLibrary.ImageHeader.imgHeight) + ', Offset X' +
@@ -230,8 +259,8 @@ begin
 
   end else begin
     ScalePercentBmp(FBitmap, FZoomFactor);
-    plBackgroundHelper.Width  := FBitmap.Width +3;
-    plBackgroundHelper.Height := FBitmap.Height+3;
+    plBackgroundHelper.Width  := FBitmap.Width  + 3;
+    plBackgroundHelper.Height := FBitmap.Height + 3;
     imgTextureDevice.Picture.Assign(FBitmap);
     meIndexBox.Text     := IntToStr(FFileIndex);
     plImageInfo.Caption := ' Image Info : No Image';
@@ -250,7 +279,8 @@ begin
     btnNextRealImage.Enabled := False;
     btnNextOneStep.Enabled   := False;
     meIndexBox.Enabled       := False;
-  end else begin
+  end else
+  begin
     if not Assigned(FLMTLibrary) then
     begin
       btnZoomIn.Enabled        := False;
@@ -261,83 +291,92 @@ begin
       btnNextOneStep.Enabled   := False;
       meIndexBox.Enabled       := False;
     end else if FLMTLibrary.LibOpenState then
-             begin
-               //if True then
+    begin
+     //if True then
 
-               btnZoomIn.Enabled  := True;
-               btnZoomOut.Enabled := True;
-               meIndexBox.Enabled := True;
-               case FFileIndex of
-                 0: begin
-                   btnPrivRealImage.Enabled := False;
-                   btnPrivOneStep.Enabled   := False;
-                   btnNextRealImage.Enabled := True;
-                   btnNextOneStep.Enabled   := True;
-                 end;
-                 else begin
-                   if FFileIndex = FFileIndexMax-1 then
-                   begin
-                     btnPrivRealImage.Enabled := True;
-                     btnPrivOneStep.Enabled   := True;
-                     btnNextRealImage.Enabled := False;
-                     btnNextOneStep.Enabled   := False;
-                   end else begin
-                     if FFileIndex >= FLMTLibrary.GetLastImage then
-                     begin
-                       btnPrivRealImage.Enabled := True;
-                       btnPrivOneStep.Enabled   := True;
-                       btnNextRealImage.Enabled := False;
-                       btnNextOneStep.Enabled   := True;
-                     end else begin
-                       btnPrivRealImage.Enabled := True;
-                       btnPrivOneStep.Enabled   := True;
-                       btnNextRealImage.Enabled := True;
-                       btnNextOneStep.Enabled   := True;
-                     end;
-                   end;
-                   if FFileIndex <= FLMTLibrary.GetFirstImage then
-                     btnPrivRealImage.Enabled := False;
-                 end;
-               end;
-               if (FLMTLibrary.GetTotalImage = 0) then
-               begin
-                 btnZoomIn.Enabled        := False;
-                 btnZoomOut.Enabled       := False;
-                 btnPrivRealImage.Enabled := False;
-                 btnPrivOneStep.Enabled   := False;
-                 btnNextRealImage.Enabled := False;
-                 btnNextOneStep.Enabled   := False;
-                 meIndexBox.Enabled       := True;
-               end;
-             end;
+      btnZoomIn.Enabled  := True;
+      btnZoomOut.Enabled := True;
+      meIndexBox.Enabled := True;
+
+      case FFileIndex of
+        0:
+        begin
+          btnPrivRealImage.Enabled := False;
+          btnPrivOneStep.Enabled   := False;
+          btnNextRealImage.Enabled := True;
+          btnNextOneStep.Enabled   := True;
+        end;
+      else
+      begin
+        if FFileIndex = FFileIndexMax - 1 then
+        begin
+          btnPrivRealImage.Enabled := True;
+          btnPrivOneStep.Enabled   := True;
+          btnNextRealImage.Enabled := False;
+          btnNextOneStep.Enabled   := False;
+        end else
+        begin
+          if FFileIndex >= FLMTLibrary.GetLastImage then
+          begin
+            btnPrivRealImage.Enabled := True;
+            btnPrivOneStep.Enabled   := True;
+            btnNextRealImage.Enabled := False;
+            btnNextOneStep.Enabled   := True;
+          end else
+          begin
+            btnPrivRealImage.Enabled := True;
+            btnPrivOneStep.Enabled   := True;
+            btnNextRealImage.Enabled := True;
+            btnNextOneStep.Enabled   := True;
+          end;
+        end;
+        if FFileIndex <= FLMTLibrary.GetFirstImage then
+          btnPrivRealImage.Enabled := False;
+       end;
+      end;
+
+      if FLMTLibrary.GetTotalImage = 0 then
+      begin
+        btnZoomIn.Enabled        := False;
+        btnZoomOut.Enabled       := False;
+        btnPrivRealImage.Enabled := False;
+        btnPrivOneStep.Enabled   := False;
+        btnNextRealImage.Enabled := False;
+        btnNextOneStep.Enabled   := False;
+        meIndexBox.Enabled       := True;
+      end;
+    end;
   end;
 end;
 
 function TfmtTextureManagerMain.GetNextZoomFaktor(AZoomOut: Boolean): Integer;
 begin
   case AZoomOut of
-    True  : begin
+    True:
+    begin
       case FZoomFactor of
-         0..19   : Result := FZoomFactor;
-        20..190  : Result := FZoomFactor + 10;
-       200..380  : Result := FZoomFactor + 20;
-       400..560  : Result := FZoomFactor + 40;
-       600..840  : Result := FZoomFactor + 60;
-       900..1220 : Result := FZoomFactor + 80;
-      1300..1500 : Result := FZoomFactor + 100;
+         0..19     : Result := FZoomFactor;
+         20..190   : Result := FZoomFactor + 10;
+         200..380  : Result := FZoomFactor + 20;
+         400..560  : Result := FZoomFactor + 40;
+         600..840  : Result := FZoomFactor + 60;
+         900..1220 : Result := FZoomFactor + 80;
+        1300..1500 : Result := FZoomFactor + 100;
       else Result := FZoomFactor;
       end;
     end;
-    False : begin
+
+    False:
+    begin
       case FZoomFactor of
-         0..20   : Result := FZoomFactor;
-        30..190  : Result := FZoomFactor - 10;
-       200..380  : Result := FZoomFactor - 20;
-       400..560  : Result := FZoomFactor - 40;
-       600..840  : Result := FZoomFactor - 60;
-       900..1220 : Result := FZoomFactor - 80;
-      1300..1600 : Result := FZoomFactor - 100;
-      else Result := FZoomFactor-10;
+         0..20     : Result := FZoomFactor;
+         30..190   : Result := FZoomFactor - 10;
+         200..380  : Result := FZoomFactor - 20;
+         400..560  : Result := FZoomFactor - 40;
+         600..840  : Result := FZoomFactor - 60;
+         900..1220 : Result := FZoomFactor - 80;
+        1300..1600 : Result := FZoomFactor - 100;
+      else Result := FZoomFactor - 10;
       end;
     end;
   end;
@@ -353,7 +392,7 @@ end;
     //Create a new LMT library
     if Assigned(FLMTLibrary) then
     begin
-      acCloseLibraryExecute(self);
+      acCloseLibraryExecute(Self);
       FreeAndNil(FLMTLibrary);
     end;
     FLMTLibrary := TMIR3_LMTFile.Create;
@@ -361,11 +400,9 @@ end;
     FNewLibrary.ShowModal;
     if Trim(FNewFileName) > '' then
     begin
-      FLMTLibrary.CreateLMTFile(FFileDirectory + FNewFileName,1);
+      FLMTLibrary.CreateLMTFile(FFileDirectory + FNewFileName, 1);
       if DirectoryExists(FFileDirectory) then
-      begin
         ListFileDir(FFileDirectory, lbLibraryList.Items);
-      end;
     end;
     SetButtonState;
   end;
@@ -378,8 +415,10 @@ end;
     begin
       if Assigned(FBitmap) then
         FreeAndNil(FBitmap);
+
       if Assigned(FLMTLibrary) then
         FreeAndNil(FLMTLibrary);
+
       FBitmap     := TBitmap.Create;
       FLMTLibrary := TMIR3_LMTFile.Create;
       FZoomFactor          := 100;
@@ -387,13 +426,11 @@ end;
       FNewFileName         := odOpenLMTFile.FileName;
       FLMTLibrary.LoadFromFile(FNewFileName);
       if acStartWith0.Checked then
-      begin
         plFileInfo.Caption := ' File Info : ' + lbLibraryList.SelectedItem + ', Mir 3, Lib Type 4, Total Index ' + IntToStr(FLMTLibrary.GetTotalIndex) +
-                              ', Total Image ' + IntToStr(FLMTLibrary.GetTotalImage) + ', First Image ' + IntToStr(FLMTLibrary.GetFirstImage) + ', Last Image ' + IntToStr(FLMTLibrary.GetLastImage);
-      end else begin
-        plFileInfo.Caption := ' File Info : ' + lbLibraryList.SelectedItem + ', Mir 3, Lib Type 4, Total Index ' + IntToStr(FLMTLibrary.GetTotalIndex) +
-                              ', Total Image ' + IntToStr(FLMTLibrary.GetTotalImage) + ', First Image ' + IntToStr(FLMTLibrary.GetFirstImage+1) + ', Last Image ' + IntToStr(FLMTLibrary.GetLastImage+1);
-      end;
+                              ', Total Image ' + IntToStr(FLMTLibrary.GetTotalImage) + ', First Image ' + IntToStr(FLMTLibrary.GetFirstImage) + ', Last Image ' + IntToStr(FLMTLibrary.GetLastImage)
+      else plFileInfo.Caption := ' File Info : ' + lbLibraryList.SelectedItem + ', Mir 3, Lib Type 4, Total Index ' + IntToStr(FLMTLibrary.GetTotalIndex) +
+                              ', Total Image ' + IntToStr(FLMTLibrary.GetTotalImage) + ', First Image ' + IntToStr(FLMTLibrary.GetFirstImage + 1) + ', Last Image ' + IntToStr(FLMTLibrary.GetLastImage + 1);
+
       FFileIndexMax := FLMTLibrary.GetTotalIndex;
       FFileIndex    := 0;
       SetButtonState;
@@ -467,11 +504,8 @@ end;
   procedure TfmtTextureManagerMain.acStartWith0Execute(Sender: TObject);
   begin
     if acStartWith0.Checked then
-    begin
-      acStartWith0.Checked := False;
-    end else begin
-      acStartWith0.Checked := True;
-    end;
+      acStartWith0.Checked := False
+    else acStartWith0.Checked := True;
   end;
 
 {$ENDREGION}
@@ -481,24 +515,20 @@ var
   FImportLibrary : TfrmImportWIL;
 begin
   // Import from WIL / WIX
-  acCloseLibraryExecute(self);
+  acCloseLibraryExecute(Self);
   FImportLibrary := TfrmImportWIL.Create(Application);
   FImportLibrary.ShowModal;
   if DirectoryExists(FFileDirectory) then
-  begin
     ListFileDir(FFileDirectory, lbLibraryList.Items);
-  end;
 end;
 
 procedure TfmtTextureManagerMain.FormCreate(Sender: TObject);
 begin
   FZoomFactor := 100;
   laZoomFactor.Caption := IntToStr(FZoomFactor) + ' %';
-  FFileDirectory       := ExtractFilePath(ParamStr(0))+ 'data\';
+  FFileDirectory       := ExtractFilePath(ParamStr(0)) + 'data\';
   if DirectoryExists(FFileDirectory) then
-  begin
     ListFileDir(FFileDirectory, lbLibraryList.Items);
-  end;
   SetButtonState;
 end;
 
@@ -506,6 +536,7 @@ procedure TfmtTextureManagerMain.FormDestroy(Sender: TObject);
 begin
   if Assigned(FBitmap) then
     FreeAndNil(FBitmap);
+
   if Assigned(FLMTLibrary) then
     FreeAndNil(FLMTLibrary);
 end;
@@ -515,8 +546,10 @@ begin
   // DBClick to Open Selected File
   if Assigned(FBitmap) then
     FreeAndNil(FBitmap);
+
   if Assigned(FLMTLibrary) then
     FreeAndNil(FLMTLibrary);
+
   FBitmap     := TBitmap.Create;
   FLMTLibrary := TMIR3_LMTFile.Create;
   FZoomFactor          := 100;
@@ -524,13 +557,10 @@ begin
   FNewFileName         := lbLibraryList.SelectedItem;
   FLMTLibrary.LoadFromFile(FFileDirectory+lbLibraryList.SelectedItem);
   if acStartWith0.Checked then
-  begin
     plFileInfo.Caption := ' File Info : ' + lbLibraryList.SelectedItem + ', Mir 3, Lib Type 4, Total Index ' + IntToStr(FLMTLibrary.GetTotalIndex) +
-                          ', Total Image ' + IntToStr(FLMTLibrary.GetTotalImage) + ', First Image ' + IntToStr(FLMTLibrary.GetFirstImage) + ', Last Image ' + IntToStr(FLMTLibrary.GetLastImage);
-  end else begin
-    plFileInfo.Caption := ' File Info : ' + lbLibraryList.SelectedItem + ', Mir 3, Lib Type 4, Total Index ' + IntToStr(FLMTLibrary.GetTotalIndex) +
-                          ', Total Image ' + IntToStr(FLMTLibrary.GetTotalImage) + ', First Image ' + IntToStr(FLMTLibrary.GetFirstImage+1) + ', Last Image ' + IntToStr(FLMTLibrary.GetLastImage+1);
-  end;
+                          ', Total Image ' + IntToStr(FLMTLibrary.GetTotalImage) + ', First Image ' + IntToStr(FLMTLibrary.GetFirstImage) + ', Last Image ' + IntToStr(FLMTLibrary.GetLastImage)
+  else plFileInfo.Caption := ' File Info : ' + lbLibraryList.SelectedItem + ', Mir 3, Lib Type 4, Total Index ' + IntToStr(FLMTLibrary.GetTotalIndex) +
+                          ', Total Image ' + IntToStr(FLMTLibrary.GetTotalImage) + ', First Image ' + IntToStr(FLMTLibrary.GetFirstImage + 1) + ', Last Image ' + IntToStr(FLMTLibrary.GetLastImage + 1);
   FFileIndexMax := FLMTLibrary.GetTotalIndex;
   FFileIndex    := 0;
   SetButtonState;
@@ -541,24 +571,22 @@ procedure TfmtTextureManagerMain.meIndexBoxKeyDown(Sender: TObject; var Key: Wor
 var
   Mgs: TMsg;
 begin
-  if (Char(Key) in [#13]) then
+  if Char(Key) in [#13] then
   begin
     // Change Index in Indexbox
-    if (StrToIntDef(Trim(meIndexBox.Text), 0) > 0)               and
-       (StrToIntDef(Trim(meIndexBox.Text), 0) < FFileIndexMax-1) then
+    if (StrToIntDef(Trim(meIndexBox.Text), 0) > 0) and (StrToIntDef(Trim(meIndexBox.Text), 0) < FFileIndexMax - 1) then
     begin
       FFileIndex := StrToIntDef(Trim(meIndexBox.Text), 0);
       SetBitmap;
       SetButtonState;
     end else if Trim(meIndexBox.Text) = '' then
-             begin
-               meIndexBox.Text := IntToStr(FFileIndex);
-               SetButtonState;
-             end else if (StrToIntDef(Trim(meIndexBox.Text), 0) > FFileIndexMax-1) then
-                        meIndexBox.Text := IntToStr(FFileIndex);
-
+    begin
+      meIndexBox.Text := IntToStr(FFileIndex);
+      SetButtonState;
+    end else if (StrToIntDef(Trim(meIndexBox.Text), 0) > FFileIndexMax - 1) then
+      meIndexBox.Text := IntToStr(FFileIndex);
   end else if not (Char(Key) in [#8, #46, #48..#57,#96..#105]) then
-             PeekMessage(Mgs, 0, WM_CHAR, WM_CHAR, PM_REMOVE);
+    PeekMessage(Mgs, 0, WM_CHAR, WM_CHAR, PM_REMOVE);
 end;
 
 procedure TfmtTextureManagerMain.btnChangeDirClick(Sender: TObject);
@@ -567,9 +595,7 @@ begin
   begin
     FFileDirectory := sfdFolderDialog.SelectedPathName;
     if DirectoryExists(FFileDirectory) then
-    begin
       ListFileDir(FFileDirectory, lbLibraryList.Items);
-    end;
   end;
 end;
 
@@ -586,7 +612,7 @@ end;
 procedure TfmtTextureManagerMain.btnNextRealImageClick(Sender: TObject);
 begin
   //Move to next Real Image in Imagelib
- if FFileIndex < FFileIndexMax-1  then
+ if FFileIndex < FFileIndexMax - 1  then
    Inc(FFileIndex);
 
   FFileIndex := FLMTLibrary.GetNextRealImage(FFileIndex);
@@ -599,6 +625,7 @@ begin
   //Priv. One Step
   if FFileIndex > 0 then
     Dec(FFileIndex);
+
   SetButtonState;
   SetBitmap;
 end;
@@ -606,8 +633,9 @@ end;
 procedure TfmtTextureManagerMain.btnNextOneStepClick(Sender: TObject);
 begin
   // Next One Step
- if FFileIndex < FFileIndexMax-1  then
+ if FFileIndex < FFileIndexMax - 1  then
    Inc(FFileIndex);
+
   SetButtonState;
   SetBitmap;
 end;

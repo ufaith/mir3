@@ -2,7 +2,7 @@
  *   LomCN Mir3 LMT Texture Manager 2013                                      *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
- *   Version   : 0.0.0.1                                                      *
+ *   Version   : 0.0.0.2                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -12,8 +12,7 @@
  * Change History                                                             *
  *                                                                            *
  *  - 0.0.0.1 [2013-04-21] Coly : first init                                  *
- *                                                                            *
- *                                                                            *
+ *  - 0.0.0.2 [2013-05-02] 1PKRyan : code clean-up                            *
  *                                                                            *
  ******************************************************************************
  *  - TODO List for this *.pas file -                                         *
@@ -26,13 +25,30 @@
  *                 (how to need this file etc.)                               *
  *                                                                            *
  ******************************************************************************)
+
 unit mir3_lmt_new_library;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, RzLabel, Mask, RzEdit, RzButton, ExtCtrls, RzPanel;
+  { Delphi }
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  StdCtrls,
+  Mask,
+  ExtCtrls,
+  { Raize }
+  RzLabel,
+  RzEdit,
+  RzButton,
+  RzPanel;
 
 type
   TfrmNewLibrary = class(TForm)
@@ -47,9 +63,9 @@ type
     procedure btnCancelClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
-    { Private-Deklarationen }
+    { Private - Declarations }
   public
-    { Public-Deklarationen }
+    { Public - Declarations }
   end;
 
 var
@@ -59,7 +75,9 @@ implementation
 
 {$R *.dfm}
 
-uses mir3_lmt_main;
+uses
+  { Mir3 Game Viewer }
+  mir3_lmt_main;
 
 procedure TfrmNewLibrary.btnCancelClick(Sender: TObject);
 begin

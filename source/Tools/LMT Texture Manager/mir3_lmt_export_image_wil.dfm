@@ -2794,7 +2794,6 @@ object fmtExportImageWil: TfmtExportImageWil
     ParentFont = False
     TabOrder = 0
     VisualStyle = vsGradient
-    ExplicitWidth = 450
   end
   object RzPanel1: TRzPanel
     Left = 0
@@ -2805,7 +2804,6 @@ object fmtExportImageWil: TfmtExportImageWil
     BorderOuter = fsNone
     Color = 14935270
     TabOrder = 1
-    ExplicitTop = 16
     object RzRadioGroup1: TRzRadioGroup
       Left = 16
       Top = 6

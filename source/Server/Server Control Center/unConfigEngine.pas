@@ -2,8 +2,13 @@ unit unConfigEngine;
 
 interface
 
-uses Windows, SysUtils, Classes, mir3_server_global;
-
+uses
+  { Delphi }
+  Windows,
+  SysUtils,
+  Classes,
+  { Mir3 Game }
+  mir3_server_global;
 
 const 
   TYPE_LOGIN_GATE       = 1;
@@ -43,33 +48,36 @@ type
     property ConfigFile_LogServer      : TConfig_Log_Server      read FConfigFile_Log_Server      write FConfigFile_Log_Server;
     property ConfigFile_GameServer     : TConfig_Game_Server     read FConfigFile_Game_Server     write FConfigFile_Game_Server;
     property ConfigFile_Administration : TConfig_Administration  read FConfigFile_Administration  write FConfigFile_Administration;
-
   end;
 
 implementation
 
+   { TConfigEngine }
+
   {$REGION ' - TConfigEngine :: constructor / destructor   '}
-    constructor TConfigEngine.create;
+    constructor TConfigEngine.Create;
     begin
       inherited create;
-      ZeroMemory(@FConfigFile_Login_Gate     , sizeOf(TConfig_Login_Gate));
-      ZeroMemory(@FConfigFile_SelectChar_Gate, sizeOf(TConfig_SelectChar_Gate));
-      ZeroMemory(@FConfigFile_Run_Game_Gate  , sizeOf(TConfig_Run_Game_Gate));
-      ZeroMemory(@FConfigFile_Login_Server   , sizeOf(TConfig_Login_Server));
-      ZeroMemory(@FConfigFile_DataBase_Server, sizeOf(TConfig_DataBase_Server));
-      ZeroMemory(@FConfigFile_Log_Server     , sizeOf(TConfig_Log_Server));
-      ZeroMemory(@FConfigFile_Game_Server    , sizeOf(TConfig_Game_Server));
+
+      ZeroMemory(@FConfigFile_Login_Gate     , SizeOf(TConfig_Login_Gate));
+      ZeroMemory(@FConfigFile_SelectChar_Gate, SizeOf(TConfig_SelectChar_Gate));
+      ZeroMemory(@FConfigFile_Run_Game_Gate  , SizeOf(TConfig_Run_Game_Gate));
+      ZeroMemory(@FConfigFile_Login_Server   , SizeOf(TConfig_Login_Server));
+      ZeroMemory(@FConfigFile_DataBase_Server, SizeOf(TConfig_DataBase_Server));
+      ZeroMemory(@FConfigFile_Log_Server     , SizeOf(TConfig_Log_Server));
+      ZeroMemory(@FConfigFile_Game_Server    , SizeOf(TConfig_Game_Server));
     end;
      
-    destructor TConfigEngine.destroy;
+    destructor TConfigEngine.Destroy;
     begin
-      ZeroMemory(@FConfigFile_Login_Gate     , sizeOf(TConfig_Login_Gate));
-      ZeroMemory(@FConfigFile_SelectChar_Gate, sizeOf(TConfig_SelectChar_Gate));
-      ZeroMemory(@FConfigFile_Run_Game_Gate  , sizeOf(TConfig_Run_Game_Gate));
-      ZeroMemory(@FConfigFile_Login_Server   , sizeOf(TConfig_Login_Server));
-      ZeroMemory(@FConfigFile_DataBase_Server, sizeOf(TConfig_DataBase_Server));
-      ZeroMemory(@FConfigFile_Log_Server     , sizeOf(TConfig_Log_Server));
-      ZeroMemory(@FConfigFile_Game_Server    , sizeOf(TConfig_Game_Server));
+      ZeroMemory(@FConfigFile_Login_Gate     , SizeOf(TConfig_Login_Gate));
+      ZeroMemory(@FConfigFile_SelectChar_Gate, SizeOf(TConfig_SelectChar_Gate));
+      ZeroMemory(@FConfigFile_Run_Game_Gate  , SizeOf(TConfig_Run_Game_Gate));
+      ZeroMemory(@FConfigFile_Login_Server   , SizeOf(TConfig_Login_Server));
+      ZeroMemory(@FConfigFile_DataBase_Server, SizeOf(TConfig_DataBase_Server));
+      ZeroMemory(@FConfigFile_Log_Server     , SizeOf(TConfig_Log_Server));
+      ZeroMemory(@FConfigFile_Game_Server    , SizeOf(TConfig_Game_Server));
+
       inherited destroy;
     end;
   {$ENDREGION}
@@ -86,14 +94,14 @@ implementation
           FMem.LoadFromFile(AConfigFile);
           FMem.Position := 0;
           case AType of 
-            TYPE_LOGIN_GATE     : FMem.Read(FConfigFile_Login_Gate     , sizeOf(TConfig_Login_Gate));
-            TYPE_SELECT_GATE    : FMem.Read(FConfigFile_SelectChar_Gate, sizeOf(TConfig_SelectChar_Gate));
-            TYPE_RUN_GATE       : FMem.Read(FConfigFile_Run_Game_Gate  , sizeOf(TConfig_Run_Game_Gate));         
-            TYPE_LOGIN_SERVER   : FMem.Read(FConfigFile_Login_Server   , sizeOf(TConfig_Login_Server));  
-            TYPE_DB_SERVER      : FMem.Read(FConfigFile_DataBase_Server, sizeOf(TConfig_DataBase_Server));  
-            TYPE_LOG_SERVER     : FMem.Read(FConfigFile_Log_Server     , sizeOf(TConfig_Log_Server));
-            TYPE_GAME_SERVER    : FMem.Read(FConfigFile_Game_Server    , sizeOf(TConfig_Game_Server));   
-            TYPE_ADMINISTRATION : FMem.Read(FConfigFile_Administration , sizeOf(TConfig_Administration));
+            TYPE_LOGIN_GATE     : FMem.Read(FConfigFile_Login_Gate     , SizeOf(TConfig_Login_Gate));
+            TYPE_SELECT_GATE    : FMem.Read(FConfigFile_SelectChar_Gate, SizeOf(TConfig_SelectChar_Gate));
+            TYPE_RUN_GATE       : FMem.Read(FConfigFile_Run_Game_Gate  , SizeOf(TConfig_Run_Game_Gate));         
+            TYPE_LOGIN_SERVER   : FMem.Read(FConfigFile_Login_Server   , SizeOf(TConfig_Login_Server));  
+            TYPE_DB_SERVER      : FMem.Read(FConfigFile_DataBase_Server, SizeOf(TConfig_DataBase_Server));  
+            TYPE_LOG_SERVER     : FMem.Read(FConfigFile_Log_Server     , SizeOf(TConfig_Log_Server));
+            TYPE_GAME_SERVER    : FMem.Read(FConfigFile_Game_Server    , SizeOf(TConfig_Game_Server));   
+            TYPE_ADMINISTRATION : FMem.Read(FConfigFile_Administration , SizeOf(TConfig_Administration));
           end;          
           if Assigned(FMem) then
             FreeAndNil(FMem);
@@ -113,14 +121,14 @@ implementation
       FMem := TMemoryStream.Create;
       try
         case AType of 
-          TYPE_LOGIN_GATE     : FMem.Write(FConfigFile_Login_Gate     , sizeOf(TConfig_Login_Gate));
-          TYPE_SELECT_GATE    : FMem.Write(FConfigFile_SelectChar_Gate, sizeOf(TConfig_SelectChar_Gate));
-          TYPE_RUN_GATE       : FMem.Write(FConfigFile_Run_Game_Gate  , sizeOf(TConfig_Run_Game_Gate));
-          TYPE_LOGIN_SERVER   : FMem.Write(FConfigFile_Login_Server   , sizeOf(TConfig_Login_Server));
-          TYPE_DB_SERVER      : FMem.Write(FConfigFile_DataBase_Server, sizeOf(TConfig_DataBase_Server));
-          TYPE_LOG_SERVER     : FMem.Write(FConfigFile_Log_Server     , sizeOf(TConfig_Log_Server));
-          TYPE_GAME_SERVER    : FMem.Write(FConfigFile_Game_Server    , sizeOf(TConfig_Game_Server));
-          TYPE_ADMINISTRATION : FMem.Write(FConfigFile_Administration , sizeOf(TConfig_Administration));
+          TYPE_LOGIN_GATE     : FMem.Write(FConfigFile_Login_Gate     , SizeOf(TConfig_Login_Gate));
+          TYPE_SELECT_GATE    : FMem.Write(FConfigFile_SelectChar_Gate, SizeOf(TConfig_SelectChar_Gate));
+          TYPE_RUN_GATE       : FMem.Write(FConfigFile_Run_Game_Gate  , SizeOf(TConfig_Run_Game_Gate));
+          TYPE_LOGIN_SERVER   : FMem.Write(FConfigFile_Login_Server   , SizeOf(TConfig_Login_Server));
+          TYPE_DB_SERVER      : FMem.Write(FConfigFile_DataBase_Server, SizeOf(TConfig_DataBase_Server));
+          TYPE_LOG_SERVER     : FMem.Write(FConfigFile_Log_Server     , SizeOf(TConfig_Log_Server));
+          TYPE_GAME_SERVER    : FMem.Write(FConfigFile_Game_Server    , SizeOf(TConfig_Game_Server));
+          TYPE_ADMINISTRATION : FMem.Write(FConfigFile_Administration , SizeOf(TConfig_Administration));
         end;
         FMem.Position := 0;
         FMem.SaveToFile(AConfigFile);
@@ -137,8 +145,9 @@ implementation
       try
         (* Set Default Values *)
         case AType of 
-          TYPE_LOGIN_GATE   : begin
-            ZeroMemory(@FConfigFile_Login_Gate, sizeOf(TConfig_Login_Gate));
+          TYPE_LOGIN_GATE:
+          begin
+            ZeroMemory(@FConfigFile_Login_Gate, SizeOf(TConfig_Login_Gate));
             with FConfigFile_Login_Gate do
             begin
               {$REGION ' - Service Default Option   '}
@@ -169,8 +178,10 @@ implementation
               {$ENDREGION}
             end;          
           end;
-          TYPE_SELECT_GATE  : begin
-            ZeroMemory(@FConfigFile_SelectChar_Gate, sizeOf(TConfig_SelectChar_Gate));
+
+          TYPE_SELECT_GATE:
+          begin
+            ZeroMemory(@FConfigFile_SelectChar_Gate, SizeOf(TConfig_SelectChar_Gate));
             with FConfigFile_SelectChar_Gate do
             begin
               {$REGION ' - Service Default Option   '}
@@ -201,8 +212,10 @@ implementation
               {$ENDREGION}
             end;          
           end;
-          TYPE_RUN_GATE     : begin
-            ZeroMemory(@FConfigFile_Run_Game_Gate, sizeOf(TConfig_Run_Game_Gate));
+
+          TYPE_RUN_GATE:
+          begin
+            ZeroMemory(@FConfigFile_Run_Game_Gate, SizeOf(TConfig_Run_Game_Gate));
             with FConfigFile_Run_Game_Gate do
             begin
               {$REGION ' - Service Default Option   '}  
@@ -220,9 +233,11 @@ implementation
               
               {$ENDREGION}
             end;            
-          end;          
-          TYPE_LOGIN_SERVER : begin
-            ZeroMemory(@FConfigFile_Login_Server, sizeOf(TConfig_Login_Server));
+          end;
+
+          TYPE_LOGIN_SERVER:
+          begin
+            ZeroMemory(@FConfigFile_Login_Server, SizeOf(TConfig_Login_Server));
             with FConfigFile_Login_Server do
             begin
               {$REGION ' - Service Default Option   '}  
@@ -251,8 +266,10 @@ implementation
               {$ENDREGION}
             end;
           end;
-          TYPE_DB_SERVER    : begin
-            ZeroMemory(@FConfigFile_DataBase_Server, sizeOf(TConfig_DataBase_Server));
+
+          TYPE_DB_SERVER:
+          begin
+            ZeroMemory(@FConfigFile_DataBase_Server, SizeOf(TConfig_DataBase_Server));
             with FConfigFile_DataBase_Server do
             begin
               {$REGION ' - Service Default Option   '}  
@@ -274,9 +291,11 @@ implementation
               cfDataBaseName       := 'LomCN_MIR3_V1'  // LomCN_MIR3_V1 
               {$ENDREGION}
             end;            
-          end;          
-          TYPE_LOG_SERVER   : begin
-            ZeroMemory(@FConfigFile_Log_Server, sizeOf(TConfig_Log_Server));
+          end;
+
+          TYPE_LOG_SERVER:
+          begin
+            ZeroMemory(@FConfigFile_Log_Server, SizeOf(TConfig_Log_Server));
             with FConfigFile_Log_Server do
             begin
               {$REGION ' - Service Default Option   '}
@@ -290,9 +309,11 @@ implementation
               cfServer_Port        := 10000;           // 10000
               {$ENDREGION}
             end;            
-          end; 
-          TYPE_GAME_SERVER  : begin
-            ZeroMemory(@FConfigFile_Game_Server, sizeOf(TConfig_Game_Server));
+          end;
+
+          TYPE_GAME_SERVER:
+          begin
+            ZeroMemory(@FConfigFile_Game_Server, SizeOf(TConfig_Game_Server));
             with FConfigFile_Game_Server do
             begin
               {$REGION ' - Service Default Option   '}  
@@ -319,16 +340,18 @@ implementation
               cfDataBaseName       := 'LomCN_MIR3_V1'  // LomCN_MIR3_V1    
               {$ENDREGION}
             end;            
-          end;  
-          TYPE_ADMINISTRATION : begin
-            ZeroMemory(@FConfigFile_Administration, sizeOf(TConfig_Administration));
+          end;
+
+          TYPE_ADMINISTRATION:
+          begin
+            ZeroMemory(@FConfigFile_Administration, SizeOf(TConfig_Administration));
             with FConfigFile_Administration do
             begin
               {$REGION ' - Administration Default Option   '} 
               
               {$ENDREGION}  
             end;              
-          end;          
+          end;
         end; 
         SaveServiceConfig(AType, AConfigFile);         
       except

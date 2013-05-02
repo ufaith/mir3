@@ -3287,8 +3287,6 @@ object fmtTextureManagerMain: TfmtTextureManagerMain
       Color = clBlack
       ParentColor = False
       TabOrder = 0
-      ExplicitLeft = 2
-      ExplicitTop = -4
       object plBackgroundHelper: TPanel
         Left = 0
         Top = 0

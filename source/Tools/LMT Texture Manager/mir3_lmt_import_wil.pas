@@ -2,7 +2,7 @@
  *   LomCN Mir3 LMT Texture Manager 2013                                      *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
- *   Version   : 0.0.0.1                                                      *
+ *   Version   : 0.0.0.2                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -12,8 +12,7 @@
  * Change History                                                             *
  *                                                                            *
  *  - 0.0.0.1 [2013-04-21] Coly : first init                                  *
- *                                                                            *
- *                                                                            *
+ *  - 0.0.0.2 [2013-05-02] 1PKRyan : code clean-up                            *
  *                                                                            *
  ******************************************************************************
  *  - TODO List for this *.pas file -                                         *
@@ -27,14 +26,36 @@
  *  - TODO : -Coly -Full CleanUp (CleanUp and Optimization needed)            *
  *                                                                            *
  ******************************************************************************)
+
 unit mir3_lmt_import_wil;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, RzButton, StdCtrls, RzLabel, RzPrgres, ExtCtrls, RzPanel, mir3_lmt_format,
-  Mask, RzEdit, RzBckgnd, RzCmboBx, PsAPI;
+  { Delphi }
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  StdCtrls,
+  ExtCtrls,
+  Mask,
+  PsAPI,
+  { Raize }
+  RzButton,
+  RzLabel,
+  RzPrgres,
+  RzPanel,
+  RzEdit,
+  RzBckgnd,
+  RzCmboBx,
+  { Mir3 Game Viewer }
+  mir3_lmt_format;
 
 type
   TfrmImportWIL = class(TForm)
@@ -57,13 +78,12 @@ type
     RzSeparator3: TRzSeparator;
     procedure btnImportClick(Sender: TObject);
     procedure btnCancelCloseClick(Sender: TObject);
-    procedure meLibProtectionKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure meLibProtectionKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
-    { Private-Deklarationen }
+    { Private - Declarations }
   public
-    { Public-Deklarationen }
+    { Public - Declarations }
   end;
 
 var
@@ -73,13 +93,15 @@ implementation
 
 {$R *.dfm}
 
-uses mir3_lmt_main;
+uses
+  { Mir3 Game Viewer }
+  mir3_lmt_main;
 
 function CurrentMemoryUsage: Cardinal;
 var
   pmc: TProcessMemoryCounters;
 begin
-  pmc.cb := SizeOf(pmc) ;
+  pmc.cb := SizeOf(pmc);
   if GetProcessMemoryInfo(GetCurrentProcess, @pmc, SizeOf(pmc)) then
     Result := pmc.WorkingSetSize
   else RaiseLastOSError;
@@ -90,10 +112,11 @@ var
   MainHandle : THandle;
 begin
   try
-    MainHandle := OpenProcess(PROCESS_ALL_ACCESS, false, GetCurrentProcessID) ;
-    SetProcessWorkingSetSize(MainHandle, $FFFFFFFF, $FFFFFFFF) ;
-    CloseHandle(MainHandle) ;
+    MainHandle := OpenProcess(PROCESS_ALL_ACCESS, false, GetCurrentProcessID);
+    SetProcessWorkingSetSize(MainHandle, $FFFFFFFF, $FFFFFFFF);
+    CloseHandle(MainHandle);
   except
+    { Add Error }
   end;
   Application.ProcessMessages;
 end;
@@ -111,10 +134,10 @@ end;
 
 procedure TfrmImportWIL.meLibProtectionKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
-  Mgs: TMsg;
+  Msg: TMsg;
 begin
   if not (Char(Key) in [#8, #13, #46, #48..#57,#96..#105]) then
-    PeekMessage(Mgs, 0, WM_CHAR, WM_CHAR, PM_REMOVE);
+    PeekMessage(Msg, 0, WM_CHAR, WM_CHAR, PM_REMOVE);
 end;
 
 procedure TfrmImportWIL.btnImportClick(Sender: TObject);
@@ -125,7 +148,9 @@ var
 begin
   with fmtTextureManagerMain do
   begin
-    if Assigned(FLMTLibrary) then  FreeAndNil(FLMTLibrary);
+    if Assigned(FLMTLibrary) then
+      FreeAndNil(FLMTLibrary);
+
     FLMTLibrary := TMIR3_LMTFile.Create;
     if odImportLibWil.Execute then
     begin
@@ -134,7 +159,7 @@ begin
       btnImport.Enabled       := False;
       btnCancelClose.Enabled  := False;
 
-      pbLibraryParts.TotalParts    := odImportLibWil.Files.Count-1;
+      pbLibraryParts.TotalParts    := odImportLibWil.Files.Count - 1;
       pbLibraryParts.PartsComplete := 0;
       Application.ProcessMessages;
       for I := 0 to odImportLibWil.Files.Count - 1 do
@@ -143,13 +168,13 @@ begin
         FLMTLibrary.OpenWIL(odImportLibWil.Files[I]);
         FImageIndex := FLMTLibrary.GetTotalIndexWIL;
         FFileName   := odImportLibWil.Files[I];
-        FFileName   := Copy(FFileName,0,Length(FFileName)-4);
+        FFileName   := Copy(FFileName, 0, Length(FFileName) - 4);
         pbImageParts.TotalParts    := FImageIndex;
         pbImageParts.PartsComplete := 0;
         FLMTLibrary.CreateLMTFile(FFileName, FImageIndex);
         laMemoryUsage.Caption := FormatFloat('Memory used : ,.# K', CurrentMemoryUsage / 1024);
         Application.ProcessMessages;
-        for I1 := 0 to FImageIndex-1 do
+        for I1 := 0 to FImageIndex - 1 do
         begin
           FLMTLibrary.AddFilePNG('', I1, StrToIntDef(meLibProtection.Text, 0), StrToIntDef(cbCompressLevel.Text, 5));
           laMemoryUsage.Caption := FormatFloat('Memory used : ,.# K', CurrentMemoryUsage / 1024);

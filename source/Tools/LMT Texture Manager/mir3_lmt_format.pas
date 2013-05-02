@@ -2,7 +2,7 @@
  *   LomCN Mir3 LMT Format Information 2013                                   *
  *                                                                            *
  *   Web       : http://www.lomcn.org                                         *
- *   Version   : 0.0.0.1                                                      *
+ *   Version   : 0.0.0.2                                                      *
  *                                                                            *
  *   - File Info -                                                            *
  *                                                                            *
@@ -12,8 +12,7 @@
  * Change History                                                             *
  *                                                                            *
  *  - 0.0.0.1 [2013-04-18] Coly : first init                                  *
- *                                                                            *
- *                                                                            *
+ *  - 0.0.0.2 [2013-05-02] 1PKRyan : code clean-up                            *
  *                                                                            *
  ******************************************************************************
  *  - TODO List for this *.pas file -                                         *
@@ -28,19 +27,23 @@
  *  - TODO : -Coly -Full CleanUp (CleanUp and Optimization needed)            *
  *                                                                            *
  ******************************************************************************)
+
 unit mir3_lmt_format;
 
 interface
 
-
-uses Windows, SysUtils, Classes, Graphics,
-     mir3_misc_utils, mir3_pngimage;
+uses
+  { Delphi }
+  Windows,
+  SysUtils,
+  Classes,
+  Graphics,
+  { Mir3 Game }
+  mir3_misc_utils,
+  mir3_pngimage;
 
 const
   HEADER_INFORMATION  = 'LMT v1.0-LomCN';
-
-var
-  FNull_Info : Integer = 0;
 
 type
   {$REGION ' - LomCN Texture Format Header (For Import LMT) '}
@@ -179,6 +182,8 @@ type
     property BackgroundColor : TColor read FBackgroundColor write FBackgroundColor;
   end;
 
+var
+  FNull_Info : Integer = 0;
 
 implementation
 

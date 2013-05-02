@@ -3,8 +3,22 @@ unit mir3_lmt_export_image_wil;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, RzButton, RzRadChk, RzPanel, RzRadGrp, ExtCtrls;
+  { Delphi }
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  ExtCtrls,
+  { Raize }
+  RzButton,
+  RzRadChk,
+  RzPanel,
+  RzRadGrp;
 
 type
   TfmtExportImageWil = class(TForm)
@@ -16,9 +30,9 @@ type
     RzRadioButton3: TRzRadioButton;
     RzRadioButton4: TRzRadioButton;
   private
-    { Private-Deklarationen }
+    { Private - Declarations }
   public
-    { Public-Deklarationen }
+    { Public - Declarations }
   end;
 
 var

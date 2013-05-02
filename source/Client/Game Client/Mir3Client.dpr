@@ -33,10 +33,9 @@ begin
   ReportMemoryLeaksOnShutdown    := True;
   NeverSleepOnMMThreadContention := True;
 
-  //Test if start from launcher 
-  //Hier noch eine Prüfung ob Launcher Process da ist.
-  //if ParamStr(1) <> 'launcher' then
-  //  Exit;
+  { Test if start from launcher, Hier noch eine Prüfung ob Launcher Process da ist. }
+//  if ParamStr(1) <> 'launcher' then
+//    Exit;
 
   if GGameEngine.CreateGameClient then
   begin

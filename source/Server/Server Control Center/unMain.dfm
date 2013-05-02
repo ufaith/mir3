@@ -32827,41 +32827,57 @@ object frmControlCenter: TfrmControlCenter
       Color = 14935270
       TabVisible = False
       Caption = 'Login Gate'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object tsSelectCharGate: TRzTabSheet
       Color = 14935270
       TabVisible = False
       Caption = 'Select Character Gate'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object tsRunGameGate: TRzTabSheet
       Color = 14935270
       TabVisible = False
       Caption = 'Run Game Gate'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object tsLoginServer: TRzTabSheet
       Color = 14935270
       TabVisible = False
       Caption = 'Login Server'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object tsDBServer: TRzTabSheet
       Color = 14935270
       TabVisible = False
       Caption = 'Data Base Server'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object tsGameServer: TRzTabSheet
       Color = 14935270
       TabVisible = False
       Caption = 'Game Server'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object tsAdministration: TRzTabSheet
       Color = 14935270
       TabVisible = False
       Caption = 'Administration'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object tsLogServer: TRzTabSheet
       Color = 14935270
       TabVisible = False
       Caption = 'LogServer'
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
   end
   object RzStatusBar1: TRzStatusBar

@@ -15,9 +15,29 @@ unit unMain;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls,ExtCtrls, Mask, ComCtrls,
-  RzLabel, RzStatus, RzDBStat, RzPanel, RzTabs, RzListVw, RzEdit, RzButton,
+  { Delphi }
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  StdCtrls,
+  ExtCtrls,
+  Mask,
+  ComCtrls,
+  { Raize }
+  RzLabel,
+  RzStatus,
+  RzDBStat,
+  RzPanel,
+  RzTabs,
+  RzListVw,
+  RzEdit,
+  RzButton,
   RzRadChk;
 
 type
@@ -212,13 +232,14 @@ implementation
 
 destructor TBGMListEditor.Destroy;
 begin
-  ZeroMemory(@FFileHeader, sizeOf(TFileHeader));
+  ZeroMemory(@FFileHeader, SizeOf(TFileHeader));
   SetLength(FListItem, 0);
   FListItem := nil;
+
   inherited;
 end;
 
-(* pivate *)
+{ Private }
 
 procedure TBGMListEditor.AutoCorrectFile;
 var
@@ -243,18 +264,19 @@ begin
       begin
         Inc(FCount);
         SetLength(FTempList, FCount);
-        FTempList[FCount-1].Start    := '[';
-        FTempList[FCount-1].MapName  := FListItem[I].MapName;
-        FTempList[FCount-1].FileName := FListItem[I].FileName;
+        FTempList[FCount - 1].Start    := '[';
+        FTempList[FCount - 1].MapName  := FListItem[I].MapName;
+        FTempList[FCount - 1].FileName := FListItem[I].FileName;
       end;
     end;
     SetLength(FListItem, 0);
     SetLength(FListItem, FCount);
-    CopyMemory(@FListItem[0], @FTempList[0], FCount * sizeOf(TBGMListPart));
+    CopyMemory(@FListItem[0], @FTempList[0], FCount * SizeOf(TBGMListPart));
     SetLength(FTempList, 0);
     FFileHeader.ListCount  := FCount;
     FFileHeader.FieldCount := FCount;
   except
+    { Add Error }
   end;
 end;
 
@@ -288,7 +310,7 @@ begin
   end;
 end;
 
-(* public *)
+{ Public }
 
 function TBGMListEditor.SaveListFile(AFileName: String): Boolean;
 var
@@ -298,14 +320,16 @@ var
 begin
   Result  := True;
   FMemory := TMemoryStream.Create;
+
   if FFileName <> AFileName then
     FFileName := AFileName;
+
   try
     FFileHeader.Titel      := ' LomCN wwl Editor';
     FFileHeader.TargetDir  := '';
 
-    FMemory.Write(FFileHeader, sizeof(TFileHeader));
-    FMemory.Write(FListItem[0], FFileHeader.ListCount * sizeof(TBGMListPart)-1);
+    FMemory.Write(FFileHeader, SizeOf(TFileHeader));
+    FMemory.Write(FListItem[0], FFileHeader.ListCount * SizeOf(TBGMListPart) - 1);
 
     FMemory.SaveToFile(AFileName);
     FreeAndNil(FMemory);
@@ -329,14 +353,11 @@ begin
     if FileExists(AFileName + '.bac') then
     begin
       FBool := True;
-      if Application.MessageBox('Override existing backup file?',
-        'Mir3 Music List Editor', MB_YESNO + MB_ICONQUESTION) = IDYES then
-      begin
+      if Application.MessageBox('Override existing backup file?', 'Mir3 Music List Editor', MB_YESNO + MB_ICONQUESTION) = IDYES then
         FBool := False;
-      end;
     end else FBool := False;
 
-    if not (FBool) then
+    if not FBool then
     begin
       FMemFile := TMemoryStream.Create;
       FMemFile.LoadFromFile(AFileName);
@@ -349,9 +370,9 @@ begin
     FFileHandle := CreateFile(PChar(AFileName), GENERIC_READ, FILE_SHARE_READ, nil, OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL, 0);
     if FFileHandle <> 0 then
     begin
-      FFileSize := GetFileSize(FFileHandle, nil) - sizeOf(TFileHeader);
+      FFileSize := GetFileSize(FFileHandle, nil) - SizeOf(TFileHeader);
       // Read File Header ----------------------------
-      ZeroMemory(@FFileHeader, sizeOf(TFileHeader));
+      ZeroMemory(@FFileHeader, SizeOf(TFileHeader));
 	    ReadFile(FFileHandle, FFileHeader, SizeOf(TFileHeader), FReadSize, nil);
 
       // Automatic check and correct List and field Count information -
@@ -359,8 +380,8 @@ begin
 
       // Read File Items -----------------------------
       SetLength(FListItem, FFileHeader.FieldCount);
-      ZeroMemory(@FListItem[0], FFileHeader.FieldCount * SizeOf(TBGMListPart)-1);
-      ReadFile(FFileHandle, FListItem[0], FFileHeader.FieldCount * SizeOf(TBGMListPart)-1, FReadSize, nil);
+      ZeroMemory(@FListItem[0], FFileHeader.FieldCount * SizeOf(TBGMListPart) - 1);
+      ReadFile(FFileHandle, FListItem[0], FFileHeader.FieldCount * SizeOf(TBGMListPart) - 1, FReadSize, nil);
 
       FFieldCount := FFileHeader.FieldCount;
       FListCount  := FFileHeader.ListCount;
@@ -445,8 +466,8 @@ begin
   FListItem[FID].MapName    := FListItem[FID-1].MapName;
   FListItem[FID].FileName   := FListItem[FID-1].FileName;
 
-  FListItem[FID-1].MapName  := FTempItem[0].MapName;
-  FListItem[FID-1].FileName := FTempItem[0].FileName;
+  FListItem[FID - 1].MapName  := FTempItem[0].MapName;
+  FListItem[FID - 1].FileName := FTempItem[0].FileName;
 end;
 
 procedure TBGMListEditor.MoveItemDown(AMapName, ABGMSound: String);
@@ -462,22 +483,22 @@ begin
   FListItem[FID].MapName    := FListItem[FID+1].MapName;
   FListItem[FID].FileName   := FListItem[FID+1].FileName;
 
-  FListItem[FID+1].MapName  := FTempItem[0].MapName;
-  FListItem[FID+1].FileName := FTempItem[0].FileName;
+  FListItem[FID + 1].MapName  := FTempItem[0].MapName;
+  FListItem[FID + 1].FileName := FTempItem[0].FileName;
 end;
-
 
   { TSoundListEditor }
 
 destructor TSoundListEditor.Destroy;
 begin
-  ZeroMemory(@FFileHeader, sizeOf(TFileHeader));
+  ZeroMemory(@FFileHeader, SizeOf(TFileHeader));
   SetLength(FListItem, 0);
   FListItem := nil;
+
   inherited;
 end;
 
-(* pivate *)
+{ Private }
 
 procedure TSoundListEditor.AutoCorrectFile(ATestPoint: Integer);
 var
@@ -485,26 +506,28 @@ var
   FFileItems : Cardinal;
 begin
   case ATestPoint of
-    0 : begin
+    0:
+    begin
       // Test and Correct the List Count Information
       FFileItems            := Round(FFileSize / SizeOf(TSoundListPart));
       FFileHeader.ListCount := FFileItems;
     end;
-    1 : begin
+
+    1:
+    begin
       // Test and Correct the Sound List Information Count
       FFileItems := 0;
       for I := 0 to FFileHeader.ListCount - 1 do
       begin
         if FListItem[I].SoundID = 0 then
-        begin
           Inc(FFileItems);
-        end;
       end;
       if FFileItems = 0 then
       begin
         FFileHeader.FieldCount := 0;
         FHasInfoHeader         := False;
-      end else begin
+      end else
+      begin
         FFileHeader.FieldCount := FFileItems;
         FHasInfoHeader         := True;
       end;
@@ -525,13 +548,13 @@ begin
       begin
         Inc(FCount);
         SetLength(FTempList, FCount);
-        FTempList[FCount-1].SoundID   := FListItem[I].SoundID;
-        FTempList[FCount-1].SoundFile := FListItem[I].SoundFile;
+        FTempList[FCount - 1].SoundID   := FListItem[I].SoundID;
+        FTempList[FCount - 1].SoundFile := FListItem[I].SoundFile;
       end;
     end;
     SetLength(FListItem, 0);
     SetLength(FListItem, FCount);
-    CopyMemory(@FListItem[0], @FTempList[0], FCount * sizeOf(TSoundListPart));
+    CopyMemory(@FListItem[0], @FTempList[0], FCount * SizeOf(TSoundListPart));
     SetLength(FTempList, 0);
     FFileHeader.ListCount  := FCount;
   except
@@ -568,7 +591,7 @@ begin
   end;
 end;
 
-(* public *)
+{ Public }
 
 function TSoundListEditor.SaveListFile(AFileName: String): Boolean;
 var
@@ -580,15 +603,17 @@ var
 begin
   Result  := True;
   FMemory := TMemoryStream.Create;
+
   if FFileName <> AFileName then
     FFileName := AFileName;
+
   try
     FFileHeader.Titel      := ' LomCN wwl Editor';
     FFileHeader.TargetDir  := '';
     FFileHeader.FieldCount := FFileHeader.ListCount;
 
-    FMemory.Write(FFileHeader, sizeof(TFileHeader));
-    FMemory.Write(FListItem[0], FFileHeader.ListCount * sizeof(TSoundListPart)-1);
+    FMemory.Write(FFileHeader, SizeOf(TFileHeader));
+    FMemory.Write(FListItem[0], FFileHeader.ListCount * SizeOf(TSoundListPart) - 1);
 
     FMemory.SaveToFile(AFileName);
     FreeAndNil(FMemory);
@@ -612,14 +637,11 @@ begin
     if FileExists(AFileName + '.bac') then
     begin
       FBool := True;
-      if Application.MessageBox('Override existing backup file?',
-        'Mir3 Music List Editor', MB_YESNO + MB_ICONQUESTION) = IDYES then
-      begin
+      if Application.MessageBox('Override existing backup file?', 'Mir3 Music List Editor', MB_YESNO + MB_ICONQUESTION) = IDYES then
         FBool := False;
-      end;
     end else FBool := False;
 
-    if not (FBool) then
+    if not FBool then
     begin
       FMemFile := TMemoryStream.Create;
       FMemFile.LoadFromFile(AFileName);
@@ -632,9 +654,9 @@ begin
     FFileHandle := CreateFile(PChar(AFileName), GENERIC_READ, FILE_SHARE_READ, nil, OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL, 0);
     if FFileHandle <> 0 then
     begin
-      FFileSize := GetFileSize(FFileHandle, nil) - sizeOf(TFileHeader);
+      FFileSize := GetFileSize(FFileHandle, nil) - SizeOf(TFileHeader);
       // Read File Header ----------------------------
-      ZeroMemory(@FFileHeader, sizeOf(TFileHeader));
+      ZeroMemory(@FFileHeader, SizeOf(TFileHeader));
 	    ReadFile(FFileHandle, FFileHeader, SizeOf(TFileHeader), FReadSize, nil);
 
       // Automatic check and correct List Count information -
@@ -642,8 +664,8 @@ begin
 
       // Read File Items -----------------------------
       SetLength(FListItem, FFileHeader.ListCount);
-      ZeroMemory(@FListItem[0], FFileHeader.ListCount * SizeOf(TSoundListPart)-1);
-      ReadFile(FFileHandle, FListItem[0], FFileHeader.ListCount * SizeOf(TSoundListPart)-1, FReadSize, nil);
+      ZeroMemory(@FListItem[0], FFileHeader.ListCount * SizeOf(TSoundListPart) - 1);
+      ReadFile(FFileHandle, FListItem[0], FFileHeader.ListCount * SizeOf(TSoundListPart) - 1, FReadSize, nil);
 
       // Automatic check and correct Info Count information -
       AutoCorrectFile(1);
@@ -675,13 +697,9 @@ begin
     ZeroMemory(@FListItem[FID].SoundFile[0], 14);
     CopyMemory(@FListItem[FID].SoundFile[0], @AUpdateSoundFile[1], Length(AUpdateSoundFile));
     if (Trim(ASoundID) <> '0') and (Trim(AUpdateSoundID) = '0') then
-    begin
       Inc(FFileHeader.FieldCount);
-    end;
     if (Trim(ASoundID) = '0') and (Trim(AUpdateSoundID) <> '0') then
-    begin
       Dec(FFileHeader.FieldCount);
-    end;
   except
     Result := -1;
   end;
@@ -696,7 +714,6 @@ begin
   begin
     if (FListItem[I].SoundID = StrToIntDef(Trim(ASoundID),0)) and (FListItem[I].SoundFile = Trim(ASoundFile)) then
     begin
-
       FListItem[I].SoundID   := 0;
       FListItem[I].SoundFile := #0;
       ReOrderList;
@@ -724,9 +741,8 @@ begin
     begin
       Inc(FFileHeader.ListCount);
       Inc(FFileHeader.FieldCount);
-    end else begin
-      Inc(FFileHeader.ListCount);
-    end;
+    end else Inc(FFileHeader.ListCount);
+
     SetLength(FListItem, FFileHeader.ListCount);
     FListItem[High(FListItem)].SoundID := StrToIntDef(ASoundID,0);
     CopyMemory(@FListItem[High(FListItem)].SoundFile[0], @ASoundFile[1], Length(ASoundFile));
@@ -748,8 +764,8 @@ begin
   FListItem[FID].SoundID     := FListItem[FID-1].SoundID;
   FListItem[FID].SoundFile   := FListItem[FID-1].SoundFile;
 
-  FListItem[FID-1].SoundID   := FTempItem[0].SoundID;
-  FListItem[FID-1].SoundFile := FTempItem[0].SoundFile;
+  FListItem[FID - 1].SoundID   := FTempItem[0].SoundID;
+  FListItem[FID - 1].SoundFile := FTempItem[0].SoundFile;
 end;
 
 procedure TSoundListEditor.MoveItemDown(ASoundID, ASoundFile: String);
@@ -765,10 +781,9 @@ begin
   FListItem[FID].SoundID     := FListItem[FID+1].SoundID;
   FListItem[FID].SoundFile   := FListItem[FID+1].SoundFile;
 
-  FListItem[FID+1].SoundID   := FTempItem[0].SoundID;
-  FListItem[FID+1].SoundFile := FTempItem[0].SoundFile;
+  FListItem[FID + 1].SoundID   := FTempItem[0].SoundID;
+  FListItem[FID + 1].SoundFile := FTempItem[0].SoundFile;
 end;
-
 
 ///////////////////////////////////////////////
 
@@ -806,9 +821,9 @@ end;
 procedure TfrmEditorMain.maMapNameChange(Sender: TObject);
 begin
   if (Trim(maMapName.Text) <> '') or (Trim(maBGMFile.Text) <> '') then
+    btnAddBGMItem.Enabled    := True
+  else
   begin
-    btnAddBGMItem.Enabled    := True;
-  end else begin
     btnAddBGMItem.Enabled    := False;
     btnUpdateBGMItem.Enabled := False;
   end;
@@ -839,8 +854,7 @@ begin
     lvBGMList.Items.Clear;
     for I := 0 to FBGMListEditor.FFileHeader.ListCount - 1 do
     begin
-      if (Trim(FBGMListEditor.FListItem[I].MapName)  <> '') and
-         (Trim(FBGMListEditor.FListItem[I].FileName) <> '') then
+      if (Trim(FBGMListEditor.FListItem[I].MapName)  <> '') and (Trim(FBGMListEditor.FListItem[I].FileName) <> '') then
       begin
         FListItem         := lvBGMList.Items.Add;
         FListItem.Caption := Trim(FBGMListEditor.FListItem[I].MapName);
@@ -863,9 +877,7 @@ begin
     maBGMFile.Text := '';
     // Read BGM List File --------------------------------
     if FBGMListEditor.LoadListFile(odBGMList.FileName) then
-    begin
       FillBGMListView;
-    end;
   end;
 end;
 
@@ -880,25 +892,28 @@ begin
       sptLastInfo.FieldLabel := ' - Saved Done : ' + FBGMListEditor.FFileName;
     end;
   end;
-
 end;
 
 // Update BGM List
 procedure TfrmEditorMain.btnUpdateBGMItemClick(Sender: TObject);
 begin
   try
-    if not Assigned(lvBGMList.Selected) then Exit;
+    if not Assigned(lvBGMList.Selected) then
+      Exit;
 
     case FBGMListEditor.UpdateItem(lvBGMList.Selected.Caption, lvBGMList.Selected.SubItems[0], Trim(maMapName.Text), Trim(maBGMFile.Text)) of
-      0: begin
+      0:
+      begin
         lvBGMList.Selected.Caption     := Trim(maMapName.Text);
         lvBGMList.Selected.SubItems[0] := Trim(maBGMFile.Text);
         btnSaveBGMList.Enabled         := True;
       end;
+
       1: Application.MessageBox('Item is allready in list.', 'Mir3 Music List Editor', MB_OK + MB_ICONWARNING);
     end;
     sptLastInfo.FieldLabel := '';
   except
+    { Add Error }
   end;
 end;
 
@@ -909,16 +924,19 @@ var
 begin
   try
     case FBGMListEditor.AddItem(Trim(maMapName.Text), Trim(maBGMFile.Text)) of
-      0: begin
+      0:
+      begin
         FListItem         := lvBGMList.Items.Add;
         FListItem.Caption := Trim(maMapName.Text);
         FListItem.SubItems.Add(Trim(maBGMFile.Text));
         btnSaveBGMList.Enabled := True;
       end;
+
       1: Application.MessageBox('Item is allready in list.', 'Mir3 Music List Editor', MB_OK + MB_ICONWARNING);
     end;
     sptListItemCount.FieldLabel := 'Items in List : ' + IntToStr(FBGMListEditor.FFileHeader.ListCount);
   except
+    { Add Error }
   end;
 end;
 
@@ -937,6 +955,7 @@ begin
     end;
     sptListItemCount.FieldLabel := 'Items in List : ' + IntToStr(FBGMListEditor.FFileHeader.ListCount);
   except
+    { Add Error }
   end;
 end;
 
@@ -951,11 +970,11 @@ begin
     FBGMListEditor.MoveItemUP(lvBGMList.Selected.Caption, lvBGMList.Selected.SubItems[0]);
     FTempMap  := lvBGMList.Selected.Caption;
     FTempFile := lvBGMList.Selected.SubItems[0];
-    lvBGMList.Selected.Caption     := lvBGMList.Items[lvBGMList.Selected.Index-1].Caption;
-    lvBGMList.Selected.SubItems[0] := lvBGMList.Items[lvBGMList.Selected.Index-1].SubItems[0];
-    lvBGMList.Items[lvBGMList.Selected.Index-1].Caption     := FTempMap;
-    lvBGMList.Items[lvBGMList.Selected.Index-1].SubItems[0] := FTempFile;
-    lvBGMList.Selected := lvBGMList.Items[lvBGMList.Selected.Index-1];
+    lvBGMList.Selected.Caption     := lvBGMList.Items[lvBGMList.Selected.Index - 1].Caption;
+    lvBGMList.Selected.SubItems[0] := lvBGMList.Items[lvBGMList.Selected.Index - 1].SubItems[0];
+    lvBGMList.Items[lvBGMList.Selected.Index - 1].Caption     := FTempMap;
+    lvBGMList.Items[lvBGMList.Selected.Index - 1].SubItems[0] := FTempFile;
+    lvBGMList.Selected := lvBGMList.Items[lvBGMList.Selected.Index - 1];
     lvBGMList.SetFocus;
     btnSaveBGMList.Enabled := True;
   end else lvBGMList.SetFocus;
@@ -972,21 +991,18 @@ begin
     FBGMListEditor.MoveItemDown(lvBGMList.Selected.Caption, lvBGMList.Selected.SubItems[0]);
     FTempMap  := lvBGMList.Selected.Caption;
     FTempFile := lvBGMList.Selected.SubItems[0];
-    lvBGMList.Selected.Caption     := lvBGMList.Items[lvBGMList.Selected.Index+1].Caption;
-    lvBGMList.Selected.SubItems[0] := lvBGMList.Items[lvBGMList.Selected.Index+1].SubItems[0];
-    lvBGMList.Items[lvBGMList.Selected.Index+1].Caption     := FTempMap;
-    lvBGMList.Items[lvBGMList.Selected.Index+1].SubItems[0] := FTempFile;
-    lvBGMList.Selected := lvBGMList.Items[lvBGMList.Selected.Index+1];
+    lvBGMList.Selected.Caption     := lvBGMList.Items[lvBGMList.Selected.Index + 1].Caption;
+    lvBGMList.Selected.SubItems[0] := lvBGMList.Items[lvBGMList.Selected.Index + 1].SubItems[0];
+    lvBGMList.Items[lvBGMList.Selected.Index + 1].Caption     := FTempMap;
+    lvBGMList.Items[lvBGMList.Selected.Index + 1].SubItems[0] := FTempFile;
+    lvBGMList.Selected := lvBGMList.Items[lvBGMList.Selected.Index + 1];
     lvBGMList.SetFocus;
     btnSaveBGMList.Enabled := True;
   end else lvBGMList.SetFocus;
 end;
 
-
-
 //////
 ///
-
 
 procedure TfrmEditorMain.lvSoundListClick(Sender: TObject);
 begin
@@ -1008,9 +1024,9 @@ end;
 procedure TfrmEditorMain.maSoundIDChange(Sender: TObject);
 begin
   if (Trim(maSoundFile.Text) <> '') or (Trim(maSoundID.Text) <> '') then
+    btnAddSoundItem.Enabled    := True
+  else
   begin
-    btnAddSoundItem.Enabled    := True;
-  end else begin
     btnAddSoundItem.Enabled    := False;
     btnUpdateSoundItem.Enabled := False;
   end;
@@ -1020,15 +1036,20 @@ end;
 procedure TfrmEditorMain.RzPageControl1Change(Sender: TObject);
 begin
   case RzPageControl1.ActivePageIndex of
-    0 : begin
+    0:
+    begin
       sptListItemCount.FieldLabel   := 'Items in List : ' + IntToStr(FBGMListEditor.FFileHeader.ListCount);
       sptSectiontemCount.FieldLabel := 'Section info : -';
     end;
-    1 : begin
+
+    1:
+    begin
       sptListItemCount.FieldLabel   := 'Items in List : ' + IntToStr(FSoundListEditor.FFileHeader.ListCount);
       sptSectiontemCount.FieldLabel := 'Section info : '  + IntToStr(FSoundListEditor.FFileHeader.FieldCount);
     end;
-    2 : begin
+
+    2:
+    begin
      sptListItemCount.FieldLabel   := 'Items in List : - ';
      sptSectiontemCount.FieldLabel := 'Section info : -';
     end;
@@ -1070,7 +1091,8 @@ begin
             FListItem.Caption := IntToStr(FSoundListEditor.FListItem[I].SoundID);
             FListItem.SubItems.Add(Trim(FSoundListEditor.FListItem[I].SoundFile));
           end;
-        end else begin
+        end else
+        begin
           FListItem         := lvSoundList.Items.Add;
           FListItem.Caption := IntToStr(FSoundListEditor.FListItem[I].SoundID);
           FListItem.SubItems.Add(Trim(FSoundListEditor.FListItem[I].SoundFile));
@@ -1095,9 +1117,7 @@ begin
     maSoundFile.Text := '';
     // Read Sound List File --------------------------------
     if FSoundListEditor.LoadListFile(odSoundList.FileName) then
-    begin
       FillSoundListView;
-    end;
   end;
 end;
 
@@ -1117,24 +1137,28 @@ end;
 procedure TfrmEditorMain.btnUpdateSoundItemClick(Sender: TObject);
 begin
   try
-    if not Assigned(lvSoundList.Selected) then Exit;
-    if StrToIntDef(Trim(maSoundID.Text),0) > 65534 then
+    if not Assigned(lvSoundList.Selected) then
+      Exit;
+
+    if StrToIntDef(Trim(maSoundID.Text), 0) > 65534 then
     begin
-      Application.MessageBox('You can only use Sound ID''s < 65534',
-        'Mir3 Music List Editor', MB_OK + MB_ICONSTOP);
+      Application.MessageBox('You can only use Sound ID''s < 65534', 'Mir3 Music List Editor', MB_OK + MB_ICONSTOP);
       Exit;
     end;
 
     case FSoundListEditor.UpdateItem(lvSoundList.Selected.Caption, lvSoundList.Selected.SubItems[0], Trim(maSoundID.Text), Trim(maSoundFile.Text)) of
-      0: begin
+      0:
+      begin
         lvSoundList.Selected.Caption     := Trim(maSoundID.Text);
         lvSoundList.Selected.SubItems[0] := Trim(maSoundFile.Text);
         btnSaveSoundList.Enabled         := True;
       end;
+
       1: Application.MessageBox('Item is allready in list.', 'Mir3 Music List Editor', MB_OK + MB_ICONWARNING);
     end;
     sptLastInfo.FieldLabel := '';
   except
+    { Add Error }
   end;
 end;
 
@@ -1143,24 +1167,27 @@ var
   FListItem : TListItem;
 begin
   try
-    if StrToIntDef(Trim(maSoundID.Text),0) > 65534 then
+    if StrToIntDef(Trim(maSoundID.Text), 0) > 65534 then
     begin
-      Application.MessageBox('You can only use Sound ID''s < 65534',
-        'Mir3 Music List Editor', MB_OK + MB_ICONSTOP);
+      Application.MessageBox('You can only use Sound ID''s < 65534', 'Mir3 Music List Editor', MB_OK + MB_ICONSTOP);
       Exit;
     end;
+
     case FSoundListEditor.AddItem(Trim(maSoundID.Text), Trim(maSoundFile.Text)) of
-      0: begin
+      0:
+      begin
         FListItem         := lvSoundList.Items.Add;
         FListItem.Caption := Trim(maSoundID.Text);
         FListItem.SubItems.Add(Trim(maSoundFile.Text));
         btnSaveSoundList.Enabled := True;
       end;
+
       1: Application.MessageBox('Item is allready in list.', 'Mir3 Music List Editor', MB_OK + MB_ICONWARNING);
     end;
     sptListItemCount.FieldLabel := 'Items in List : ' + IntToStr(FSoundListEditor.FFileHeader.ListCount);
     sptSectiontemCount.FieldLabel := 'Section info : '  + IntToStr(FSoundListEditor.FFileHeader.FieldCount);
   except
+    { Add Error }
   end;
 end;
 
@@ -1179,6 +1206,7 @@ begin
     end;
     sptListItemCount.FieldLabel := 'Items in List : ' + IntToStr(FSoundListEditor.FFileHeader.ListCount);
   except
+    { Add Error }
   end;
 end;
 
@@ -1193,11 +1221,11 @@ begin
     FSoundListEditor.MoveItemUP(lvSoundList.Selected.Caption, lvSoundList.Selected.SubItems[0]);
     FTempID   := lvSoundList.Selected.Caption;
     FTempFile := lvSoundList.Selected.SubItems[0];
-    lvSoundList.Selected.Caption     := lvSoundList.Items[lvSoundList.Selected.Index-1].Caption;
-    lvSoundList.Selected.SubItems[0] := lvSoundList.Items[lvSoundList.Selected.Index-1].SubItems[0];
-    lvSoundList.Items[lvSoundList.Selected.Index-1].Caption     := FTempID;
-    lvSoundList.Items[lvSoundList.Selected.Index-1].SubItems[0] := FTempFile;
-    lvSoundList.Selected := lvSoundList.Items[lvSoundList.Selected.Index-1];
+    lvSoundList.Selected.Caption     := lvSoundList.Items[lvSoundList.Selected.Index - 1].Caption;
+    lvSoundList.Selected.SubItems[0] := lvSoundList.Items[lvSoundList.Selected.Index - 1].SubItems[0];
+    lvSoundList.Items[lvSoundList.Selected.Index - 1].Caption     := FTempID;
+    lvSoundList.Items[lvSoundList.Selected.Index - 1].SubItems[0] := FTempFile;
+    lvSoundList.Selected := lvSoundList.Items[lvSoundList.Selected.Index - 1];
     lvSoundList.SetFocus;
     btnSaveSoundList.Enabled := True;
   end else lvSoundList.SetFocus;
@@ -1214,11 +1242,11 @@ begin
     FSoundListEditor.MoveItemDown(lvSoundList.Selected.Caption, lvSoundList.Selected.SubItems[0]);
     FTempID   := lvSoundList.Selected.Caption;
     FTempFile := lvSoundList.Selected.SubItems[0];
-    lvSoundList.Selected.Caption     := lvSoundList.Items[lvSoundList.Selected.Index+1].Caption;
-    lvSoundList.Selected.SubItems[0] := lvSoundList.Items[lvSoundList.Selected.Index+1].SubItems[0];
-    lvSoundList.Items[lvSoundList.Selected.Index+1].Caption     := FTempID;
-    lvSoundList.Items[lvSoundList.Selected.Index+1].SubItems[0] := FTempFile;
-    lvSoundList.Selected := lvSoundList.Items[lvSoundList.Selected.Index+1];
+    lvSoundList.Selected.Caption     := lvSoundList.Items[lvSoundList.Selected.Index + 1].Caption;
+    lvSoundList.Selected.SubItems[0] := lvSoundList.Items[lvSoundList.Selected.Index + 1].SubItems[0];
+    lvSoundList.Items[lvSoundList.Selected.Index + 1].Caption     := FTempID;
+    lvSoundList.Items[lvSoundList.Selected.Index + 1].SubItems[0] := FTempFile;
+    lvSoundList.Selected := lvSoundList.Items[lvSoundList.Selected.Index + 1];
     lvSoundList.SetFocus;
     btnSaveSoundList.Enabled := True;
   end else lvSoundList.SetFocus;

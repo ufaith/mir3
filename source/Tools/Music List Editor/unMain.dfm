@@ -4624,6 +4624,9 @@ object frmEditorMain: TfrmEditorMain
       Caption = ' Sound List Editor '
       ParentShowHint = False
       ShowHint = False
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object RzPanel4: TRzPanel
         Left = 0
         Top = 0
@@ -4918,6 +4921,9 @@ object frmEditorMain: TfrmEditorMain
     end
     object TabSheet3: TRzTabSheet
       Caption = ' News and Changes '
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object RzMemo1: TRzMemo
         Left = 0
         Top = 0

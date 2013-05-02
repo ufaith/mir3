@@ -3,9 +3,30 @@ unit unMain;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, RzPanel, RzTabs, RzDBStat, RzStatus, ExtCtrls, RzBckgnd, StdCtrls,
-  RzLabel, Menus, RzTray, mir3_global_config, mir3_server_global;
+  { Delphi }
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  ExtCtrls,
+  StdCtrls,
+  Menus,
+  { Raize }
+  RzPanel,
+  RzTabs,
+  RzDBStat,
+  RzStatus,
+  RzBckgnd,
+  RzLabel,
+  RzTray,
+  { Mir3 Game Starter }
+  mir3_global_config,
+  mir3_server_global;
 
 type
   TfrmControlCenter = class(TForm)
@@ -351,15 +372,21 @@ implementation
     begin //FData := StrPas(AMessage.CopyDataStruct^.lpData);
       case AIdent of
         SG_FORM_HANDLE :;
-        SG_START_NOW   : begin
+
+        SG_START_NOW:
+        begin
           laStatus_LoginGate.Caption    := 'Starting';
           laStatus_LoginGate.Font.Color := $0000BFBF;
         end;
-        SG_START_OK    : begin
+
+        SG_START_OK:
+        begin
           laStatus_LoginGate.Caption    := 'Online';
           laStatus_LoginGate.Font.Color := $0000AA00;
         end;
-        SG_STOP_OK     : begin
+
+        SG_STOP_OK:
+        begin
           laStatus_LoginGate.Caption    := 'Online';
           laStatus_LoginGate.Font.Color := $00000093;
         end;
@@ -370,15 +397,21 @@ implementation
     begin //FData := StrPas(AMessage.CopyDataStruct^.lpData);
       case AIdent of
         SG_FORM_HANDLE :;
-        SG_START_NOW   : begin
+
+        SG_START_NOW:
+        begin
           laStatus_SelectCharGate.Caption    := 'Starting';
           laStatus_SelectCharGate.Font.Color := $0000BFBF;
         end;
-        SG_START_OK    : begin
+
+        SG_START_OK:
+        begin
           laStatus_SelectCharGate.Caption    := 'Online';
           laStatus_SelectCharGate.Font.Color := $0000AA00;
         end;
-        SG_STOP_OK     : begin
+
+        SG_STOP_OK:
+        begin
           laStatus_SelectCharGate.Caption    := 'Online';
           laStatus_SelectCharGate.Font.Color := $00000093;
         end;
@@ -389,15 +422,21 @@ implementation
     begin //FData := StrPas(AMessage.CopyDataStruct^.lpData);
       case AIdent of
         SG_FORM_HANDLE :;
-        SG_START_NOW   : begin
+
+        SG_START_NOW:
+        begin
           laStatus_RunGameGate.Caption    := 'Starting';
           laStatus_RunGameGate.Font.Color := $0000BFBF;
         end;
-        SG_START_OK    : begin
+
+        SG_START_OK:
+        begin
           laStatus_RunGameGate.Caption    := 'Online';
           laStatus_RunGameGate.Font.Color := $0000AA00;
         end;
-        SG_STOP_OK     : begin
+
+        SG_STOP_OK:
+        begin
           laStatus_RunGameGate.Caption    := 'Online';
           laStatus_RunGameGate.Font.Color := $00000093;
         end;
@@ -408,15 +447,21 @@ implementation
     begin //FData := StrPas(AMessage.CopyDataStruct^.lpData);
       case AIdent of
         SG_FORM_HANDLE :;
-        SG_START_NOW   : begin
+
+        SG_START_NOW:
+        begin
           laStatus_LoginServer.Caption    := 'Starting';
           laStatus_LoginServer.Font.Color := $0000BFBF;
         end;
-        SG_START_OK    : begin
+
+        SG_START_OK:
+        begin
           laStatus_LoginServer.Caption    := 'Online';
           laStatus_LoginServer.Font.Color := $0000AA00;
         end;
-        SG_STOP_OK     : begin
+
+        SG_STOP_OK:
+        begin
           laStatus_LoginServer.Caption    := 'Online';
           laStatus_LoginServer.Font.Color := $00000093;
         end;
@@ -427,15 +472,21 @@ implementation
     begin //FData := StrPas(AMessage.CopyDataStruct^.lpData);
       case AIdent of
         SG_FORM_HANDLE :;
-        SG_START_NOW   : begin
+
+        SG_START_NOW:
+        begin
           laStatus_DataBaseServer.Caption    := 'Starting';
           laStatus_DataBaseServer.Font.Color := $0000BFBF;
         end;
-        SG_START_OK    : begin
+
+        SG_START_OK:
+        begin
           laStatus_DataBaseServer.Caption    := 'Online';
           laStatus_DataBaseServer.Font.Color := $0000AA00;
         end;
-        SG_STOP_OK     : begin
+
+        SG_STOP_OK:
+        begin
           laStatus_DataBaseServer.Caption    := 'Online';
           laStatus_DataBaseServer.Font.Color := $00000093;
         end;
@@ -446,15 +497,21 @@ implementation
     begin //FData := StrPas(AMessage.CopyDataStruct^.lpData);
       case AIdent of
         SG_FORM_HANDLE :;
-        SG_START_NOW   : begin
+
+        SG_START_NOW:
+        begin
           laStatus_GameServer.Caption    := 'Starting';
           laStatus_GameServer.Font.Color := $0000BFBF;
         end;
-        SG_START_OK    : begin
+
+        SG_START_OK:
+        begin
           laStatus_GameServer.Caption    := 'Online';
           laStatus_GameServer.Font.Color := $0000AA00;
         end;
-        SG_STOP_OK     : begin
+
+        SG_STOP_OK:
+        begin
           laStatus_GameServer.Caption    := 'Online';
           laStatus_GameServer.Font.Color := $00000093;
         end;
@@ -465,15 +522,21 @@ implementation
     begin //FData := StrPas(AMessage.CopyDataStruct^.lpData);
       case AIdent of
         SG_FORM_HANDLE :;
-        SG_START_NOW   : begin
+
+        SG_START_NOW:
+        begin
           laStatus_LogServer.Caption    := 'Starting';
           laStatus_LogServer.Font.Color := $0000BFBF;
         end;
-        SG_START_OK    : begin
+
+        SG_START_OK:
+        begin
           laStatus_LogServer.Caption    := 'Online';
           laStatus_LogServer.Font.Color := $0000AA00;
         end;
-        SG_STOP_OK     : begin
+
+        SG_STOP_OK:
+        begin
           laStatus_LogServer.Caption    := 'Online';
           laStatus_LogServer.Font.Color := $00000093;
         end;
@@ -492,6 +555,5 @@ implementation
       //
     end;
   {$ENDREGION}
-
 
 end.

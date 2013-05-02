@@ -4032,14 +4032,9 @@ object frmLauncherMain: TfrmLauncherMain
     Align = alClient
     TabIndex = 0
     TabOrder = 1
-    ExplicitLeft = 96
-    ExplicitTop = 104
-    ExplicitWidth = 300
-    ExplicitHeight = 150
     FixedDimension = 19
     object TabSheet1: TRzTabSheet
       Caption = '  Server Information  '
-      ExplicitLeft = 2
       object Label4: TLabel
         Left = 40
         Top = 137
@@ -4102,7 +4097,7 @@ object frmLauncherMain: TfrmLauncherMain
         Top = 96
         Width = 145
         Height = 21
-        ItemHeight = 13
+        ItemHeight = 0
         TabOrder = 0
         Text = 'English'
         Items.Strings = (
@@ -4136,6 +4131,9 @@ object frmLauncherMain: TfrmLauncherMain
     object TabSheet3: TRzTabSheet
       Caption = '  Account Manager  '
       ExplicitLeft = 4
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label2: TLabel
         Left = 104
         Top = 64
@@ -4152,6 +4150,8 @@ object frmLauncherMain: TfrmLauncherMain
       Caption = '  Update  '
       ExplicitLeft = 4
       ExplicitTop = 6
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label1: TLabel
         Left = 104
         Top = 64

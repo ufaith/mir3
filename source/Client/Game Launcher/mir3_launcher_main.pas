@@ -3,20 +3,36 @@ unit mir3_launcher_main;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, RzCmboBx, RzButton, RzTabs, RzStatus, ExtCtrls, RzRadChk;
+  { Delphi }
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  StdCtrls,
+  ExtCtrls,
+  { Raize }
+  RzCmboBx,
+  RzButton,
+  RzTabs,
+  RzStatus,
+  RzRadChk;
 
 type
   PMir3_GameClientSetting = ^TMir3_GameClientSetting;
   TMir3_GameClientSetting = record
-    {Server Part}
+    { Server Part }
     FServer_1_Name : String[30];
     FServer_1_IP   : String[15];
     FServer_1_Port : Integer;
     FServer_2_Name : String[30];
     FServer_2_IP   : String[15];
     FServer_2_Port : Integer;
-    {Client Part}
+    { Client Part }
     FFull_Screen   : Boolean;
     FUseStartVideo : Boolean;
     FVideoVolume   : Integer;
@@ -47,9 +63,9 @@ type
     procedure btnExitGameClick(Sender: TObject);
     procedure btnStartGameClick(Sender: TObject);
   private
-    { Private-Deklarationen }
+    { Private - Declarations }
   public
-    { Public-Deklarationen }
+    { Public - Declarations }
   end;
 
 var
@@ -66,7 +82,7 @@ end;
 
 procedure TfrmLauncherMain.btnStartGameClick(Sender: TObject);
 begin
-  // Start Game
+  { Start Game }
 end;
 
 end.

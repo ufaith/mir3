@@ -2787,10 +2787,6 @@ object frmNewLibrary: TfrmNewLibrary
     BorderOuter = fsNone
     Color = 14935270
     TabOrder = 0
-    ExplicitLeft = 40
-    ExplicitTop = 97
-    ExplicitWidth = 361
-    ExplicitHeight = 129
     object laInfoText: TRzLabel
       Left = 12
       Top = 12
@@ -2954,8 +2950,5 @@ object frmNewLibrary: TfrmNewLibrary
     ParentFont = False
     TabOrder = 1
     VisualStyle = vsGradient
-    ExplicitLeft = -234
-    ExplicitTop = 73
-    ExplicitWidth = 877
   end
 end

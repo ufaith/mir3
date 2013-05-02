@@ -2,12 +2,21 @@ unit mir3_launcher_language;
 
 interface
 
-uses Windows, Classes, SysUtils;
+uses
+  { Delphi }
+  Windows,
+  SysUtils,
+  Classes;
+
+const
+  GBufferSize        = 10000;
+  C_LANGUAGE_GERMAN  = 0;
+  C_LANGUAGE_ENGLISH = 1;
 
 type
   TGetLangFileVersion    = function(): Integer; stdcall;
   TGetLangFileAutor      = function(Buffer: PChar) : Integer; stdcall;
-  {Game Lang}
+  { Game Language }
   TGetLangLauncherLine   = function(): Integer; stdcall;
   TGetLangLauncherString = function(ID: Integer; Buffer: PChar): Integer; stdcall;
 
@@ -30,14 +39,8 @@ type
 
 implementation
 
-const
-  GBufferSize        = 10000;
-  C_LANGUAGE_GERMAN  = 0;
-  C_LANGUAGE_ENGLISH = 1;
-
 var
   GBuffer  : PChar;
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // TMir3_LauncherLanguageEngine Constructor
@@ -45,12 +48,11 @@ var
 constructor TMir3_LauncherLanguageEngine.Create(ALanguage: Integer);
 begin
   inherited Create;
+
   FLang_Handle           := 0;
   FLangLauncherFileCols  := 0;
 
   // TODO : Search for language file in lib\
-
-
 
 //  case ALanguage of
 //    C_LANGUAGE_GERMAN  : begin
@@ -99,8 +101,10 @@ destructor TMir3_LauncherLanguageEngine.Destroy;
 begin
   if FLang_Handle <> 0 then
     FreeLibrary(FLang_Handle);
+
 //  if Assigned(GRenderEngine) then
 //    GRenderEngine.System_Log('Language engine destroy success');
+
   inherited Destroy;
 end;
 
@@ -190,8 +194,6 @@ begin
     Result := '.';
   end;
 end;
-
-
 
 procedure Initialize;
 begin
