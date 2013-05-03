@@ -1,43 +1,37 @@
-(*******************************************************************
- *   LomCN Mir3 Global Config File 2011                            *
- *                                                                 *
- *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.3                                           *
- *                                                                 *
- *   - File Info -                                                 *
- *                                                                 *
- *   This file holds Client and Server                             *
- *   records and communication protocol consts and                 *
- *   some help function...                                         *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- * Change History                                                  *
- *                                                                 *
- *  - 0.0.0.1 [2011-08-20] Coly : fist final clean up              *
- *  - 0.0.0.2 [2012-09-29] Coly : add Language and Spell Consts    *
- *  - 0.0.0.3 [2012-10-01] Coly : add Attack Mode Consts           *
- *                              - add Option record                *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- *  - TODO List for this *.pas file -                              *
- *-----------------------------------------------------------------*
- *  If a todo finished, then delete it here...                     *
- *  If you find a global TODO thats need to do, then add it here.. *
- *-----------------------------------------------------------------*
- *                                                                 *
- *  - TODO : -all -This file need more information /               *
- *                 hints (how to use const or records)             *
- *  - TODO : -all -A bit more clean up (delete all not used things)*
- *  - TODO : -all -Sorting the Const and Records                   *
- *  - TODO : -all -fill *.pas header information                   *
- *                 (how to need this file etc.)                    *
- *                                                                 *
- *******************************************************************)
+(*****************************************************************************
+ *   LomCN Mir3 Global Config File 2011                                      *
+ *                                                                           *
+ *   Web       : http://www.lomcn.co.uk                                      *
+ *   Version   : 0.0.0.3                                                     *
+ *                                                                           *
+ *   - File Info -                                                           *
+ *                                                                           *
+ *   This file holds Client and Server                                       *
+ *   records and communication protocol consts and                           *
+ *   some help function...                                                   *
+ *                                                                           *
+ *****************************************************************************
+ * Change History                                                            *
+ *                                                                           *
+ *  - 0.0.0.1 [2011-08-20] Coly : fist final clean up                        *
+ *  - 0.0.0.2 [2012-09-29] Coly : add Language and Spell Consts              *
+ *  - 0.0.0.3 [2012-10-01] Coly : add Attack Mode Consts and Options record  *
+ *                                                                           *
+ *****************************************************************************
+ *  - TODO List for this *.pas file -                                        *
+ *---------------------------------------------------------------------------*
+ *  If a todo finished, then delete it here...                               *
+ *  If you find a global TODO thats need to do, then add it here..           *
+ *---------------------------------------------------------------------------*
+ *                                                                           *
+ *  - TODO : -all -This file need more information /                         *
+ *                 hints (how to use const or records)                       *
+ *  - TODO : -all -A bit more clean up (delete all not used things)          *
+ *  - TODO : -all -Sorting the Const and Records                             *
+ *  - TODO : -all -fill *.pas header information                             *
+ *                 (how to need this file etc.)                              *
+ *                                                                           *
+ *****************************************************************************)
 
 unit mir3_global_config;
 

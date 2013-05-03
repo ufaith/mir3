@@ -38,7 +38,7 @@ uses
 {Delphi }  Windows, SysUtils, Classes, JSocket,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
 {Game   }  mir3_game_en_decode, mir3_game_language_engine,
-{Game   }  mir3_game_gui_defination, mir3_core_controls, mir3_global_config, mir3_game_sound,
+{Game   }  mir3_game_gui_definition, mir3_core_controls, mir3_global_config, mir3_game_sound,
 {Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils;
 
 { Callback Functions }
@@ -80,23 +80,23 @@ uses mir3_game_backend;
       Self.SetHotKeyEventCallback(@LoginGUIHotKeyEvent);
 
       { Create Login Forms and Controls }
-      FLoginForm  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_Login.FLogin_Background, True));
-      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_BackPanel_1       , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_BackPanel_2       , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_EditField_User    , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_EditField_Password, True);
-      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_Button_Exit       , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_Button_Login      , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_Button_URL_1      , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_Button_URL_2      , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Defination_Login.FLogin_Information_Field , True);
+      FLoginForm  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_Login.FLogin_Background, True));
+      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_BackPanel_1       , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_BackPanel_2       , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_EditField_User    , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_EditField_Password, True);
+      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_Button_Exit       , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_Button_Login      , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_Button_URL_1      , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_Button_URL_2      , True);
+      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_Information_Field , True);
 
       { Create System Forms and Controls }
-      FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_System.FSys_Dialog_Info, False));
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Dialog_Text , True);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Ok   , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Yes  , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_No   , False);
+      FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_System.FSys_Dialog_Info, False));
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Dialog_Text , True);
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Ok   , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Yes  , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_No   , False);
       
       // later use Config file
       TMIR3_GUI_Panel(GetComponentByID(GUI_ID_LOGIN_BUTTON_INFO)).Caption := 'Hello'+#10#13+

@@ -475,13 +475,13 @@ type
     FFormType           : TMIR3_GUI_Form_Type;       // if Static or Movable Form
     FParentGUIContainer : TMIR3_GUI_Manager;         // Parent GUI Container
   public
-    FGUI_Defination     : TMir3_GUI_Ground_Info;
+    FGUI_Definition     : TMir3_GUI_Ground_Info;
   public
     constructor Create(AFormType: TMIR3_GUI_Form_Type; PParentGUIManager: TMIR3_GUI_Manager = nil);
     destructor Destroy; override;
   public
     procedure OnRenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
-    procedure Add_GUI_Defination(PGUI_Defination: PMir3_GUI_Ground_Info);
+    procedure Add_GUI_Definition(PGUI_Definition: PMir3_GUI_Ground_Info);
     function OnMsgProc(hWnd: HWND; uMsg: LongWord; wParam: WPARAM; lParam: LPARAM): Boolean;
     procedure OnMouseMove(AMousePoint: TPoint);
     procedure OnMouseDown(AMousePoint: TPoint);
@@ -515,7 +515,7 @@ type
     FDebugMode              : Boolean;               // Only for Programming
     FControlIdentifier      : Cardinal;              // unique control number
   public
-    FGUI_Defination         : TMir3_GUI_Ground_Info;
+    FGUI_Definition         : TMir3_GUI_Ground_Info;
     FTop                    : Integer;               // Control Top Position
     FLeft                   : Integer;               // Control Left Position
     FWidth                  : Integer;               // Control Width
@@ -526,12 +526,12 @@ type
     FParentGUIForm          : TMIR3_GUI_Form;        // Parent GUI Form
     FControlState           : TMIR3_Control_State;
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); dynamic;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); dynamic;
     destructor Destroy; override;
   public
     function ContainsPoint(AMousePoint: TPoint): LongBool;                       virtual;
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); virtual;
-    procedure Add_GUI_Defination(PGUI_Defination: PMir3_GUI_Ground_Info);        virtual;
+    procedure Add_GUI_Definition(PGUI_Definition: PMir3_GUI_Ground_Info);        virtual;
     procedure OnRefresh;                                                         virtual;
     procedure OnFocusIn;                                                         virtual;
     procedure OnFocusOut;                                                        virtual;
@@ -558,7 +558,7 @@ type
     FAnimationCount : Integer;
     FCaption        : String;
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
     function HandleMouse(uMsg: LongWord; AMousePoint: TPoint; wParam: WPARAM; lParam: LPARAM): Boolean; override;
@@ -588,7 +588,7 @@ type
     FInsertMode       : Boolean;
     FMouseDrag        : Boolean;
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
     procedure SetFocus;
@@ -611,7 +611,7 @@ type
   TMIR3_GUI_Grid        = class(TMIR3_GUI_Default)
   private
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
   end;
@@ -629,7 +629,7 @@ type
     function GetSelected: Boolean;
     procedure SetSelected(AValue: Boolean);
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     function ContainsPoint(AMousePoint: TPoint): LongBool; override;
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
@@ -646,7 +646,7 @@ type
   TMIR3_GUI_List_Box    = class(TMIR3_GUI_Default)
   private
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
   end;
@@ -655,7 +655,7 @@ type
   TMIR3_GUI_ComboBox    = class(TMIR3_GUI_Default)
   private
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
   end;
@@ -664,7 +664,7 @@ type
   TMIR3_GUI_CheckBox    = class(TMIR3_GUI_Default)
   private
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
   end;
@@ -673,7 +673,7 @@ type
   TMIR3_GUI_RadioButton = class(TMIR3_GUI_Default)
   private
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;  
   end;
@@ -699,7 +699,7 @@ type
     function GetCharacterInfo: TMir3Character;
     procedure SetCharacterInfo(AValue : TMir3Character);
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
     procedure ResetSelection(ASelected: Boolean);
@@ -714,7 +714,7 @@ type
   private
     FDrawOptionSet : TMir3_DrawSetting_Set;
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
   end;
@@ -722,7 +722,7 @@ type
   (* class TMIR3_GUI_TextLabel *)
   TMIR3_GUI_TextLabel  = class(TMIR3_GUI_Panel)
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
   end;
@@ -745,7 +745,7 @@ type
     function ValueFromPos(AValue: Integer): Integer;
     procedure SetValue(AValue: Integer);
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure OnMouseLeave; override;
     function ContainsPoint(AMousePoint: TPoint): LongBool; override;
@@ -761,7 +761,7 @@ type
   public
     FCaption : String;
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
   end;
@@ -797,7 +797,7 @@ type
     procedure SetPageSize(APageSize: Integer);
     procedure SetTrackPos(APosition: Integer);
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     procedure OnMouseLeave; override;
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
@@ -815,7 +815,7 @@ type
     FCaption   : String;
     FMagicFKey : Integer;
   public
-    constructor Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     function ContainsPoint(AMousePoint: TPoint): LongBool; override;
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
@@ -1212,7 +1212,7 @@ var
             Result := FTempForm.OnMsgProc(hWnd, uMsg, wParam, lParam);
             if Result then
               Exit;
-            if FTempForm.FGUI_Defination.gui_Modal_Event then
+            if FTempForm.FGUI_Definition.gui_Modal_Event then
               Break;
           end;
       end;
@@ -1346,7 +1346,7 @@ var
       FFormControl := TMIR3_GUI_Form.Create(AGroundInfo.gui_Form_Type, Self);
       with FFormControl do
       begin                                         
-        FGUI_Defination    := AGroundInfo;
+        FGUI_Definition    := AGroundInfo;
         FControlIdentifier := AGroundInfo.gui_Unique_Control_Number;
         FVisible           := AVisible;
         FEnabled           := AGroundInfo.gui_Enabled;
@@ -1358,9 +1358,9 @@ var
         if  AGroundInfo.gui_Window_Text.gui_Window_Caption_ID > 0 then
            FCaption := GGameEngine.GameLanguage.GetTextFromLangSystem(AGroundInfo.gui_Window_Text.gui_Window_Caption_ID)
         else FCaption := AGroundInfo.gui_Window_Text.gui_Window_Caption;
-        if FGUI_Defination.gui_Use_Random_Texture then
+        if FGUI_Definition.gui_Use_Random_Texture then
         begin
-          with FGUI_Defination.gui_Control_Texture do
+          with FGUI_Definition.gui_Control_Texture do
             gui_Background_Texture_ID := RandomRange(gui_Random_Texture_From, gui_Random_Texture_To);
         end;
       end;
@@ -1413,7 +1413,7 @@ var
           FControl := TMIR3_GUI_Panel.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctPanel;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1435,7 +1435,7 @@ var
           FControl := TMIR3_GUI_Edit.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctEdit;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1457,7 +1457,7 @@ var
           FControl := TMIR3_GUI_Grid.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctGrid;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1479,7 +1479,7 @@ var
           FControl := TMIR3_GUI_Button.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctButton;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1501,7 +1501,7 @@ var
           FControl := TMIR3_GUI_List_Box.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctListBox;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1523,7 +1523,7 @@ var
           FControl := TMIR3_GUI_ComboBox.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctComboBox;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1545,7 +1545,7 @@ var
           FControl := TMIR3_GUI_CheckBox.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctCheckBox;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1567,7 +1567,7 @@ var
           FControl := TMIR3_GUI_RadioButton.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctRadioButton;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1589,7 +1589,7 @@ var
           FControl := TMIR3_GUI_SelectChar.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctSelectChar;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1611,7 +1611,7 @@ var
           FControl := TMIR3_GUI_TextButton.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctTextButton;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1633,7 +1633,7 @@ var
           FControl := TMIR3_GUI_TextLabel.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctTextLabel;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1655,7 +1655,7 @@ var
           FControl := TMIR3_GUI_Slider.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctSlider;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1679,7 +1679,7 @@ var
           FControl := TMIR3_GUI_Progress.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctProgress;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1701,7 +1701,7 @@ var
           FControl := TMIR3_GUI_Scrollbar.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctScrollbar;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -1724,7 +1724,7 @@ var
           FControl := TMIR3_GUI_MagicButton.Create(@AGroundInfo, Self);
           with FControl do
           begin
-            FGUI_Defination   := AGroundInfo;
+            FGUI_Definition   := AGroundInfo;
             FControlType      := ctMagicButton;
             FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
             FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
@@ -2183,11 +2183,11 @@ var
           GRenderEngine.Rectangle(FLeft, FTop, FWidth, FHeight, $FFFF0000, True);
         end else begin
 		      (* Render Form with given Texture *)
-          with FGUI_Defination, gui_Control_Texture, GGameEngine.FGameFileManger do
+          with FGUI_Definition, gui_Control_Texture, GGameEngine.FGameFileManger do
           begin
             if gui_Texture_File_ID <> 0 then
             begin
-              if FGUI_Defination.gui_Use_Strech_Texture then
+              if FGUI_Definition.gui_Use_Strech_Texture then
               begin
                 DrawStrech(gui_Background_Texture_ID, gui_Texture_File_ID, FLeft, FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, 2{BLEND_DEFAULT}, gui_Blend_Size);
               end else begin
@@ -2209,16 +2209,16 @@ var
       end;
     end;
 
-    procedure TMIR3_GUI_Form.Add_GUI_Defination(PGUI_Defination: PMir3_GUI_Ground_Info);
+    procedure TMIR3_GUI_Form.Add_GUI_Definition(PGUI_Definition: PMir3_GUI_Ground_Info);
     begin
-      if Assigned(PGUI_Defination) then
+      if Assigned(PGUI_Definition) then
       begin
-        FGUI_Defination    := PGUI_Defination^;
-        FControlIdentifier := FGUI_Defination.gui_Unique_Control_Number;
-        FLeft              := FGUI_Defination.gui_Left;
-        FTop               := FGUI_Defination.gui_Top;
-        FWidth             := FGUI_Defination.gui_Width;
-        FHeight            := FGUI_Defination.gui_Height;
+        FGUI_Definition    := PGUI_Definition^;
+        FControlIdentifier := FGUI_Definition.gui_Unique_Control_Number;
+        FLeft              := FGUI_Definition.gui_Left;
+        FTop               := FGUI_Definition.gui_Top;
+        FWidth             := FGUI_Definition.gui_Width;
+        FHeight            := FGUI_Definition.gui_Height;
       end;
     end;
 
@@ -2241,7 +2241,7 @@ var
       end;
       //////////////////////////////////////////////////////////////////////////////////////
       // If caption is enable, check for clicks in the caption area.
-      if FVisibleCaption or (FGUI_Defination.gui_Form_Type = ftMoving) then
+      if FVisibleCaption or (FGUI_Definition.gui_Form_Type = ftMoving) then
       begin
         // Test if Control under the Mouse
         FMousePoint := Point(short(LOWORD(DWORD(lParam))), short(HIWORD(DWORD(lParam))));
@@ -2258,9 +2258,9 @@ var
           if (uMsg = WM_LBUTTONDBLCLK) then
           begin
             FMousePoint := Point(short(LOWORD(DWORD(lParam))), short(HIWORD(DWORD(lParam))));
-            if Self.FGUI_Defination.gui_WorkField.Bottom > 0 then
+            if Self.FGUI_Definition.gui_WorkField.Bottom > 0 then
             begin
-              with Self.FGUI_Defination do
+              with Self.FGUI_Definition do
               begin
                 if (FMousePoint.x >= FLeft  + gui_WorkField.Left) and
                    (FMousePoint.x <  FLeft  + gui_WorkField.Left + gui_WorkField.Right) and
@@ -2290,9 +2290,9 @@ var
           if (uMsg = WM_LBUTTONDOWN) then
           begin
             FMousePoint := Point(short(LOWORD(DWORD(lParam))), short(HIWORD(DWORD(lParam))));
-            if Self.FGUI_Defination.gui_WorkField.Bottom > 0 then
+            if Self.FGUI_Definition.gui_WorkField.Bottom > 0 then
             begin
-              with Self.FGUI_Defination do
+              with Self.FGUI_Definition do
               begin
                 if (FMousePoint.x >= FLeft  + gui_WorkField.Left) and
                    (FMousePoint.x <  FLeft  + gui_WorkField.Left + gui_WorkField.Right) and
@@ -2300,7 +2300,7 @@ var
                    (FMousePoint.y <  FTop   + gui_WorkField.Top  + gui_WorkField.Bottom) then
                 begin
                   FParentGUIContainer.FFormFocusHandle := Self;
-                  if Self.FGUI_Defination.gui_Form_Type <> ftBackground then
+                  if Self.FGUI_Definition.gui_Form_Type <> ftBackground then
                   begin
                     FParentGUIContainer.SetZOrder(Self);
                     FDragMode := True;
@@ -2316,7 +2316,7 @@ var
                  (FMousePoint.y >= FTop)  and (FMousePoint.y < FTop  + FHeight) then
               begin
                 FParentGUIContainer.FFormFocusHandle := Self;
-                if Self.FGUI_Defination.gui_Form_Type <> ftBackground then
+                if Self.FGUI_Definition.gui_Form_Type <> ftBackground then
                 begin
                   FParentGUIContainer.SetZOrder(Self);
                   FDragMode := True;
@@ -2331,9 +2331,9 @@ var
             if (uMsg = WM_LBUTTONUP) then
             begin
               FMousePoint := Point(short(LOWORD(DWORD(lParam))), short(HIWORD(DWORD(lParam))));
-              if Self.FGUI_Defination.gui_WorkField.Bottom > 0 then
+              if Self.FGUI_Definition.gui_WorkField.Bottom > 0 then
               begin
-                with Self.FGUI_Defination do
+                with Self.FGUI_Definition do
                 begin
                   if (FMousePoint.x >= FLeft  + gui_WorkField.Left) and
                      (FMousePoint.x <  FLeft  + gui_WorkField.Left + gui_WorkField.Right) and
@@ -2593,7 +2593,7 @@ var
     //..............................................................................
     procedure TMIR3_GUI_Form.SetTextureID(ATextureID: Integer; AType: Integer=0);
     begin
-      with FGUI_Defination.gui_Control_Texture do
+      with FGUI_Definition.gui_Control_Texture do
       begin
         case AType of
          0  : gui_Background_Texture_ID                          := ATextureID;
@@ -2647,11 +2647,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Default Form control constructor
     //..............................................................................
-    constructor TMIR3_GUI_Default.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_Default.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited Create;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer      := PParentGUIManager;
       FParentGUIForm           := nil;
       FTop                     := 0;
@@ -2674,16 +2674,16 @@ var
   {$ENDREGION} 
 
   {$REGION ' - TMIR3_GUI_Default :: class getter and setter  '}
-    procedure TMIR3_GUI_Default.Add_GUI_Defination(PGUI_Defination: PMir3_GUI_Ground_Info);
+    procedure TMIR3_GUI_Default.Add_GUI_Definition(PGUI_Definition: PMir3_GUI_Ground_Info);
     begin
-      if Assigned(PGUI_Defination) then
+      if Assigned(PGUI_Definition) then
       begin
-        FGUI_Defination    := PGUI_Defination^;
-        FControlIdentifier := FGUI_Defination.gui_Unique_Control_Number;
-        FLeft              := FGUI_Defination.gui_Left;
-        FTop               := FGUI_Defination.gui_Top;
-        FWidth             := FGUI_Defination.gui_Width;
-        FHeight            := FGUI_Defination.gui_Height;
+        FGUI_Definition    := PGUI_Definition^;
+        FControlIdentifier := FGUI_Definition.gui_Unique_Control_Number;
+        FLeft              := FGUI_Definition.gui_Left;
+        FTop               := FGUI_Definition.gui_Top;
+        FWidth             := FGUI_Definition.gui_Width;
+        FHeight            := FGUI_Definition.gui_Height;
       end;
     end;
 
@@ -2827,18 +2827,18 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Panel Form control constructor
     //..............................................................................   
-    constructor TMIR3_GUI_Panel.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_Panel.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FMouseState         := bsBase;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctPanel;
       FCaption            := '';
       FAnimationCount     := 30;
       FAnimationTime      := GetTickCount;
-      FGUI_Defination.gui_Animation.gui_Animation_Current := 0;
+      FGUI_Definition.gui_Animation.gui_Animation_Current := 0;
     end;
   {$ENDREGION} 
   
@@ -2861,13 +2861,13 @@ var
 		    (* Render Panel without Texture in Debug Mode *)
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
-        if FGUI_Defination.gui_ShowPanel then
-          GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Defination.gui_Color.gui_ControlColor, True);
-        if FGUI_Defination.gui_ShowBorder then
-          GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Defination.gui_Color.gui_BorderColor, False);
+        if FGUI_Definition.gui_ShowPanel then
+          GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Definition.gui_Color.gui_ControlColor, True);
+        if FGUI_Definition.gui_ShowBorder then
+          GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Definition.gui_Color.gui_BorderColor, False);
           
         (* Render Panel with given Texture *)
-        with FGUI_Defination, gui_Font, gui_Control_Texture, gui_Animation, GGameEngine.FGameFileManger, GGameEngine.FontManager do
+        with FGUI_Definition, gui_Font, gui_Control_Texture, gui_Animation, GGameEngine.FGameFileManger, GGameEngine.FontManager do
         begin
           if gui_Texture_File_ID > 74 then
           begin
@@ -3068,7 +3068,7 @@ var
     //..............................................................................
     procedure TMIR3_GUI_Panel.SetTextureID(ATextureID: Integer; AType: Integer=0);
     begin
-      with FGUI_Defination.gui_Control_Texture do
+      with FGUI_Definition.gui_Control_Texture do
       begin
         case AType of
          0  : gui_Background_Texture_ID                          := ATextureID;
@@ -3109,7 +3109,7 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Edit Form control constructor
     //..............................................................................   
-    constructor TMIR3_GUI_Edit.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_Edit.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
       FParentGUIContainer := PParentGUIManager;
@@ -3127,10 +3127,10 @@ var
       FMouseDrag          := False;
       FSelectColor        := D3DCOLOR_ARGB(128, 70, 108, 155);
       FCaretColor         := D3DCOLOR_ARGB(245, 110, 110, 110);
-      if Assigned(PGUI_Defination) then
+      if Assigned(PGUI_Definition) then
       begin
-        FGUI_Defination := PGUI_Defination^;
-        MaxLen          := FGUI_Defination.gui_Edit_Max_Length;
+        FGUI_Definition := PGUI_Definition^;
+        MaxLen          := FGUI_Definition.gui_Edit_Max_Length;
       end;      
     end;
   {$ENDREGION}
@@ -3164,10 +3164,10 @@ var
         FSelStartX := 0;
         FFirstChar := 0;
 
-        with FGUI_Defination, gui_Font, gui_Color, FDrawSetting, GGameEngine.FontManager do
+        with FGUI_Definition, gui_Font, gui_Color, FDrawSetting, GGameEngine.FontManager do
         begin                                                                                                                     
           GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, gui_ControlColor, True);
-          if FGUI_Defination.gui_ShowBorder then
+          if FGUI_Definition.gui_ShowBorder then
             GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, gui_BorderColor, False);
 
           SetRect(FTextRect, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FParentGUIForm.FLeft + FLeft+FWidth, FParentGUIForm.FTop + FTop+FHeight);
@@ -3313,7 +3313,7 @@ var
         end;
         WM_CHAR    : begin
           {$REGION ' - Key Char Handling '}
-            if not(Char(wParam) in FGUI_Defination.gui_Edit_Using_ASCII) then
+            if not(Char(wParam) in FGUI_Definition.gui_Edit_Using_ASCII) then
             begin
               Result := True;
               exit;
@@ -3385,7 +3385,7 @@ var
               MIR3_VK_CTRL_SLASH,                    // \
               MIR3_VK_CTRL_BRACE_O: {Do Nothing} ;   // [
             else {case}
-              if not(Char(wParam) in FGUI_Defination.gui_Edit_Using_ASCII) then
+              if not(Char(wParam) in FGUI_Definition.gui_Edit_Using_ASCII) then
               begin
                 Result := True;
                 exit;
@@ -3460,8 +3460,8 @@ var
           FTempCaredPt := 0;
           SetCapture(GRenderEngine.GetGameHWND);
           // Determine the character corresponding to the coordinates.
-          GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Defination.gui_Font.gui_Font_Use_ID, Text, FFirstVisibleChar, FTempFirstX1);
-          GGameEngine.FontManager.GetFirstPositionOfChar(FGUI_Defination.gui_Font.gui_Font_Use_ID, Text, AMousePoint.x - FOffset.left + FTempFirstX1, FTempCaredPt, True);
+          GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Definition.gui_Font.gui_Font_Use_ID, Text, FFirstVisibleChar, FTempFirstX1);
+          GGameEngine.FontManager.GetFirstPositionOfChar(FGUI_Definition.gui_Font.gui_Font_Use_ID, Text, AMousePoint.x - FOffset.left + FTempFirstX1, FTempCaredPt, True);
           PlaceCaret(FTempCaredPt);
           FSelectStartPos := FCaretPos;
           ResetCaretBlink;
@@ -3481,8 +3481,8 @@ var
             // Determine the character corresponding to the coordinates.
             FTempFirstX1 := 0;
             FTempCaredPt := 0;
-            GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Defination.gui_Font.gui_Font_Use_ID, Text, FFirstVisibleChar, FTempFirstX1);
-            GGameEngine.FontManager.GetFirstPositionOfChar(FGUI_Defination.gui_Font.gui_Font_Use_ID, Text, AMousePoint.x - FOffset.left + FTempFirstX1, FTempCaredPt);
+            GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Definition.gui_Font.gui_Font_Use_ID, Text, FFirstVisibleChar, FTempFirstX1);
+            GGameEngine.FontManager.GetFirstPositionOfChar(FGUI_Definition.gui_Font.gui_Font_Use_ID, Text, AMousePoint.x - FOffset.left + FTempFirstX1, FTempCaredPt);
             PlaceCaret(FTempCaredPt);
           end;
           {$ENDREGION}
@@ -3655,7 +3655,7 @@ var
       FFirst  : Integer;
       FLast   : Integer;
     begin
-      if FGUI_Defination.gui_Password_Char <> '' then Exit;
+      if FGUI_Definition.gui_Password_Char <> '' then Exit;
       if (FCaretPos <> FSelectStartPos) and OpenClipboard(0) then
       begin
         EmptyClipboard;
@@ -3688,7 +3688,7 @@ var
     begin
       DeleteSelectionText;
 
-      if FGUI_Defination.gui_Password_Char <> '' then Exit;
+      if FGUI_Definition.gui_Password_Char <> '' then Exit;
     
       if OpenClipboard(0) then
       begin
@@ -3745,23 +3745,23 @@ var
     begin
       FCaretPos := ACaretPlace;
 
-      GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Defination.gui_Font.gui_Font_Use_ID, Text, FFirstVisibleChar, nX1st); // 1st visible char
-      GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Defination.gui_Font.gui_Font_Use_ID, Text, ACaretPlace, nX); // LEAD
+      GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Definition.gui_Font.gui_Font_Use_ID, Text, FFirstVisibleChar, nX1st); // 1st visible char
+      GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Definition.gui_Font.gui_Font_Use_ID, Text, ACaretPlace, nX); // LEAD
 
       if (ACaretPlace = FStringBuffer.TextSize) then
         nX2 := nX
-      else GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Defination.gui_Font.gui_Font_Use_ID, Text, ACaretPlace, nX2); // TRAIL
+      else GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Definition.gui_Font.gui_Font_Use_ID, Text, ACaretPlace, nX2); // TRAIL
 
       if (nX < nX1st) then
       begin
         FFirstVisibleChar := ACaretPlace;
-      end else if (nX2 > nX1st + RectWidth(FGUI_Defination.gui_WorkField)) then
+      end else if (nX2 > nX1st + RectWidth(FGUI_Definition.gui_WorkField)) then
                begin
                  nCPNew1st := 0;
-                 nXNewLeft := nX2 - RectWidth(FGUI_Defination.gui_WorkField);
+                 nXNewLeft := nX2 - RectWidth(FGUI_Definition.gui_WorkField);
 
-                 GGameEngine.FontManager.GetFirstPositionOfChar(FGUI_Defination.gui_Font.gui_Font_Use_ID, Text, nXNewLeft, nCPNew1st);
-                 GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Defination.gui_Font.gui_Font_Use_ID, Text, nCPNew1st, nXNew1st);
+                 GGameEngine.FontManager.GetFirstPositionOfChar(FGUI_Definition.gui_Font.gui_Font_Use_ID, Text, nXNewLeft, nCPNew1st);
+                 GGameEngine.FontManager.GetFirstVisibleChar(FGUI_Definition.gui_Font.gui_Font_Use_ID, Text, nCPNew1st, nXNew1st);
                  if (nXNew1st < nXNewLeft) then Inc(nCPNew1st);
 
                  FFirstVisibleChar := nCPNew1st;
@@ -3776,11 +3776,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Grid Form control constructor
     //..............................................................................    
-    constructor TMIR3_GUI_Grid.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_Grid.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctGrid;
     end;
@@ -3800,7 +3800,7 @@ var
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
 		    (* Render Grid with given Texture *)
-        with FGUI_Defination, gui_Control_Texture, GGameEngine.FGameFileManger do
+        with FGUI_Definition, gui_Control_Texture, GGameEngine.FGameFileManger do
         begin
           if gui_Texture_File_ID > 74 then
           begin
@@ -3822,16 +3822,16 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Button Form control constructor
     //..............................................................................   
-    constructor TMIR3_GUI_Button.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_Button.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctButton;
       FButtonState        := bsBase;
 
-      with FGUI_Defination, gui_Btn_Font_Color do
+      with FGUI_Definition, gui_Btn_Font_Color do
       begin
         if gui_ColorSelect <> 0 then
           ColorSelect := gui_ColorSelect
@@ -3864,7 +3864,7 @@ var
 		    (* Render Button without Texture in Debug Mode *)
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
-        with FGUI_Defination, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
+        with FGUI_Definition, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
         begin
           if FMouseOver and (FButtonState = bsBase) then
           begin
@@ -4067,11 +4067,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_List_Box Form control constructor
     //.............................................................................. 
-    constructor TMIR3_GUI_List_Box.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_List_Box.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctListBox;
     end;
@@ -4091,7 +4091,7 @@ var
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
 		    (* Render List Box with given Texture *)
-        with FGUI_Defination, gui_Control_Texture, GGameEngine.FGameFileManger do
+        with FGUI_Definition, gui_Control_Texture, GGameEngine.FGameFileManger do
         begin
           if gui_Texture_File_ID > 74 then
           begin
@@ -4113,11 +4113,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_ComboBox Form control constructor
     //..............................................................................   
-    constructor TMIR3_GUI_ComboBox.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_ComboBox.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctComboBox;
     end;
@@ -4140,11 +4140,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_CheckBox Form control constructor
     //..............................................................................    
-    constructor TMIR3_GUI_CheckBox.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_CheckBox.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctCheckBox;
     end;
@@ -4167,11 +4167,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_RadioButton Form control constructor
     //..............................................................................  
-    constructor TMIR3_GUI_RadioButton.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_RadioButton.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctRadioButton;
     end;
@@ -4194,11 +4194,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_SelectChar Form control constructor
     //.............................................................................. 
-    constructor TMIR3_GUI_SelectChar.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_SelectChar.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctSelectChar;
       FStartTime          := GetTickCount;
@@ -4417,7 +4417,7 @@ var
               end;
               FShadowImageNumber := FCurrentImageNumber + 20;
 
-              with FGUI_Defination, gui_Control_Texture, GGameEngine.FGameFileManger do
+              with FGUI_Definition, gui_Control_Texture, GGameEngine.FGameFileManger do
               begin
 		          (* Render Select Char Panel with given Texture *)
                 if gui_Texture_File_ID > 74 then
@@ -4561,7 +4561,7 @@ var
               end;
 
 		          (* Render Create Char Panel with given Texture *)
-              with FGUI_Defination, gui_Control_Texture, GGameEngine.FGameFileManger do
+              with FGUI_Definition, gui_Control_Texture, GGameEngine.FGameFileManger do
               begin
                 if gui_Texture_File_ID > 74 then
                 begin
@@ -4634,11 +4634,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_TextButton Form control constructor
     //..............................................................................  
-    constructor TMIR3_GUI_TextButton.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_TextButton.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctTextButton;
       with FDrawOptionSet do
@@ -4647,7 +4647,7 @@ var
         dsDrawSettingHint.dsOptimizeSet := False;
       end;
 
-      with FGUI_Defination.gui_Btn_Font_Color do
+      with FGUI_Definition.gui_Btn_Font_Color do
       begin
         if gui_ColorSelect <> 0 then
           ColorSelect := gui_ColorSelect
@@ -4680,7 +4680,7 @@ var
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
 
-        with FGUI_Defination, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
+        with FGUI_Definition, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
         begin
           FRenderColor := gui_Font_Color;
           if FMouseOver and (FButtonState = bsBase) then
@@ -4792,11 +4792,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_TextLabel Form control constructor
     //..............................................................................
-    constructor TMIR3_GUI_TextLabel.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_TextLabel.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctTextLabel;
       FCaption            := '';
@@ -4820,7 +4820,7 @@ var
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
 		    (* Render TextLabel with given Texture *)
-        with FGUI_Defination, gui_Font, GGameEngine.FGameFileManger do
+        with FGUI_Definition, gui_Font, GGameEngine.FGameFileManger do
         begin
           if (Trim(FCaption) <> '') or (gui_CaptionID > 0) then
           begin
@@ -4918,18 +4918,18 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Slider Form control constructor
     //..............................................................................
-    constructor TMIR3_GUI_Slider.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_Slider.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctSlider;
-      if FGUI_Defination.gui_Slider_Setup.gui_Max <> 0 then
+      if FGUI_Definition.gui_Slider_Setup.gui_Max <> 0 then
       begin
-        FMin                := FGUI_Defination.gui_Slider_Setup.gui_Min;
-        FMax                := FGUI_Defination.gui_Slider_Setup.gui_Max;
-        FValue              := FGUI_Defination.gui_Slider_Setup.gui_Value;
+        FMin                := FGUI_Definition.gui_Slider_Setup.gui_Min;
+        FMax                := FGUI_Definition.gui_Slider_Setup.gui_Max;
+        FValue              := FGUI_Definition.gui_Slider_Setup.gui_Value;
       end else begin
         FMin                := 0;
         FMax                := 100;
@@ -4956,7 +4956,7 @@ var
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
 		    (* Render Slider with given Texture *)
-        with FGUI_Defination, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
+        with FGUI_Definition, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
         begin
 
           if (gui_Background_Texture_ID > 0) then
@@ -5015,8 +5015,8 @@ var
         WM_LBUTTONDBLCLK:
         begin
           SetRect(FButton, FParentGUIForm.FLeft + FLeft + FLButton-5, FParentGUIForm.FTop + FTop,
-                   FParentGUIForm.FLeft + FLeft+ FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Right+ FLButton,
-                   FParentGUIForm.FTop  + FTop + FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Bottom);
+                   FParentGUIForm.FLeft + FLeft+ FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Right+ FLButton,
+                   FParentGUIForm.FTop  + FTop + FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Bottom);
 
           if PtInRect(FButton, AMousePoint) then
           begin
@@ -5112,7 +5112,7 @@ var
         Result := PtInRect(Rect(FLeft,FTop,FLeft+FWidth,FTop+FHeight), AMousePoint) or PtInRect(FButton, AMousePoint);
       end else begin
         Result := PtInRect(Rect(FParentGUIForm.FLeft + FLeft ,FParentGUIForm.FTop + FTop,FParentGUIForm.FLeft + FLeft+FWidth,FParentGUIForm.FTop + FTop+FHeight), AMousePoint) or
-                  PtInRect(Rect(FParentGUIForm.FLeft + FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Left + FLButton,FParentGUIForm.FTop +  FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Top,FParentGUIForm.FLeft +  FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Left+ FLButton + FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Right,FParentGUIForm.FTop +  FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Top+ FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Bottom), AMousePoint);
+                  PtInRect(Rect(FParentGUIForm.FLeft + FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Left + FLButton,FParentGUIForm.FTop +  FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Top,FParentGUIForm.FLeft +  FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Left+ FLButton + FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Right,FParentGUIForm.FTop +  FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Top+ FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Bottom), AMousePoint);
       end;
     end;
 
@@ -5122,12 +5122,12 @@ var
       FLButton := 0;
       if (FMax - FMin) <> 0 then
       begin
-        FButtonX := Trunc(((FValue - FMin) * RectWidth(FGUI_Defination.gui_WorkField) / (FMax - FMin)));
+        FButtonX := Trunc(((FValue - FMin) * RectWidth(FGUI_Definition.gui_WorkField) / (FMax - FMin)));
         FLButton := FLButton + FButtonX;
       end;
       SetRect(FButton, FParentGUIForm.FLeft + FLeft+FLButton, FParentGUIForm.FTop + FTop,
-                       FParentGUIForm.FLeft + FLeft+ FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Right+FLButton,
-                       FParentGUIForm.FTop  + FTop + FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Bottom);
+                       FParentGUIForm.FLeft + FLeft+ FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Right+FLButton,
+                       FParentGUIForm.FTop  + FTop + FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Bottom);
     end;
 
     procedure TMIR3_GUI_Slider.SetValueInternal(AValue: Integer; AFromInput: Boolean);
@@ -5145,8 +5145,8 @@ var
     var
       FValuePerPixel: Single;
     begin
-      FValuePerPixel := (FMax - FMin) / RectWidth(FGUI_Defination.gui_WorkField);
-      Result         := Trunc((0.5 + FMin + FValuePerPixel * (AValue - FGUI_Defination.gui_WorkField.left)));
+      FValuePerPixel := (FMax - FMin) / RectWidth(FGUI_Definition.gui_WorkField);
+      Result         := Trunc((0.5 + FMin + FValuePerPixel * (AValue - FGUI_Definition.gui_WorkField.left)));
     end;
 
     procedure TMIR3_GUI_Slider.SetValue(AValue: Integer);
@@ -5163,11 +5163,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Progress Form control constructor
     //..............................................................................  
-    constructor TMIR3_GUI_Progress.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_Progress.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctProgress;
       FCaption := '10000 / 10000';
@@ -5186,7 +5186,7 @@ var
       FDrawSetting  : TDrawSetting;
     begin
 	  // @override
-      with FGUI_Defination, gui_Progress_Setup, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
+      with FGUI_Definition, gui_Progress_Setup, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
       begin
         if gui_Value > gui_Max then
           gui_Value := gui_Max;
@@ -5407,11 +5407,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Scrollbar Form control constructor
     //..............................................................................  
-    constructor TMIR3_GUI_Scrollbar.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_Scrollbar.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctScrollbar;
 
@@ -5423,8 +5423,8 @@ var
       SetRect(FSliderThumb, 0, 0, 0, 0);
       FPosition := 0;
       FPageSize := 1;
-      FMin      := FGUI_Defination.gui_ScrollBar_Setup.gui_Slider_Info.gui_Min;
-      FMax      := FGUI_Defination.gui_ScrollBar_Setup.gui_Slider_Info.gui_Max;
+      FMin      := FGUI_Definition.gui_ScrollBar_Setup.gui_Slider_Info.gui_Min;
+      FMax      := FGUI_Definition.gui_ScrollBar_Setup.gui_Slider_Info.gui_Max;
       UpdateRects;
     end;
   {$ENDREGION}  
@@ -5445,7 +5445,7 @@ var
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
 		    (* Render Scrollbar with given Texture *)
-        with FGUI_Defination, gui_Control_Texture, gui_Font, gui_ScrollBar_Setup, GGameEngine.FGameFileManger do
+        with FGUI_Definition, gui_Control_Texture, gui_Font, gui_ScrollBar_Setup, GGameEngine.FGameFileManger do
         begin
 
           // Check if the arrow button has been held for a while.
@@ -5552,7 +5552,7 @@ var
   //        WM_LBUTTONDOWN,
   //        WM_LBUTTONDBLCLK:
   //        begin
-  //          with FGUI_Defination, gui_ScrollBar_Setup do 
+  //          with FGUI_Definition, gui_ScrollBar_Setup do
   //          begin
   //            
   //            if PtInRect(gui_Button_Rect_BR, AMousePoint) then
@@ -5570,13 +5570,13 @@ var
   //            case gui_ScrollKind of 
   //              skVertical   : begin           
   //                SetRect(FButton, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop+ FLButton-5,
-  //                         FParentGUIForm.FLeft + FLeft+ FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Right,
-  //                         FParentGUIForm.FTop  + FTop + FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Bottom + FLButton);
+  //                         FParentGUIForm.FLeft + FLeft+ FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Right,
+  //                         FParentGUIForm.FTop  + FTop + FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Bottom + FLButton);
   //              end;           
   //              skHorizontal : begin
   //                SetRect(FButton, FParentGUIForm.FLeft + FLeft + FLButton-5, FParentGUIForm.FTop + FTop,
-  //                         FParentGUIForm.FLeft + FLeft+ FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Right+ FLButton,
-  //                         FParentGUIForm.FTop  + FTop + FGUI_Defination.gui_Slider_Setup.gui_Btn_Size.Bottom);
+  //                         FParentGUIForm.FLeft + FLeft+ FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Right+ FLButton,
+  //                         FParentGUIForm.FTop  + FTop + FGUI_Definition.gui_Slider_Setup.gui_Btn_Size.Bottom);
   //              end;
   //            end;
   //          end;        
@@ -5587,7 +5587,7 @@ var
   //            FPressed := True;
   //            SetCapture(GRenderEngine.GetGameHWND);
   //           
-  //           with FGUI_Defination, gui_ScrollBar_Setup do 
+  //           with FGUI_Definition, gui_ScrollBar_Setup do
   //            begin
   //              case gui_ScrollKind of
   //                skVertical   : begin           
@@ -5607,7 +5607,7 @@ var
   //
   //          if PtInRect(FBoundingBox, AMousePoint) then
   //          begin
-  //            with FGUI_Defination, gui_ScrollBar_Setup do 
+  //            with FGUI_Definition, gui_ScrollBar_Setup do
   //            begin
   //              case gui_ScrollKind of 
   //                skVertical   : begin           
@@ -5666,7 +5666,7 @@ var
   //        begin
   //          if FPressed then
   //          begin
-  //            with FGUI_Defination, gui_ScrollBar_Setup do 
+  //            with FGUI_Definition, gui_ScrollBar_Setup do
   //            begin
   //              case gui_ScrollKind of 
   //                skVertical   : begin
@@ -5710,7 +5710,7 @@ var
   //      begin
   //        Result := PtInRect(Rect(FLeft,FTop,FLeft+FWidth,FTop+FHeight), AMousePoint) or PtInRect(FButton, AMousePoint);
   //      end else begin
-  //        with FGUI_Defination, gui_ScrollBar_Setup do 
+  //        with FGUI_Definition, gui_ScrollBar_Setup do
   //        begin
   //          case gui_ScrollKind of 
   //            skVertical   : begin      
@@ -5732,7 +5732,7 @@ var
   //    begin
   //      inherited;
   //      FLButton := 0;
-  //      with FGUI_Defination, gui_ScrollBar_Setup do 
+  //      with FGUI_Definition, gui_ScrollBar_Setup do
   //      begin
   //        case gui_ScrollKind of 
   //          skVertical   : begin
@@ -5774,7 +5774,7 @@ var
   //    var
   //      FValuePerPixel: Single;
   //    begin
-  //      with FGUI_Defination, gui_ScrollBar_Setup do 
+  //      with FGUI_Definition, gui_ScrollBar_Setup do
   //      begin
   //        case gui_ScrollKind of 
   //          skVertical   : begin
@@ -5975,7 +5975,7 @@ var
     begin
       inherited;
       // Make the buttons square
-      with FGUI_Defination do
+      with FGUI_Definition do
       begin
         SetRect(FUpButton   , gui_WorkField.left, gui_WorkField.top, gui_WorkField.right, gui_WorkField.top + RectWidth(gui_WorkField));
         SetRect(FDownButton , gui_WorkField.left, gui_WorkField.bottom - RectWidth(gui_WorkField), gui_WorkField.right, gui_WorkField.bottom);
@@ -6055,11 +6055,11 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_MagicButton Form control constructor
     //..............................................................................  
-    constructor TMIR3_GUI_MagicButton.Create(PGUI_Defination: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    constructor TMIR3_GUI_MagicButton.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
     begin
       inherited;
-      if Assigned(PGUI_Defination) then
-        FGUI_Defination := PGUI_Defination^;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
       FParentGUIContainer := PParentGUIManager;
       FControlType        := ctMagicButton;
       FCaption            := '0';
@@ -6077,7 +6077,7 @@ var
       begin
         Result := PtInRect(Rect(FLeft,FTop,FLeft+FWidth,FTop+FHeight), AMousePoint);
       end else begin
-        with FGUI_Defination do
+        with FGUI_Definition do
           Result := PtInRect(Rect(FParentGUIForm.FLeft + FLeft+ gui_Extra_Offset_X ,FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y,FParentGUIForm.FLeft + FLeft+ gui_Extra_Offset_X+FWidth,FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y+FHeight), AMousePoint);
       end;
     end;
@@ -6094,7 +6094,7 @@ var
     begin
     // @override
 	    (* Render Button *)
-      with FGUI_Defination, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
+      with FGUI_Definition, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
       begin
         if FParentGUIContainer.FDebugMode then
         begin

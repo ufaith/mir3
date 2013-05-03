@@ -1,28 +1,25 @@
 (*****************************************************************************************
- *   LomCN Mir3 GUI Defination control File 2012                                         *
+ *   LomCN Mir3 GUI Definition control File 2012                                         *
  *                                                                                       *
  *   Web       : http://www.lomcn.co.uk                                                  *
  *   Version   : 0.0.0.9                                                                 *
  *                                                                                       *
  *   - File Info -                                                                       *
  *                                                                                       *
- *   Hold all GUI Definations                                                            *
- *                                                                                        *
+ *   Hold all GUI Definitions                                                            *
  *                                                                                       *
  *****************************************************************************************
  * Change History                                                                        *
  *                                                                                       *
  *  - 0.0.0.1 [2012-10-08] Coly : fist init                                              *
  *  - 0.0.0.2 [2013-02-27] Coly : change the Control Config                              *
- *  - 0.0.0.3 [2013-03-02] Coly : add more GUI Definations                               *
- *  - 0.0.0.4 [2013-03-04] Coly : add more GUI Definations                               *
+ *  - 0.0.0.3 [2013-03-02] Coly : add more GUI Definitions                               *
+ *  - 0.0.0.4 [2013-03-04] Coly : add more GUI Definitions                               *
  *  - 0.0.0.5 [2013-03-07] Coly : add Edit Option Fiels                                  *
  *  - 0.0.0.6 [2013-03-12] Coly : add Exit Win and other                                 *
  *  - 0.0.0.7 [2013-03-14] Coly : add Body Window                                        *
  *  - 0.0.0.8 [2013-03-24] Coly : add Group Window                                       *  
  *  - 0.0.0.9 [2013-03-25] Coly : add Magic Window                                       * 
- *                                                                                       *
- *                                                                                       *
  *                                                                                       *
  *****************************************************************************************
  *  - TODO List for this *.pas file -                                                    *
@@ -37,15 +34,25 @@
  *  - TODO : -all -Check if Frame timing correct at MonActions                           *
  *                                                                                       *
  *****************************************************************************************)
-unit mir3_game_gui_defination;
+
+unit mir3_game_gui_definition;
 
 interface
 
 uses
-  Windows, Classes, SysUtils,
-  Direct3D9, D3DX9,
-  mir3_core_controls, mir3_global_config, mir3_game_file_manager_const,
-  mir3_game_font_engine, mir3_game_engine;
+  { Delphi }
+  Windows,
+  Classes,
+  SysUtils,
+  { DirectX }
+  Direct3D9,
+  D3DX9,
+  { Mir3 Game }
+  mir3_core_controls,
+  mir3_global_config,
+  mir3_game_file_manager_const,
+  mir3_game_font_engine,
+  mir3_game_engine;
 
 const
   //Unique Control Numbers
@@ -699,9 +706,9 @@ const
   {$ENDREGION}  
   
   {$ENDREGION}
-  
+
 type
-  TMir3_GUI_Defination_System  = record
+  TMir3_GUI_Definition_System  = record
     (* System Info Dialoge *)
     {$REGION ' - System Dialog                                 '}
     FSys_Dialog_Info                     : TMir3_GUI_Ground_Info;  //basic Dialog Info Window
@@ -716,7 +723,7 @@ type
     {$ENDREGION}
   end;
 
-  TMir3_GUI_Defination_Login   = record
+  TMir3_GUI_Definition_Login   = record
     (* Login Scene *)
     {$REGION ' - Login Scene                                   '}
     FLogin_Background                    : TMir3_GUI_Ground_Info;  //used for random background texture and Contols Placeholder
@@ -732,7 +739,7 @@ type
     {$ENDREGION}
   end;
 
-  TMir3_GUI_Defination_SelChar = record
+  TMir3_GUI_Definition_SelChar = record
     (* Select Char Scene *)
     {$REGION ' - Select Char and Create Char Scene             '}
     FSelectChar_Background               : TMir3_GUI_Ground_Info;  //used for Select Char background texture and Contols Placeholder
@@ -773,7 +780,7 @@ type
     {$ENDREGION}
   end;
 
-  TMir3_GUI_Defination_InGame  = record
+  TMir3_GUI_Definition_InGame  = record
 
     (* Load Game(Notice) Scene *)
     {$REGION ' - Load Game(Notice) Scene                       '}
@@ -1278,12 +1285,12 @@ type
     {$ENDREGION}
   end;
 
-  (* Defination *)
+  (* Definition *)
 var
   ////////////////////////////////////////////////////////////////////////////////
   // Global System Controls (used by all Scenes)
   //..............................................................................
-  FGame_GUI_Defination_System  : TMir3_GUI_Defination_System  =(
+  FGame_GUI_Definition_System  : TMir3_GUI_Definition_System  =(
 
     {$REGION ' - System Info Controls   '}
     FSys_Dialog_Info                 : ({$REGION ' - FSys_Dialog_Info                 '}
@@ -1485,9 +1492,9 @@ var
   );
 
   ////////////////////////////////////////////////////////////////////////////////
-  // Game Login Control Defination
+  // Game Login Control Definition
   //..............................................................................
-  FGame_GUI_Defination_Login   : TMir3_GUI_Defination_Login   =(
+  FGame_GUI_Definition_Login   : TMir3_GUI_Definition_Login   =(
 
     {$REGION ' - Login Scene            '}
     FLogin_Background                : ({$REGION ' - FLogin_Background                '}
@@ -1541,7 +1548,7 @@ var
                                      gui_Font                   : (gui_Font_Use_ID: 2;
                                                                    gui_Font_Size  : 21;
                                                                    gui_Font_Color : $FFF0F0F0;
-                                                                   gui_Font_Script_MouseNormal   : '¦C16F6F6F¦¦C2EFEFEF¦');
+                                                                   gui_Font_Script_MouseNormal   : '¦C16F6F6F¦¦C2EFEFEF?');
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -1612,11 +1619,11 @@ var
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
-                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
-                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF?';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF?';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF?');
                                      gui_Enabled                : True;
-                                     gui_Visible                : True 
+                                     gui_Visible                : True
                                      {$ENDREGION}
               );
     FLogin_Button_Login              : ({$REGION ' - FLogin_Button_Login              '}
@@ -1634,11 +1641,11 @@ var
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
-                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
-                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF?';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF?';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF?');
                                      gui_Enabled                : True;
-                                     gui_Visible                : True 
+                                     gui_Visible                : True
                                      {$ENDREGION}
               );
     FLogin_Button_URL_1              : ({$REGION ' - FLogin_Button_URL_1              '}
@@ -1656,11 +1663,11 @@ var
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
-                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
-                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF?';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF?';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF?');
                                      gui_Enabled                : True;
-                                     gui_Visible                : True 
+                                     gui_Visible                : True
                                      {$ENDREGION}
               );
     FLogin_Button_URL_2              : ({$REGION ' - FLogin_Button_URL_2              '}
@@ -1678,11 +1685,11 @@ var
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
-                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
-                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF?';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF?';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF?');
                                      gui_Enabled                : True;
-                                     gui_Visible                : True 
+                                     gui_Visible                : True  
                                      {$ENDREGION}
               );
     FLogin_Information_Field         : ({$REGION ' - FLogin_Information_Field         '}
@@ -1713,9 +1720,9 @@ var
   );
 
   ////////////////////////////////////////////////////////////////////////////////
-  // Game Select Character and Create Character Control Defination
+  // Game Select Character and Create Character Control Definition
   //..............................................................................
-  FGame_GUI_Defination_SelChar : TMir3_GUI_Defination_SelChar =(
+  FGame_GUI_Definition_SelChar : TMir3_GUI_Definition_SelChar =(
 
     {$REGION ' - SelectChar Scene       '}
     FSelectChar_Background           : ({$REGION ' - FSelectChar_Background           '}
@@ -1800,9 +1807,9 @@ var
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf¦';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf¦';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf¦');
+                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -1822,11 +1829,11 @@ var
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf¦';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf¦';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf¦');
+                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
                                      gui_Enabled                : True;
-                                     gui_Visible                : True                                     
+                                     gui_Visible                : True
                                      {$ENDREGION}
               );
     FSelectChar_Button_Delete_Char   : ({$REGION ' - FSelectChar_Button_Delete_Char   '}
@@ -1844,11 +1851,11 @@ var
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf¦';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf¦';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf¦');
+                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
                                      gui_Enabled                : True;
-                                     gui_Visible                : True      
+                                     gui_Visible                : True
                                      {$ENDREGION}
               );
     FSelectChar_Button_New_Char      : ({$REGION ' - FSelectChar_Button_New_Char      '}
@@ -1866,11 +1873,11 @@ var
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf¦';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf¦';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf¦');
+                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
                                      gui_Enabled                : True;
-                                     gui_Visible                : True 
+                                     gui_Visible                : True
                                      {$ENDREGION}
               );
     FSelectChar_Dialog_Text          : ({$REGION ' - FSelectChar_Dialog_Text          '}
@@ -2315,9 +2322,9 @@ var
   );
 
   ////////////////////////////////////////////////////////////////////////////////
-  // Game InGame Control Defination
+  // Game InGame Control Definition
   //..............................................................................
-  FGame_GUI_Defination_InGame  : TMir3_GUI_Defination_InGame  =(
+  FGame_GUI_Definition_InGame  : TMir3_GUI_Definition_InGame  =(
 
     {$REGION ' - Notice Scene           '}
     //Background Image

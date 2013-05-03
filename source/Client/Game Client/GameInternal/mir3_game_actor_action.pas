@@ -6,9 +6,7 @@
  *                                                                   *
  *   - File Info -                                                   *
  *                                                                   *
- *   This file holds all Human and Monster Actions and               *
- *   definations.                                                    *
- *                                                                   *
+ *   This file holds all Human and Monster Actions and Definitions   *
  *                                                                   *
  *********************************************************************
  * Change History                                                    *
@@ -16,9 +14,6 @@
  *  - 0.0.0.1 [2012-09-22] Coly : fist init (Motion Settings)        *
  *  - 0.0.0.2 [2012-09-24] Coly : add first correct Mon Race Actions *
  *  - 0.0.0.3 [2012-09-27] Coly : add more Mon Race Actions          *
- *                                                                   *
- *                                                                   *
- *                                                                   *
  *                                                                   *
  *********************************************************************
  *  - TODO List for this *.pas file -                                *

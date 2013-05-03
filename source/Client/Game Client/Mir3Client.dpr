@@ -1,13 +1,11 @@
 program Mir3Client;
 
 uses
-  { Delphi }
   Windows,
   SysUtils,
-  { Mir3 Game }
   mir3_misc_utils in 'GameCommon\mir3_misc_utils.pas',
   mir3_core_controls in 'GameControls\mir3_core_controls.pas',
-  mir3_game_gui_defination in 'GameControls\mir3_game_gui_defination.pas',
+  mir3_game_gui_definition in 'GameControls\mir3_game_gui_definition.pas',
   mir3_game_backend in 'GameEngine\mir3_game_backend.pas',
   mir3_game_engine in 'GameEngine\mir3_game_engine.pas',
   mir3_game_engine_def in 'GameEngine\mir3_game_engine_def.pas',

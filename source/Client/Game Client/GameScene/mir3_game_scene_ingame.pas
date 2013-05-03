@@ -41,7 +41,7 @@ uses
 {Delphi }  Windows, SysUtils, Classes, JSocket,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
 {Game   }  mir3_game_en_decode, mir3_game_language_engine, mir3_game_map_framework,
-{Game   }  mir3_game_gui_defination, mir3_core_controls, mir3_global_config, mir3_game_sound,
+{Game   }  mir3_game_gui_definition, mir3_core_controls, mir3_global_config, mir3_game_sound,
 {Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils,
 {Game   }  mir3_game_actor;
 
@@ -137,7 +137,7 @@ uses mir3_misc_ingame, mir3_game_backend;
     var
       FExitWindow  : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FExitWindow  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_ExitWindow_Background, False));
@@ -153,7 +153,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       FBottomForm       : TMIR3_GUI_Form;
       FBottomAvatarForm : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FBottomAvatarForm := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Bottom_Avatar_Background, True));
@@ -197,10 +197,10 @@ uses mir3_misc_ingame, mir3_game_backend;
     var
       FMenueBar : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Movable Base Menue Bar UI Forms and Controls }
-        FMenueBar  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_Menue_Bar_Background, False));
+        FMenueBar  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_InGame.FInGame_UI_Menue_Bar_Background, False));
         Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Setting  , True);
         Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Chat     , True);
         Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Mail     , True);
@@ -218,10 +218,10 @@ uses mir3_misc_ingame, mir3_game_backend;
     var
       FBeldForm : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Movable Base Belt UI Forms and Controls }
-        FBeldForm  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_Belt_Background_H, False));
+        FBeldForm  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_InGame.FInGame_UI_Belt_Background_H, False));
         Self.AddControl(FBeldForm, FInGame_UI_Belt_Btn_Close_H    , True);
         Self.AddControl(FBeldForm, FInGame_UI_Belt_Btn_Rotate_H   , True);
         Self.AddControl(FBeldForm, FInGame_UI_Belt_Item_Field_H_1 , True);
@@ -237,97 +237,97 @@ uses mir3_misc_ingame, mir3_game_backend;
     var
       FBodyForm  : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FBodyForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Body_Window, False));
           (* Item Slots *)
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Horse        , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Necklase     , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Brace_L      , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Brace_R      , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Ring_L       , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Ring_R       , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Shoes        , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Light        , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Talisman     , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Medal        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Horse        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Necklase     , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Brace_L      , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Brace_R      , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Ring_L       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Ring_R       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Shoes        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Light        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Talisman     , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Medal        , True);
           (* Text *)
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_Panel        , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_Spouse       , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Heart        , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_Level        , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_Exp          , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_HP           , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_MP           , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_BGW          , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_BOW          , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_HAW          , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_ACC          , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_AGI          , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_DC           , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_AC           , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_BC           , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_MC           , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_SC           , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_MR           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_Panel        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_Spouse       , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Heart        , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_Level        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_Exp          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_HP           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_MP           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_BGW          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_BOW          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_HAW          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_ACC          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_AGI          , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_DC           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_AC           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_BC           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_MC           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_SC           , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_MR           , True);
           (* Element Info *)
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_ATT       , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_ADV       , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_DIS       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_ATT       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_ADV       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_DIS       , True);
           (* Element Size Text *)
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_FI_1      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_FI_2      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_FI_3      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_IC_1      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_IC_2      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_IC_3      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_TH_1      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_TH_2      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_TH_3      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_WI_1      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_WI_2      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_WI_3      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_HO_1      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_HO_2      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_HO_3      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_DA_1      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_DA_2      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_DA_3      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_PH_1      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_PH_2      , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Text_EL_PH_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_FI_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_FI_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_FI_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_IC_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_IC_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_IC_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_TH_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_TH_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_TH_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_WI_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_WI_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_WI_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_HO_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_HO_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_HO_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_DA_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_DA_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_DA_3      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_PH_1      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_PH_2      , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Text_EL_PH_3      , False);
           (* Element Texture *)
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_FI_1     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_FI_2     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_FI_3     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_IC_1     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_IC_2     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_IC_3     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_TH_1     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_TH_2     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_TH_3     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_WI_1     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_WI_2     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_WI_3     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_HO_1     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_HO_2     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_HO_3     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_DA_1     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_DA_2     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_DA_3     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_PH_1     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_PH_2     , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Panel_EL_PH_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_FI_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_FI_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_FI_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_IC_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_IC_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_IC_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_TH_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_TH_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_TH_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_WI_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_WI_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_WI_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_HO_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_HO_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_HO_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_DA_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_DA_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_DA_3     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_PH_1     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_PH_2     , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Panel_EL_PH_3     , False);
           (* Base GUI *)
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_NackedBody   , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Body         , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Wings        , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Hair         , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Helmet       , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Weapon       , True);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Weapon_Shild , False);
-          Self.AddControl(FBodyForm, FGame_GUI_Defination_InGame.FInGame_UI_Body_Item_Hero         , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_NackedBody   , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Body         , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Wings        , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Hair         , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Helmet       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Weapon       , True);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Weapon_Shild , False);
+          Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Hero         , False);
           Self.AddControl(FBodyForm, FInGame_UI_Body_Btn_Close , True);
       end;
     end;
@@ -336,7 +336,7 @@ uses mir3_misc_ingame, mir3_game_backend;
     var
       FBodyShowForm  : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FBodyShowForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Body_Show_Window, False));
@@ -353,78 +353,78 @@ uses mir3_misc_ingame, mir3_game_backend;
       FMiniMapFormStage3 : TMIR3_GUI_Form;
       FMiniMapLibForm    : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
         (* Stage 1 *)
-        FMiniMapFormStage1 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_1_Background, True));
-        Self.AddControl(FMiniMapFormStage1, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_1_TextField_MapName , True);
-        Self.AddControl(FMiniMapFormStage1, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_1_TextField_MapPos , True);
+        FMiniMapFormStage1 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_1_Background, True));
+        Self.AddControl(FMiniMapFormStage1, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_1_TextField_MapName , True);
+        Self.AddControl(FMiniMapFormStage1, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_1_TextField_MapPos , True);
 
         TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_NAME)).Caption := 'Bichon';
         TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_1_UI_TEXT_MAP_POS)).Caption  := '127 , 254';
 
         (* Stage 2 *)
-        FMiniMapFormStage2 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Background, False));
-        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Draw_Map    , True);
-        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Design_LT   , True);
-        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Design_LB   , True);
-        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Design_RB   , True);
-        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_TextField_MapName , True);
-        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_TextField_MapPos  , True);
-        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Panel_Btn_Back    , True);
-        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Button_Blend      , True);
-        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Button_Open_Big   , True);
-        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_2_Button_Open_Lib   , True);
+        FMiniMapFormStage2 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_Background, False));
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_Panel_Draw_Map    , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_Panel_Design_LT   , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_Panel_Design_LB   , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_Panel_Design_RB   , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_TextField_MapName , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_TextField_MapPos  , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_Panel_Btn_Back    , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_Button_Blend      , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_Button_Open_Big   , True);
+        Self.AddControl(FMiniMapFormStage2, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_2_Button_Open_Lib   , True);
 
 
        // TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_NAME)).Caption := 'Bichon';
        // TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_TEXT_MAP_POS)).Caption  := '(127 , 254)';
 
         (* Stage 3 *)
-        FMiniMapFormStage3 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Background, False));
-          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Panel_Draw_Map    , True);
-          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Panel_Design_LT   , True);
-          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Panel_Design_LB   , True);
-          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Panel_Design_RB   , True);
-          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_TextField_MapName , True);
-          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_TextField_MapPos  , True);
-          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Panel_Btn_Back    , True);
+        FMiniMapFormStage3 := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_Background, False));
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_Panel_Draw_Map    , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_Panel_Design_LT   , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_Panel_Design_LB   , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_Panel_Design_RB   , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_TextField_MapName , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_TextField_MapPos  , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_Panel_Btn_Back    , True);
 
-          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Button_Blend      , True);
-          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Button_Close_Big  , True);
-          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_3_Button_Open_Lib   , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_Button_Blend      , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_Button_Close_Big  , True);
+          Self.AddControl(FMiniMapFormStage3, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_3_Button_Open_Lib   , True);
 
        // TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_NAME)).Caption := 'Bichon';
        // TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_TEXT_MAP_POS)).Caption  := '(127 , 254)';
 
-        FMiniMapLibForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Background, False));
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Panel_Draw_Map , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Close      , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Zoom_50    , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Zoom_100   , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Zoom_200   , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_1      , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_2      , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_3      , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_4      , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_5      , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_6      , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_7      , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_8      , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_9      , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_10     , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_11     , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_12     , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_13     , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_14     , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_15     , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_16     , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_17     , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Scroll_Map_Btn , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Scroll_Map_H   , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Scroll_Map_V   , True);
-          Self.AddControl(FMiniMapLibForm, FGame_GUI_Defination_InGame.FInGame_UI_MiniMap_Lib_Text_Map       , True);
+        FMiniMapLibForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Background, False));
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Panel_Draw_Map , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Close      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Zoom_50    , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Zoom_100   , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Zoom_200   , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_1      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_2      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_3      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_4      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_5      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_6      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_7      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_8      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_9      , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_10     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_11     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_12     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_13     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_14     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_15     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_16     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Btn_Map_17     , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Scroll_Map_Btn , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Scroll_Map_H   , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Scroll_Map_V   , True);
+          Self.AddControl(FMiniMapLibForm, FGame_GUI_Definition_InGame.FInGame_UI_MiniMap_Lib_Text_Map       , True);
 
       end;
     end;
@@ -433,7 +433,7 @@ uses mir3_misc_ingame, mir3_game_backend;
     var
       FGameSetting  : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FGameSetting  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_GameSetting_Background, False));
@@ -510,7 +510,7 @@ uses mir3_misc_ingame, mir3_game_backend;
     //var
       //FTradeForm  : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
         //FTradeForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Trade_Window, False));
@@ -524,7 +524,7 @@ uses mir3_misc_ingame, mir3_game_backend;
     var
       FGroupForm  : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FGroupForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Group_Window, False));
@@ -542,7 +542,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       FMagicWWTForm  : TMIR3_GUI_Form;
       FMagicASSForm  : TMIR3_GUI_Form;
     begin
-      with FGame_GUI_Defination_InGame do
+      with FGame_GUI_Definition_InGame do
       begin
         { Create Ingame Static Base UI Forms and Controls }
         FMagicWWTForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Magic_WWT_Window, False));
@@ -874,19 +874,19 @@ uses mir3_misc_ingame, mir3_game_backend;
 
     if mbExtraText_C in AButtons then
     begin
-      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).FGUI_Defination.gui_CaptionID := AButtonTextID1;
+      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).FGUI_Definition.gui_CaptionID := AButtonTextID1;
       TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).Visible                       := True;
     end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).Visible := False;
 
     if mbExtraText_L in AButtons then
     begin
-      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).FGUI_Defination.gui_CaptionID := AButtonTextID1;
+      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).FGUI_Definition.gui_CaptionID := AButtonTextID1;
       TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).Visible                       := True;
     end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).Visible := False;
 
     if mbExtraText_R in AButtons then
     begin
-      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).FGUI_Defination.gui_CaptionID := AButtonTextID2;
+      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).FGUI_Definition.gui_CaptionID := AButtonTextID2;
       TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible                       := True;
     end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible := False;
 
@@ -949,7 +949,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       Create_ExitWindow_UI_Interface;
 
       { Create System Forms and Controls }
-      with FGame_GUI_Defination_System do
+      with FGame_GUI_Definition_System do
       begin
         FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info, False));
         Self.AddControl(FSystemForm, FSys_Dialog_Text        , True);
@@ -1219,28 +1219,28 @@ uses mir3_misc_ingame, mir3_game_backend;
 
     procedure TMir3GameSceneInGame.EventBeltWindow(AEventType: Integer; AEventControl: Integer);
 
-      procedure Flip_H_V_Defination;
+      procedure Flip_H_V_Definition;
       var
         FTempX : Integer;
         FTempY : Integer;
       begin
-        with FGame_GUI_Defination_InGame do
+        with FGame_GUI_Definition_InGame do
         begin
-          if TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).FGUI_Defination.gui_Width = 512 then
+          if TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).FGUI_Definition.gui_Width = 512 then
           begin
             { Save Left and Top Position }
             FTempX := TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Left;
             FTempY := TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Top;
-            { Set new Defination Horizontal }
-            TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Add_GUI_Defination(@FInGame_UI_Belt_Background_V);
-            TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BELT_UI_BTN_ROTATE)).Add_GUI_Defination(@FInGame_UI_Belt_Btn_Rotate_V);
-            TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BELT_UI_BTN_CLOSE)).Add_GUI_Defination(@FInGame_UI_Belt_Btn_Close_V);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_1)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_V_1);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_2)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_V_2);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_3)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_V_3);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_4)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_V_4);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_5)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_V_5);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_6)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_V_6);
+            { Set new Definition Horizontal }
+            TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Add_GUI_Definition(@FInGame_UI_Belt_Background_V);
+            TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BELT_UI_BTN_ROTATE)).Add_GUI_Definition(@FInGame_UI_Belt_Btn_Rotate_V);
+            TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BELT_UI_BTN_CLOSE)).Add_GUI_Definition(@FInGame_UI_Belt_Btn_Close_V);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_1)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_V_1);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_2)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_V_2);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_3)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_V_3);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_4)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_V_4);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_5)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_V_5);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_6)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_V_6);
             { Calculate new Position }
             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Left := (FTempX + FInGame_UI_Belt_Background_H.gui_WorkField.Left);
             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Top  := (FTempY - FInGame_UI_Belt_Background_V.gui_WorkField.Top)+8;
@@ -1248,16 +1248,16 @@ uses mir3_misc_ingame, mir3_game_backend;
             { Save Left and Top Position Vertical }
             FTempX := TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Left;
             FTempY := TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Top;
-            { Set new Defination }
-            TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Add_GUI_Defination(@FInGame_UI_Belt_Background_H);
-            TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BELT_UI_BTN_ROTATE)).Add_GUI_Defination(@FInGame_UI_Belt_Btn_Rotate_H);
-            TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BELT_UI_BTN_CLOSE)).Add_GUI_Defination(@FInGame_UI_Belt_Btn_Close_H);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_1)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_H_1);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_2)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_H_2);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_3)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_H_3);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_4)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_H_4);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_5)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_H_5);
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_6)).Add_GUI_Defination(@FInGame_UI_Belt_Item_Field_H_6);
+            { Set new Definition }
+            TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Add_GUI_Definition(@FInGame_UI_Belt_Background_H);
+            TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BELT_UI_BTN_ROTATE)).Add_GUI_Definition(@FInGame_UI_Belt_Btn_Rotate_H);
+            TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BELT_UI_BTN_CLOSE)).Add_GUI_Definition(@FInGame_UI_Belt_Btn_Close_H);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_1)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_H_1);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_2)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_H_2);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_3)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_H_3);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_4)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_H_4);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_5)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_H_5);
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_BELT_UI_ITEM_FIELD_6)).Add_GUI_Definition(@FInGame_UI_Belt_Item_Field_H_6);
             { Calculate new Position }
             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Left := (FTempX - FInGame_UI_Belt_Background_H.gui_WorkField.Left);
             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Top  := (FTempY - FInGame_UI_Belt_Background_H.gui_WorkField.Top)+1;
@@ -1270,7 +1270,7 @@ uses mir3_misc_ingame, mir3_game_backend;
         EVENT_BUTTON_UP   : begin
           case AEventControl of
             GUI_ID_INGAME_BELT_UI_BTN_CLOSE    : TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Visible := False;
-            GUI_ID_INGAME_BELT_UI_BTN_ROTATE   : Flip_H_V_Defination;
+            GUI_ID_INGAME_BELT_UI_BTN_ROTATE   : Flip_H_V_Definition;
             { Item Field Events }
             GUI_ID_INGAME_BELT_UI_ITEM_FIELD_1 : ;
             GUI_ID_INGAME_BELT_UI_ITEM_FIELD_2 : ;
@@ -1308,13 +1308,13 @@ uses mir3_misc_ingame, mir3_game_backend;
                 True  : begin
                   TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_BTN_BLEND)).SwitchOn := False;
                   TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_BTN_BLEND)).SwitchOn := False;
-                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_DRAW)).FGUI_Defination , gui_Color do
+                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_DRAW)).FGUI_Definition , gui_Color do
                   begin
                     gui_Blend_Size   := 255;
                     gui_ControlColor := $FF131313;
                     gui_BorderColor  := $FF030303;
                   end;
-                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_DRAW)).FGUI_Defination , gui_Color do
+                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_DRAW)).FGUI_Definition , gui_Color do
                   begin
                     gui_Blend_Size   := 255;
                     gui_ControlColor := $FF131313;
@@ -1324,13 +1324,13 @@ uses mir3_misc_ingame, mir3_game_backend;
                 False : begin
                   TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_BTN_BLEND)).SwitchOn := True;
                   TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_BTN_BLEND)).SwitchOn := True;
-                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_DRAW)).FGUI_Defination , gui_Color do
+                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_2_UI_DESIGN_DRAW)).FGUI_Definition , gui_Color do
                   begin
                     gui_Blend_Size   := 127;
                     gui_ControlColor := $AF131313;
                     gui_BorderColor  := $BF030303;
                   end;
-                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_DRAW)).FGUI_Defination , gui_Color do
+                  with TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MINIMAP_3_UI_DESIGN_DRAW)).FGUI_Definition , gui_Color do
                   begin
                     gui_Blend_Size   := 127;
                     gui_ControlColor := $AF131313;
@@ -1781,7 +1781,7 @@ uses mir3_misc_ingame, mir3_game_backend;
        
        procedure CalculateButton(AOffset: Integer; AButton: TMIR3_GUI_Button);
        begin
-         with TMIR3_GUI_Button(AButton) , FGUI_Defination do
+         with TMIR3_GUI_Button(AButton) , FGUI_Definition do
          begin
            gui_Extra_Offset_Y :=  -AOffset;
          end;
@@ -1968,7 +1968,7 @@ uses mir3_misc_ingame, mir3_game_backend;
                 begin
                   FTempOffset := (Value * 2);
                 end;
-                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).FGUI_Defination.gui_Cut_Rect_Position_Y := FTempOffset;
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_PAGE_CONTROL)).FGUI_Definition.gui_Cut_Rect_Position_Y := FTempOffset;
                 case FMagicWWTPageActive of
                   1: begin
                     CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_WWT_BTN_P1_B1)));
@@ -2079,7 +2079,7 @@ uses mir3_misc_ingame, mir3_game_backend;
                 begin
                   FTempOffset := (Value * 2);
                 end;
-                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).FGUI_Defination.gui_Cut_Rect_Position_Y := FTempOffset;
+                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_PAGE_CONTROL)).FGUI_Definition.gui_Cut_Rect_Position_Y := FTempOffset;
                 case FMagicASSPageActive of
                   1: begin
                     CalculateButton(FTempOffset, TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_MAGIC_UI_ASS_BTN_P1_B1)));

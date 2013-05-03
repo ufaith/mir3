@@ -38,7 +38,7 @@ uses
 {Delphi }  Windows, SysUtils, Classes, JSocket, Math,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
 {Game   }  mir3_game_en_decode, mir3_game_language_engine,
-{Game   }  mir3_game_gui_defination, mir3_core_controls, mir3_global_config, mir3_game_sound,
+{Game   }  mir3_game_gui_definition, mir3_core_controls, mir3_global_config, mir3_game_sound,
 {Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils;
 
 { Callback Functions }
@@ -94,52 +94,52 @@ uses mir3_game_backend;
       Self.SetHotKeyEventCallback(@SelectCharGUIHotKeyEvent);
 
       {$REGION ' - Create Char Forms and Controls   '}
-      FCrateForm   := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_SelChar.FCreateChar_Background, False));
-      Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Information_Field   , True);
-      FCharControl := TMIR3_GUI_SelectChar(Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Character_Male  , True));
+      FCrateForm   := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_SelChar.FCreateChar_Background, False));
+      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Information_Field   , True);
+      FCharControl := TMIR3_GUI_SelectChar(Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Character_Male  , True));
       FCharControl.Selected        := True;
       FCharControl.CharacterSystem := csCreateChar;
       FCharInfo.Char_Job           := C_WARRIOR;
       FCharInfo.Char_Gender        := C_MALE;
       FCharControl.CharacterInfo   := FCharInfo;
-      FCharControl  := TMIR3_GUI_SelectChar(Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Character_Female , True));
+      FCharControl  := TMIR3_GUI_SelectChar(Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Character_Female , True));
       FCharControl.CharacterSystem := csCreateChar;
       FCharInfo.Char_Job           := C_WARRIOR;
       FCharInfo.Char_Gender        := C_FEMALE;
       FCharControl.CharacterInfo   := FCharInfo;
       with GGameEngine.GameLanguage do
         TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := Format(GetTextFromLangSystem(61), [GetTextFromLangSystem(55)]);
-      Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Panel_Stone_Shadow  , True);
-      Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Panel_Stone         , True);
-      Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Button_Warrior      , True);
-      Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Button_Wizzard      , True);
-      Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Button_Taoist       , True);
-      Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Button_Assassin     , True);
-      Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Button_Ok           , True);
-      Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Button_Cancel       , True);
-      Self.AddControl(FCrateForm,  FGame_GUI_Defination_SelChar.FCreateChar_Edit_Char_Name      , True);
+      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Panel_Stone_Shadow  , True);
+      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Panel_Stone         , True);
+      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Warrior      , True);
+      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Wizzard      , True);
+      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Taoist       , True);
+      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Assassin     , True);
+      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Ok           , True);
+      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Cancel       , True);
+      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Edit_Char_Name      , True);
       {$ENDREGION}
 
       {$REGION ' - Select Char Forms and Controls   '}
-      FSelectForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_SelChar.FSelectChar_Background,  True));
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Character_1         , False);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Character_2         , False);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Character_3         , False);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Button_Start        , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Button_Exit         , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Button_Delete_Char  , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Button_New_Char     , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Text         , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Name         , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Class        , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Level        , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Gold         , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Exp          , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Name_Info    , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Class_Info   , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Level_Info   , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Gold_Info    , True);
-      Self.AddControl(FSelectForm, FGame_GUI_Defination_SelChar.FSelectChar_Dialog_Exp_Info     , True);
+      FSelectForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_SelChar.FSelectChar_Background,  True));
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Character_1         , False);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Character_2         , False);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Character_3         , False);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Button_Start        , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Button_Exit         , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Button_Delete_Char  , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Button_New_Char     , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Text         , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Name         , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Class        , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Level        , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Gold         , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Exp          , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Name_Info    , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Class_Info   , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Level_Info   , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Gold_Info    , True);
+      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Exp_Info     , True);
 
 
       TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME)).Caption  := ' Name';
@@ -150,15 +150,15 @@ uses mir3_game_backend;
       {$ENDREGION}
 
       {$REGION ' - System Forms and Controls        '}
-      FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Defination_System.FSys_Dialog_Info, False));
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Dialog_Text        , True);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Ok          , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Yes         , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_No          , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Free_Center , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Free_Left   , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Button_Free_Right  , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Defination_System.FSys_Dialog_Edit_Field  , False);
+      FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_System.FSys_Dialog_Info, False));
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Dialog_Text        , True);
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Ok          , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Yes         , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_No          , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Free_Center , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Free_Left   , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Free_Right  , False);
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Dialog_Edit_Field  , False);
       {$ENDREGION}
 
     end;
@@ -201,19 +201,19 @@ uses mir3_game_backend;
 
       if mbExtraText_C in AButtons then
       begin
-        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).FGUI_Defination.gui_CaptionID := AButtonTextID1;
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).FGUI_Definition.gui_CaptionID := AButtonTextID1;
         TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).Visible                       := True;
       end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).Visible := False;
 
       if mbExtraText_L in AButtons then
       begin
-        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).FGUI_Defination.gui_CaptionID := AButtonTextID1;
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).FGUI_Definition.gui_CaptionID := AButtonTextID1;
         TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).Visible                       := True;
       end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).Visible := False;
 
       if mbExtraText_R in AButtons then
       begin
-        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).FGUI_Defination.gui_CaptionID := AButtonTextID2;
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).FGUI_Definition.gui_CaptionID := AButtonTextID2;
         TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible                       := True;
       end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible := False;
 

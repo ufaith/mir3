@@ -64,7 +64,7 @@
     <DCCReference Include="GameCommon\mir3_misc_ingame.pas" />
     <DCCReference Include="GameCommon\mir3_misc_utils.pas" />
     <DCCReference Include="GameControls\mir3_core_controls.pas" />
-    <DCCReference Include="GameControls\mir3_game_gui_defination.pas" />
+    <DCCReference Include="GameControls\mir3_game_gui_definition.pas" />
     <DCCReference Include="GameEngine\mir3_game_backend.pas" />
     <DCCReference Include="GameEngine\mir3_game_engine.pas" />
     <DCCReference Include="GameEngine\mir3_game_engine_def.pas" />
@@ -85,5 +85,6 @@
 </Project>
 <!-- EurekaLog First Line
 [Exception Log]
-EurekaLog Version=7000
+EurekaLog Version=7001
+DeleteMapAfterCompile=1
 EurekaLog Last Line -->

@@ -1,45 +1,40 @@
-{ *********************************************************************** }
-{                                                                         }
-{ Delphi Runtime Library                                                  }
-{                                                                         }
-{ Copyright (c) 1997-2001 Borland Software Corporation                    }
-{                                                                         }
-{ *********************************************************************** }
-
-{*******************************************************}
-{       Windows socket components                       }
-{*******************************************************}
-
 unit JSocket;
 
 interface
 
-uses SysUtils, Windows, Messages, Classes, WinSock, SyncObjs;
+
+uses
+  { Delphi }
+  Windows,
+  SysUtils,
+  Messages,
+  Classes,
+  WinSock,
+  SyncObjs;
 
 const
-  CM_SOCKETMESSAGE = WM_USER + $0001;
-  CM_DEFERFREE = WM_USER + $0002;
+  CM_SOCKETMESSAGE  = WM_USER + $0001;
+  CM_DEFERFREE      = WM_USER + $0002;
   CM_LOOKUPCOMPLETE = WM_USER + $0003;
 
 type
-  ESocketError = class(Exception);
-
   TCMSocketMessage = record
-    Msg: Cardinal;
-    Socket: TSocket;
-    SelectEvent: Word;
-    SelectError: Word;
-    Result: Longint;
+    Msg         : Cardinal;
+    Socket      : TSocket;
+    SelectEvent : Word;
+    SelectError : Word;
+    Result      : Longint;
   end;
 
   TCMLookupComplete = record
-    Msg: Cardinal;
-    LookupHandle: THandle;
-    AsyncBufLen: Word;
-    AsyncError: Word;
-    Result: Longint;
+    Msg          : Cardinal;
+    LookupHandle : THandle;
+    AsyncBufLen  : Word;
+    AsyncError   : Word;
+    Result       : Longint;
   end;
 
+  ESocketError = class(Exception);
   TCustomWinSocket = class;
   TCustomSocket = class;
   TServerAcceptThread = class;
@@ -47,24 +42,22 @@ type
   TServerWinSocket = class;
   TServerClientWinSocket = class;
 
-  TServerType = (stNonBlocking, stThreadBlocking);
-  TClientType = (ctNonBlocking, ctBlocking);
-  TAsyncStyle = (asRead, asWrite, asOOB, asAccept, asConnect, asClose);
-  TAsyncStyles = set of TAsyncStyle;
-  TSocketEvent = (seLookup, seConnecting, seConnect, seDisconnect, seListen,
-    seAccept, seWrite, seRead);
-  TLookupState = (lsIdle, lsLookupAddress, lsLookupService);
-  TErrorEvent = (eeGeneral, eeSend, eeReceive, eeConnect, eeDisconnect, eeAccept, eeLookup);
+  TServerType  = (stNonBlocking, stThreadBlocking);
+  TClientType  = (ctNonBlocking, ctBlocking);
 
-  TSocketEventEvent = procedure (Sender: TObject; Socket: TCustomWinSocket;
-    SocketEvent: TSocketEvent) of object;
-  TSocketErrorEvent = procedure (Sender: TObject; Socket: TCustomWinSocket;
-    ErrorEvent: TErrorEvent; var ErrorCode: Integer) of object;
-  TGetSocketEvent = procedure (Sender: TObject; Socket: TSocket;
-    var ClientSocket: TServerClientWinSocket) of object;
-  TGetThreadEvent = procedure (Sender: TObject; ClientSocket: TServerClientWinSocket;
-    var SocketThread: TServerClientThread) of object;
+  TAsyncStyle  = (asRead, asWrite, asOOB, asAccept, asConnect, asClose);
+  TAsyncStyles = set of TAsyncStyle;
+
+  TSocketEvent = (seLookup, seConnecting, seConnect, seDisconnect, seListen, seAccept, seWrite, seRead);
+  TLookupState = (lsIdle, lsLookupAddress, lsLookupService);
+  TErrorEvent  = (eeGeneral, eeSend, eeReceive, eeConnect, eeDisconnect, eeAccept, eeLookup);
+
+  TSocketEventEvent  = procedure (Sender: TObject; Socket: TCustomWinSocket; SocketEvent: TSocketEvent) of object;
+  TSocketErrorEvent  = procedure (Sender: TObject; Socket: TCustomWinSocket; ErrorEvent: TErrorEvent; var ErrorCode: Integer) of object;
+  TGetSocketEvent    = procedure (Sender: TObject; Socket: TSocket; var ClientSocket: TServerClientWinSocket) of object;
+  TGetThreadEvent    = procedure (Sender: TObject; ClientSocket: TServerClientWinSocket; var SocketThread: TServerClientThread) of object;
   TSocketNotifyEvent = procedure (Sender: TObject; Socket: TCustomWinSocket) of object;
+  TSocketErrorProc   = procedure (ErrorCode: Integer);
 
   TCustomWinSocket = class
   private
@@ -102,29 +95,24 @@ type
     function GetRemoteAddress: string;
     function GetRemotePort: Integer;
     function GetRemoteAddr: TSockAddrIn;
-    function CheckSocketResult(ResultCode: Integer;
-      const Op: string): Integer;
+    function CheckSocketResult(ResultCode: Integer; const Op: string): Integer;
   protected
-    procedure AsyncInitSocket(const Name, Address, Service: string; Port: Word;
-      QueueSize: Integer; Client: Boolean);
+    procedure AsyncInitSocket(const Name, Address, Service: string; Port: Word; QueueSize: Integer; Client: Boolean);
     procedure DoOpen;
     procedure DoListen(QueueSize: Integer);
-    function InitSocket(const Name, Address, Service: string; Port: Word;
-      Client: Boolean): TSockAddrIn;
+    function InitSocket(const Name, Address, Service: string; Port: Word; Client: Boolean): TSockAddrIn;
     procedure Event(Socket: TCustomWinSocket; SocketEvent: TSocketEvent); dynamic;
-    procedure Error(Socket: TCustomWinSocket; ErrorEvent: TErrorEvent;
-      var ErrorCode: Integer); dynamic;
+    procedure Error(Socket: TCustomWinSocket; ErrorEvent: TErrorEvent; var ErrorCode: Integer); dynamic;
     procedure SetAsyncStyles(Value: TASyncStyles);
   public
-    nIndex:Integer;
+    nIndex: Integer;
     constructor Create(ASocket: TSocket);
     destructor Destroy; override;
     procedure Close;
     procedure DefaultHandler(var Message); override;
     procedure Lock;
     procedure Unlock;
-    procedure Listen(const Name, Address, Service: string; Port: Word;
-      QueueSize: Integer; Block: Boolean = True);
+    procedure Listen(const Name, Address, Service: string; Port: Word; QueueSize: Integer; Block: Boolean = True);
     procedure Open(const Name, Address, Service: string; Port: Word; Block: Boolean = True);
     procedure Accept(Socket: TSocket); virtual;
     procedure Connect(Socket: TSocket); virtual;
@@ -184,8 +172,7 @@ type
     property ServerWinSocket: TServerWinSocket read FServerWinSocket;
   end;
 
-  TThreadNotifyEvent = procedure (Sender: TObject;
-    Thread: TServerClientThread) of object;
+  TThreadNotifyEvent = procedure (Sender: TObject; Thread: TServerClientThread) of object;
 
   TServerWinSocket = class(TCustomWinSocket)
   private
@@ -208,18 +195,15 @@ type
     procedure RemoveClient(AClient: TServerClientWinSocket);
     procedure AddThread(AThread: TServerClientThread);
     procedure RemoveThread(AThread: TServerClientThread);
-    procedure ClientEvent(Sender: TObject; Socket: TCustomWinSocket;
-      SocketEvent: TSocketEvent);
-    procedure ClientError(Sender: TObject; Socket: TCustomWinSocket;
-      ErrorEvent: TErrorEvent; var ErrorCode: Integer);
+    procedure ClientEvent(Sender: TObject; Socket: TCustomWinSocket; SocketEvent: TSocketEvent);
+    procedure ClientError(Sender: TObject; Socket: TCustomWinSocket; ErrorEvent: TErrorEvent; var ErrorCode: Integer);
     function GetActiveConnections: Integer;
     function GetActiveThreads: Integer;
     function GetConnections(Index: Integer): TCustomWinSocket;
     function GetIdleThreads: Integer;
   protected
     function DoCreateThread(ClientSocket: TServerClientWinSocket): TServerClientThread; virtual;
-    procedure Listen(var Name, Address, Service: string; Port: Word;
-      QueueSize: Integer);
+    procedure Listen(var Name, Address, Service: string; Port: Word; QueueSize: Integer);
     procedure SetServerType(Value: TServerType);
     procedure SetThreadCacheSize(Value: Integer);
     procedure ThreadEnd(AThread: TServerClientThread); dynamic;
@@ -230,8 +214,7 @@ type
     procedure ClientWrite(Socket: TCustomWinSOcket); dynamic;
     procedure ClientConnect(Socket: TCustomWinSOcket); dynamic;
     procedure ClientDisconnect(Socket: TCustomWinSOcket); dynamic;
-    procedure ClientErrorEvent(Socket: TCustomWinSocket; ErrorEvent: TErrorEvent;
-      var ErrorCode: Integer); dynamic;
+    procedure ClientErrorEvent(Socket: TCustomWinSocket; ErrorEvent: TErrorEvent; var ErrorCode: Integer); dynamic;
   public
     constructor Create(ASocket: TSocket);
     destructor Destroy; override;
@@ -273,10 +256,8 @@ type
     FEvent: TSimpleEvent;
     FKeepInCache: Boolean;
     FData: Pointer;
-    procedure HandleEvent(Sender: TObject; Socket: TCustomWinSocket;
-      SocketEvent: TSocketEvent);
-    procedure HandleError(Sender: TObject; Socket: TCustomWinSocket;
-      ErrorEvent: TErrorEvent; var ErrorCode: Integer);
+    procedure HandleEvent(Sender: TObject; Socket: TCustomWinSocket; SocketEvent: TSocketEvent);
+    procedure HandleError(Sender: TObject; Socket: TCustomWinSocket; ErrorEvent: TErrorEvent; var ErrorCode: Integer);
     procedure DoHandleException;
     procedure DoRead;
     procedure DoWrite;
@@ -307,15 +288,11 @@ type
     FAddress: string;
     FHost: string;
     FService: string;
-    procedure DoEvent(Sender: TObject; Socket: TCustomWinSocket;
-      SocketEvent: TSocketEvent);
-    procedure DoError(Sender: TObject; Socket: TCustomWinSocket;
-      ErrorEvent: TErrorEvent; var ErrorCode: Integer);
+    procedure DoEvent(Sender: TObject; Socket: TCustomWinSocket; SocketEvent: TSocketEvent);
+    procedure DoError(Sender: TObject; Socket: TCustomWinSocket; ErrorEvent: TErrorEvent; var ErrorCode: Integer);
   protected
-    procedure Event(Socket: TCustomWinSocket; SocketEvent: TSocketEvent);
-      virtual; abstract;
-    procedure Error(Socket: TCustomWinSocket; ErrorEvent: TErrorEvent;
-      var ErrorCode: Integer); virtual; abstract;
+    procedure Event(Socket: TCustomWinSocket; SocketEvent: TSocketEvent); virtual; abstract;
+    procedure Error(Socket: TCustomWinSocket; ErrorEvent: TErrorEvent; var ErrorCode: Integer); virtual; abstract;
     procedure DoActivate(Value: Boolean); virtual; abstract;
     procedure InitSocket(Socket: TCustomWinSocket);
     procedure Loaded; override;
@@ -347,8 +324,7 @@ type
     FOnError: TSocketErrorEvent;
   protected
     procedure Event(Socket: TCustomWinSocket; SocketEvent: TSocketEvent); override;
-    procedure Error(Socket: TCustomWinSocket; ErrorEvent: TErrorEvent;
-      var ErrorCode: Integer); override;
+    procedure Error(Socket: TCustomWinSocket; ErrorEvent: TErrorEvent; var ErrorCode: Integer); override;
     property OnLookup: TSocketNotifyEvent read FOnLookup write FOnLookup;
     property OnConnecting: TSocketNotifyEvent read FOnConnecting write FOnConnecting;
     property OnConnect: TSocketNotifyEvent read FOnConnect write FOnConnect;
@@ -423,24 +399,15 @@ type
     procedure SetOnClientEvent(Index: Integer; Value: TSocketNotifyEvent);
     procedure SetOnClientError(Value: TSocketErrorEvent);
     property ServerType: TServerType read GetServerType write SetServerType;
-    property ThreadCacheSize: Integer read GetThreadCacheSize
-      write SetThreadCacheSize;
-    property OnGetThread: TGetThreadEvent read GetGetThreadEvent
-      write SetGetThreadEvent;
-    property OnGetSocket: TGetSocketEvent read GetGetSocketEvent
-      write SetGetSocketEvent;
-    property OnThreadStart: TThreadNotifyEvent read GetOnThreadStart
-      write SetOnThreadStart;
-    property OnThreadEnd: TThreadNotifyEvent read GetOnThreadEnd
-      write SetOnThreadEnd;
-    property OnClientConnect: TSocketNotifyEvent index 2 read GetOnClientEvent
-      write SetOnClientEvent;
-    property OnClientDisconnect: TSocketNotifyEvent index 3 read GetOnClientEvent
-      write SetOnClientEvent;
-    property OnClientRead: TSocketNotifyEvent index 0 read GetOnClientEvent
-      write SetOnClientEvent;
-    property OnClientWrite: TSocketNotifyEvent index 1 read GetOnClientEvent
-      write SetOnClientEvent;
+    property ThreadCacheSize: Integer read GetThreadCacheSize write SetThreadCacheSize;
+    property OnGetThread: TGetThreadEvent read GetGetThreadEvent write SetGetThreadEvent;
+    property OnGetSocket: TGetSocketEvent read GetGetSocketEvent write SetGetSocketEvent;
+    property OnThreadStart: TThreadNotifyEvent read GetOnThreadStart write SetOnThreadStart;
+    property OnThreadEnd: TThreadNotifyEvent read GetOnThreadEnd write SetOnThreadEnd;
+    property OnClientConnect: TSocketNotifyEvent index 2 read GetOnClientEvent write SetOnClientEvent;
+    property OnClientDisconnect: TSocketNotifyEvent index 3 read GetOnClientEvent write SetOnClientEvent;
+    property OnClientRead: TSocketNotifyEvent index 0 read GetOnClientEvent write SetOnClientEvent;
+    property OnClientWrite: TSocketNotifyEvent index 1 read GetOnClientEvent write SetOnClientEvent;
     property OnClientError: TSocketErrorEvent read GetOnClientError write SetOnClientError;
   public
     destructor Destroy; override;
@@ -471,13 +438,13 @@ type
     property OnClientError;
   end;
 
-  TSocketErrorProc = procedure (ErrorCode: Integer);
-
 function SetErrorProc(ErrorProc: TSocketErrorProc): TSocketErrorProc;
-procedure Register;
+
 implementation
 
-uses RTLConsts;
+uses
+  { DelphiMM }
+  RTLConsts;
 
 threadvar
   SocketErrorProc: TSocketErrorProc;
@@ -2145,10 +2112,7 @@ begin
   InitSocket(FServerSocket);
   FServerSocket.ThreadCacheSize := 10;
 end;
-procedure Register;
-begin
-  RegisterComponents('JSocket', [TServerSocket,TClientSocket]);
-end;
+
 end.
 
 
