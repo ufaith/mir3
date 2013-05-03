@@ -43,7 +43,7 @@ uses
   Classes,
   Controls,
   { Common }
-  JSocket;
+  mir3_game_socket;
 
 const
   GGameClientVersion             = '0.0.1.3';

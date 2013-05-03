@@ -39,9 +39,9 @@ interface
 {$I DevelopmentDefinition.inc}
 
 uses
-{Delphi }  Windows, Messages, Classes, SysUtils, JSocket, Math,
+{Delphi }  Windows, Messages, Classes, SysUtils, Math,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
-{Game   }  mir3_game_engine, mir3_global_config, mir3_core_controls, mir3_game_sound, mir3_game_file_manager,
+{Game   }  mir3_game_socket, mir3_game_engine, mir3_global_config, mir3_core_controls, mir3_game_sound, mir3_game_file_manager,
 {Game   }  mir3_game_file_manager_const, mir3_game_language_engine, mir3_misc_utils, mir3_game_font_engine,
 {Game   }  mir3_game_en_decode,
 {Scene  }  mir3_game_scene_logon, mir3_game_scene_selectchar, mir3_game_scene_ingame;
@@ -647,11 +647,11 @@ implementation
       try
         case GameSceneStep of
           gsScene_Login      :;
-            //SceneLogon.OnMouseProc(bLeftButtonDown, bRightButtonDown, bMiddleButtonDown, bSideButton1Down, bSideButton2Down, nMouseWheelDelta´, xPos, yPos);
+            //SceneLogon.OnMouseProc(bLeftButtonDown, bRightButtonDown, bMiddleButtonDown, bSideButton1Down, bSideButton2Down, nMouseWheelDelta? xPos, yPos);
           gsScene_SelChar    :;
-            //SceneSelectChar.OnMouseProc(bLeftButtonDown, bRightButtonDown, bMiddleButtonDown, bSideButton1Down, bSideButton2Down, nMouseWheelDelta´, xPos, yPos,pUserContext);
+            //SceneSelectChar.OnMouseProc(bLeftButtonDown, bRightButtonDown, bMiddleButtonDown, bSideButton1Down, bSideButton2Down, nMouseWheelDelta? xPos, yPos,pUserContext);
           gsScene_PlayGame   :;
-            //SceneInGame.OnMouseProc(bLeftButtonDown, bRightButtonDown, bMiddleButtonDown, bSideButton1Down, bSideButton2Down, nMouseWheelDelta´, xPos, yPos,pUserContext);      
+            //SceneInGame.OnMouseProc(bLeftButtonDown, bRightButtonDown, bMiddleButtonDown, bSideButton1Down, bSideButton2Down, nMouseWheelDelta? xPos, yPos,pUserContext);      
         end;
         //FMapPosition_X  := xPos;
         //FMapPosition_Y  := yPos;

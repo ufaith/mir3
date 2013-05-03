@@ -19,7 +19,7 @@ uses
   mir3_game_scene_logon in 'GameScene\mir3_game_scene_logon.pas',
   mir3_game_scene_selectchar in 'GameScene\mir3_game_scene_selectchar.pas',
   mir3_game_font_engine in 'GameEngine\mir3_game_font_engine.pas',
-  JSocket in '..\..\Common\JSocket.pas',
+  mir3_game_socket in '..\..\Common\mir3_game_socket.pas',
   mir3_game_en_decode in '..\..\Common\mir3_game_en_decode.pas',
   mir3_global_config in '..\..\Common\mir3_global_config.pas',
   mir3_game_map_framework in 'GameInternal\mir3_game_map_framework.pas',

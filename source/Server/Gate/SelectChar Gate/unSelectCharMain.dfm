@@ -4031,8 +4031,8 @@ object frmSelectCharGate: TfrmSelectCharGate
     object Image1: TImage
       Left = 0
       Top = 0
-      Width = 340
-      Height = 49
+      Width = 380
+      Height = 46
       Align = alClient
       AutoSize = True
       Picture.Data = {
@@ -5679,8 +5679,6 @@ object frmSelectCharGate: TfrmSelectCharGate
         8689848689848689848689848689848689848689848689848689}
       ExplicitLeft = 77
       ExplicitTop = -7
-      ExplicitWidth = 380
-      ExplicitHeight = 46
     end
   end
   object plInfoBackground: TRzPanel

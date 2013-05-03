@@ -1,7 +1,6 @@
-unit JSocket;
+unit mir3_game_socket;
 
 interface
-
 
 uses
   { Delphi }
@@ -58,6 +57,7 @@ type
   TGetThreadEvent    = procedure (Sender: TObject; ClientSocket: TServerClientWinSocket; var SocketThread: TServerClientThread) of object;
   TSocketNotifyEvent = procedure (Sender: TObject; Socket: TCustomWinSocket) of object;
   TSocketErrorProc   = procedure (ErrorCode: Integer);
+  TThreadNotifyEvent = procedure (Sender: TObject; Thread: TServerClientThread) of object;
 
   TCustomWinSocket = class
   private
@@ -171,8 +171,6 @@ type
 
     property ServerWinSocket: TServerWinSocket read FServerWinSocket;
   end;
-
-  TThreadNotifyEvent = procedure (Sender: TObject; Thread: TServerClientThread) of object;
 
   TServerWinSocket = class(TCustomWinSocket)
   private

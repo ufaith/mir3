@@ -2,8 +2,16 @@ unit mir3_server_global;
 
 interface
 
-uses Windows, Messages, Classes, SysUtils, StrUtils, SyncObjs,
-     mir3_global_config, JSocket;
+uses
+  Windows,
+  Messages,
+  Classes,
+  SysUtils,
+  StrUtils,
+  SyncObjs,
+  { Common }
+  mir3_global_config,
+  mir3_game_socket;
 
 const
   GATE_LOG_PATH      = 'Log\';

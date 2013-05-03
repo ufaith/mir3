@@ -44,37 +44,7 @@
     <Borland.Personality>Delphi.Personality</Borland.Personality>
     <Borland.ProjectType />
     <BorlandProject>
-<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">0</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">13</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">2057</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">LomCN Mir3 Team</VersionInfoKeys><VersionInfoKeys Name="FileDescription">LomCN Mir3 Server Control Center</VersionInfoKeys><VersionInfoKeys Name="FileVersion">0.0.0.13</VersionInfoKeys><VersionInfoKeys Name="InternalName">LomCN Mir3 Server Control Center</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright">© LomCN Mir3 Team</VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">ServerControlCenter</VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">0.0.0.3</VersionInfoKeys><VersionInfoKeys Name="Comments">Create by Coly</VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">0</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">13</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">2057</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">LomCN Mir3 Team</VersionInfoKeys><VersionInfoKeys Name="FileDescription">LomCN Mir3 Server Control Center</VersionInfoKeys><VersionInfoKeys Name="FileVersion">0.0.0.13</VersionInfoKeys><VersionInfoKeys Name="InternalName">LomCN Mir3 Server Control Center</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright">? LomCN Mir3 Team</VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename">ServerControlCenter</VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">0.0.0.3</VersionInfoKeys><VersionInfoKeys Name="Comments">Create by Coly</VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\D7WinNetworkSocket.bpl">WinSocket Server / Client</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dclsdac105.bpl">SQL Server Data Access Components</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dcldac105.bpl">Devart Data Access Components</Excluded_Packages>
@@ -88,6 +58,9 @@
     <DelphiCompile Include="ServerControlCenter.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="..\..\Common\JSocket.pas">
+      <ModuleName>mir3_game_socket</ModuleName>
+    </DCCReference>
     <DCCReference Include="..\..\Common\JSocket.pas" />
     <DCCReference Include="..\..\Common\mir3_global_config.pas" />
     <DCCReference Include="..\..\Common\mir3_server_global.pas" />
@@ -97,3 +70,9 @@
     </DCCReference>
   </ItemGroup>
 </Project>
+
+<!-- EurekaLog First Line
+[Exception Log]
+EurekaLog Version=7001
+DeleteMapAfterCompile=1
+EurekaLog Last Line -->

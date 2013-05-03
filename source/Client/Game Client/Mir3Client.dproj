@@ -58,6 +58,9 @@
     <DelphiCompile Include="Mir3Client.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="..\..\Common\JSocket.pas">
+      <ModuleName>mir3_game_socket</ModuleName>
+    </DCCReference>
     <DCCReference Include="..\..\Common\JSocket.pas" />
     <DCCReference Include="..\..\Common\mir3_game_en_decode.pas" />
     <DCCReference Include="..\..\Common\mir3_global_config.pas" />

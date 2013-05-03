@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, WinSock,
-  Dialogs, RzDBStat, RzTray, RzStatus, RzPanel, JSocket, ExtCtrls, RzBorder, IniFiles,
+  Dialogs, RzDBStat, RzTray, RzStatus, RzPanel, mir3_game_socket, ExtCtrls, RzBorder, IniFiles,
   Menus, StdCtrls, mir3_server_global, mir3_global_config, mir3_game_en_decode, unGateConfig,
   ImgList;
 
