@@ -15,13 +15,13 @@ const
 
 type
   TGetLangFileVersion  = function(): Integer; stdcall;
-  TGetLangFileAutor    = function(Buffer: PChar) : Integer; stdcall;
+  TGetLangFileAutor    = function(Buffer: PWideChar) : Integer; stdcall;
   {Game Lang}
   TGetLangGameLine     = function(): Integer; stdcall;
-  TGetLangGameString   = function(ID: Integer; Buffer: PChar): Integer; stdcall;
+  TGetLangGameString   = function(ID: Integer; Buffer: PWideChar): Integer; stdcall;
   {Magic Lang}
   TGetLangMagicLine    = function(): Integer; stdcall;
-  TGetLangMagicString  = function(ID: Integer; Buffer: PChar): Integer; stdcall;
+  TGetLangMagicString  = function(ID: Integer; Buffer: PWideChar): Integer; stdcall;
 
   TMir3_GameLanguageEngine = class
   private
@@ -37,12 +37,12 @@ type
     function GetLangGameFileTextCols: Integer;
     function GetLangMagicFileTextCols: Integer;
     function GetLangFileVersion: Integer;
-    function GetLangAutor: String;
+    function GetLangAutor: WideString;
   public
     constructor Create(ALanguage: Integer = C_LANGUAGE_ENGLISH);
     destructor Destroy; override;
-    function GetTextFromLangSystem(ATextID: Integer): String;
-    function GetMagicTextFromLangSystem(ATextID: Integer): String;
+    function GetTextFromLangSystem(ATextID: Integer): WideString;
+    function GetMagicTextFromLangSystem(ATextID: Integer): WideString;
   end;
   
   (*
@@ -60,7 +60,8 @@ const
   GBufferSize = 20000;
 
 var
-  GBuffer  : PChar;
+  GBuffer  : PWideChar;
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // TMir3_GameLanguageEngine Constructor
@@ -168,7 +169,7 @@ end;
 ////////////////////////////////////////////////////////////////////////////////
 // TMir3_GameLanguageEngine Get Language file Autor
 //..............................................................................
-function TMir3_GameLanguageEngine.GetLangAutor: String;
+function TMir3_GameLanguageEngine.GetLangAutor: WideString;
 begin
   Result := '';
   try
@@ -179,7 +180,7 @@ begin
       begin
         ZeroMemory(GBuffer, GBufferSize);
         FGetLangFileAutor(GBuffer);
-        Result := Trim(StrPas(GBuffer));
+        Result := GBuffer;
       end;
     end else Result := '';
   except
@@ -210,7 +211,7 @@ end;
 ////////////////////////////////////////////////////////////////////////////////
 // TMir3_GameLanguageEngine Get Game Text from Language file
 //..............................................................................
-function TMir3_GameLanguageEngine.GetTextFromLangSystem(ATextID: Integer): String;
+function TMir3_GameLanguageEngine.GetTextFromLangSystem(ATextID: Integer): WideString; //String;
 begin
   Result := '';
   try
@@ -223,7 +224,7 @@ begin
         begin
           ZeroMemory(GBuffer, GBufferSize);
           FGetLangGameString(ATextID, GBuffer);
-          Result := StrPas(GBuffer);
+          Result := GBuffer;
         end;
       end else Result := '.';
     end else Result := '.';
@@ -257,7 +258,9 @@ end;
 ////////////////////////////////////////////////////////////////////////////////
 // TMir3_GameLanguageEngine Get Magic Text from Language file
 //..............................................................................
-function TMir3_GameLanguageEngine.GetMagicTextFromLangSystem(ATextID: Integer): String;
+function TMir3_GameLanguageEngine.GetMagicTextFromLangSystem(ATextID: Integer): WideString;
+var
+  FBuffer    : array [0..GBufferSize] of WideChar;
 begin
   Result := '';
   try
@@ -270,7 +273,9 @@ begin
         begin
           ZeroMemory(GBuffer, GBufferSize);
           FGetLangMagicString(ATextID, GBuffer);
-          Result := StrPas(GBuffer);
+
+          lstrcpynW(FBuffer, GBuffer, GBufferSize);
+          Result := GBuffer;
         end;
       end else Result := '.';
     end else Result := '.';

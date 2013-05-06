@@ -58,11 +58,9 @@
     <DelphiCompile Include="Mir3Client.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
-    <DCCReference Include="..\..\Common\JSocket.pas">
-      <ModuleName>mir3_game_socket</ModuleName>
-    </DCCReference>
     <DCCReference Include="..\..\Common\JSocket.pas" />
     <DCCReference Include="..\..\Common\mir3_game_en_decode.pas" />
+    <DCCReference Include="..\..\Common\mir3_game_socket.pas" />
     <DCCReference Include="..\..\Common\mir3_global_config.pas" />
     <DCCReference Include="GameCommon\mir3_misc_ingame.pas" />
     <DCCReference Include="GameCommon\mir3_misc_utils.pas" />
@@ -81,6 +79,7 @@
     <DCCReference Include="GameInternal\mir3_game_map_framework.pas" />
     <DCCReference Include="GameScene\mir3_game_scene_ingame.pas" />
     <DCCReference Include="GameScene\mir3_game_scene_logon.pas" />
+    <DCCReference Include="GameScene\mir3_game_scene_logon_info.pas" />
     <DCCReference Include="GameScene\mir3_game_scene_selectchar.pas" />
     <None Include="DevelopmentDefinition.inc" />
     <None Include="TODO_List.txt" />

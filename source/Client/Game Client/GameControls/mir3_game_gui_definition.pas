@@ -1,4 +1,4 @@
-(*****************************************************************************************
+ï»¿(*****************************************************************************************
  *   LomCN Mir3 GUI Definition control File 2012                                         *
  *                                                                                       *
  *   Web       : http://www.lomcn.co.uk                                                  *
@@ -72,9 +72,16 @@ const
 
   (* Login Control IDs *)
   {$REGION ' - Login Control IDs                  '}
+  GUI_ID_LOGON_BACKGROUND                         =  90;
+  GUI_ID_LOGON_PANEL_INFO                         =  91;
+  GUI_ID_LOGON_TIMER                              =  92;
+  {$ENDREGION}
+
+  (* Login Control IDs *)
+  {$REGION ' - Login Control IDs                  '}
   GUI_ID_LOGIN_BACKGROUND                         = 100;
   GUI_ID_LOGIN_BACKPANEL_1                        = 101;
-  GUI_ID_LOGIN_BACKPANEL_2                        = 102;
+  GUI_ID_LOGIN_MIR3_LOGO                          = 102;
   GUI_ID_LOGIN_EDIT_USER                          = 103;
   GUI_ID_LOGIN_EDIT_PASSWORD                      = 104;
   GUI_ID_LOGIN_BUTTON_EXIT                        = 105;
@@ -82,6 +89,12 @@ const
   GUI_ID_LOGIN_BUTTON_URL_1                       = 107;
   GUI_ID_LOGIN_BUTTON_URL_2                       = 108;
   GUI_ID_LOGIN_BUTTON_INFO                        = 109;
+  GUI_ID_LOGIN_ANIMATION_1                        = 110;
+  GUI_ID_LOGIN_ANIMATION_2                        = 111;
+  GUI_ID_LOGIN_ANIMATION_3                        = 112;
+  GUI_ID_LOGIN_ANIMATION_4                        = 113;
+  GUI_ID_LOGIN_ANIMATION_5                        = 114;
+  GUI_ID_LOGIN_ANIMATION_6                        = 115;
   {$ENDREGION}
 
   (* SelectChar Control IDs *)
@@ -106,6 +119,7 @@ const
   GUI_ID_SELECTCHAR_INFO_LEVEL_INFO               = 166;
   GUI_ID_SELECTCHAR_INFO_GOLD_INFO                = 167;
   GUI_ID_SELECTCHAR_INFO_EXP_INFO                 = 168;
+  GUI_ID_SELECTCHAR_ANIMATION_1                   = 169;
   {$ENDREGION}
 
   (* CreateChar Control IDs *)
@@ -127,7 +141,7 @@ const
 
   (* InGame Control IDs *)
   {$REGION ' - InGame Scene Control IDs           '}
-   //                                               = (110 - 200) und (226 - 300) können noch genutzt werden
+   //                                               = (110 - 200) und (226 - 300) kÃ¶nnen noch genutzt werden
 
   {$REGION ' - MiniMap GUI             (50-80)   '}
   (* Stage 1 *)
@@ -708,7 +722,7 @@ const
   {$ENDREGION}
 
 type
-  TMir3_GUI_Definition_System  = record
+  TMir3_GUI_Definition_System    = record
     (* System Info Dialoge *)
     {$REGION ' - System Dialog                                 '}
     FSys_Dialog_Info                     : TMir3_GUI_Ground_Info;  //basic Dialog Info Window
@@ -723,29 +737,64 @@ type
     {$ENDREGION}
   end;
 
-  TMir3_GUI_Definition_Login   = record
-    (* Login Scene *)
-    {$REGION ' - Login Scene                                   '}
-    FLogin_Background                    : TMir3_GUI_Ground_Info;  //used for random background texture and Contols Placeholder
-      FLogin_BackPanel_1                 : TMir3_GUI_Ground_Info;  //used for the Edit Fields as background (Alphablendet)
-      FLogin_BackPanel_2                 : TMir3_GUI_Ground_Info;  //used for the Edit Fields as background (Alphablendet)
-      FLogin_EditField_User              : TMir3_GUI_Ground_Info;  //used for User Name Edit field
-      FLogin_EditField_Password          : TMir3_GUI_Ground_Info;  //used for Password Edit field
-      FLogin_Button_Exit                 : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
-      FLogin_Button_Login                : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
-      FLogin_Button_URL_1                : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
-      FLogin_Button_URL_2                : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
-      FLogin_Information_Field           : TMir3_GUI_Ground_Info;  //used for Text Information (like Debug FPS etc.)
+
+  TMir3_GUI_Definition_LogonInfo = record
+    {$REGION ' - Logon Info Dialog                            '}
+    (* LogonInfo Scene *)
+    // Setup for 800x600
+    FLogonInfo_Background_800            : TMir3_GUI_Ground_Info;  //basic Dialog Info Window
+      FLogon_Information_Field_800       : TMir3_GUI_Ground_Info;  //used for Text Information
+    // Setup for 1024x768
+    FLogonInfo_Background_1024           : TMir3_GUI_Ground_Info;  //basic Dialog Info Window
+      FLogon_Information_Field_1024      : TMir3_GUI_Ground_Info;  //used for Text Information
+    // Timer Support
+      FLogon_Info_Timer                  : TMir3_GUI_Ground_Info;
     {$ENDREGION}
   end;
 
-  TMir3_GUI_Definition_SelChar = record
+  TMir3_GUI_Definition_Login     = record
+    (* Login Scene *)
+    {$REGION ' - Login Scene                                   '}
+    // Setup for 800x600
+    FLogin_Background_800                : TMir3_GUI_Ground_Info;  //used for random background texture and Contols Placeholder
+      FLogin_Animation_1_800             : TMir3_GUI_Ground_Info;  // Bird Animation
+      FLogin_Animation_2_800             : TMir3_GUI_Ground_Info;  // Sun Animation
+      FLogin_Animation_3_800             : TMir3_GUI_Ground_Info;  // Flag Animation
+      FLogin_Animation_4_800             : TMir3_GUI_Ground_Info;  // Water Animation
+      FLogin_BackPanel_800               : TMir3_GUI_Ground_Info;  //used for the Edit Fields as background
+      FLogin_Mir3LogoPanel_800           : TMir3_GUI_Ground_Info;  //used for the Mir3 Logo
+      FLogin_EditField_User_800          : TMir3_GUI_Ground_Info;  //used for User Name Edit field
+      FLogin_EditField_Password_800      : TMir3_GUI_Ground_Info;  //used for Password Edit field
+      FLogin_Button_Exit_800             : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
+      FLogin_Button_Login_800            : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
+      FLogin_Button_URL_1_800            : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
+      FLogin_Button_URL_2_800            : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
+    // Setup for 1024x768
+    FLogin_Background_1024               : TMir3_GUI_Ground_Info;  //used for random background texture and Contols Placeholder
+      FLogin_Animation_1_1024            : TMir3_GUI_Ground_Info;  // Bird Animation
+      FLogin_Animation_2_1024            : TMir3_GUI_Ground_Info;  // Sun 1 Animation
+      FLogin_Animation_3_1024            : TMir3_GUI_Ground_Info;  // Flag 1 Animation
+      FLogin_Animation_4_1024            : TMir3_GUI_Ground_Info;  // Water Animation
+      FLogin_BackPanel_1024              : TMir3_GUI_Ground_Info;  //used for the Edit Fields as background
+      FLogin_Mir3LogoPanel_1024          : TMir3_GUI_Ground_Info;  //used for the Mir3 Logo
+      FLogin_EditField_User_1024         : TMir3_GUI_Ground_Info;  //used for User Name Edit field
+      FLogin_EditField_Password_1024     : TMir3_GUI_Ground_Info;  //used for Password Edit field
+      FLogin_Button_Exit_1024            : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
+      FLogin_Button_Login_1024           : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
+      FLogin_Button_URL_1_1024           : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
+      FLogin_Button_URL_2_1024           : TMir3_GUI_Ground_Info;  //used as exit btn (in Mir3: Texture Text)
+    {$ENDREGION}
+  end;
+
+  TMir3_GUI_Definition_SelChar   = record
     (* Select Char Scene *)
     {$REGION ' - Select Char and Create Char Scene             '}
-    FSelectChar_Background               : TMir3_GUI_Ground_Info;  //used for Select Char background texture and Contols Placeholder
-      FSelectChar_Character_1            : TMir3_GUI_Ground_Info;  // Character View 1
-      FSelectChar_Character_2            : TMir3_GUI_Ground_Info;  // Character View 2
-      FSelectChar_Character_3            : TMir3_GUI_Ground_Info;  // Character View 3
+    FSelectChar_Background_800           : TMir3_GUI_Ground_Info;  //used for Select Char background texture and Contols Placeholder
+      FSelectChar_Animation_800          : TMir3_GUI_Ground_Info;  // Fire Animation
+      FSelectChar_Character_1_800        : TMir3_GUI_Ground_Info;  // Character View 1
+      FSelectChar_Character_2_800        : TMir3_GUI_Ground_Info;  // Character View 2
+      FSelectChar_Character_3_800        : TMir3_GUI_Ground_Info;  // Character View 3
+      FSelectChar_Character_4_800        : TMir3_GUI_Ground_Info;  // Character View 4
       FSelectChar_Button_Start           : TMir3_GUI_Ground_Info;  // Start Game
       FSelectChar_Button_Exit            : TMir3_GUI_Ground_Info;  // Exit Game
       FSelectChar_Button_Delete_Char     : TMir3_GUI_Ground_Info;  // Delete old Char
@@ -762,6 +811,10 @@ type
       FSelectChar_Dialog_Class_Info      : TMir3_GUI_Ground_Info;  // Character Class Value
       FSelectChar_Dialog_Gold_Info       : TMir3_GUI_Ground_Info;  // Character Gold Value
       FSelectChar_Dialog_Exp_Info        : TMir3_GUI_Ground_Info;  // Character Exp Value
+
+    // Setup for 1024x768
+    FSelectChar_Background_1024          : TMir3_GUI_Ground_Info;  //used for Select Char background texture and Contols Placeholder
+      FSelectChar_Animation_1024         : TMir3_GUI_Ground_Info;  // Fire Animation
 
     (* Create Char Scene *)
     FCreateChar_Background               : TMir3_GUI_Ground_Info;  // used for Create Char background texture and Contols Placeholder
@@ -780,7 +833,7 @@ type
     {$ENDREGION}
   end;
 
-  TMir3_GUI_Definition_InGame  = record
+  TMir3_GUI_Definition_InGame    = record
 
     (* Load Game(Notice) Scene *)
     {$REGION ' - Load Game(Notice) Scene                       '}
@@ -1494,74 +1547,268 @@ var
   ////////////////////////////////////////////////////////////////////////////////
   // Game Login Control Definition
   //..............................................................................
-  FGame_GUI_Definition_Login   : TMir3_GUI_Definition_Login   =(
+  FGame_GUI_Definition_LogonInfo : TMir3_GUI_Definition_LogonInfo   =(
 
-    {$REGION ' - Login Scene            '}
-    FLogin_Background                : ({$REGION ' - FLogin_Background                '}
-                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BACKGROUND;
+    {$REGION ' - Logon Info Scene      '}
+    FLogonInfo_Background_800        : ({$REGION ' - FLogonInfo_Background_800             '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGON_BACKGROUND;
                                      gui_Type                   : ctForm;       
-                                     gui_Form_Type              : ftBackground;  
+                                     gui_Form_Type              : ftBackground;
                                      gui_WorkField              : (Left:0; Top:0; Right:800; Bottom:600);
                                      gui_Top                    : 0;
                                      gui_Left                   : 0;
                                      gui_Height                 : 600;
                                      gui_Width                  : 800;
-                                     gui_Blend_Size             : 245;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_PROGUSE_INT;
-                                                                   gui_Background_Texture_ID : 361;
-                                                                   gui_Random_Texture_From   : 361;
-                                                                   gui_Random_Texture_To     : 365);
-                                     gui_Use_Random_Texture     : True;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 4);
+                                     gui_Use_Strech_Texture     : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
               );
-    FLogin_BackPanel_1               : ({$REGION ' - FLogin_BackPanel_1               '}
-                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BACKPANEL_1;
+    FLogon_Information_Field_800     : ({$REGION ' - FLogon_Information_Field_800          '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGON_PANEL_INFO;
                                      gui_Type                   : ctPanel;
                                      gui_Form_Type              : ftNone;
-                                     gui_Top                    : 430;
-                                     gui_Left                   : 0;
-                                     gui_Height                 : 48;
-                                     gui_Width                  : 800;
-                                     gui_Strech_Rate_X          : 1.25;
-                                     gui_Strech_Rate_Y          : 1.25;
-                                     gui_Blend_Size             : 170;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 2);
-                                     gui_Use_Strech_Texture     : True;                              
+                                     gui_Top                    : 100;
+                                     gui_Left                   : 40;
+                                     gui_Height                 : 245;
+                                     gui_Width                  : 780;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 21;
+                                                                   gui_Font_Color       : $FFF2F2F2;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avTop;
+                                                                   gui_Font_Setting     : [fsBold]);
                                      gui_Enabled                : True;
-                                     gui_Visible                : True                                    
+                                     gui_Visible                : True                                   
                                      {$ENDREGION}
               );
-    FLogin_BackPanel_2               : ({$REGION ' - FLogin_BackPanel_2               '}
-                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BACKPANEL_2;
-                                     gui_Type                   : ctTextLabel;
-                                     gui_Form_Type              : ftNone;
-                                     gui_Top                    : 514;
-                                     gui_Left                   : 116;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 800;
-                                     gui_Blend_Size             : 255;
-                                     gui_CaptionID              : 5;
 
-                                     gui_Font                   : (gui_Font_Use_ID: 2;
-                                                                   gui_Font_Size  : 21;
-                                                                   gui_Font_Color : $FFF0F0F0;
-                                                                   gui_Font_Script_MouseNormal   : '¦C16F6F6F¦¦C2EFEFEF?');
+    FLogonInfo_Background_1024       : ({$REGION ' - FLogonInfo_Background_1024            '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGON_BACKGROUND;
+                                     gui_Type                   : ctForm;
+                                     gui_Form_Type              : ftBackground;
+                                     gui_WorkField              : (Left:0; Top:0; Right:1024; Bottom:768);
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 768;
+                                     gui_Width                  : 1024;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 4);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True 
+                                     {$ENDREGION}
+              );
+    FLogon_Information_Field_1024    : ({$REGION ' - FLogon_Information_Field_1024         '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGON_PANEL_INFO;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 375;
+                                     gui_Left                   : 120;
+                                     gui_Height                 : 245;
+                                     gui_Width                  : 780;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 21;
+                                                                   gui_Font_Color       : $FFF2F2F2;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avTop;
+                                                                   gui_Font_Setting     : [fsBold]);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True                                   
+                                     {$ENDREGION}
+              );
+
+    FLogon_Info_Timer                : ({$REGION ' - FLogon_Information_Field_1024         '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGON_TIMER;
+                                     gui_Type                   : ctTimer;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 1;
+                                     gui_Width                  : 1;
+                                     gui_Timer_Intervall        : 1000;//5000;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True                                   
+                                     {$ENDREGION}
+              );
+    {$ENDREGION}
+  );
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // Game Login Control Definition
+  //..............................................................................
+  FGame_GUI_Definition_Login   : TMir3_GUI_Definition_Login   =(
+
+    {$REGION ' - Login Scene            '}
+    FLogin_Background_800            : ({$REGION ' - FLogin_Background_800                '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BACKGROUND;
+                                     gui_Type                   : ctForm;       
+                                     gui_Form_Type              : ftBackground;  
+                                     gui_WorkField              : (Left:0; Top:0; Right:1024; Bottom:768);
+                                     gui_Top                    : -82;
+                                     gui_Left                   : -114;
+                                     gui_Height                 : 768;
+                                     gui_Width                  : 1024;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 19);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True 
+                                     {$ENDREGION}
+              );
+    FLogin_Animation_1_800           : ({$REGION ' - FLogin_Animation_1_800               '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_ANIMATION_1;  // Bird
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 600;
+                                     gui_Width                  : 800;
+                                     gui_Blend_Size             : 205;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2179;
+                                                                   gui_Animation_Texture_To      : 2288;
+                                                                   gui_Animation_Blend_Mode      : BLEND_DEFAULT;
+                                                                   gui_Animation_Interval        : 160;
+                                                                   gui_Animation_Max_Count       : 109;
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Offset_Calc        : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FLogin_EditField_User            : ({$REGION ' - FLogin_EditField_User            '}
+    FLogin_Animation_2_800           : ({$REGION ' - FLogin_Animation_2_800               '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_ANIMATION_2;  // Sun 1
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 600;
+                                     gui_Width                  : 800;
+                                     gui_Blend_Size             : 205;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2299;
+                                                                   gui_Animation_Texture_To      : 2328;
+                                                                   gui_Animation_Blend_Mode      : Blend_Add;
+                                                                   gui_Animation_Interval        : 300;
+                                                                   gui_Animation_Max_Count       : 0
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Offset_Calc        : False;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_Animation_3_800           : ({$REGION ' - FLogin_Animation_3_800               '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_ANIMATION_3;  // Flags 1
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 600;
+                                     gui_Width                  : 800;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2399;
+                                                                   gui_Animation_Texture_To      : 2428;
+                                                                   gui_Animation_Blend_Mode      : BLEND_DEFAULT;
+                                                                   gui_Animation_Interval        : 200;
+                                                                   gui_Animation_Max_Count       : 0
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Offset_Calc        : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_Animation_4_800           : ({$REGION ' - FLogin_Animation_4_800               '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_ANIMATION_4;  // Water
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 600;
+                                     gui_Width                  : 800;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2499;
+                                                                   gui_Animation_Texture_To      : 2528;
+                                                                   gui_Animation_Blend_Mode      : BLEND_DEFAULT;
+                                                                   gui_Animation_Interval        : 200;
+                                                                   gui_Animation_Max_Count       : 0
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Offset_Calc        : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_BackPanel_800             : ({$REGION ' - FLogin_BackPanel_800                 '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BACKPANEL_1;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 560;
+                                     gui_Left                   : 120;
+                                     gui_Height                 : 104;
+                                     gui_Width                  : 784;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 1);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_Mir3LogoPanel_800         : ({$REGION ' - FLogin_Mir3LogoPanel_800             '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_MIR3_LOGO;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 160;
+                                     gui_Left                   : 230;
+                                     gui_Height                 : 300;
+                                     gui_Width                  : 564;
+                                     gui_Extra_Offset_X         : 38;
+                                     gui_Extra_Offset_Y         : 30;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Size_Extra       : 255;
+                                     gui_Blend_Mode             : Blend_Add;
+                                     gui_Blend_Mode_Extra       : Blend_Default;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 21;
+                                                                   gui_ExtraTexture_File_ID  : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_ExtraBackground_Texture_ID : 22);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_EditField_User_800        : ({$REGION ' - FLogin_EditField_User                '}
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_EDIT_USER;
                                      gui_Type                   : ctEdit;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:2; Top:0; Right:121; Bottom:23);
-                                     gui_Top                    : 511;
-                                     gui_Left                   : 145;
-                                     gui_Height                 : 23;
-                                     gui_Width                  : 126;
+                                     gui_WorkField              : (Left:2; Top:0; Right:182; Bottom:16);
+                                     gui_Top                    : 625;
+                                     gui_Left                   : 188;
+                                     gui_Height                 : 16;
+                                     gui_Width                  : 184;
                                      gui_Blend_Size             : 245;
                                      gui_Font                   : (gui_Font_Use_ID      : 15;
                                                                    gui_Font_Size        : 21;
@@ -1572,21 +1819,21 @@ var
                                      gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
                                      gui_Color                  : (gui_ControlColor : $F5050505;
                                                                    gui_BorderColor  : $FF717171);
-                                     gui_ShowBorder             : True;
-                                     gui_ShowPanel              : True;
+                                     gui_ShowBorder             : False;
+                                     gui_ShowPanel              : False;
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
                                      {$ENDREGION}
               );
-    FLogin_EditField_Password        : ({$REGION ' - FLogin_EditField_Password        '}
+    FLogin_EditField_Password_800    : ({$REGION ' - FLogin_EditField_Password            '}
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_EDIT_PASSWORD; 
                                      gui_Type                   : ctEdit;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:2; Top:0; Right:121; Bottom:23);
-                                     gui_Top                    : 511;
-                                     gui_Left                   : 396;
-                                     gui_Height                 : 23;
-                                     gui_Width                  : 126;
+                                     gui_WorkField              : (Left:2; Top:0; Right:182; Bottom:16);
+                                     gui_Top                    : 625;
+                                     gui_Left                   : 475;
+                                     gui_Height                 : 16;
+                                     gui_Width                  : 184;
                                      gui_Blend_Size             : 245;
                                      gui_Font                   : (gui_Font_Use_ID      : 15;
                                                                    gui_Font_Size        : 21;
@@ -1598,19 +1845,333 @@ var
                                      gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
                                      gui_Color                  : (gui_ControlColor : $F5050505;
                                                                    gui_BorderColor  : $FF717171);
-                                     gui_ShowBorder             : True;
-                                     gui_ShowPanel              : True;
+                                     gui_ShowBorder             : False;
+                                     gui_ShowPanel              : False;
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
               );
-    FLogin_Button_Exit               : ({$REGION ' - FLogin_Button_Exit               '}
+    FLogin_Button_Exit_800           : ({$REGION ' - FLogin_Button_Exit_800               '}
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_EXIT; 
-                                     gui_Type                   : ctTextButton;
+                                     gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:21);
-                                     gui_Top                    : 445;
-                                     gui_Left                   : 565;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                     gui_Top                    : 618;
+                                     gui_Left                   : 770;
+                                     gui_Height                 : 21;
+                                     gui_Width                  : 28;
+                                     gui_Blend_Size             : 255;
+                                     gui_CaptionID              : 2;
+                                     gui_HintID                 : 7;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1A59222Â¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 29;
+                                                                   gui_Mouse_Over_Texture_ID : 31;
+                                                                   gui_Mouse_Down_Texture_ID : 30);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_Button_Login_800          : ({$REGION ' - FLogin_Button_Login_800              '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_LOGIN;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                     gui_Top                    : 618;
+                                     gui_Left                   : 667;
+                                     gui_Height                 : 21;
+                                     gui_Width                  : 44;
+                                     gui_Blend_Size             : 255;
+                                     gui_CaptionID              : 1;
+                                     gui_HintID                 : 6;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1A59222Â¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 29;
+                                                                   gui_Mouse_Over_Texture_ID : 31;
+                                                                   gui_Mouse_Down_Texture_ID : 30);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_Button_URL_1_800          : ({$REGION ' - FLogin_Button_URL_1_800              '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_URL_1;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:228; Bottom:30);
+                                     gui_Top                    : 560;
+                                     gui_Left                   : 441;
+                                     gui_Height                 : 18;
+                                     gui_Width                  : 210;
+                                     gui_Blend_Size             : 255;
+                                     gui_CaptionID              : 3;
+                                     gui_HintID                 : 8;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1A59222Â¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Mouse_Over_Texture_ID : 9);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_Button_URL_2_800          : ({$REGION ' - FLogin_Button_URL_2_800              '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_URL_1;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:228; Bottom:30);
+                                     gui_Top                    : 560;
+                                     gui_Left                   : 670;
+                                     gui_Height                 : 18;
+                                     gui_Width                  : 210;
+                                     gui_Blend_Size             : 255;
+                                     gui_CaptionID              : 4;
+                                     gui_HintID                 : 9;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1A59222Â¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Mouse_Over_Texture_ID : 9);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True  
+                                     {$ENDREGION}
+              );
+    FLogin_Background_1024           : ({$REGION ' - FLogin_Background_1024                '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BACKGROUND;
+                                     gui_Type                   : ctForm;       
+                                     gui_Form_Type              : ftBackground;  
+                                     gui_WorkField              : (Left:0; Top:0; Right:1024; Bottom:768);
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 768;
+                                     gui_Width                  : 1024;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 19);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True 
+                                     {$ENDREGION}
+              );
+    FLogin_Animation_1_1024          : ({$REGION ' - FLogin_Animation_1_1024               '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_ANIMATION_1;  // Bird
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 600;
+                                     gui_Width                  : 800;
+                                     gui_Blend_Size             : 205;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2179;
+                                                                   gui_Animation_Texture_To      : 2288;
+                                                                   gui_Animation_Blend_Mode      : BLEND_DEFAULT;
+                                                                   gui_Animation_Interval        : 160;
+                                                                   gui_Animation_Max_Count       : 109;
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Offset_Calc        : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_Animation_2_1024          : ({$REGION ' - FLogin_Animation_2_1024               '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_ANIMATION_2;  // Sun 1
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 600;
+                                     gui_Width                  : 800;
+                                     gui_Blend_Size             : 205;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2299;
+                                                                   gui_Animation_Texture_To      : 2328;
+                                                                   gui_Animation_Blend_Mode      : Blend_Add;
+                                                                   gui_Animation_Interval        : 300;
+                                                                   gui_Animation_Max_Count       : 0
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Offset_Calc        : False;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_Animation_3_1024          : ({$REGION ' - FLogin_Animation_3_1024               '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_ANIMATION_3;  // Flags 1
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 600;
+                                     gui_Width                  : 800;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2399;
+                                                                   gui_Animation_Texture_To      : 2428;
+                                                                   gui_Animation_Blend_Mode      : BLEND_DEFAULT;
+                                                                   gui_Animation_Interval        : 200;
+                                                                   gui_Animation_Max_Count       : 0
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Offset_Calc        : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_Animation_4_1024          : ({$REGION ' - FLogin_Animation_4_1024               '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_ANIMATION_4;  // Water
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 600;
+                                     gui_Width                  : 800;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2499;
+                                                                   gui_Animation_Texture_To      : 2528;
+                                                                   gui_Animation_Blend_Mode      : BLEND_DEFAULT;
+                                                                   gui_Animation_Interval        : 200;
+                                                                   gui_Animation_Max_Count       : 0
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Offset_Calc        : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_BackPanel_1024            : ({$REGION ' - FLogin_BackPanel_1024                 '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BACKPANEL_1;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 560;
+                                     gui_Left                   : 120;
+                                     gui_Height                 : 104;
+                                     gui_Width                  : 784;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 1);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True                                    
+                                     {$ENDREGION}
+              );
+    FLogin_Mir3LogoPanel_1024        : ({$REGION ' - FLogin_Mir3LogoPanel_1024             '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_MIR3_LOGO;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 80;
+                                     gui_Left                   : 230;
+                                     gui_Height                 : 300;
+                                     gui_Width                  : 564;
+                                     gui_Extra_Offset_X         : 38;
+                                     gui_Extra_Offset_Y         : 30;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Size_Extra       : 255;
+                                     gui_Blend_Mode             : Blend_Add;
+                                     gui_Blend_Mode_Extra       : Blend_Default;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 21;
+                                                                   gui_ExtraTexture_File_ID  : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_ExtraBackground_Texture_ID : 22);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FLogin_EditField_User_1024       : ({$REGION ' - FLogin_EditField_User_1024            '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_EDIT_USER;
+                                     gui_Type                   : ctEdit;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:2; Top:0; Right:182; Bottom:16);
+                                     gui_Top                    : 625;
+                                     gui_Left                   : 188;
+                                     gui_Height                 : 16;
+                                     gui_Width                  : 184;
+                                     gui_Blend_Size             : 245;
+                                     gui_Font                   : (gui_Font_Use_ID      : 15;
+                                                                   gui_Font_Size        : 16;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Text_VAlign : avCenter);
+                                     gui_Password_Char          : '';
+                                     gui_Edit_Max_Length        : 25;
+                                     gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
+                                     gui_Color                  : (gui_ControlColor : $F5050505;
+                                                                   gui_BorderColor  : $FF717171);
+                                     gui_ShowBorder             : False;
+                                     gui_ShowPanel              : False;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True                                   
+                                     {$ENDREGION}
+              );
+    FLogin_EditField_Password_1024   : ({$REGION ' - FLogin_EditField_Password_1024        '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_EDIT_PASSWORD; 
+                                     gui_Type                   : ctEdit;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:2; Top:0; Right:182; Bottom:16);
+                                     gui_Top                    : 625;
+                                     gui_Left                   : 475;
+                                     gui_Height                 : 16;
+                                     gui_Width                  : 184;
+                                     gui_Blend_Size             : 245;
+                                     gui_Font                   : (gui_Font_Use_ID      : 15;
+                                                                   gui_Font_Size        : 16;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Text_HAlign : alLeft;
+                                                                   gui_Font_Text_VAlign : avCenter);
+                                     gui_Password_Char          : '*';
+                                     gui_Edit_Max_Length        : 25;
+                                     gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
+                                     gui_Color                  : (gui_ControlColor : $F5050505;
+                                                                   gui_BorderColor  : $FF717171);
+                                     gui_ShowBorder             : False;
+                                     gui_ShowPanel              : False;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True 
+                                     {$ENDREGION}
+              );
+    FLogin_Button_Exit_1024          : ({$REGION ' - FLogin_Button_Exit_1024             '}
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_EXIT; 
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                     gui_Top                    : 618;
+                                     gui_Left                   : 770;
                                      gui_Height                 : 21;
                                      gui_Width                  : 28;
                                      gui_Blend_Size             : 255;
@@ -1619,20 +2180,26 @@ var
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF?';
-                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF?');
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1A59222Â¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 29;
+                                                                   gui_Mouse_Over_Texture_ID : 31;
+                                                                   gui_Mouse_Down_Texture_ID : 30);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FLogin_Button_Login              : ({$REGION ' - FLogin_Button_Login              '}
+    FLogin_Button_Login_1024         : ({$REGION ' - FLogin_Button_Login_1024             '}
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_LOGIN;
-                                     gui_Type                   : ctTextButton;
+                                     gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:45; Bottom:21);
-                                     gui_Top                    : 510;
-                                     gui_Left                   : 565;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                     gui_Top                    : 618;
+                                     gui_Left                   : 667;
                                      gui_Height                 : 21;
                                      gui_Width                  : 44;
                                      gui_Blend_Size             : 255;
@@ -1641,82 +2208,68 @@ var
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF?';
-                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF?');
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1A59222Â¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 29;
+                                                                   gui_Mouse_Over_Texture_ID : 31;
+                                                                   gui_Mouse_Down_Texture_ID : 30);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FLogin_Button_URL_1              : ({$REGION ' - FLogin_Button_URL_1              '}
+    FLogin_Button_URL_1_1024         : ({$REGION ' - FLogin_Button_URL_1_1024              '}
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_URL_1;
                                      gui_Type                   : ctTextButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:111; Bottom:21);
-                                     gui_Top                    : 445;
-                                     gui_Left                   : 160;
-                                     gui_Height                 : 21;
-                                     gui_Width                  : 100;
+                                     gui_WorkField              : (Left:0; Top:0; Right:228; Bottom:30);
+                                     gui_Top                    : 560;
+                                     gui_Left                   : 441;
+                                     gui_Height                 : 18;
+                                     gui_Width                  : 210;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 3;
                                      gui_HintID                 : 8;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF?';
-                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF?');
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1A59222Â¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦');
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FLogin_Button_URL_2              : ({$REGION ' - FLogin_Button_URL_2              '}
+    FLogin_Button_URL_2_1024         : ({$REGION ' - FLogin_Button_URL_2_1024              '}
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_URL_1;
                                      gui_Type                   : ctTextButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:140; Bottom:21);
-                                     gui_Top                    : 445;
-                                     gui_Left                   : 350;
-                                     gui_Height                 : 21;
-                                     gui_Width                  : 132;
+                                     gui_WorkField              : (Left:0; Top:0; Right:228; Bottom:30);
+                                     gui_Top                    : 560;
+                                     gui_Left                   : 670;
+                                     gui_Height                 : 18;
+                                     gui_Width                  : 210;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 4;
                                      gui_HintID                 : 9;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
-                                                                   gui_Font_Size        : 21;
+                                                                   gui_Font_Size        : 18;
                                                                    gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF?';
-                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF?');
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1A59222Â¦Â¦C2EFEFEFÂ¦';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C14F4F4FÂ¦Â¦C2EFEFEFÂ¦');
                                      gui_Enabled                : True;
                                      gui_Visible                : True  
                                      {$ENDREGION}
               );
-    FLogin_Information_Field         : ({$REGION ' - FLogin_Information_Field         '}
-                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_INFO;
-                                     gui_Type                   : ctPanel;
-                                     gui_Form_Type              : ftNone;
-                                     gui_Top                    : 100;
-                                     gui_Left                   : 40;
-                                     gui_Height                 : 300;
-                                     gui_Width                  : 380;
-                                     gui_Blend_Size             : 205;
-                                     gui_Font                   : (gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF2F2F2;
-                                                                   gui_Font_Text_HAlign : alCenter;
-                                                                   gui_Font_Text_VAlign : avTop;
-                                                                   gui_Font_Setting     : [fsBold]);
-                                     gui_Color                  : (gui_ControlColor : $8F131313;
-                                                                   gui_BorderColor  : $9F030303);
-                                     gui_Scroll_Text            : True;
-                                     gui_ShowBorder             : True;
-                                     gui_ShowPanel              : True;
-                                     gui_Enabled                : True;
-                                     gui_Visible                : True                                   
-                                     {$ENDREGION}
-              );
     {$ENDREGION}
-
   );
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -1725,31 +2278,106 @@ var
   FGame_GUI_Definition_SelChar : TMir3_GUI_Definition_SelChar =(
 
     {$REGION ' - SelectChar Scene       '}
-    FSelectChar_Background           : ({$REGION ' - FSelectChar_Background           '}
+    FSelectChar_Background_800       : ({$REGION ' - FSelectChar_Background_800          '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BACKGROUND;
-                                     gui_Type                   : ctForm;       
-                                     gui_Form_Type              : ftBackground;  
+                                     gui_Type                   : ctForm;
+                                     gui_Form_Type              : ftBackground;
                                      gui_WorkField              : (Left:0; Top:0; Right:800; Bottom:600);
                                      gui_Top                    : 0;
                                      gui_Left                   : 0;
                                      gui_Height                 : 600;
                                      gui_Width                  : 800;
-                                     gui_Strech_Rate_X          : 1.25;
-                                     gui_Strech_Rate_Y          : 1.25;                                   
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
                                      gui_Blend_Size             : 255;
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 51);
+                                                                   gui_Background_Texture_ID : 49);
                                      gui_Use_Strech_Texture     : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
                                      {$ENDREGION}
               );
-    FSelectChar_Character_1          : ({$REGION ' - FSelectChar_Character_1          '}
+    FSelectChar_Animation_800        : ({$REGION ' - FSelectChar_Animation_800           '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_ANIMATION_1;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : -30;
+                                     gui_Left                   : -18;
+                                     gui_Height                 : 600;
+                                     gui_Width                  : 800;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2899;
+                                                                   gui_Animation_Texture_To      : 2914;
+                                                                   gui_Animation_Blend_Mode      : Blend_Add;
+                                                                   gui_Animation_Interval        : 100;
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_Use_Offset_Calc        : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Character_1_800      : ({$REGION ' - FSelectChar_Character_1          '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_1;
                                      gui_Type                   : ctSelectChar;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                     gui_Top                    : 240;
+                                     gui_Top                    : 150;
+                                     gui_Left                   : -25;
+                                     gui_Height                 : 200;
+                                     gui_Width                  : 100;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 201);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Character_2_800      : ({$REGION ' - FSelectChar_Character_3_800          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_2;
+                                     gui_Type                   : ctSelectChar;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
+                                     gui_Top                    : 150;
+                                     gui_Left                   : 80;
+                                     gui_Height                 : 200;
+                                     gui_Width                  : 100;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 201);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False 
+                                     {$ENDREGION}
+              );
+    FSelectChar_Character_3_800      : ({$REGION ' - FSelectChar_Character_3_800          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_3;
+                                     gui_Type                   : ctSelectChar;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
+                                     gui_Top                    : 150;
+                                     gui_Left                   : 100;
+                                     gui_Height                 : 200;
+                                     gui_Width                  : 100;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 201);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False 
+                                     {$ENDREGION}
+              );
+    FSelectChar_Character_4_800      : ({$REGION ' - FSelectChar_Character_4_800          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_3;
+                                     gui_Type                   : ctSelectChar;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
+                                     gui_Top                    : 150;
                                      gui_Left                   : 300;
                                      gui_Height                 : 200;
                                      gui_Width                  : 100;
@@ -1760,38 +2388,7 @@ var
                                      gui_Visible                : False 
                                      {$ENDREGION}
               );
-    FSelectChar_Character_2          : ({$REGION ' - FSelectChar_Character_2          '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_2;
-                                     gui_Type                   : ctSelectChar;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                     gui_Top                    : 380;
-                                     gui_Left                   : 380;
-                                     gui_Height                 : 200;
-                                     gui_Width                  : 100;
-                                     gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 201);
-                                     gui_Enabled                : True;
-                                     gui_Visible                : False 
-                                     {$ENDREGION}
-              );
-    FSelectChar_Character_3          : ({$REGION ' - FSelectChar_Character_3          '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_3;
-                                     gui_Type                   : ctSelectChar;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                     gui_Top                    : 240;
-                                     gui_Left                   : 500;
-                                     gui_Height                 : 200;
-                                     gui_Width                  : 100;
-                                     gui_Blend_Size             : 255;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 201);
-                                     gui_Enabled                : True;
-                                     gui_Visible                : False 
-                                     {$ENDREGION}
-              );
+
     FSelectChar_Button_Start         : ({$REGION ' - FSelectChar_Button_Start         '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_START;
                                      gui_Type                   : ctTextButton;
@@ -1807,9 +2404,9 @@ var
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C1c55e02Â¦Â¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1c53d02Â¦Â¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C1c55e02Â¦Â¦C2bfbfbf?');
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -1829,9 +2426,9 @@ var
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C1c55e02Â¦Â¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1c53d02Â¦Â¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C1c55e02Â¦Â¦C2bfbfbf?');
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -1851,9 +2448,9 @@ var
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C1c55e02Â¦Â¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1c53d02Â¦Â¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C1c55e02Â¦Â¦C2bfbfbf?');
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -1873,9 +2470,9 @@ var
                                                                    gui_Font_Size        : 21;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
+                                                                   gui_Font_Script_MouseNormal   : 'Â¦C1c55e02Â¦Â¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseOver     : 'Â¦C1c53d02Â¦Â¦C2bfbfbf?';
+                                                                   gui_Font_Script_MouseDown     : 'Â¦C1c55e02Â¦Â¦C2bfbfbf?');
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -2068,7 +2665,48 @@ var
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
-              );                            
+              );
+    // 1024
+    FSelectChar_Background_1024      : ({$REGION ' - FSelectChar_Background_1024          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BACKGROUND;
+                                     gui_Type                   : ctForm;
+                                     gui_Form_Type              : ftBackground;
+                                     gui_WorkField              : (Left:0; Top:0; Right:1024; Bottom:768);
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 768;
+                                     gui_Width                  : 1024;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 49);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True                                   
+                                     {$ENDREGION}
+              );
+    FSelectChar_Animation_1024       : ({$REGION ' - FSelectChar_Animation_1024           '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_ANIMATION_1;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 22;
+                                     gui_Left                   : 20;
+                                     gui_Height                 : 768;
+                                     gui_Width                  : 1024;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2899;
+                                                                   gui_Animation_Texture_To      : 2914;
+                                                                   gui_Animation_Blend_Mode      : Blend_Add;
+                                                                   gui_Animation_Interval        : 100;
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Offset_Calc        : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
     {$ENDREGION}
 
     {$REGION ' - CreateChar Scene       '}

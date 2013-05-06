@@ -1478,7 +1478,8 @@ begin
     end else if Assigned(g_BGChannel) then
                g_BGChannel.Stop;
 
-    if (AFileName = 'SelChr.wav' ) or
+    if (AFileName = 'Main.wes' ) or
+       (AFileName = 'SelChr.wav' ) or
        (AFileName = 'opening.wav') then
       exit;
       

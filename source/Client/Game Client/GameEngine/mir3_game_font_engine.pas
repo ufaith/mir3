@@ -72,6 +72,7 @@ type
     dsFontSetting    : TMIR3_FontSettings;
     dsFontSpacing    : Integer;
     dsUseKerning     : Boolean;
+    dsUseScriptEngine: Boolean;
     dsColor          : Longword;
     dsColorMC_1      : Longword;
     dsColorMC_2      : Longword;
@@ -88,7 +89,7 @@ type
   end;
 
   TTextScrollInfo = record
-    FText : String[255];
+    FText : WideString;
     FShow : Boolean;
   end;
   
@@ -159,18 +160,23 @@ type
     function RenderTextMultiColor(const ADrawSetting: PDrawSetting; AChar: PMFD_Char; AFontSet: PMIR3_MFD_Font_Set; AX, AY: Single; AColor1: Longword = $FFFFFFFF; AColor2: Longword = $FFFFFFFF): Single;
     function LoadMFDFile(AFileName: String): Boolean;
     function GetLineCount(AText: PChar): Integer;
+    function GetLineCountW(AText: PWideChar): Integer;
     function GetLineCountMaxWidth(AText: PChar; ADrawSetting: PDrawSetting): Integer;
+    function GetLineCountMaxWidthW(AText: PWideChar; ADrawSetting: PDrawSetting): Integer;
     function GetScriptHeight(AText: PChar): Integer;
-    function GetScriptedTextWidth(ALine: Integer; AText: PChar; ADrawSetting: PDrawSetting): Single;
-    function GetCharWidth(AChar: Char; ADrawSetting: PDrawSetting): Single;
+    function GetScriptHeightW(AText: PWideChar): Integer;
+    function GetScriptedTextWidth(ALine: Integer; AText: PWideChar; ADrawSetting: PDrawSetting): Single;
+    function GetCharWidth(AChar: WideChar; ADrawSetting: PDrawSetting): Single;
     function GetTextWidth(AText: PChar; ADrawSetting: PDrawSetting): Single;
+    function GetTextWidthW(AText: WideString; ADrawSetting: PDrawSetting): Single;
     procedure GetFirstPositionOfChar(AFontID: Integer; ATextField: String; AXOldPos: Integer; var FCharCountPos: Integer; AMouseUse: Boolean=False);
     procedure GetFirstVisibleChar(AFontID: Integer; ATextField: String; FCharCountPos: Integer; var AXPos: Integer);
-    procedure DrawText(AText: String; ADrawSetting: PDrawSetting);
-    procedure DrawTextRect(AText: String; AFirstVisibleChar: Integer; ADrawSetting: PDrawSetting);
-    procedure DrawTextColor(AText: String; ADrawSetting: PDrawSetting);
-    procedure DrawControlText(AText: String; ADrawSetting: PDrawSetting);
-    procedure DrawHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
+    procedure DrawText(AText: WideString; ADrawSetting: PDrawSetting);
+    procedure DrawTextRect(AText: PWideChar; AFirstVisibleChar: Integer; ADrawSetting: PDrawSetting);
+    procedure DrawTextColor(AText: PWideChar; ADrawSetting: PDrawSetting);
+    procedure DrawControlText(AText: PWideChar; ADrawSetting: PDrawSetting);
+    //procedure DrawHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
+    procedure DrawHint(AX, AY: Integer; AText: PWideChar; ADrawSetting: PDrawSetting);
     procedure DrawItemHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
     procedure DrawMoveV(AIndex: Integer; AText: String; ADrawSetting: PDrawSetting);
   end;
@@ -193,19 +199,24 @@ type
     destructor Destroy; override;
   public
     function GetLineCount(AText: PChar): Integer;
+    function GetLineCountW(AText: PWideChar): Integer;
     function GetLineCountMaxWidth(AText: PChar; ADrawSetting: PDrawSetting): Integer;
+    function GetLineCountMaxWidthW(AText: PWideChar; ADrawSetting: PDrawSetting): Integer;
     function GetScriptHeight(AText: PChar): Integer;
-    function GetScriptedTextWidth(ALine: Integer; AText: PChar; ADrawSetting: PDrawSetting): Single;
-    function GetCharWidth(AChar: Char; ADrawSetting: PDrawSetting): Single;
+    function GetScriptHeightW(AText: PWideChar): Integer;
+    function GetScriptedTextWidth(ALine: Integer; AText: PWideChar; ADrawSetting: PDrawSetting): Single;
+    function GetCharWidth(AChar: WideChar; ADrawSetting: PDrawSetting): Single;
     function GetTextWidth(AText: PChar; ADrawSetting: PDrawSetting): Single;
+    function GetTextWidthW(AText: WideString; ADrawSetting: PDrawSetting): Single;
     procedure GetFirstPositionOfChar(AFontID: Integer; ATextField: String; AXOldPos: Integer; var FCharCountPos: Integer; AMouseUse: Boolean=False);
     procedure GetFirstVisibleChar(AFontID: Integer; ATextField: String; FCharCountPos: Integer; var AXPos: Integer);
-    
-    procedure DrawText(AText: String; ADrawSetting: PDrawSetting);
-    procedure DrawTextRect(AText: String; AFirstVisibleChar: Integer; ADrawSetting: PDrawSetting);
-    procedure DrawTextColor(AText: String; ADrawSetting: PDrawSetting);
-    procedure DrawControlText(AText: String; ADrawSetting: PDrawSetting);
-    procedure DrawHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
+
+    procedure DrawText(AText: WideString; ADrawSetting: PDrawSetting);
+    procedure DrawTextRect(AText: PWideChar; AFirstVisibleChar: Integer; ADrawSetting: PDrawSetting);
+    procedure DrawTextColor(AText: PWideChar; ADrawSetting: PDrawSetting);
+    procedure DrawControlText(AText: PWideChar; ADrawSetting: PDrawSetting);
+    //procedure DrawHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
+    procedure DrawHint(AX, AY: Integer; AText: PWideChar; ADrawSetting: PDrawSetting);
     procedure DrawItemHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
     procedure DrawMoveV(AIndex: Integer; AText: String; ADrawSetting: PDrawSetting);
   end;
@@ -389,7 +400,7 @@ uses mir3_game_backend, mir3_misc_utils;
         FImageMem.Position := 0;
 
         FMFD_FontSets[I].FFontTexture := TMir3_Texture.Create;
-        FMFD_FontSets[I].FFontTexture.LoadFromITexture(GRenderEngine.Texture_LoadMemory(FImageMem.Memory, FImageMem.Size),
+        FMFD_FontSets[I].FFontTexture.LoadFromITexture(GRenderEngine.Texture_LoadMemoryColorKey_0(FImageMem.Memory, FImageMem.Size, D3DFMT_A8R8G8B8),
                                                        FMFD_FontSets[I].FFontInformationHeader.chScaleW,
                                                        FMFD_FontSets[I].FFontInformationHeader.chScaleH);
         if Assigned(FMFD_FontSets[I].FFontTexture.FQuad.Tex) then
@@ -761,6 +772,20 @@ begin
   end;
 end;
 
+function TMIR3_Font.GetLineCountW(AText: PWideChar): Integer;
+var
+  FTempChar : PWideChar;
+begin
+  Result    := 1;
+  FTempChar := AText;
+  while FTempChar^ <> #0 do
+  begin
+    if  (FTempChar^ in ['\']) then
+      Inc(Result);
+    Inc(FTempChar);
+  end;
+end;
+
 function TMIR3_Font.GetLineCountMaxWidth(AText: PChar; ADrawSetting: PDrawSetting): Integer;
 var
   FTempLine : Single;
@@ -876,6 +901,127 @@ begin
   end;
 end;
 
+function TMIR3_Font.GetLineCountMaxWidthW(AText: PWideChar; ADrawSetting: PDrawSetting): Integer;
+var
+  FTempLine : Single;
+  FTempSize : Integer;
+  FTempSet  : PMIR3_MFD_Font_Set;
+  FTempDrawSetting : TDrawSetting;
+  FTempChar : PWideChar;
+  FBuffer   : array [0..20] of WideChar;
+begin
+  Result           := 0;
+  FTempDrawSetting := ADrawSetting^;
+  FTempSet         := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
+  FTempChar        := AText;
+
+  while (FTempChar^ <> #0) do
+  begin
+    FTempLine := 0;
+    while (not (FTempChar^ in [#0,'\'])) do
+    begin
+      if  (FTempChar^ in ['¦']) then
+      begin
+        Inc(FTempChar);
+        case FTempChar^ of
+          'Y': Inc(FTempChar, 3);
+          'X': Inc(FTempChar, 3);
+          'P': begin // ¦PE¦
+            Inc(FTempChar);
+            case FTempChar^ of
+              'E': Inc(FTempChar, 2);
+              else Inc(FTempChar, 3);
+            end;
+          end;
+          'Z' : begin
+            Inc(FTempChar,2);
+          end;          
+          'F': begin
+            Inc(FTempChar);
+            case FTempChar^ of
+              'E': begin
+                FTempDrawSetting.dsFontType := ADrawSetting^.dsFontType;
+                FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
+                Inc(FTempChar, 2);
+              end;
+              else begin
+                lstrcpynW(FBuffer, PWideChar(FTempChar), 3);
+                FTempDrawSetting.dsFontType := StrToIntDef(String(FBuffer), 16);
+                FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
+                Inc(FTempChar, 3);
+              end;
+            end;
+          end;
+          'N': Inc(FTempChar, 7);
+          'S': begin
+            Inc(FTempChar);
+            case FTempChar^ of
+              'E': begin
+                FTempDrawSetting.dsFontHeight := ADrawSetting^.dsFontHeight;
+                Inc(FTempChar, 2);
+                FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
+              end;
+              else begin
+                lstrcpynW(FBuffer, PWideChar(FTempChar), 3);
+                FTempDrawSetting.dsFontHeight := StrToIntDef(String(FBuffer), 16);
+                Inc(FTempChar, 3);
+                FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
+              end;
+            end;
+          end;
+          'C': begin
+            Inc(FTempChar);
+            case FTempChar^ of
+              'E': Inc(FTempChar, 2);
+              '1': Inc(FTempChar, 8);
+              '2': Inc(FTempChar, 8);
+            end;
+          end;
+          'B': begin
+            Inc(FTempChar);
+            case FTempChar^ of
+              'E': begin
+                FTempDrawSetting.dsFontSetting := FTempDrawSetting.dsFontSetting -[fsBold];
+                Inc(FTempChar, 2);
+                FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
+              end;
+              else begin
+                FTempDrawSetting.dsFontSetting := FTempDrawSetting.dsFontSetting +[fsBold];
+                Inc(FTempChar, 1);
+                FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
+              end;
+            end;
+          end;
+          'I': begin
+            Inc(FTempChar);
+            case FTempChar^ of
+              'E': begin
+                FTempDrawSetting.dsFontSetting := FTempDrawSetting.dsFontSetting -[fsItalic];
+                Inc(FTempChar, 2);
+                FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
+              end;
+              else begin
+                FTempDrawSetting.dsFontSetting := FTempDrawSetting.dsFontSetting +[fsItalic];
+                Inc(FTempChar, 1);
+                FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
+              end;
+            end;
+          end;
+          'T': Inc(FTempChar, 9);
+        end;
+      end else begin
+        FTempLine := FTempLine + ((ADrawSetting.dsFontHeight / FTempSet.FFontInformationHeader.ihFontSize) * FTempSet.FCharHeader[Ord(FTempChar^)].chXAdvance) + ADrawSetting.dsFontSpacing;
+        Inc(FTempChar);
+      end;
+    end;
+    FTempSize := Round(FTempLine)+4;
+    if Result < FTempSize then
+      Result := FTempSize;
+    if FTempChar^ = #0 then break;
+    Inc(FTempChar);
+  end;
+end;
+
 function TMIR3_Font.GetScriptHeight(AText: PChar): Integer;
 begin
   Result      := 0;
@@ -896,132 +1042,163 @@ begin
   end;
 end;
 
-function TMIR3_Font.GetScriptedTextWidth(ALine: Integer; AText: PChar; ADrawSetting: PDrawSetting): Single;
+function TMIR3_Font.GetScriptHeightW(AText: PWideChar): Integer;
 var
+  FTempChar : PWideChar;
+  FBuffer   : array [0..4] of WideChar;
+begin
+  Result := 0;
+  FTempChar := AText;
+  while FTempChar^ <> #0 do
+  begin
+    if  (FTempChar^ in ['¦']) then
+    begin
+      Inc(FTempChar);
+      if (FTempChar^ in ['Y']) then
+      begin
+        Inc(FTempChar);
+        lstrcpynW(FBuffer, PWideChar(FTempChar), 3);
+        Result := Result + StrToIntDef(WideString(FBuffer), 0);
+        Inc(FTempChar, 2);
+      end;
+    end;
+    if (FTempChar^ in ['¦']) then
+    else Inc(FTempChar);
+  end;
+end;
+
+function TMIR3_Font.GetScriptedTextWidth(ALine: Integer; AText: PWideChar; ADrawSetting: PDrawSetting): Single;
+var
+  I           : Integer;
   FLines      : Integer;
   FTempLine   : Single;
   FTempSet    : PMIR3_MFD_Font_Set;
   FTempDrawSetting : TDrawSetting;
+  FBuffer    : array [0..$FFFF] of WideChar;
 begin
-  Result           := 0;
   FTempDrawSetting := ADrawSetting^;
   FTempSet         := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
-  FLines    := 0;
+  FLines  := 0;
+  I       := 0;
   if ALine > 0 then
   begin
     while True do
     begin
-      if (AText^ in [#10,#13,'\']) then Inc(FLines);
+      if (AText[I] in [#10,#13,'\']) then Inc(FLines);
       if ALine = FLines            then
       begin
-        Inc(AText);
+        Inc(I);
         Break;
       end;
-      Inc(AText);
+      Inc(I);
     end;
   end;
 
-  while (AText^ <> #0) do
+  while (AText[I] <> #0) do
   begin
     FTempLine := 0;
 
-    while (not (AText^ in [#0,#13,'\'])) do
+    while (not (AText[I] in [#0,#13,'\'])) do
     begin
-      if  (AText^ in ['¦']) then
+      if  (AText[I] in ['¦']) then
       begin
-        Inc(AText);
-        case AText^ of
-          'Y': Inc(AText, 3);
-          'X': Inc(AText, 3); 
+        Inc(I);
+        case AText[I] of
+          'Y': Inc(I, 3);
+          'X': Inc(I, 3);
           'P': begin // ¦PE¦ ¦P00¦
-            Inc(AText);
-            case AText^ of
-              'E': Inc(AText,2);
-              else Inc(AText,3);
+            Inc(I);
+            case AText[I] of
+              'E': Inc(I,2);
+              else Inc(I,3);
             end;
           end;
           'Z' : begin
-            Inc(AText,2);
+            Inc(I,2);
           end;
           'F': begin
-            Inc(AText);
-            case AText^ of
+            Inc(I);
+            case AText[I] of
               'E': begin
                 FTempDrawSetting.dsFontType := ADrawSetting^.dsFontType;
                 FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
-                Inc(AText,2);
+                Inc(I,2);
               end;
               else begin
-                FTempDrawSetting.dsFontType := StrToIntDef(Copy(AText, 0, 2),16);
+                lstrcpynW(FBuffer, PWideChar(AText+I), 3);
+                FTempDrawSetting.dsFontType := StrToIntDef(String(FBuffer), 16);
                 FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
-                Inc(AText,3);
+                Inc(I,3);
               end;
             end;
           end;
-          'N': Inc(AText,7);
+          'N': Inc(I,7);
           'S': begin
-            Inc(AText);
+            Inc(I);
             case AText^ of
               'E': begin
                 FTempDrawSetting.dsFontHeight := ADrawSetting^.dsFontHeight;
-                Inc(AText,2);
+                Inc(I,2);
                 FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
               end;
               else begin
-                FTempDrawSetting.dsFontHeight := StrToIntDef(Copy(AText, 0, 2),16);
-                Inc(AText,3);
+                lstrcpynW(FBuffer, PWideChar(AText+I), 3);
+                FTempDrawSetting.dsFontHeight := StrToIntDef(String(FBuffer), 16);
+                Inc(I,3);
                 FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
               end;
             end;
           end;
           'C': begin
-            Inc(AText);
-            case AText^ of
-              'E': Inc(AText,2);
-              '1': Inc(AText,8);
-              '2': Inc(AText,8);
+            Inc(I);
+            case AText[I] of
+              'E': Inc(I,2);
+              '1': Inc(I,8);
+              '2': Inc(I,8);
             end;
           end;
           'B': begin
-            Inc(AText);
-            case AText^ of
+            Inc(I);
+            case AText[I] of
               'E': begin
                 FTempDrawSetting.dsFontSetting := FTempDrawSetting.dsFontSetting -[fsBold];
-                Inc(AText,2);
+                Inc(I,2);
                 FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
               end;
               else begin
                 FTempDrawSetting.dsFontSetting := FTempDrawSetting.dsFontSetting +[fsBold];
-                Inc(AText,2);
+                Inc(I,2);
                 FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
               end;
             end;
           end;
           'I': begin
-            Inc(AText);
-            case AText^ of
+            Inc(I);
+            case AText[I] of
               'E': begin
                 FTempDrawSetting.dsFontSetting := FTempDrawSetting.dsFontSetting -[fsItalic];
-                Inc(AText,2);
+                Inc(I,2);
                 FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
               end;
               else begin
                 FTempDrawSetting.dsFontSetting := FTempDrawSetting.dsFontSetting +[fsItalic];
-                Inc(AText,2);
+                Inc(I,2);
                 FTempSet := @FMFD_FontSets[GetFontIndex(@FTempDrawSetting)];
               end;
             end;
           end;
-          'T': Inc(AText,9);
+          'T': Inc(I,9);
         end;
       end else begin
-        FTempLine := FTempLine + ((ADrawSetting.dsFontHeight / FTempSet.FFontInformationHeader.ihFontSize) * FTempSet.FCharHeader[Ord(AText^)].chXAdvance) + ADrawSetting.dsFontSpacing;
-        Inc(AText);
+       if Ord(AText[I]) < 600 then
+        FTempLine := FTempLine + ((ADrawSetting.dsFontHeight / FTempSet.FFontInformationHeader.ihFontSize) * FTempSet.FCharHeader[Ord(AText[I])].chXAdvance) + ADrawSetting.dsFontSpacing;
+        Inc(I);
       end;
     end;
     if (FTempLine > Result) then
       Result := FTempLine;
-    if (AText^ in [#10,#13,'\']) then Break;
+    if (AText[I] in [#10,#13,'\']) then Break;
+    Inc(I);
   end;
 end;
 
@@ -1045,6 +1222,29 @@ begin
     if (FTempLine > Result) then
       Result := FTempLine;
     if (FTempString^ in [#10,#13,'\']) then Break;
+  end;
+end;
+
+function TMIR3_Font.GetTextWidthW(AText: WideString; ADrawSetting: PDrawSetting): Single;
+var
+  FTempLine : Single;
+  FTempSet  : PMIR3_MFD_Font_Set;
+  FTempChar : PWideChar;
+begin
+  Result    := 0;
+  FTempSet  := @FMFD_FontSets[GetFontIndex(ADrawSetting)];
+  FTempChar := PWideChar(AText);
+  while FTempChar^ <> #0 do
+  begin
+    FTempLine := 0;
+    while (not (FTempChar^ in [#0,'\'])) do
+    begin
+      FTempLine := FTempLine + ((ADrawSetting.dsFontHeight / FTempSet.FFontInformationHeader.ihFontSize) * FTempSet.FCharHeader[Ord(FTempChar^)].chXAdvance) + ADrawSetting.dsFontSpacing;
+      Inc(FTempChar);
+    end;
+    if (FTempLine > Result) then
+      Result := FTempLine;
+    if  (FTempChar^ in ['\']) then Break;
   end;
 end;
 
@@ -1087,7 +1287,7 @@ begin
 
 end;
 
-function TMIR3_Font.GetCharWidth(AChar: Char; ADrawSetting: PDrawSetting): Single;
+function TMIR3_Font.GetCharWidth(AChar: WideChar; ADrawSetting: PDrawSetting): Single;
 var
   FTempSet : PMIR3_MFD_Font_Set;
 begin
@@ -1192,16 +1392,18 @@ begin
   AFontSet.FFontTexture.FQuad := FTempQuad;
 end;
 
-procedure TMIR3_Font.DrawText(AText: String; ADrawSetting: PDrawSetting);
+procedure TMIR3_Font.DrawText(AText: WideString; ADrawSetting: PDrawSetting);
 var
-  I          : Integer;
   FFontIndex : Integer;
   FX, FY     : Single;
   FTempChar  : PMFD_Char;
   FTempLines : Integer;
+  FTempText  : PWideChar;
+  FBuffer    : array [0..$FFFF] of WideChar;
 begin
   with ADrawSetting^ do
   begin
+    FTempText  := PWideChar(AText);
     FFontIndex := GetFontIndex(ADrawSetting);
     case dsHAlign of
       alLeft   : begin
@@ -1210,121 +1412,110 @@ begin
         case dsVAlign of
           avTop    : FY := dsAY;
           avCenter : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
+            FTempLines := GetLineCountW(FTempText) * (dsFontHeight + 1);
             FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);          
           end;
           avBottom : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
+            FTempLines := GetLineCountW(FTempText) * (dsFontHeight + 1);
             FY         := dsAY + dsControlHeigth - FTempLines;          
           end;
         end;
-        
-        for I := 1 to Length(AText) do
+
+        while FTempText^ <> #0 do
         begin
-          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
+          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)] do
           begin
-            if (AText[I] = #13) or (AText[I] = '\') or (AText[I] = #10) then
+            if (FTempText^ = '\') then
             begin
-              if (AText[I] = #13) or (AText[I] = '\') then
-              begin
-                FX := dsAX;
-                FY := FY + dsFontHeight +1;
-              end;
+              FX := dsAX;
+              FY := FY + dsFontHeight +1;
             end else begin
               // Test if Char in List.. if not set "?" as place holder
               if chID = 0 then
                 FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
-              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])];
+              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)];
               // Calculate and Render Char
               FX := FX + (RenderText(dsFontHeight, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, dsColor));
-              // Check, Set and Calculate Kerning
-              if (dsUseKerning) and (Length(AText) >= I+1) then
-                FX := FX + CalculateKerningPairs(FFontIndex, Ord(AText[I]), Ord(AText[I+1]));
             end;
           end;
+          Inc(FTempText);
         end;
         {$ENDREGION}
       end;
       alCenter : begin
         {$REGION ' - Align Center '}
-        FX         := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidth(PChar(AText), ADrawSetting) / 2);
+        FX         := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidthW(FTempText, ADrawSetting) / 2);
         case dsVAlign of
           avTop    : FY := dsAY;
           avCenter : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
-            FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);          
+            FTempLines := GetLineCountW(FTempText) * (dsFontHeight + 1);
+            FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
           end;
           avBottom : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
-            FY         := dsAY + dsControlHeigth - FTempLines;          
+            FTempLines := GetLineCountW(FTempText) * (dsFontHeight + 1);
+            FY         := dsAY + dsControlHeigth - FTempLines;
           end;
         end;
-        for I := 1 to Length(AText) do
+
+        while FTempText^ <> #0 do
         begin
-          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
+          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)] do
           begin
-            if (AText[I] = #13) or (AText[I] = '\') or (AText[I] = #10) then
+            if (FTempText^ = '\') then
             begin
-              if (AText[I] = #13) or (AText[I] = '\') then
-              begin
-                FX := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidth(PChar(Copy(AText,I + 1, MaxInt)), ADrawSetting) / 2);
-                FY := FY   + dsFontHeight +1;
-              end;
+              lstrcpynW(FBuffer, PWideChar((FTempText+1)^), $FFFF);
+              FX := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidthW(FBuffer[0], ADrawSetting) / 2);
+              FY := FY   + dsFontHeight +1;
             end else begin
               // Test if Char in List.. if not set "?" as place holder
               if chID = 0 then
                 FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
-              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])];
+              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)];
         
               // Calculate and Render Char
               FX := FX + (RenderText(dsFontHeight, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, dsColor));
-              // Check, Set and Calculate Kerning
-              if (dsUseKerning) and (Length(AText) >= I+1) then
-                FX := FX + CalculateKerningPairs(FFontIndex, Ord(AText[I]), Ord(AText[I+1]));
             end;
           end;
+          Inc(FTempText);
         end;
         {$ENDREGION}
       end;
       alRight  : begin
         {$REGION ' - Align Right '}
-        FX         := dsAX + dsControlWidth - GetTextWidth(PChar(AText), ADrawSetting);
+
+        FX         := dsAX + dsControlWidth - GetTextWidthW(FTempText, ADrawSetting);
         case dsVAlign of
           avTop    : FY := dsAY;
           avCenter : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
+            FTempLines := GetLineCountW(PWideChar(AText)) * (dsFontHeight + 1);
             FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
           end;
           avBottom : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
+            FTempLines := GetLineCountW(PWideChar(AText)) * (dsFontHeight + 1);
             FY         := dsAY + dsControlHeigth - FTempLines;          
           end;
-        end;  
-        for I := 1 to Length(AText) do
+        end;
+
+        while FTempText^ <> #0 do
         begin
-          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
+          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)] do
           begin
-            if (AText[I] = #13) or (AText[I] = '\') or (AText[I] = #10) then
+            if (FTempText^ = '\')then
             begin
-              if (AText[I] = #13) or (AText[I] = '\') then
-              begin
-                FX := dsAX + dsControlWidth - GetTextWidth(PChar(Copy(AText,I + 1, MaxInt)), ADrawSetting);
-                FY := FY   + dsFontHeight +1;
-              end;
+              lstrcpynW(FBuffer, PWideChar((FTempText+1)^), $FFFF);
+              FX := dsAX + dsControlWidth - GetTextWidthW(FBuffer[0], ADrawSetting);
+              FY := FY   + dsFontHeight +1;
             end else begin
               // Test if Char in List.. if not set "?" as place holder
               if chID = 0 then
                 FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
-              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])];
+              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)];
        
               // Calculate and Render Char
               FX := FX + (RenderText(dsFontHeight, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, dsColor));
-              // Check, Set and Calculate Kerning
-              if (dsUseKerning) and (Length(AText) >= I+1) then
-                FX := FX + CalculateKerningPairs(FFontIndex, Ord(AText[I]), Ord(AText[I+1]));
-       
             end;
           end;
+          Inc(FTempText);
         end;
         {$ENDREGION}
       end;
@@ -1332,7 +1523,7 @@ begin
   end;
 end;
 
-procedure TMIR3_Font.DrawTextRect(AText: String; AFirstVisibleChar: Integer; ADrawSetting: PDrawSetting);
+procedure TMIR3_Font.DrawTextRect(AText: PWideChar; AFirstVisibleChar: Integer; ADrawSetting: PDrawSetting);
 var
   I          : Integer;
   FFontIndex : Integer;
@@ -1347,7 +1538,7 @@ begin
       alLeft   : begin
         {$REGION ' - Align Left '}
         FX         := dsAX;
-        FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
+        FTempLines := GetLineCountW(AText) * (dsFontHeight + 1);
         FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
 
         for I := AFirstVisibleChar+1 to Length(AText) do
@@ -1370,7 +1561,7 @@ begin
       end;
       alCenter : begin
         {$REGION ' - Align Center '}
-        FX         := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidth(PChar(AText), ADrawSetting) / 2);
+        FX         := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidthW(AText, ADrawSetting) / 2);
         FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
         FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
         for I := AFirstVisibleChar+1 to Length(AText) do
@@ -1394,7 +1585,7 @@ begin
       end;
       alRight  : begin
         {$REGION ' - Align Right '}
-        FX         := dsAX + dsControlWidth - GetTextWidth(PChar(AText), ADrawSetting);
+        FX         := dsAX + dsControlWidth - GetTextWidthW(AText, ADrawSetting);
         FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
         FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
         for I := AFirstVisibleChar+1 to Length(AText) do
@@ -1420,289 +1611,329 @@ begin
   end;
 end;
 
-procedure TMIR3_Font.DrawTextColor(AText: String; ADrawSetting: PDrawSetting);
-var
-  I          : Integer;
-  FFontIndex : Integer;
-  FX, FY     : Single;
-  FTempChar  : PMFD_Char;
-  FTempLines : Integer;
-  FColor1    : Integer;
-  FColor2    : Integer;
-  FLineCount : Integer;
-  FTempDrawSetting : TDrawSetting;
+procedure TMIR3_Font.DrawTextColor(AText: PWideChar; ADrawSetting: PDrawSetting);
+//var
+//  I          : Integer;
+//  FFontIndex : Integer;
+//  FX, FY     : Single;
+//  FTempChar  : PMFD_Char;
+//  FTempText  : PWideChar;
+//  FTempLines : Integer;
+//  FColor1    : Integer;
+//  FColor2    : Integer;
+//  FLineCount : Integer;
+//  FTempDrawSetting : TDrawSetting;
+//  FBuffer    : array [0..$FFFF] of WideChar;
 begin
-  FTempDrawSetting := ADrawSetting^;
-  with FTempDrawSetting do
-  begin
-    FFontIndex := GetFontIndex(ADrawSetting);
-    case dsHAlign of
-      alLeft   : begin
-        {$REGION ' - Align Left '}
-        FX         := dsAX;
-        case dsVAlign of
-          avTop    : FY := dsAY;
-          avCenter : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
-            FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);          
-          end;
-          avBottom : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
-            FY         := dsAY + dsControlHeigth - FTempLines;          
-          end;
-        end;
 
- // Add Coloring
- // '¦SFFFFFF¦Text¦E¦'
- // '¦NFFFFFF¦Text .......'
+//  FTempDrawSetting := ADrawSetting^;
+//  with FTempDrawSetting do
+//  begin
+//    FTempText  := AText;
+//    FFontIndex := GetFontIndex(ADrawSetting);
+//    case dsHAlign of
+//      alLeft   : begin
+//        {$REGION ' - Align Left '}
+//        FX         := dsAX;
+//        case dsVAlign of
+//          avTop    : FY := dsAY;
+//          avCenter : begin
+//            FTempLines := GetLineCountW(FTempText) * (dsFontHeight + 1);
+//            FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);          
+//          end;
+//          avBottom : begin
+//            FTempLines := GetLineCountW(FTempText) * (dsFontHeight + 1);
+//            FY         := dsAY + dsControlHeigth - FTempLines;          
+//          end;
+//        end;
+//
+// // Add Coloring
+// // '¦SFFFFFF¦Text¦E¦'
+// // '¦NFFFFFF¦Text .......'
+//
+//(*
+//   Color Commands::
+//   ¦CNFFFFFF¦ Start Color
+//   ¦CE¦ End Color
+//   example : '¦C1FFFFFF¦Text¦CE¦'
+//             '¦C1FFFFFF¦¦C2FFFFFF¦Text¦CE¦'   <--Grandient
+//
+//   ¦NFFFFFF¦ Start Color with out end of Coloring (used for one color in one line)
+//   example : '¦NFFFFFF¦Text .......'
+//
+//   Texture Commands::
+//   ¦TFFFF¦FFF¦ Texture ID ¦ File ID
+//
+//   1821 ¦ 94
+//   ¦T071D¦05E¦
+//
+//    GAME_TEXTURE_GROUND_INT         = 94;
+//
+//   Other Commands, like Bold, Italic::
+//   ¦B¦ ¦BE¦ Bold
+//   ¦I¦ ¦IE¦ Italic
+//
+//*)      FLineCount := 0;
+//        FColor1    := dsColor;
+//        FColor2    := 0;
+//
+//        while FTempText^ <> #0 do
+//        begin
+//
+//          if FTempText^ = '¦' then
+//          begin
+//            case (FTempText+1)^ of
+//              'Y' : begin // add special Space Height ¦Y00¦
+//                lstrcpynW(FBuffer, FTempText+2, 3);//PWideChar(FTempText+(I+2)), 3);
+//                FY := FY + StrToIntDef(String(FBuffer), 0);
+//                Inc(FTempText,5);
+//              end;
+//              'X' : begin // add special Space Width ¦X00¦
+//                lstrcpynW(FBuffer, FTempText+2, 3);
+//                FX := FX + StrToIntDef(String(FBuffer), 0);
+//                Inc(FTempText,5);
+//              end;
+//              'P' : begin // add special Space Width ¦P00¦
+//                case (FTempText+2)^ of
+//                  'E': begin // ¦PE¦
+//                    dsFontSpacing := ADrawSetting^.dsFontSpacing;
+//                    Inc(FTempText,4);
+//                    FFontIndex := GetFontIndex(@FTempDrawSetting);
+//                  end;
+//                else begin // ¦P00¦
+//                    //dsFontSpacing := StrToIntDef(Copy(AText, I+2, 2), 0);
+//                    Inc(FTempText,5);
+//                    FFontIndex := GetFontIndex(@FTempDrawSetting);
+//                  end;
+//                end;
+//              end;
+//              'Z' : begin
+//                FX := dsAX + (dsControlWidth div 2) - Trunc(GetScriptedTextWidth(FLineCount, FTempText, @FTempDrawSetting) / 2);
+//                Inc(FTempText,3);
+//              end;
+//              'F' : begin // Draw new Font Type
+//                case (FTempText+2)^ of
+//                  'E': begin // ¦FE¦
+//                    dsFontType := ADrawSetting^.dsFontType;
+//                    Inc(FTempText,4);
+//                    FFontIndex := GetFontIndex(@FTempDrawSetting);
+//                  end;
+//                else begin // ¦F00¦
+//                    lstrcpynW(FBuffer, FTempText+2, 3);
+//                    dsFontType := StrToIntDef(String(FBuffer), 16);
+//                    Inc(FTempText,5);
+//                    FFontIndex := GetFontIndex(@FTempDrawSetting);
+//                  end;
+//                end;
+//              end;
+//              'S' : begin // Draw new Text Size
+//                case (FTempText+2)^ of
+//                  'E': begin // ¦SE¦
+//                    dsFontHeight := ADrawSetting^.dsFontHeight;
+//                    Inc(FTempText,4);
+//                    FFontIndex := GetFontIndex(@FTempDrawSetting);
+//                  end;
+//                else begin // ¦S00¦
+//                    lstrcpynW(FBuffer, FTempText+2, 3);
+//                    dsFontHeight := StrToIntDef(String(FBuffer), 16);
+//                    Inc(FTempText,5);
+//                    FFontIndex := GetFontIndex(@FTempDrawSetting);
+//                  end;
+//                end;
+//              end;
+//              'C' : begin  // Draw Text Color Start
+//                case (FTempText+2)^ of
+//                  'E': begin // ¦CE¦
+//                    FColor1 := dsColor;
+//                    FColor2 := 0;
+//                    Inc(FTempText,4);
+//                  end;
+//                  '1': begin  //Base Color or Start Color for Grandient
+//                    lstrcpynW(FBuffer, FTempText+3, 7);
+//                    FColor1    := HexToInt('$FF'+ String(FBuffer));
+//                    Inc(FTempText,10);
+//                  end;
+//                  '2': begin  //End Color for Grandient
+//                    lstrcpynW(FBuffer, FTempText+3, 7);
+//                    FColor2    := HexToInt('$FF'+ String(FBuffer));
+//                    Inc(FTempText,10);
+//                  end;
+//                end;
+//              end;
+//              'N' : begin  // Draw Text Color without end (full line)
+//                lstrcpynW(FBuffer, FTempText+3, 7);
+//                FColor1    := HexToInt('$FF'+ String(FBuffer));
+//                Inc(FTempText,10);
+//              end;
+//              'B' : begin  // Draw Text Bold
+//                case (FTempText+2)^ of
+//                  'E': begin // ¦BE¦
+//                    dsFontSetting := dsFontSetting -[fsBold];
+//                    Inc(FTempText,4);
+//                    FFontIndex := GetFontIndex(@FTempDrawSetting);
+//                  end;
+//                  '¦': begin
+//                    dsFontSetting := dsFontSetting +[fsBold];
+//                    Inc(FTempText,3);
+//                    FFontIndex := GetFontIndex(@FTempDrawSetting);
+//                  end;
+//                end;
+//              end;
+//              'I' : begin  // Draw Text Italic
+//                case (FTempText+2)^ of
+//                  'E': begin // ¦IE¦
+//                    dsFontSetting := dsFontSetting -[fsItalic];
+//                    Inc(FTempText,4);
+//                    FFontIndex := GetFontIndex(@FTempDrawSetting);
+//                  end;
+//                  '¦': begin
+//                    dsFontSetting := dsFontSetting +[fsItalic];
+//                    Inc(FTempText,3);
+//                    FFontIndex := GetFontIndex(@FTempDrawSetting);
+//                  end;
+//                end;
+//              end;
+//              'T' : begin  // Texture Command (Draw Item)
+//
+//              end;
+//            end;
+//          end;
+//
+//          if FTempText^ = '¦' then Continue;
+////          if I > lstrlenW(AText)-1 then break;
+//
+////          if Ord(AText[I]) > 350 then
+////          begin   //Debug line
+////            if FTEstX[2] = 'A' then
+////            begin
+////             Exit;
+////            end;
+////          end;
+//
+//          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
+//          begin
+//            if  (FTempText^ = '\') then
+//            begin
+//              FX := dsAX;
+//              FY := FY + dsFontHeight +1;
+//              Inc(FLineCount);
+//            end else begin
+//              if I >= 800 then
+//              begin
+//                Inc(FTempText);
+//              end;
+//              if (Ord(AText[I]) > 500) or (Ord(AText[I])< 30) then
+//              begin
+//                Inc(FTempText);
+//              end;
+//              // Test if Char in List.. if not set "?" as place holder
+//              if chID = 0 then
+//                FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
+//              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)];
+//              // Calculate and Render Char
+//              if (not Assigned(FTempChar)) or (FTempChar = nil) then
+//              begin
+//                Inc(FTempText);
+//              end;
+//
+//              FX := FX + (RenderTextMultiColor(@FTempDrawSetting, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, FColor1, FColor2));
+//              
+//
+//            end;
+//          end;
+//          Inc(FTempText);
+//        end;
+//        {$ENDREGION}
+//      end;
+//      alCenter : begin
+//        //I := 0;
+//        {$REGION ' - Align Center '}
+//        lstrcpynW(FBuffer, PWideChar((FTempText+1)^), $FFFF);
+//        FX         := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidthW(FBuffer[0], ADrawSetting) / 2);
+//        case dsVAlign of
+//          avTop    : FY := dsAY;
+//          avCenter : begin
+//            FTempLines := GetLineCountW(FTempText) * (dsFontHeight + 1);
+//            FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
+//          end;
+//          avBottom : begin
+//            FTempLines := GetLineCountW(FTempText) * (dsFontHeight + 1);
+//            FY         := dsAY + dsControlHeigth - FTempLines;          
+//          end;
+//        end;
+//        while FTempText^ <> #0 do
+//        begin
+//          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)] do
+//          begin
+//            if (FTempText^ = '\') then
+//            begin
+//              lstrcpynW(FBuffer, PWideChar((FTempText+1)^), $FFFF);
+//              FX := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidthW(FBuffer[0], ADrawSetting) / 2);
+//              FY := FY   + dsFontHeight +1;
+//            end else begin
+//              // Test if Char in List.. if not set "?" as place holder
+//              if chID = 0 then
+//                FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
+//              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)];
+//        
+//              // Calculate and Render Char
+//              FX := FX + (RenderText(dsFontHeight, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, dsColor));
+//            end;
+//          end;
+//          Inc(FTempText);
+//        end;
+//        {$ENDREGION}
+//      end;
+//      alRight  : begin
+//        //I := 0;
+//        {$REGION ' - Align Right '}
+//        lstrcpynW(FBuffer, PWideChar((FTempText+1)^), $FFFF);
+//        FX         := dsAX + GetTextWidthW(FBuffer[0], ADrawSetting);
+//        case dsVAlign of
+//          avTop    : FY := dsAY;
+//          avCenter : begin
+//            FTempLines := GetLineCountW(FTempText) * (dsFontHeight + 1);
+//            FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
+//          end;
+//          avBottom : begin
+//            FTempLines := GetLineCountW(FTempText) * (dsFontHeight + 1);
+//            FY         := dsAY + dsControlHeigth - FTempLines;          
+//          end;
+//        end;
+//        while FTempText^ <> #0 do
+//        begin
+//          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)] do
+//          begin
+//            if (AText[I] = '\') then
+//            begin
+//              lstrcpynW(FBuffer, PWideChar((FTempText+1)^), $FFFF);
+//              FX := dsAX + dsControlWidth - GetTextWidthW(FBuffer[0], ADrawSetting);
+//              FY := FY   + dsFontHeight +1;
+//            end else begin
+//              // Test if Char in List.. if not set "?" as place holder
+//              if chID = 0 then
+//                FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
+//              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)];
+//
+//              // Calculate and Render Char
+//              FX := FX + (RenderText(dsFontHeight, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, dsColor));
+//            end;
+//          end;
+//          Inc(FTempText);
+//        end;
+//        {$ENDREGION}
+//      end;
+//    end;
+//
+//     if dsHAlign = alLeft then
+//     begin
+//       if dsHAlign = alCenter then
+//       begin
+//         Exit;
+//       end;
+//     end;
+//  end;
 
-(*
-   Color Commands::
-   ¦CNFFFFFF¦ Start Color
-   ¦CE¦ End Color
-   example : '¦C1FFFFFF¦Text¦CE¦'
-             '¦C1FFFFFF¦¦C2FFFFFF¦Text¦CE¦'   <--Grandient
-
-   ¦NFFFFFF¦ Start Color with out end of Coloring (used for one color in one line)
-   example : '¦NFFFFFF¦Text .......'
-
-   Texture Commands::
-   ¦TFFFF¦FFF¦ Texture ID ¦ File ID
-
-   1821 ¦ 94
-   ¦T071D¦05E¦
-
-    GAME_TEXTURE_GROUND_INT         = 94;
-
-   Other Commands, like Bold, Italic::
-   ¦B¦ ¦BE¦ Bold
-   ¦I¦ ¦IE¦ Italic
-
-*)      FLineCount := 0;
-        FColor1    := dsColor;
-        FColor2    := 0;
-
-        I := 1;
-        while True do
-        begin
-          if I > Length(AText) then break;
-
-          if AText[I] = '¦' then
-          begin
-            case AText[I+1] of
-              'Y' : begin // add special Space Height ¦Y00¦
-                FY := FY + StrToIntDef(Copy(AText, I+2, 2), 0);
-                Inc(I,5);
-              end;
-              'X' : begin // add special Space Width ¦X00¦
-                FX := FX + StrToIntDef(Copy(AText, I+2, 2), 0);
-                Inc(I,5);
-              end;
-              'P' : begin // add special Space Width ¦P00¦
-                case AText[I+2] of
-                  'E': begin // ¦PE¦
-                    dsFontSpacing := ADrawSetting^.dsFontSpacing;
-                    Inc(I,4);
-                    FFontIndex := GetFontIndex(@FTempDrawSetting);
-                  end;
-                else begin // ¦P00¦
-                    dsFontSpacing := StrToIntDef(Copy(AText, I+2, 2), 0);
-                    Inc(I,5);
-                    FFontIndex := GetFontIndex(@FTempDrawSetting);
-                  end;
-                end;
-              end;
-              'Z' : begin
-                FX := dsAX + (dsControlWidth div 2) - Trunc(GetScriptedTextWidth(FLineCount, PChar(AText), @FTempDrawSetting) / 2);
-                Inc(I,3);
-              end;
-              'F' : begin // Draw new Font Type
-                case AText[I+2] of
-                  'E': begin // ¦FE¦
-                    dsFontType := ADrawSetting^.dsFontType;
-                    Inc(I,4);
-                    FFontIndex := GetFontIndex(@FTempDrawSetting);
-                  end;
-                else begin // ¦F00¦
-                    dsFontType := StrToIntDef(Copy(AText, I+2, 2),16);
-                    Inc(I,5);
-                    FFontIndex := GetFontIndex(@FTempDrawSetting);
-                  end;
-                end;
-              end;
-              'S' : begin // Draw new Text Size
-                case AText[I+2] of
-                  'E': begin // ¦SE¦
-                    dsFontHeight := ADrawSetting^.dsFontHeight;
-                    Inc(I,4);
-                    FFontIndex := GetFontIndex(@FTempDrawSetting);
-                  end;
-                else begin // ¦S00¦
-                    dsFontHeight := StrToIntDef(Copy(AText, I+2, 2),16);
-                    Inc(I,5);
-                    FFontIndex := GetFontIndex(@FTempDrawSetting);
-                  end;
-                end;
-              end;
-              'C' : begin  // Draw Text Color Start
-                case AText[I+2] of
-                  'E': begin // ¦CE¦
-                    FColor1 := dsColor;
-                    FColor2 := 0;
-                    Inc(I,4);
-                  end;
-                  '1': begin  //Base Color or Start Color for Grandient
-                    FColor1    := HexToInt('$FF'+ Copy(AText, I+3, 6));
-                    Inc(I,10);
-                  end;
-                  '2': begin  //End Color for Grandient
-                    FColor2    := HexToInt('$FF'+ Copy(AText, I+3, 6));
-                    Inc(I,10);
-                  end;
-                end;
-              end;
-              'N' : begin  // Draw Text Color without end (full line)
-                FColor1    := HexToInt('$FF'+Copy(AText, I+2, 6));
-                Inc(I,9);
-              end;
-              'B' : begin  // Draw Text Bold
-                case AText[I+2] of
-                  'E': begin // ¦BE¦
-                    dsFontSetting := dsFontSetting -[fsBold];
-                    Inc(I,4);
-                    FFontIndex := GetFontIndex(@FTempDrawSetting);
-                  end;
-                  '¦': begin
-                    dsFontSetting := dsFontSetting +[fsBold];
-                    Inc(I,3);
-                    FFontIndex := GetFontIndex(@FTempDrawSetting);
-                  end;
-                end;
-              end;
-              'I' : begin  // Draw Text Italic
-                case AText[I+2] of
-                  'E': begin // ¦IE¦
-                    dsFontSetting := dsFontSetting -[fsItalic];
-                    Inc(I,4);
-                    FFontIndex := GetFontIndex(@FTempDrawSetting);
-                  end;
-                  '¦': begin
-                    dsFontSetting := dsFontSetting +[fsItalic];
-                    Inc(I,3);
-                    FFontIndex := GetFontIndex(@FTempDrawSetting);
-                  end;
-                end;
-              end;
-              'T' : begin  // Texture Command (Draw Item)
-
-              end;
-            end;
-          end;
-
-          if AText[I] = '¦' then Continue;
-          if I > Length(AText) then break;
-          
-          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
-          begin
-            if (AText[I] = #13) or (AText[I] = '\') or (AText[I] = #10) then
-            begin
-              if (AText[I] = #13) or (AText[I] = '\') then
-              begin
-                FX := dsAX;
-                FY := FY + dsFontHeight +1;
-                Inc(FLineCount);
-              end;
-            end else begin
-              // Test if Char in List.. if not set "?" as place holder
-              if chID = 0 then
-                FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
-              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])];
-              // Calculate and Render Char
-              FX := FX + (RenderTextMultiColor(@FTempDrawSetting, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, FColor1, FColor2));
-            end;
-          end;
-          Inc(I);
-        end;
-        {$ENDREGION}
-      end;
-      alCenter : begin
-        {$REGION ' - Align Center '}
-        FX         := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidth(PChar(AText), ADrawSetting) / 2);
-        case dsVAlign of
-          avTop    : FY := dsAY;
-          avCenter : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
-            FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);          
-          end;
-          avBottom : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
-            FY         := dsAY + dsControlHeigth - FTempLines;          
-          end;
-        end;
-        for I := 1 to Length(AText) do
-        begin
-          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
-          begin
-            if (AText[I] = #13) or (AText[I] = '\') or (AText[I] = #10) then
-            begin
-              if (AText[I] = #13) or (AText[I] = '\') then
-              begin
-                FX := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidth(PChar(Copy(AText,I + 1, MaxInt)), ADrawSetting) / 2);
-                FY := FY   + dsFontHeight +1;
-              end;
-            end else begin
-              // Test if Char in List.. if not set "?" as place holder
-              if chID = 0 then
-                FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
-              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])];
-        
-              // Calculate and Render Char
-              FX := FX + (RenderText(dsFontHeight, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, dsColor));
-            end;
-          end;
-        end;
-        {$ENDREGION}
-      end;
-      alRight  : begin
-        {$REGION ' - Align Right '}
-        FX         := dsAX + dsControlWidth - GetTextWidth(PChar(AText), ADrawSetting);
-        case dsVAlign of
-          avTop    : FY := dsAY;
-          avCenter : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
-            FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
-          end;
-          avBottom : begin
-            FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
-            FY         := dsAY + dsControlHeigth - FTempLines;          
-          end;
-        end;  
-        for I := 1 to Length(AText) do
-        begin
-          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
-          begin
-            if (AText[I] = #13) or (AText[I] = '\') or (AText[I] = #10) then
-            begin
-              if (AText[I] = #13) or (AText[I] = '\') then
-              begin
-                FX := dsAX + dsControlWidth - GetTextWidth(PChar(Copy(AText,I + 1, MaxInt)), ADrawSetting);
-                FY := FY   + dsFontHeight +1;
-              end;
-            end else begin
-              // Test if Char in List.. if not set "?" as place holder
-              if chID = 0 then
-                FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
-              else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])];
-       
-              // Calculate and Render Char
-              FX := FX + (RenderText(dsFontHeight, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, dsColor));
-            end;
-          end;
-        end;
-        {$ENDREGION}
-      end;
-    end;
-  end;
 end;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1712,15 +1943,16 @@ end;
 // It can by use at all Ingame things thats use one line and one color and
 // without text script engine
 //..............................................................................
-procedure TMIR3_Font.DrawControlText(AText: String; ADrawSetting: PDrawSetting);
+procedure TMIR3_Font.DrawControlText(AText: PWideChar; ADrawSetting: PDrawSetting);
 var
-  I          : Integer;
   FFontIndex : Integer;
   FX, FY     : Single;
   FTempChar  : PMFD_Char;
+  FTempText  : PWideChar;
 begin
   with ADrawSetting^ do
   begin
+    FTempText  := AText;
     FFontIndex := GetFontIndex(ADrawSetting);
     case dsHAlign of
       alLeft   : begin
@@ -1735,24 +1967,25 @@ begin
             FY         := dsAY + dsControlHeigth - dsFontHeight;
           end;
         end;
-        
-        for I := 1 to Length(AText) do
+
+        while FTempText^ <> #0 do
         begin
-          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
+          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)] do
           begin
             // Test if Char in List.. if not set "?" as place holder
             if chID = 0 then
               FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
-            else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])];
+            else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)];
             // Calculate and Render Char
             FX := FX + (RenderText(dsFontHeight, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, dsColor));
           end;
+          Inc(FTempText);
         end;
         {$ENDREGION}
       end;
       alCenter : begin
         {$REGION ' - Align Center '}
-        FX         := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidth(PChar(AText), ADrawSetting) / 2);
+        FX         := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidthW(FTempText, ADrawSetting) / 2);
         case dsVAlign of
           avTop    : FY := dsAY;
           avCenter : begin
@@ -1762,23 +1995,24 @@ begin
             FY         := dsAY + dsControlHeigth - dsFontHeight;
           end;
         end;
-        for I := 1 to Length(AText) do
+        while FTempText^ <> #0 do
         begin
-          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
+          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)] do
           begin
             // Test if Char in List.. if not set "?" as place holder
             if chID = 0 then
               FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
-            else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])];
+            else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)];
             // Calculate and Render Char
             FX := FX + (RenderText(dsFontHeight, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, dsColor));
           end;
+          Inc(FTempText);
         end;
         {$ENDREGION}
       end;
       alRight  : begin
         {$REGION ' - Align Right  '}
-        FX         := dsAX + dsControlWidth - GetTextWidth(PChar(AText), ADrawSetting);
+        FX         := dsAX + dsControlWidth - GetTextWidthW(FTempText, ADrawSetting);
         case dsVAlign of
           avTop    : FY := dsAY;
           avCenter : begin
@@ -1788,18 +2022,19 @@ begin
             FY         := dsAY + dsControlHeigth - dsFontHeight;
           end;
         end;  
-        for I := 1 to Length(AText) do
+        while FTempText^ <> #0 do
         begin
-          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
+          with FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)] do
           begin
             // Test if Char in List.. if not set "?" as place holder
             if chID = 0 then
               FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[63] // change to "?"
-            else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])];
+            else FTempChar := @FMFD_FontSets[FFontIndex].FCharHeader[Ord(FTempText^)];
        
             // Calculate and Render Char
             FX := FX + (RenderText(dsFontHeight, FTempChar, @FMFD_FontSets[FFontIndex], FX, FY, dsColor));
           end;
+          Inc(FTempText);
         end;
         {$ENDREGION}
       end;
@@ -1807,20 +2042,21 @@ begin
   end;
 end;
 
-procedure TMIR3_Font.DrawHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
+procedure TMIR3_Font.DrawHint(AX, AY: Integer; AText: PWideChar; ADrawSetting: PDrawSetting);
 var
   FWidth        : Integer;
   FTempLines    : Integer;
   FScriptHeight : Integer;
 begin
 
+
   with ADrawSetting^ do
   begin
     if dsMagicUse then
     begin
-      FTempLines    := GetLineCount(PChar(String(AText)));
-      FWidth        := GetLineCountMaxWidth(PChar(String(AText)), ADrawSetting);
-      FScriptHeight := GetScriptHeight(PChar(String(AText)));
+      FTempLines    := GetLineCountW(AText);
+      FWidth        := GetLineCountMaxWidthW(AText, ADrawSetting);
+      FScriptHeight := GetScriptHeightW(AText);
       ADrawSetting.dsControlWidth  := FWidth;
       ADrawSetting.dsControlHeigth := dsFontHeight;
       ADrawSetting.dsAX            := AX + 20;
@@ -1841,14 +2077,14 @@ begin
        // Inner
        GRenderEngine.RoundRect(ADrawSetting.dsAX - 6, ADrawSetting.dsAY    , FWidth+8 , (FTempLines*(dsFontHeight + 1))+FScriptHeight-2, dsColorMC_1, dsColorMC_2);
 
-       DrawTextColor(String(AText), ADrawSetting);
+       DrawTextColor(AText, ADrawSetting);
      end else begin
        // Border
        GRenderEngine.RoundRect(ADrawSetting.dsAX - 8, ADrawSetting.dsAY - 2, FWidth+12, (FTempLines*(dsFontHeight + 1))+2, dsColorMC_B, dsColorMC_B2);
        // Inner
        GRenderEngine.RoundRect(ADrawSetting.dsAX - 7, ADrawSetting.dsAY    , FWidth+9 , (FTempLines*(dsFontHeight + 1))-2, dsColorMC_1, dsColorMC_2);
 
-       DrawTextColor(String(AText), ADrawSetting);
+       DrawTextColor(AText, ADrawSetting);
      end;
 
     end else begin
@@ -1876,7 +2112,7 @@ begin
       // Inner
       GRenderEngine.RoundRect(ADrawSetting.dsAX - 3, ADrawSetting.dsAY    , FWidth+2 , dsFontHeight-1, dsColorMC_1, dsColorMC_2);
       ADrawSetting.dsAY := ADrawSetting.dsAY -2;
-      DrawText(String(AText), ADrawSetting);
+      DrawText(AText, ADrawSetting);
     end;
   end;
 end;
@@ -2005,7 +2241,7 @@ begin
       dsAY := dsAY + (dsFontHeight + 1);    
       if FTextArray[I].FShow then
       begin
-        DrawText(FTextArray[I].FText, ADrawSetting);
+        DrawText(PWideChar(FTextArray[I].FText), ADrawSetting);
       end;
     end;
 

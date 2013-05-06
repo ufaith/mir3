@@ -1,8 +1,9 @@
 {$DEFINE DEVELOP_MODE}
 {*$DEFINE DEVELOP_INGAME}
 
-{$DEFINE CHECK_LANG}
 (* Language Checking  *)
+
+{$DEFINE CHECK_LANG}
 
 {$IFDEF DEVELOP_MODE}
   {$IFDEF CHECK_LANG}
@@ -13,3 +14,14 @@
     {*$DEFINE CHECK_SPANISH}
   {$ENDIF}
 {$ENDIF}
+
+
+(* Get Performance of sticked functions *)
+
+{*$DEFINE DEVELOP_PERFORMANCE_COUNTER}
+
+
+{*$DEFINE DEVELOP_1024x768}
+
+(* Set Using Texture Lib*)
+{*$DEFINE DEVELOP_LMT}

@@ -23,7 +23,8 @@ uses
   mir3_game_en_decode in '..\..\Common\mir3_game_en_decode.pas',
   mir3_global_config in '..\..\Common\mir3_global_config.pas',
   mir3_game_map_framework in 'GameInternal\mir3_game_map_framework.pas',
-  mir3_misc_ingame in 'GameCommon\mir3_misc_ingame.pas';
+  mir3_misc_ingame in 'GameCommon\mir3_misc_ingame.pas',
+  mir3_game_scene_logon_info in 'GameScene\mir3_game_scene_logon_info.pas';
 
 {$R Mir3Client.res}
 
@@ -32,6 +33,7 @@ begin
   NeverSleepOnMMThreadContention := True;
 
   { Test if start from launcher, Hier noch eine Prüfung ob Launcher Process da ist. }
+// Check if the launcher process running or not...
 //  if ParamStr(1) <> 'launcher' then
 //    Exit;
 

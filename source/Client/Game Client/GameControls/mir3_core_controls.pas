@@ -83,6 +83,7 @@ const
   EVENT_RADIOBUTTON_X           =  9000;
   EVENT_SLIDER_VALUE_CHANGED    = 10000;
   EVENT_SCROLLBAR_VALUE_CHANGED = 10100;
+  EVENT_TIMER_TIME_EXPIRE       = 20000;
 
 ////////////////////////////////////////////////////////////////////////////////
 ///  Key Handling Info Constanten
@@ -118,7 +119,7 @@ type
   (* Enum Declaration *)
   TMIR3_GUI_Type         = (ctNone, ctForm, ctPanel, ctEdit, ctGrid, ctButton, ctListBox, ctComboBox, ctCheckBox, 
                             ctRadioButton, ctSelectChar, ctTextButton, ctTextLabel, ctSlider, ctProgress, ctScrollbar,
-                            ctMagicButton);
+                            ctMagicButton, ctTimer);
   TMIR3_GUI_Form_Type    = (ftNone, ftMoving, ftUIStatic, ftBackground);
   TMIR3_Control_State    = (csNormal, csMouseOver, csPress, csHoldDown);
   TMIR3_Button_State     = (bsBase, bsMouseOver, bsPress, bsDisabled, bsSelected);
@@ -149,6 +150,7 @@ type
   TMIR3_GUI_Progress     = class;
   TMIR3_GUI_Scrollbar    = class;
   TMIR3_GUI_MagicButton  = class;
+  TMIR3_GUI_Timer        = class;
 
   (* Class Pointer Declaration *)
   PMIR3_GUI_Form         = ^TMIR3_GUI_Form;
@@ -168,12 +170,13 @@ type
   PMIR3_GUI_Progress     = ^TMIR3_GUI_Progress;
   PMIR3_GUI_Scrollbar    = ^TMIR3_GUI_Scrollbar;
   PMIR3_GUI_MagicButton  = ^TMIR3_GUI_MagicButton;
+  PMIR3_GUI_Timer        = ^TMIR3_GUI_Timer;
 
   (* Records *)
   THintMessage             = record
     GUIObject              : TMIR3_GUI_Default;
     DrawSetting            : TDrawSetting;
-    Caption                : array [0..1024] of Char;
+    Caption                : WideString;
   end;
 
   TMir3_DrawSetting_Set    = record
@@ -195,6 +198,8 @@ type
     // Extra Offset
     gui_Animation_Offset_X        : Integer;
     gui_Animation_Offset_Y        : Integer;
+    // Extra Option
+    gui_Animation_Max_Count       : Integer;
   end;
 
   TMIR3_UI_Extra_Texture          = record
@@ -246,7 +251,7 @@ type
   
   TMIR3_UI_Window_Info            = record
     gui_Window_Caption_ID         : Integer;              // Windows Text using Language System
-    gui_Window_Caption            : String[80];           // Windows Text using Hardcode Text
+    gui_Window_Caption            : WideString;           // Windows Text using Hardcode Text
     gui_Top                       : Integer;              // Top Position for the Windows Text
     gui_Left                      : Integer;              // Left Position for the Windows Text
     gui_Cation_Font               : TMIR3_UI_Fonts;
@@ -303,13 +308,16 @@ type
     gui_Null_Point_Y           : Integer;   // Used for Equip Offset Calculation
     gui_Strech_Rate_X          : Single;
     gui_Strech_Rate_Y          : Single;
-    gui_Extra_Offset_X         : Integer;   // not usede at a system but implemented (Button and Magic Button)
+    gui_Extra_Offset_X         : Integer;   //
     gui_Extra_Offset_Y         : Integer;   // used at Magic System atm (Move the scroll Offset) (Button and Magic Button) 
     gui_Cut_Rect_Position_X    : Integer;   // used to move Cutted Image
     gui_Cut_Rect_Position_Y    : Integer;   // used to move Cutted Image
     gui_Clip_Rect              : TRect;
+    gui_Timer_Intervall        : Integer;
     gui_Blend_Size             : Byte;
+    gui_Blend_Size_Extra       : Byte;
     gui_Blend_Mode             : Integer;
+    gui_Blend_Mode_Extra       : Integer;
     gui_CaptionID              : Integer;
     gui_HintID                 : Integer;                  //used the Basic Language file
     gui_MagicHintID            : Integer;                  //used the Magic Language file
@@ -335,6 +343,7 @@ type
     gui_Use_Image_Offset       : Boolean;
     gui_Use_Cut_Rect           : Boolean;
     gui_Use_Null_Point_Calc    : Boolean;
+    gui_Use_Offset_Calc        : Boolean;
     gui_ShowBorder             : Boolean;
     gui_ShowPanel              : Boolean;
     gui_ShowHint               : Boolean;
@@ -442,7 +451,7 @@ type
     function AddControl(AGUIForm: TObject; AGroundInfo: TMir3_GUI_Ground_Info; AVisible: Boolean): TObject; overload;
     function AddControl(AGUIForm: TObject; AControlType: TMIR3_GUI_Type; AX, AY, AWidth, AHeight: Integer; AVisible: Boolean; AUIContolID: Integer): TObject; overload;
     // Add Hint Messages
-    procedure AddHintMessage(ACaption: String; ADrawSetting: TDrawSetting; AGUIObject: TMIR3_GUI_Default);
+    procedure AddHintMessage(ACaption: WideString; ADrawSetting: TDrawSetting; AGUIObject: TMIR3_GUI_Default);
     (* Published *)
     property DebugMode: Boolean read FDebugMode write FDebugMode;
   end;
@@ -463,7 +472,7 @@ type
     function GetVisible: Boolean;
     procedure SetVisible(AValue: Boolean);
   protected
-    FCaption            : String;                    // Window Caption Text
+    FCaption            : WideString;                // Window Caption Text
     FVisibleCaption     : Boolean;                   // Show  / Hidde Caption
     FEnabled            : Boolean;                   // Enabled / Disabled Control
     FVisible            : Boolean;                   // Shown   / Hidden   Control
@@ -551,12 +560,13 @@ type
   private
     FMouseState     : TMIR3_Button_State;
   private
-    procedure SetCaption(ACaption: String);
-    function GetCaption: String;
+    procedure SetCaption(ACaption: WideString);
+    function GetCaption: WideString;
   protected
+    FCurrentMaxCount: Integer;
     FAnimationTime  : LongWord;
     FAnimationCount : Integer;
-    FCaption        : String;
+    FCaption        : WideString;
   public
     constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
@@ -564,7 +574,7 @@ type
     function HandleMouse(uMsg: LongWord; AMousePoint: TPoint; wParam: WPARAM; lParam: LPARAM): Boolean; override;
     procedure SetTextureID(ATextureID: Integer; AType: Integer=0);
   public
-    property Caption : String read GetCaption write SetCaption;
+    property Caption : WideString read GetCaption write SetCaption;
   end;
   
   (* class TMIR3_GUI_Edit *)
@@ -759,7 +769,7 @@ type
   (* class TMIR3_GUI_Progress *)
   TMIR3_GUI_Progress  = class(TMIR3_GUI_Default)
   public
-    FCaption : String;
+    FCaption : WideString;
   public
     constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
@@ -812,13 +822,25 @@ type
   (* class TMIR3_GUI_MagicButton *)
   TMIR3_GUI_MagicButton  = class(TMIR3_GUI_Button)
   protected
-    FCaption   : String;
+    FCaption   : WideString;
     FMagicFKey : Integer;
   public
     constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
     function ContainsPoint(AMousePoint: TPoint): LongBool; override;
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
+  end;
+
+  (* class TMIR3_GUI_Timer *)
+  TMIR3_GUI_Timer  = class(TMIR3_GUI_Default)
+  protected
+    FTickTime      : Cardinal;
+    FTimerEnable   : Boolean;
+  public
+    constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
+  public
+    procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
+    procedure SetTimerEnabled(AEnabled: Boolean);
   end;
 
   {$ENDREGION}  
@@ -1166,13 +1188,14 @@ var
       end;
 
       (* Hint Render System *)
-      if (ANSIString(FHintMessage.Caption) <> '' ) then
+      if FHintMessage.Caption <> '' then
       begin
         G_MousePoint := Mouse.CursorPos;
         ScreenToClient(GRenderEngine.GetGameHWND, G_MousePoint);
         if (FHintMessage.GUIObject.ContainsPoint(G_MousePoint))  then
         begin
-          GGameEngine.FontManager.DrawHint(G_MousePoint.X, G_MousePoint.Y , FHintMessage.Caption, @FHintMessage.DrawSetting);
+          GGameEngine.FontManager.DrawHint(G_MousePoint.X, G_MousePoint.Y , PWideChar(FHintMessage.Caption), @FHintMessage.DrawSetting);
+          ZeroMemory(@FHintMessage, sizeOf(THintMessage));
         end;
         //GGameEngine.FontManager.DrawItemHint(G_MousePoint.X, G_MousePoint.Y , FHintMessage.Caption , @FHintMessage.DrawSetting);
         ZeroMemory(@FHintMessage, SizeOf(THintMessage));
@@ -1182,13 +1205,13 @@ var
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_Manager Scene Basis Window Message Processing
     //..............................................................................
-    procedure TMIR3_GUI_Manager.AddHintMessage(ACaption: String; ADrawSetting: TDrawSetting; AGUIObject: TMIR3_GUI_Default);
+    procedure TMIR3_GUI_Manager.AddHintMessage(ACaption: WideString; ADrawSetting: TDrawSetting; AGUIObject: TMIR3_GUI_Default);
     begin
       with FHintMessage do
       begin
         GUIObject   := AGUIObject;
         DrawSetting := ADrawSetting;
-        CopyMemory(@Caption[0], PChar(ACaption), Length(ACaption));
+        Caption     := ACaption;
       end;
     end;
 
@@ -1739,6 +1762,28 @@ var
           if Assigned(FControl) then
             FControl.FDebugMode := FDebugMode;
         end;
+
+        ctTimer : begin
+          if not Assigned(AGUIForm) then Exit;
+
+          FControl := TMIR3_GUI_Timer.Create(@AGroundInfo, Self);
+          with FControl do
+          begin
+            FGUI_Definition   := AGroundInfo;
+            FControlType      := ctTimer;
+            FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
+            FControlIdentifier:= AGroundInfo.gui_Unique_Control_Number;
+            FLeft             := AGroundInfo.gui_Left;
+            FTop              := AGroundInfo.gui_Top;
+            FWidth            := AGroundInfo.gui_Width;
+            FHeight           := AGroundInfo.gui_Height;
+            FVisible          := AVisible;
+          end;
+          TMIR3_GUI_Form(AGUIForm).FControlList.Add(FControl);
+          Result              := FControl;
+          if Assigned(FControl) then
+            FControl.FDebugMode := FDebugMode;
+        end;
           
       end;
       {$ENDREGION}
@@ -2052,7 +2097,7 @@ var
           if Assigned(FControl) then
             FControl.FDebugMode := FDebugMode;
         end;  
-        
+
         ctMagicButton : begin
           if not Assigned(AGUIForm) then Exit;
 
@@ -2072,7 +2117,28 @@ var
           Result              := FControl;
           if Assigned(FControl) then
             FControl.FDebugMode := FDebugMode;
-        end;             
+        end;
+
+        ctTimer : begin
+          if not Assigned(AGUIForm) then Exit;
+
+          FControl := TMIR3_GUI_Timer.Create(nil, Self);
+          with FControl do
+          begin
+            FControlType      := ctTimer;
+            FParentGUIForm    := TMIR3_GUI_Form(AGUIForm);
+            FControlIdentifier:= AUIContolID;
+            FLeft             := AX;
+            FTop              := AY;
+            FWidth            := AWidth;
+            FHeight           := AHeight;
+            FVisible          := AVisible;
+          end;
+          TMIR3_GUI_Form(AGUIForm).FControlList.Add(FControl);
+          Result              := FControl;
+          if Assigned(FControl) then
+            FControl.FDebugMode := FDebugMode;
+        end;
 
       end;
       {$ENDREGION}
@@ -2837,6 +2903,7 @@ var
       FControlType        := ctPanel;
       FCaption            := '';
       FAnimationCount     := 30;
+      FCurrentMaxCount    := 1;
       FAnimationTime      := GetTickCount;
       FGUI_Definition.gui_Animation.gui_Animation_Current := 0;
     end;
@@ -2873,7 +2940,7 @@ var
           begin
             if (gui_ExtraBackground_Texture_ID > 0) and (gui_ExtraTexture_File_ID > 74) then
             begin
-              Draw(gui_ExtraBackground_Texture_ID, gui_ExtraTexture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
+              Draw(gui_ExtraBackground_Texture_ID, gui_ExtraTexture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, gui_Blend_Mode_Extra, gui_Blend_Size_Extra);
             end;
 
             if gui_Background_Texture_ID > 0 then
@@ -2916,7 +2983,7 @@ var
               end;
             end;
 
-            if gui_Use_Animation_Texture then
+            if (gui_Use_Animation_Texture) and ((gui_Animation_Max_Count = 0) or (FCurrentMaxCount <= gui_Animation_Max_Count)) then
             begin
               if (gui_Animation_Texture_File_ID > 0) and (gui_Animation_Texture_From > 0) and (gui_Animation_Texture_To > 0)  then
               begin
@@ -2926,19 +2993,44 @@ var
                   FTempImage   := GGameEngine.FGameFileManger.GetImageD3DDirect(FTempImageID, gui_Animation_Texture_File_ID);
                   if Assigned(FTempImage) then
                   begin
-                    Draw(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                    if gui_Use_Strech_Texture then
+                    begin
+                      DrawStrech(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                    end else begin
+                      Draw(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                    end;
                   end;
-                end else Draw(gui_Animation_Current + gui_Animation_Texture_From, gui_Animation_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Animation_Offset_X, FParentGUIForm.FTop + FTop + gui_Animation_Offset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
-
+                end else if gui_Use_Offset_Calc then
+                         begin
+                           FTempImageID := (gui_Animation_Current + gui_Animation_Texture_From);
+                           FTempImage   := GGameEngine.FGameFileManger.GetImageD3DDirect(FTempImageID, gui_Animation_Texture_File_ID);
+                           if Assigned(FTempImage) then
+                           begin
+                             if gui_Use_Strech_Texture then
+                             begin
+                               DrawStrech(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + FLeft + FTempImage.ihOffset_X, FParentGUIForm.FTop + FTop + FTempImage.ihOffset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                             end else begin
+                               Draw(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + FLeft + FTempImage.ihOffset_X, FParentGUIForm.FTop + FTop + FTempImage.ihOffset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                             end;
+                           end;
+                         end else begin
+                           if gui_Use_Strech_Texture then
+                           begin
+                             DrawStrech(gui_Animation_Current + gui_Animation_Texture_From, gui_Animation_Texture_File_ID, FParentGUIForm.FLeft + gui_Animation_Offset_X, FParentGUIForm.FTop + gui_Animation_Offset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                           end else begin
+                             Draw(gui_Animation_Current + gui_Animation_Texture_From, gui_Animation_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Animation_Offset_X, FParentGUIForm.FTop + FTop + gui_Animation_Offset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                           end;
+                         end;
                 if (GetTickCount - FAnimationTime) > gui_Animation_Interval then
                 begin
                   FAnimationTime := GetTickCount;
                   if (gui_Animation_Current + gui_Animation_Texture_From) >= gui_Animation_Texture_To then
                     gui_Animation_Current := 0
                   else Inc(gui_Animation_Current);
+                  Inc(FCurrentMaxCount);
                 end;
               end;
-            end;
+            end else gui_Use_Animation_Texture := False;
             
           end else if (Trim(FCaption) <> '') or (gui_CaptionID > 0) then
                    begin
@@ -2999,10 +3091,11 @@ var
                            dsMagicUse      := False;
                          end;
                          if gui_CaptionID > 0 then
-                         begin  
-                           DrawTextColor(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
+                         begin
+                           DrawTextColor(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
                          end else begin
-                           DrawTextColor(FCaption, @FDrawSetting);
+                           DrawText(PWideChar(FCaption), @FDrawSetting);
+                           //DrawTextColor(PWideChar(FCaption), @FDrawSetting);
                          end;
                        end;
                      end;
@@ -3091,13 +3184,13 @@ var
   {$ENDREGION}
 
   {$REGION ' - TMIR3_GUI_Panel :: class getter and setter  '}
-    procedure TMIR3_GUI_Panel.SetCaption(ACaption: String);
+    procedure TMIR3_GUI_Panel.SetCaption(ACaption: WideString);
     begin
       if ACaption <> FCaption then
         FCaption := ACaption;
     end;
 
-    function TMIR3_GUI_Panel.GetCaption: String;
+    function TMIR3_GUI_Panel.GetCaption: WideString;
     begin
       Result := FCaption;
     end;
@@ -3151,7 +3244,7 @@ var
       FRightEdgeX    : Integer;
       FDrawSetting   : TDrawSetting;
       FTextSelection : TRect;
-      FTextPW        : String;
+      FTextPW        : WideString;
     begin
     //@override
 	    (* Render Edit *)
@@ -3196,7 +3289,7 @@ var
           if gui_Password_Char <> '' then
           begin
             FTextPW := StringOfChar(gui_Password_Char[1] , FStringBuffer.TextSize);
-            DrawTextRect(FTextPW, FFirstVisibleChar, @FDrawSetting);
+            DrawTextRect(PWideChar(FTextPW), FFirstVisibleChar, @FDrawSetting);
             GGameEngine.FontManager.GetFirstVisibleChar(gui_Font_Use_ID, FTextPW, FCaretPos, FCaretX);
           end else DrawTextRect(FStringBuffer.Buffer, FFirstVisibleChar, @FDrawSetting);
 
@@ -3968,7 +4061,7 @@ var
               dsVAlign        := gui_Font_Text_VAlign;
               dsMagicUse      := False;
             end;
-            GGameEngine.FontManager.DrawText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
+            GGameEngine.FontManager.DrawText(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
           end;
 
           (* Hint Render System *)
@@ -4263,13 +4356,13 @@ var
               case FCharacterInfo.Char_Job of
                 C_WARRIOR  : case FCharacterInfo.Char_Gender of
                                C_MALE   : begin
-                                 FFrameStart         := 201;
-                                 FAnimation_State_0  := 10;
-                                 FAnimation_State_1  := 19;
+                                 FFrameStart         := 199;
+                                 FAnimation_State_0  := 12;
+                                 FAnimation_State_1  := 21;
                                  FAnimation_State_2  := 11;
                                end;
                                C_FEMALE : begin
-                                 FFrameStart         := 501;
+                                 FFrameStart         := 499;
                                  FAnimation_State_0  := 10;
                                  FAnimation_State_1  := 10;
                                  FAnimation_State_2  := 10;
@@ -4327,12 +4420,12 @@ var
               begin
                 case FAnimationState of
                   0: FCurrentImageNumber := FFrameStart;
-                  1: FCurrentImageNumber := FFrameStart + 60;
-                  2: FCurrentImageNumber := FFrameStart + 120;
+                  1: FCurrentImageNumber := FFrameStart + 40;
+                  2: FCurrentImageNumber := FFrameStart + 100;
                 end;
               end;
 
-              if (GetTickCount - FStartTime > 100) then
+              if (GetTickCount - FStartTime > 200) then
               begin
                 case FAnimationState of
                   0: begin
@@ -4345,6 +4438,7 @@ var
                     end;
                     FUseEffect          := False;
                     FCurrentImageNumber := FFrameStart + FAnimationCount;
+                    FShadowImageNumber  := FCurrentImageNumber + 20;
                   end;
                   1: begin
                     case FCharacterInfo.Char_Job of
@@ -4360,8 +4454,8 @@ var
                           FAnimationState := 2;
                         end;
                         FUseEffect          := True;
-                        FCurrentImageNumber := FFrameStart + 60 + FAnimationCount;
-                        FEffectImageNumber  := FCurrentImageNumber + 40;
+                        FCurrentImageNumber := FFrameStart + 40 + FAnimationCount;
+                        FEffectImageNumber  := FCurrentImageNumber + 100;
                       end;
                       C_ASSASSIN : begin
                         if (FAnimationCount < FAnimation_State_1) then
@@ -4372,12 +4466,12 @@ var
                           FAnimationCount := 0;
                           FAnimationState := 2;
                         end;
-                        FCurrentImageNumber := FFrameStart + 60 + FAnimationCount;
+                        FCurrentImageNumber := FFrameStart + 40 + FAnimationCount;
                         case FCharacterInfo.Char_Gender of
                           C_MALE   : begin
                             if (FAnimationCount > 2) and (FAnimationCount < 18) then
                             begin
-                              FEffectImageNumber  := FCurrentImageNumber + 40;
+                              FEffectImageNumber  := FCurrentImageNumber + 100;
                               FUseEffect          := True;
                             end else begin
                               FUseEffect          := False;
@@ -4386,7 +4480,7 @@ var
                           C_FEMALE : begin
                             if FAnimationCount > 2 then
                             begin
-                              FEffectImageNumber  := FCurrentImageNumber + 40;
+                              FEffectImageNumber  := FCurrentImageNumber + 100;
                               FUseEffect          := True;
                             end else begin
                               FUseEffect          := False;
@@ -4395,6 +4489,7 @@ var
                         end;
                       end;
                     end;
+                    FShadowImageNumber := FCurrentImageNumber + 30;
                   end;
                   2: begin
                     if (FAnimationCount < FAnimation_State_2) then
@@ -4404,18 +4499,19 @@ var
                     end else begin
                       FAnimationCount := 0;
                     end;
-                    FCurrentImageNumber := FFrameStart + 120 + FAnimationCount;
+                    FCurrentImageNumber := FFrameStart + 100 + FAnimationCount;
                     if  ((FCharacterInfo.Char_Job = C_TAOIST) or (FCharacterInfo.Char_Job = C_WIZZARD)) and (FCharacterInfo.Char_Gender = C_FEMALE) then
                     begin
                       FUseEffect          := True;
-                      FEffectImageNumber  := FCurrentImageNumber + 40;
+                      FEffectImageNumber  := FCurrentImageNumber + 100;
                     end else begin
                       FUseEffect          := False;
                     end;
+                    FShadowImageNumber := FCurrentImageNumber + 20;
                   end;
                 end;
               end;
-              FShadowImageNumber := FCurrentImageNumber + 20;
+
 
               with FGUI_Definition, gui_Control_Texture, GGameEngine.FGameFileManger do
               begin
@@ -4424,14 +4520,22 @@ var
                 begin
                   if FSelected then
                   begin
-                    FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
-                    FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
-                    Draw(FShadowImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FShadowImage.ihOffset_X), (FParentGUIForm.FTop + FTop + FShadowImage.ihOffset_Y), Blend_DestBright, gui_Blend_Size);
-                    Draw(FCharImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FCharImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FCharImage.ihOffset_Y  ), BLEND_DEFAULT, gui_Blend_Size);
-                    if FUseEffect then
+                    if gui_Use_Strech_Texture then
                     begin
-                      FEffectImage := GetImageD3DDirect(FEffectImageNumber, gui_Texture_File_ID);
-                      Draw(FEffectImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FEffectImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FEffectImage.ihOffset_Y  ), Blend_ADD, gui_Blend_Size);
+
+                    end else begin
+                      FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
+                      FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
+                      if Assigned(FShadowImage) then
+                        Draw(FShadowImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FShadowImage.ihOffset_X), (FParentGUIForm.FTop + FTop + FShadowImage.ihOffset_Y), Blend_DestBright, gui_Blend_Size);
+                      if Assigned(FCharImage) then
+                        Draw(FCharImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FCharImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FCharImage.ihOffset_Y  ), BLEND_DEFAULT, gui_Blend_Size);
+                      if FUseEffect then
+                      begin
+                        FEffectImage := GetImageD3DDirect(FEffectImageNumber, gui_Texture_File_ID);
+                        if Assigned(FEffectImage) then
+                          Draw(FEffectImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FEffectImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FEffectImage.ihOffset_Y  ), Blend_ADD, gui_Blend_Size);
+                      end;
                     end;
                   end else begin
                     FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
@@ -4669,7 +4773,7 @@ var
     procedure TMIR3_GUI_TextButton.RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
     var
       FScriptWidth : Single;
-      FScriptText  : String;
+      FScriptText  : WideString;
       FRenderColor : TD3DColor;
     begin
     // @override
@@ -4753,12 +4857,12 @@ var
               dsMagicUse      := False;
               dsOptimizeSet   := True;
               // Get Line width and auto adjust Control width (Special hack for Multilanguage use)
-              FScriptWidth := GGameEngine.FontManager.GetScriptedTextWidth(0,PChar(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawOptionSet.dsDrawSetting);
+              FScriptWidth := GGameEngine.FontManager.GetScriptedTextWidth(0,PWideChar(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawOptionSet.dsDrawSetting);
               if FWidth < FScriptWidth then
                  FWidth := Round(FScriptWidth);
             end;
           end;
-          GGameEngine.FontManager.DrawTextColor(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawOptionSet.dsDrawSetting);
+          GGameEngine.FontManager.DrawTextColor(PWideChar(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawOptionSet.dsDrawSetting);
 
           (* Render Hint *)
           if ((FButtonState = bsMouseOver) or (FButtonState = bsPress)) and (gui_HintID <> 0) then
@@ -4809,10 +4913,10 @@ var
     //..............................................................................   
     procedure TMIR3_GUI_TextLabel.RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
     var
-      FScriptText  : String;
+      FScriptText  : WideString;
       FDrawSetting : TDrawSetting;
     begin
-	// @override
+	  // @override
 	    (* Render TextLabel *)
       if FParentGUIContainer.FDebugMode then
       begin
@@ -4843,7 +4947,7 @@ var
                 dsMagicUse      := False;
               end;
               FScriptText := gui_Font_Script_MouseNormal;
-              GGameEngine.FontManager.DrawTextColor(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
+              GGameEngine.FontManager.DrawTextColor(PWideChar(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
             end else begin
               with FDrawSetting do
               begin
@@ -4862,7 +4966,7 @@ var
                 dsMagicUse      := False;
               end;
               FScriptText := gui_Font_Script_MouseNormal;
-              GGameEngine.FontManager.DrawTextColor(FScriptText+FCaption, @FDrawSetting);
+              GGameEngine.FontManager.DrawTextColor(PWideChar(FScriptText+FCaption), @FDrawSetting);
             end;
 
             if gui_Use_Extra_Caption then
@@ -4884,7 +4988,7 @@ var
                   dsHAlign        := gui_Extra_Font.gui_Font_Text_HAlign;
                   dsVAlign        := gui_Extra_Font.gui_Font_Text_VAlign;
                 end;
-                GGameEngine.FontManager.DrawTextColor(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_Caption_Extra.gui_CaptionID), @FDrawSetting);
+                GGameEngine.FontManager.DrawTextColor(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_Caption_Extra.gui_CaptionID)), @FDrawSetting);
               end;
             end;
 
@@ -5394,7 +5498,7 @@ var
            dsVAlign        := gui_Font_Text_VAlign;
            dsMagicUse      := False;
          end;
-         GGameEngine.FontManager.DrawControlText(FCaption, @FDrawSetting);
+         GGameEngine.FontManager.DrawControlText(PWideChar(FCaption), @FDrawSetting);
         end;
       end;
 	  end;
@@ -6064,12 +6168,12 @@ var
       FControlType        := ctMagicButton;
       FCaption            := '0';
     end;
-  {$ENDREGION}  
+  {$ENDREGION}
 
   {$REGION ' - TMIR3_GUI_MagicButton :: functions   '}
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_MagicButton override
-    //..............................................................................    
+    //..............................................................................
     function TMIR3_GUI_MagicButton.ContainsPoint(AMousePoint: TPoint): LongBool;
     begin
 	  // @override
@@ -6084,7 +6188,7 @@ var
 
     ////////////////////////////////////////////////////////////////////////////////
     // TMIR3_GUI_MagicButton override render function for this control
-    //..............................................................................   
+    //..............................................................................
     procedure TMIR3_GUI_MagicButton.RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
     var
       FClipRect     : TRect;
@@ -6183,7 +6287,7 @@ var
               dsVAlign        := gui_Font_Text_VAlign;
               dsMagicUse      := False;
             end;
-            GGameEngine.FontManager.DrawControlText(FCaption, @FDrawSetting);
+            GGameEngine.FontManager.DrawControlText(PWideChar(FCaption), @FDrawSetting);
           end;
           (* Render Magic Hint *)
           if (FSwitchOn) and (FShowFlag > 0) and (FMouseOver) and (gui_MagicHintID <> 0) then
@@ -6217,7 +6321,59 @@ var
   	end;
   {$ENDREGION}
   
-  
-  
+
+  {$REGION ' - TMIR3_GUI_Timer :: constructor   '}
+    ////////////////////////////////////////////////////////////////////////////////
+    // TMIR3_GUI_Timer Form control constructor
+    //..............................................................................
+    constructor TMIR3_GUI_Timer.Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil);
+    begin
+      inherited;
+      if Assigned(PGUI_Definition) then
+        FGUI_Definition := PGUI_Definition^;
+      FParentGUIContainer := PParentGUIManager;
+      FControlType        := ctTimer;
+      FTimerEnable        := False;
+      FTickTime           := GetTickCount;
+    end;
+  {$ENDREGION}
+
+  {$REGION ' - TMIR3_GUI_Timer :: functions   '}
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // TMIR3_GUI_Timer override render function for this control
+    //..............................................................................
+    procedure TMIR3_GUI_Timer.RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
+    begin
+      // @override
+      with FGUI_Definition do
+      begin
+        if FTimerEnable then
+          if (GetTickCount - FTickTime) > gui_Timer_Intervall then
+          begin
+            FParentGUIContainer.SendEvent(EVENT_TIMER_TIME_EXPIRE, True, @Self);
+            FTickTime := GetTickCount;
+          end;
+      end;
+  	end;
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // TMIR3_GUI_Timer Enable function for this control
+    //..............................................................................
+    procedure TMIR3_GUI_Timer.SetTimerEnabled(AEnabled: Boolean);
+    begin
+      case AEnabled of
+        True  : begin
+          FTickTime    := GetTickCount;
+          FTimerEnable := True;
+        end;
+        False : begin
+          FTimerEnable := False;
+        end;
+      end;
+  	end;
+
+  {$ENDREGION}
+
 
 end.

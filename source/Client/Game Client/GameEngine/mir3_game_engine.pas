@@ -517,6 +517,7 @@ type
     function Timer_GetDelta: Single;
     function Timer_GetFPS: Integer;
     function Timer_GetFPSStr: String;
+    function Timer_GetFPSStrW: PWideChar;
 
     function Effect_Load(const Data: Pointer; const Size: Longword): IEffect; overload;
     function Effect_Load(const Filename: String): IEffect; overload;
@@ -585,7 +586,9 @@ type
     function Target_GetTexture(const Target: ITarget): ITexture;
     function Texture_Create(const Width, Height: Integer): ITexture; overload;
     function Texture_Create(const Width, Height: Integer; AFormat: TD3DFormat): ITexture; overload;
-    function Texture_LoadMemory(const Data: Pointer; const Size: Longword): ITexture;
+    function Texture_LoadMemory(const AData: Pointer; const ASize: Longword): ITexture; overload;
+    function Texture_LoadMemory(const AData: Pointer; const ASize: Longword; const AFormat: TD3DFormat = D3DFMT_UNKNOWN): ITexture; overload;
+    function Texture_LoadMemoryColorKey_0(const AData: Pointer; const ASize: Longword; const AFormat: TD3DFormat = D3DFMT_UNKNOWN): ITexture;
     function Texture_Load(const Data: Pointer; const Size: Longword; const Mipmap: Boolean = False): ITexture; overload;
     function Texture_Load(const Filename: String; const Mipmap: Boolean = False): ITexture; overload;
     function Texture_GetWidth(const Tex: ITexture; const Original: Boolean = False): Integer;
@@ -1040,6 +1043,7 @@ type
     function Timer_GetDelta: Single;
     function Timer_GetFPS: Integer;
     function Timer_GetFPSStr: String;
+    function Timer_GetFPSStrW: PWideChar;
 
     function Effect_Load(const Data: Pointer; const Size: Longword): IEffect; overload;
     function Effect_Load(const Filename: String): IEffect; overload;
@@ -1119,7 +1123,9 @@ type
 
     function Texture_Create(const Width, Height: Integer): ITexture; overload;
     function Texture_Create(const Width, Height: Integer; AFormat: TD3DFormat): ITexture; overload;
-    function Texture_LoadMemory(const Data: Pointer; const Size: Longword): ITexture;
+    function Texture_LoadMemory(const AData: Pointer; const ASize: Longword): ITexture; overload;
+    function Texture_LoadMemory(const AData: Pointer; const ASize: Longword; const AFormat: TD3DFormat = D3DFMT_UNKNOWN): ITexture; overload;
+    function Texture_LoadMemoryColorKey_0(const AData: Pointer; const ASize: Longword; const AFormat: TD3DFormat = D3DFMT_UNKNOWN): ITexture;
     function Texture_Load(const Data: Pointer; const Size: Longword;  const Mipmap: Boolean = False): ITexture; overload;
     function Texture_Load(const Filename: String; const Mipmap: Boolean = False): ITexture; overload;
     function Texture_GetWidth(const Tex: ITexture; const Original: Boolean = False): Integer;
@@ -2957,8 +2963,8 @@ begin
     PostError('Can''t find appropriate full screen video mode');
     if (not FWindowed) then
       Exit;
-  end;
-
+  end else if Format =D3DFMT_X8R8G8B8 then
+             Format := D3DFMT_A8R8G8B8;
   ZeroMemory(@FD3DPPFS,SizeOf(FD3DPPFS));
 
   FD3DPPFS.BackBufferWidth  := FScreenWidth;
@@ -5735,7 +5741,7 @@ var
   PTex: IDirect3DTexture9;
 begin
   if (Failed(D3DXCreateTexture(FD3DDevice,Width,Height,
-    1,          // Mip levels
+    0,          // Mip levels
     0,          // Usage
     D3DFMT_A8R8G8B8,  // Format
     D3DPOOL_MANAGED,  // Memory pool
@@ -5959,17 +5965,16 @@ begin
   Result := TTexture.Create(PTex,Info.Width,Info.Height);
 end;
 
-
-function THGEImpl.Texture_LoadMemory(const Data: Pointer; const Size: Longword): ITexture;
+function THGEImpl.Texture_LoadMemory(const AData: Pointer; const ASize: Longword): ITexture;
 var
   PTex: IDirect3DTexture9;
   Info: TD3DXImageInfo;
 begin
   Result := nil;
 
-  if(Failed(D3DXCreateTextureFromFileInMemoryEx(FD3DDevice, Data, Size,
+  if(Failed(D3DXCreateTextureFromFileInMemoryEx(FD3DDevice, AData, ASize,
     D3DX_DEFAULT, D3DX_DEFAULT,
-    1,                  // Mip levels
+    0,                  // Mip levels
     0,                  // Usage
     D3DFMT_UNKNOWN,     // Format
     D3DPOOL_MANAGED,    // Memory pool
@@ -5985,8 +5990,55 @@ begin
   Result := TTexture.Create(PTex,Info.Width,Info.Height);
 end;
 
+function THGEImpl.Texture_LoadMemory(const AData: Pointer; const ASize: Longword; const AFormat: TD3DFormat = D3DFMT_UNKNOWN): ITexture;
+var
+  PTex: IDirect3DTexture9;
+  Info: TD3DXImageInfo;
+begin
+  Result := nil;
 
+  if(Failed(D3DXCreateTextureFromFileInMemoryEx(FD3DDevice, AData, ASize,
+    D3DX_DEFAULT, D3DX_DEFAULT,
+    0,                  // Mip levels
+    0,                  // Usage
+    AFormat,     // Format
+    D3DPOOL_MANAGED,    // Memory pool
+    D3DX_DEFAULT,       // Filter
+    D3DX_DEFAULT,       // Mip filter
+    $FF000000, // Color key
+    @Info,nil,PTex)))then
+  begin
+    PostError('Can''t create texture');
+    Exit;
+  end;
 
+  Result := TTexture.Create(PTex,Info.Width,Info.Height);
+end;
+
+function THGEImpl.Texture_LoadMemoryColorKey_0(const AData: Pointer; const ASize: Longword; const AFormat: TD3DFormat = D3DFMT_UNKNOWN): ITexture;
+var
+  PTex: IDirect3DTexture9;
+  Info: TD3DXImageInfo;
+begin
+  Result := nil;
+
+  if(Failed(D3DXCreateTextureFromFileInMemoryEx(FD3DDevice, AData, ASize,
+    D3DX_DEFAULT, D3DX_DEFAULT,
+    0,                  // Mip levels
+    0,                  // Usage
+    AFormat,     // Format
+    D3DPOOL_MANAGED,    // Memory pool
+    D3DX_DEFAULT,       // Filter
+    D3DX_DEFAULT,       // Mip filter
+    0, // Color key
+    @Info,nil,PTex)))then
+  begin
+    PostError('Can''t create texture');
+    Exit;
+  end;
+
+  Result := TTexture.Create(PTex,Info.Width,Info.Height);
+end;
 
 function THGEImpl.Texture_Load(const ImageData: Pointer;
   const ImageSize: Longword; const AlphaData: Pointer;
@@ -6107,6 +6159,13 @@ function THGEImpl.Timer_GetFPSStr: String;
 begin
   Result := FloatToStrF(DX9State.FFPS, ffNumber,8, 2);
 end;
+
+function THGEImpl.Timer_GetFPSStrW: PWideChar;
+begin
+  Result := StringToOleStr('FPS: ' + FloatToStrF(DX9State.FFPS, ffNumber,8, 2));
+end;
+
+
 
 function THGEImpl.Timer_GetTime: Single;
 begin

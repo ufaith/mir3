@@ -62,11 +62,14 @@
  :: TODO ::
  - cleanup code
  - add more functions
+ - Clean and Check all (begin on Login Scene)
+ - Inprove Login Scene with Checkbox for memory User name?
 
   + Say system need Administration (User: disalowed / alowed say ingame)
 
  :: Known Bugs ::
-  - none
+  - from time to time a Memory leak comes up.. need to check how it comes from (I belive FileManager Check Thread)
+  - Deleting and Add New Char works not correct
 
 
 

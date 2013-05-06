@@ -118,6 +118,11 @@ type
     RzVersionInfo1: TRzVersionInfo;
     acImportFromWIL: TAction;
     sfdFolderDialog: TRzSelectFolderDialog;
+    RzPanel9: TRzPanel;
+    btnUseLMT: TRzBitBtn;
+    btnUseWIL: TRzBitBtn;
+    btnUseWTL: TRzBitBtn;
+    RzLabel1: TRzLabel;
     procedure FormDestroy(Sender: TObject);
     procedure acExitExecute(Sender: TObject);
     procedure acNewLibraryExecute(Sender: TObject);
@@ -138,12 +143,18 @@ type
     procedure btnZoomInClick(Sender: TObject);
     procedure acImportFromWILExecute(Sender: TObject);
     procedure btnChangeDirClick(Sender: TObject);
+    procedure btnUseLMTMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure btnUseWILMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure btnUseWTLMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     FBitmap     : TBitmap;
     FZoomFactor : Integer;
     FLastZoom   : Integer; // Last working Zoom Factor
   private
-    procedure ListFileDir(Path: string; FileList: TStrings);
+    procedure ListFileDir(Path: string; FileList: TStrings; AExtType: String);
     function ScalePercentBmp(var ABitmap: TBitmap; APercent: Integer): Boolean;
     procedure SetBitmap;
     procedure SetButtonState;
@@ -154,6 +165,9 @@ type
     FFileIndex    : Integer;
     FFileIndexMax : Integer;
     FFileDirectory: String;
+    FFileDirectoryWTL: String;
+    FFileDirectoryWIL: String;
+    FFileDirectoryLMT: String;
   end;
 
 var
@@ -187,7 +201,7 @@ begin
   Application.ProcessMessages;
 end;
 
-procedure TfmtTextureManagerMain.ListFileDir(Path: string; FileList: TStrings);
+procedure TfmtTextureManagerMain.ListFileDir(Path: string; FileList: TStrings; AExtType: String);
 var
   SR: TSearchRec;
 begin
@@ -195,7 +209,7 @@ begin
   if FindFirst(Path + '*.*', faAnyFile, SR) = 0 then
   begin
     repeat
-      if (SR.Attr <> faDirectory) and (UpperCase(ExtractFileExt(SR.Name)) = '.LMT') then
+      if (SR.Attr <> faDirectory) and (UpperCase(ExtractFileExt(SR.Name)) = AExtType) then
       begin
         FileList.Add(SR.Name);
       end;
@@ -402,7 +416,7 @@ end;
     begin
       FLMTLibrary.CreateLMTFile(FFileDirectory + FNewFileName, 1);
       if DirectoryExists(FFileDirectory) then
-        ListFileDir(FFileDirectory, lbLibraryList.Items);
+        ListFileDir(FFileDirectory, lbLibraryList.Items, '.LMT');
     end;
     SetButtonState;
   end;
@@ -519,16 +533,19 @@ begin
   FImportLibrary := TfrmImportWIL.Create(Application);
   FImportLibrary.ShowModal;
   if DirectoryExists(FFileDirectory) then
-    ListFileDir(FFileDirectory, lbLibraryList.Items);
+    ListFileDir(FFileDirectory, lbLibraryList.Items, '.LMT');
 end;
 
 procedure TfmtTextureManagerMain.FormCreate(Sender: TObject);
 begin
+  FFileDirectoryWTL := '';
+  FFileDirectoryWIL := '';
+  FFileDirectoryLMT := ExtractFilePath(ParamStr(0))+ 'data';
   FZoomFactor := 100;
   laZoomFactor.Caption := IntToStr(FZoomFactor) + ' %';
   FFileDirectory       := ExtractFilePath(ParamStr(0)) + 'data\';
   if DirectoryExists(FFileDirectory) then
-    ListFileDir(FFileDirectory, lbLibraryList.Items);
+    ListFileDir(FFileDirectory, lbLibraryList.Items, '.LMT');
   SetButtonState;
 end;
 
@@ -589,13 +606,81 @@ begin
     PeekMessage(Mgs, 0, WM_CHAR, WM_CHAR, PM_REMOVE);
 end;
 
+procedure TfmtTextureManagerMain.btnUseLMTMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  if (btnUseWTL.Down = True) or (btnUseWIL.Down = True)  then
+  begin
+    lbLibraryList.Clear;
+    //Load all LMT File
+    FFileDirectory       := FFileDirectoryLMT + '\';
+    if DirectoryExists(FFileDirectory) then
+    begin
+      ListFileDir(FFileDirectory, lbLibraryList.Items, '.LMT');
+    end;
+  end;
+end;
+
+procedure TfmtTextureManagerMain.btnUseWILMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  if (btnUseWTL.Down = True) or (btnUseLMT.Down = True)  then
+  begin
+    lbLibraryList.Clear;
+    //Load all WIL File
+    if FFileDirectoryWIL = '' then
+    begin
+      if sfdFolderDialog.Execute then
+      begin
+        FFileDirectoryWIL := sfdFolderDialog.SelectedPathName;
+        btnUseWIL.Down := True;
+      end;
+    end;
+
+    FFileDirectory       := FFileDirectoryWIL + '\';
+    if DirectoryExists(FFileDirectory) then
+    begin
+      ListFileDir(FFileDirectory, lbLibraryList.Items, '.WIL');
+    end;
+  end;
+end;
+
+procedure TfmtTextureManagerMain.btnUseWTLMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  if (btnUseWIL.Down = True) or (btnUseLMT.Down = True)  then
+  begin
+    lbLibraryList.Clear;
+    //Load all WTL File
+    if FFileDirectoryWTL = '' then
+    begin
+      if sfdFolderDialog.Execute then
+      begin
+        FFileDirectoryWTL := sfdFolderDialog.SelectedPathName;
+        btnUseWIL.Down := True;
+      end;
+    end;
+
+    FFileDirectory       := FFileDirectoryWTL + '\';
+    if DirectoryExists(FFileDirectory) then
+    begin
+      ListFileDir(FFileDirectory, lbLibraryList.Items, '.WTL');
+    end;
+  end;
+end;
+
 procedure TfmtTextureManagerMain.btnChangeDirClick(Sender: TObject);
 begin
   if sfdFolderDialog.Execute then
   begin
     FFileDirectory := sfdFolderDialog.SelectedPathName;
     if DirectoryExists(FFileDirectory) then
-      ListFileDir(FFileDirectory, lbLibraryList.Items);
+      if btnUseLMT.Down then
+        ListFileDir(FFileDirectory, lbLibraryList.Items, '.LMT');
+      if btnUseWIL.Down then
+        ListFileDir(FFileDirectory, lbLibraryList.Items, '.WIL');
+      if btnUseWTL.Down then
+        ListFileDir(FFileDirectory, lbLibraryList.Items, '.WTL');
   end;
 end;
 

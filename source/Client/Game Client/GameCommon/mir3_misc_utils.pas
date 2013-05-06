@@ -6,6 +6,7 @@ uses
   { Delphi }
   Windows,
   SysUtils,
+  DateUtils,
   Math,
   Classes,
   Registry,
@@ -32,6 +33,30 @@ type
     procedure UnLock;
   end;
 
+  TPerformaceTimeType = (pttSec, pttMilliSec, pttMicroSec, pttNanoSec);
+
+  IPerformanceCounter = interface
+  ['{55D9D3D5-D951-4A12-806B-579454E68199}']
+    procedure StartPerformanceMeasure;
+    procedure StopPerformanceMeasure;
+    function StopAndGetTime(const ATimeType: TPerformaceTimeType=pttMillisec): String;
+    function StopAndGetMircoTime: String;
+  end;
+
+  TPerformanceCounter = class(TInterfacedObject, IPerformanceCounter)
+  strict private
+    FIsHighResolution : Boolean;
+    FStartCounter     : Int64;
+    FStopCounter      : Int64;
+    FFrequency        : Int64;
+  public
+    constructor Create(const AStartOnCreate : Boolean = False); dynamic;
+    procedure StartPerformanceMeasure;
+    procedure StopPerformanceMeasure;
+    function StopAndGetTime(const ATimeType: TPerformaceTimeType=pttMillisec): String;
+    function StopAndGetMircoTime: String;
+  end;
+
 function MakePowerOfTwo(Value: Integer): Integer;
 procedure MakePowerOfTwoHW(var H, W, valH, valW: Integer); overload;
 procedure MakePowerOfTwoHW(var H, W: Integer; valH, valW: Word); overload;
@@ -53,8 +78,14 @@ function _MIN(n1, n2: Integer): Integer;
 function _MAX(n1, n2: Integer): Integer;
 
 function HexToInt(AValue: string): LongInt;
+procedure PerformanceDelay;
+
+function GPerformanceCounter(const AStartOnCreate : Boolean = False) : IPerformanceCounter;
 
 implementation
+
+var
+  FPerformanceCounter : IPerformanceCounter = nil;
 
 { TLockList }
 
@@ -110,6 +141,81 @@ implementation
     begin
       LeaveCriticalSection(FCriticalSection);
     end;
+  {$ENDREGION}
+
+{ TPerformanceCounter }
+
+  {$REGION ' - TPerformanceCounter Class  '}
+    function GPerformanceCounter(const AStartOnCreate : Boolean = False): IPerformanceCounter;
+    begin
+      if not Assigned(FPerformanceCounter) then
+      begin
+        FPerformanceCounter := TPerformanceCounter.Create(AStartOnCreate);
+      end;
+      Result := FPerformanceCounter;
+    end;
+
+    constructor TPerformanceCounter.Create(const AStartOnCreate : Boolean = False);
+    begin
+      inherited Create;
+      if AStartOnCreate then
+        StartPerformanceMeasure;
+    end;
+
+    procedure TPerformanceCounter.StartPerformanceMeasure;
+    begin
+      FStartCounter := 0;
+      FStopCounter  := 0;
+      FFrequency    := 0;    
+      FIsHighResolution := QueryPerformanceFrequency(FFrequency);
+      if not (FIsHighResolution) then
+        FFrequency := MSecsPerSec;
+
+      if FIsHighResolution then
+        QueryPerformanceCounter(FStartCounter)
+      else FStartCounter := MilliSecondOf(Now);
+    end;
+
+    procedure TPerformanceCounter.StopPerformanceMeasure;
+    begin
+      if FIsHighResolution then
+        QueryPerformanceCounter(FStopCounter)
+      else FStopCounter := MilliSecondOf(Now);
+    end;
+
+    function TPerformanceCounter.StopAndGetTime(const ATimeType: TPerformaceTimeType=pttMillisec): String;
+    begin
+      StopPerformanceMeasure;
+      case FIsHighResolution of
+        True  : begin
+          case ATimeType of
+            pttSec      : Result := 'HighResolution : Yes   - ' + FormatFloat('0.00', ((FStopCounter - FStartCounter) / FFrequency)) + ' sec ';
+            pttMilliSec : Result := 'HighResolution : Yes   - ' + FormatFloat('0.00', (MSecsPerSec * (FStopCounter - FStartCounter) / FFrequency)) + ' ms ';
+            pttMicroSec : Result := 'HighResolution : Yes   - ' + FormatFloat('0.00', (MSecsPerSec * (MSecsPerSec * (FStopCounter - FStartCounter) / FFrequency))) + ' µs ';
+            pttNanoSec  : Result := 'HighResolution : Yes   - ' + FormatFloat('0.00', (MSecsPerSec * (MSecsPerSec * (MSecsPerSec * (FStopCounter - FStartCounter) / FFrequency)))) + ' ns ';
+          end;
+        end;
+        False : begin
+          Result := 'HighResolution : False - ' + FormatFloat('0', (MSecsPerSec * (FStopCounter - FStartCounter) div FFrequency)) + ' ms ';
+        end;
+      end;
+    end;
+
+    function TPerformanceCounter.StopAndGetMircoTime: String;
+    begin
+      StopPerformanceMeasure;
+      case FIsHighResolution of
+        True  : begin
+          Result := FormatFloat('0.0', (MSecsPerSec * (FStopCounter - FStartCounter) / FFrequency)) + ' ms ) ';
+          Result := 'HighResolution : Yes   - ' + FormatFloat('0000.00', (MSecsPerSec * (MSecsPerSec * (FStopCounter - FStartCounter) / FFrequency))) + ' µs ('+Result;
+        end;
+        False : begin
+          Result := FormatFloat('0.0', (MSecsPerSec * (FStopCounter - FStartCounter) / FFrequency)) + ' ms ) ';
+          Result := 'HighResolution : False - ' + FormatFloat('0000.00', (MSecsPerSec * (MSecsPerSec * (FStopCounter - FStartCounter) / FFrequency))) + ' µs ('+Result;
+        end;
+      end;
+    end;
+
   {$ENDREGION}
 
 function MakePowerOfTwo(Value: Integer): Integer;
@@ -442,6 +548,21 @@ begin
   end;
   Result := Val;
   //   Result := (Val and $0000FF00) or ((Val shl 16) and $00FF0000) or ((Val shr 16) and $000000FF);
+end;
+
+// Wait 0.2ms
+procedure PerformanceDelay;
+var
+  hrRes, hrT1, hrT2, dif: Int64;
+begin
+  if QueryPerformanceFrequency(hrRes) then
+  begin
+    QueryPerformanceCounter(hrT1);
+    repeat
+      QueryPerformanceCounter(hrT2);
+      dif := (hrT2 - hrT1) * 10000000 div hrRes;
+    until dif > 2;
+  end;
 end;
 
 end.

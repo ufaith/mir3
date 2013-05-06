@@ -46,7 +46,7 @@ uses
   mir3_game_socket;
 
 const
-  GGameClientVersion             = '0.0.1.3';
+  GGameClientVersion             = '0.0.2.1';
 
   KEY                            = 20100730;
   RUNGATEMAX                     = 20;
@@ -1043,7 +1043,7 @@ type
   TSayMsgType      = (s_NoneMsg, s_GroupMsg, s_GuildMsg, s_SystemMsg, s_NoticeMsg);
   TConnectionStep  = (csLogin, csSelChr, csReSelChr, csNotice, csPlay);
   
-  TMIR3_Game_Scene = (gsNone, gsScene_PlayVideo, gsScene_Login, gsScene_SelChar, gsScene_PlayGame);
+  TMIR3_Game_Scene = (gsNone, gsScene_PlayVideo, gsScene_LogonInfo, gsScene_Login, gsScene_SelChar, gsScene_PlayGame);
 
 {$REGION ' - Records  '}
 

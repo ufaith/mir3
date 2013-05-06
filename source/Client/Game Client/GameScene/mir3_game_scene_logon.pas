@@ -80,34 +80,48 @@ uses mir3_game_backend;
       Self.SetHotKeyEventCallback(@LoginGUIHotKeyEvent);
 
       { Create Login Forms and Controls }
-      FLoginForm  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_Login.FLogin_Background, True));
-      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_BackPanel_1       , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_BackPanel_2       , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_EditField_User    , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_EditField_Password, True);
-      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_Button_Exit       , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_Button_Login      , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_Button_URL_1      , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_Button_URL_2      , True);
-      Self.AddControl(FLoginForm, FGame_GUI_Definition_Login.FLogin_Information_Field , True);
-
+      with FGame_GUI_Definition_Login do
+      begin
+        case FScreen_Width of
+           800 : begin
+             FLoginForm  := TMIR3_GUI_Form(Self.AddForm(FLogin_Background_800, True));
+             Self.AddControl(FLoginForm, FLogin_Animation_2_800       , True);
+             Self.AddControl(FLoginForm, FLogin_Animation_1_800       , True);
+             Self.AddControl(FLoginForm, FLogin_Animation_3_800       , True);
+             Self.AddControl(FLoginForm, FLogin_Animation_4_800       , True);
+             Self.AddControl(FLoginForm, FLogin_Mir3LogoPanel_800     , True);
+             Self.AddControl(FLoginForm, FLogin_BackPanel_800         , True);
+             Self.AddControl(FLoginForm, FLogin_EditField_User_800    , True);
+             Self.AddControl(FLoginForm, FLogin_EditField_Password_800, True);
+             Self.AddControl(FLoginForm, FLogin_Button_Exit_800       , True);
+             Self.AddControl(FLoginForm, FLogin_Button_Login_800      , True);
+             Self.AddControl(FLoginForm, FLogin_Button_URL_1_800      , True);
+             Self.AddControl(FLoginForm, FLogin_Button_URL_2_800      , True);
+           end;
+          1024 : begin
+             FLoginForm  := TMIR3_GUI_Form(Self.AddForm(FLogin_Background_1024, True));
+             Self.AddControl(FLoginForm, FLogin_Animation_2_1024       , True);
+             Self.AddControl(FLoginForm, FLogin_Animation_1_1024       , True);
+             Self.AddControl(FLoginForm, FLogin_Animation_3_1024       , True);
+             Self.AddControl(FLoginForm, FLogin_Animation_4_1024       , True);
+             Self.AddControl(FLoginForm, FLogin_Mir3LogoPanel_1024     , True);
+             Self.AddControl(FLoginForm, FLogin_BackPanel_1024         , True);
+             Self.AddControl(FLoginForm, FLogin_EditField_User_1024    , True);
+             Self.AddControl(FLoginForm, FLogin_EditField_Password_1024, True);
+             Self.AddControl(FLoginForm, FLogin_Button_Exit_1024       , True);
+             Self.AddControl(FLoginForm, FLogin_Button_Login_1024      , True);
+             Self.AddControl(FLoginForm, FLogin_Button_URL_1_1024      , True);
+             Self.AddControl(FLoginForm, FLogin_Button_URL_2_1024      , True);
+           end;
+        end;
+      end;
+      
       { Create System Forms and Controls }
       FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_System.FSys_Dialog_Info, False));
       Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Dialog_Text , True);
       Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Ok   , False);
       Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Yes  , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_No   , False);
-      
-      // later use Config file
-      TMIR3_GUI_Panel(GetComponentByID(GUI_ID_LOGIN_BUTTON_INFO)).Caption := 'Hello'+#10#13+
-                                                                             'this is the new LomCN Mir3 client...'+#10#13+
-                                                                             'Completely re-created from begin...'+#10#13+
-                                                                             ' '+#10#13+
-                                                                             'Create by Coly, Azura and ElAmO'+#10#13+
-                                                                             ' '+#10#13+
-                                                                             ' Thank you LomCN staff, for all the help...'+#10#13+
-                                                                             ' '+#10#13+
-                                                                             ' Thank you WeMade, for this very nice game...';                                                                             ;
+      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_No   , False);                                                                            ;
     end;
     
     destructor TMir3GameSceneLogon.Destroy;
@@ -119,12 +133,11 @@ uses mir3_game_backend;
     procedure TMir3GameSceneLogon.ResetScene;
     begin
       GGameEngine.SoundManager.StopBackgroundMusic;
-      GGameEngine.SoundManager.PlayBackgroundMusic('opening.wav');
-      TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_USER)).SetFocus;
+      GGameEngine.SoundManager.PlayBackgroundMusic('Main.wes');
     end;
   {$ENDREGION}
 
-  {$REGION ' - TMir3GameSceneLogon :: Scene Funtions   '}
+  {$REGION ' - TMir3GameSceneLogon :: Scene Funtions             '}
   procedure TMir3GameSceneLogon.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
   begin
     if mbOK in AButtons then
@@ -140,13 +153,13 @@ uses mir3_game_backend;
     else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_NO)).Visible := False;
 
     SetZOrder(TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)));
-    TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SYSINFO_PANEL)).Caption := AMessage;
+    TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SYSINFO_PANEL)).Caption := PWideChar(AMessage);
     TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID  := AEventType;
     TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := True;
   end;
   {$ENDREGION}
 
-  {$REGION ' - TMir3GameSceneLogon :: Login Message Decoder   '}
+  {$REGION ' - TMir3GameSceneLogon :: Login Message Decoder      '}
     procedure TMir3GameSceneLogon.ReceiveMessagePacket(AReceiveData: String);
     var
       FAvailIDDay  : Word;
@@ -228,21 +241,21 @@ uses mir3_game_backend;
         end;
         SM_VERSION_FAIL       : begin // Client Version Fail
          //      LoginScene.HideLoginBox;
-         //      FrmDlg.DMessageDlg ('Wrong version. Please download latest version. (http://www.mir2.com.ph)', [mbOk]);
+         //      FrmDlg.DMessageDlg ('Wrong version. Please download latest version. (http://www.....)', [mbOk]);
          //      FrmMain.Close
         end;        
       end;
     end;
   {$ENDREGION}
 
-  {$REGION ' - TMir3GameSceneLogon :: Event Funktion   '}
+  {$REGION ' - TMir3GameSceneLogon :: Event Funktion             '}
     procedure TMir3GameSceneLogon.Event_Logon_Check_Login_Data;
     var
       FUserName : String;
       FPassword : String;
     begin
-      FUserName := TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_USER)).Text;
-      FPassword := TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_PASSWORD)).Text;
+      FUserName := 'Test'; //TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_USER)).Text;
+      FPassword := 'Test';//TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_PASSWORD)).Text;
       if (Trim(FUserName) <> '') and (Trim(FPassword) <> '') then
       begin
         GGameEngine.Send_Login(FUserName, FPassword);

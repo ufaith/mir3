@@ -15,7 +15,8 @@
  *                                                                 *
  *  - 0.0.0.1 [2012-09-11] Coly : fist init                        *
  *  - 0.0.0.2 [2012-10-10] Coly : cleanup code                     *
- *  - 0.0.0.3 [2013-03-27] Coly : change img reading and cliping   * 
+ *  - 0.0.0.3 [2013-03-27] Coly : change img reading and cliping   *
+ *  - 0.0.0.4 [2013-03-27] Coly : add more WTL and LMT code        * 
  *                                                                 *
  *                                                                 *
  *                                                                 *
@@ -36,6 +37,8 @@
 
 interface
 
+{$I DevelopmentDefinition.inc}
+
 uses Windows, SysUtils, Math, Graphics, Classes, D3DX9, Direct3D9, DirectShow9, ActiveX,
      mir3_game_file_manager_const, mir3_global_config, mir3_misc_utils, mir3_game_engine_def, mir3_game_engine ;
 
@@ -47,7 +50,7 @@ type
   TMir3_FileCashManager = class;
 
 
-  {$REGION ' - Wemade Orginal Header (For Import WIL/WIX) '}
+  {$REGION ' - Wemade Orginal Header (For Import WIL/WIX)   '}
      (*****************************************************************************
       * TWIL_Header WIL (Wemade Orginal) File Header
       *
@@ -87,19 +90,21 @@ type
       end;
   {$ENDREGION}
 
-  {$REGION ' - LomCN Texture Format Header (For Import LMT) '}  
+  {$REGION ' - LomCN Texture Format Header (For Import LMT) '}
      (*****************************************************************************
       * TLMT_Header LMT (LomCN Texture) File Header
       *
       ****************************************************************************)
       PLMT_Header =^TLMT_Header;
-      TLMT_Header = packed record
+      TLMT_Header = packed record  (*29*)
         lhValid            : Byte;                          // 1
-        lhLib_Info         : array [0..20] of AnsiChar;     // LMT v1.0-LomCN
+        lhLib_Info         : array [0..20] of AnsiChar;     // LMT v1.0-LomCN HEADER_INFORMATION
         lhLib_Type         : Word;                          // 9000=Type4
-        lhTotal_Index      : Word;                          // Total Image in this File
+        lhTotal_Index      : Word;                          // Total Indexes in this File
+        lhTotal_Image      : Word;                          // Total Image in this File
         lhSecuredImage     : Byte;                          // 0: No  |  1:Yes (Type 1 Crypt) |  2:Yes (Type 2 Crypt) ...
       end;
+      {$EXTERNALSYM TLMT_Header}
 
      (*****************************************************************************
       * TLMT_Img_Header LMT_IMG (LomCN Texture) Image Header
@@ -178,29 +183,32 @@ type
   TMir3_TextureLibrary = class
   strict private
     FFileName      : string;
-	FUsingLibType  : TFileLibType;
+    FUsingLibType  : TFileLibType;
     FImageIndex    : Integer;
     FTotalImage    : Integer;
+    FTotalIndex    : Integer;
+    FBeginImage    : Integer;
     (* Wil / Wix System *)
-    FHeaderWilInfo    : TWIL_Header;
-    FHeaderWixInfo    : TWIX_Header;
-    FHeaderImage      : TWIL_Img_Header;
-    FDumpImageInfo    : TWIL_Img_Header;
+    FHeaderWILInfo    : TWIL_Header;
+    FHeaderWIXInfo    : TWIX_Header;
+    FHeaderWILImage   : TWIL_Img_Header;
+    FDumpWILImageInfo : TWIL_Img_Header;
     FWIL              : PByte;
-    FWIX              : PByte;    
+    FWIX              : PByte;
     (* LMT System *)
     FHeaderLMTInfo    : TLMT_Header;
-    //FHeaderImageLMT   : TLMT_Img_Header;
-    //FDumpImageInfoLMT : TWIL_Img_Header;
+    FHeaderLMTImage   : TLMT_Img_Header;
+    FDumpLMTImageInfo : TLMT_Img_Header;
     FLMT              : PByte;
   private
     procedure CreateFilesMMF(FFileName: String);
     function GetLibTypeOffset(LibType: Integer): Integer;
     function GetLibTypeWixOffset(LibType: Integer): Integer;
     function GetLibType(LibType: Integer): String;
-    function GetImageInformation(AFrame: Integer): PWIL_Img_Header;
+    function GetImageInformationWIL(AFrame: Integer): PWIL_Img_Header;
+    function GetImageInformationLMT(AFrame: Integer): PLMT_Img_Header;
   public
-    constructor Create;
+    constructor Create(const AUsingLibType: TFileLibType = LIB_TYPE_2);
     destructor Destroy; override;
     procedure FlushMMF;
     function Open(FileName: string): Boolean;
@@ -213,9 +221,12 @@ type
     function GetLastImageStr: String;
     function GetIndexInformation(AFrame: Integer): Integer;
     // Decode Functions
+    function DecodeFrame32ToMir3_D3D(const AFrame: Integer; var APImageRecord: PImageHeaderD3D): Boolean;
+
     function DecodeFrame32ToMir3D3DX(AFrame: Integer; var APImageRecord: PImageHeaderD3D): Boolean; overload;
     function DecodeFrame32ToMir3D3DX(AFrame: Integer; var APImageRecord: PImageHeaderD3D; AColor: Word): Boolean; overload;
-    property ImageInfo[Index: Integer]: PWIL_Img_Header read GetImageInformation;
+    property ImageInfoWIL[Index: Integer]: PWIL_Img_Header read GetImageInformationWIL;
+    property ImageInfoLMT[Index: Integer]: PLMT_Img_Header read GetImageInformationLMT;
   end;
 
   { TMir3_FileMapping }
@@ -237,19 +248,19 @@ type
     FThreadsRunning : Integer;
     FManager        : TMir3_FileCashManager;
     FTextureManager : TMir3_FileMapping;
-
-    evCode : integer;
-    pEvent :IMediaEvent;
-    pGraph :IGraphBuilder;
-    pMediaControl :IMediaControl;
-    pSeeking : IMediaSeeking;
-    pVidWin :IVideoWindow;
-    pBasicAudio: IBasicAudio;
+    FUsingLibType   : TFileLibType;
+    FEventCode      : Integer;
+    FMediaEvent     : IMediaEvent;
+    FGraphBuilder   : IGraphBuilder;
+    FMediaControl   : IMediaControl;
+    FMediaSeeking   : IMediaSeeking;
+    FVideoWindow    : IVideoWindow;
+    FBasicAudio     : IBasicAudio;
   strict private
-    function TestIfInList(AType: Byte; AFileID: Integer) : PFileInformation;
-    function GetFileNameByID(AIndexID: Integer): String;
+    function TestIfInList(AType: Byte; AFileID: Integer; AUsingLibType: TFileLibType = LIB_TYPE_2) : PFileInformation;
+    function GetFileNameByID(AIndexID: Integer; AUsingLibType: TFileLibType = LIB_TYPE_2): String;
   public
-    constructor Create;
+    constructor Create(const AUsingLibType: TFileLibType = LIB_TYPE_2);
     destructor  Destroy; override;
   public //Video
     procedure RenderVideo(AType: Byte);
@@ -288,10 +299,11 @@ var
   GStopThreads  : Boolean;
 
   {$REGION ' - TMir3_TextureLibrary Constructor / Destructor / Open / Close '}
-    constructor TMir3_TextureLibrary.Create;
+    constructor TMir3_TextureLibrary.Create(const AUsingLibType: TFileLibType = LIB_TYPE_2);
     begin
-      inherited;
-      FUsingLibType := LIB_TYPE_2;
+      inherited Create;
+      // Set Lib Type
+      FUsingLibType :=AUsingLibType;
     end;
     
     destructor TMir3_TextureLibrary.Destroy;
@@ -317,20 +329,23 @@ var
       Result    := False;
       try
         case FUsingLibType of
-          LIB_TYPE_1 , 
-          LIB_TYPE_2 : begin
+          LIB_TYPE_1 ,
+          LIB_TYPE_2 : begin //Wil / Wix
             CreateFilesMMF(FileName);
             // Read Wil and Wix File Header
             CopyMemory(@FHeaderWilInfo, FWIL  , sizeof(TWIL_Header));
             CopyMemory(@FHeaderWixInfo, FWIX  , sizeof(TWIX_Header));
-            FTotalImage := FHeaderWilInfo.whTotal_Index;
+            FTotalImage := FHeaderWILInfo.whTotal_Index;
+            FTotalIndex := FHeaderWILInfo.whTotal_Index;
             FFileName   := FileName;
           end;
-          LIB_TYPE_3 : begin //WTL
-  
-          end;
           LIB_TYPE_4 : begin //LMT
-  
+            CreateFilesMMF(FileName);
+            // Read LMT File Header
+            CopyMemory(@FHeaderLMTInfo, FLMT  , sizeof(TLMT_Header));
+            FBeginImage := 28 + (FHeaderLMTInfo.lhTotal_Index * SizeOf(Cardinal));
+            FTotalImage := FHeaderLMTInfo.lhTotal_Image;
+            FTotalIndex := FHeaderLMTInfo.lhTotal_Index;
           end;          
         end;
         Result      := True;
@@ -342,24 +357,23 @@ var
     procedure TMir3_TextureLibrary.Close;
     begin
       case FUsingLibType of
-        LIB_TYPE_1 , 
-        LIB_TYPE_2 : begin    
+        LIB_TYPE_1 ,
+        LIB_TYPE_2 : begin
           CloseMMF(Pointer(FWIL));
           CloseMMF(Pointer(FWIX));
-          FillChar(FHeaderWilInfo, SizeOf(TWIL_Header)    , 0);
-          FillChar(FHeaderWixInfo, SizeOf(TWIX_Header)    , 0);
-          FillChar(FHeaderImage  , SizeOf(TWIL_Img_Header), 0);
-        end;  
-        LIB_TYPE_3 : begin
-        
+          FillChar(FHeaderWILInfo , SizeOf(TWIL_Header)    , 0);
+          FillChar(FHeaderWIXInfo , SizeOf(TWIX_Header)    , 0);
+          FillChar(FHeaderWILImage, SizeOf(TWIL_Img_Header), 0);
         end;
         LIB_TYPE_4 : begin
           CloseMMF(Pointer(FLMT));
-          FillChar(FHeaderLMTInfo, SizeOf(TLMT_Header)    , 0);
+          FillChar(FHeaderLMTInfo, SizeOf(TLMT_Header)     , 0);
+          FillChar(FHeaderLMTImage, SizeOf(TWIL_Img_Header), 0);
         end;
       end;  
       FImageIndex := -1;
       FTotalImage := -1;
+      FTotalIndex := -1;
       FFileName   := '';
     end;
   {$ENDREGION}
@@ -372,25 +386,37 @@ var
       FFileWix : String;
       FFileWil : String;
     begin
-      if UpperCase(ExtractFileExt(FFileName)) = '.WIL'  then
+      if (UpperCase(ExtractFileExt(FFileName)) = '.WIL') or
+         (UpperCase(ExtractFileExt(FFileName)) = '.WIX') then
       begin
-        FFileWil :=  FFileName;
-        FFileWix :=  Copy(FFileName, 0, Length(FFileName)-4) + '.wix';
-      end else begin
-        FFileWix :=  FFileName;
-        FFileWil :=  Copy(FFileName, 0, Length(FFileName)-4) + '.wil';
-      end;
-	  
-      if (FileExists(FFileWil)) and (FileExists(FFileWix)) then
-      begin
-        FWIL := CreateMMF(FFileWil, True, Size, Error);
-        if Error <> 0 then Exit;
-        FWIX := CreateMMF(FFileWix, True, Size, Error);
-        if Error <> 0 then Exit;
-      end else begin
-                  FWIL := nil;
-                  FWIX := nil;
-                end;
+        FUsingLibType := LIB_TYPE_2;
+        if UpperCase(ExtractFileExt(FFileName)) = '.WIL'  then
+        begin
+          FFileWil :=  FFileName;
+          FFileWix :=  Copy(FFileName, 0, Length(FFileName)-4) + '.wix';
+        end else begin
+          FFileWix :=  FFileName;
+          FFileWil :=  Copy(FFileName, 0, Length(FFileName)-4) + '.wil';
+        end;
+
+        if (FileExists(FFileWil)) and (FileExists(FFileWix)) then
+        begin
+          FWIL := CreateMMF(FFileWil, True, Size, Error);
+          if Error <> 0 then Exit;
+          FWIX := CreateMMF(FFileWix, True, Size, Error);
+          if Error <> 0 then Exit;
+        end else begin
+                    FWIL := nil;
+                    FWIX := nil;
+                  end;
+      end else if (UpperCase(ExtractFileExt(FFileName)) = '.LMT') then
+               begin
+                 FUsingLibType := LIB_TYPE_4;
+                 if (FileExists(FFileName)) then
+                 begin
+                   FLMT := CreateMMF(FFileName, True, Size, Error);
+                 end else FLMT := nil;
+               end;
     end;
 
     function TMir3_TextureLibrary.GetLibTypeOffset(LibType: Integer): Integer;
@@ -399,8 +425,8 @@ var
       case LibType of
         17   : Result := 17;
         5000 : Result := 21;
-        6000 : Result := 31;
-        9000 : Result := 0; //(LMT System - LomCn Mir3 Texture)        
+        6000 : Result := 17;
+        9000 : Result := 17; //(LMT System - LomCn Mir3 Texture)
       end;
     end;
 
@@ -410,8 +436,8 @@ var
       case LibType of
         17   : Result := 24;
         5000 : Result := 28;
-        6000 : Result := 31;
-        9000 : Result := 0; //(LMT System - LomCn Mir3 Texture)
+        6000 : Result := 32;
+        9000 : Result := SizeOf(TLMT_Header); //(LMT System - LomCn Mir3 Texture)
       end;
     end;
 
@@ -429,102 +455,378 @@ var
   {$REGION ' - TMir3_TextureLibrary Get Functions '}
       function TMir3_TextureLibrary.GetTotalIndex: Integer;
       begin
-        if FWIL <> nil then
-        begin
-          Result := FHeaderWilInfo.whTotal_Index;
-        end else Result := 0;
+        case FUsingLibType of
+          LIB_TYPE_1 ,
+          LIB_TYPE_2 : begin
+            if FWIL <> nil then
+            begin
+              Result := FHeaderWilInfo.whTotal_Index;
+            end else Result := 0;
+          end;
+          LIB_TYPE_4 : begin
+            if FLMT <> nil then
+            begin
+              Result := FHeaderLMTInfo.lhTotal_Index;
+            end else Result := 0;
+          end;
+        end;
       end;
     
       function TMir3_TextureLibrary.GetVersionType: String;
       begin
-        if FWIL <> nil then
-        begin
-          Result := GetLibType(FHeaderWilInfo.whLib_Type);
-        end else Result := 'Unknow';
+        case FUsingLibType of
+          LIB_TYPE_1 ,
+          LIB_TYPE_2 : begin
+            if FWIL <> nil then
+            begin
+              Result := GetLibType(FHeaderWilInfo.whLib_Type);
+            end else Result := 'Unknow';
+          end;
+          LIB_TYPE_4 : begin
+            if FLMT <> nil then
+            begin
+              Result := GetLibType(FHeaderLMTInfo.lhLib_Type);
+            end else Result := 'Unknow';
+          end;
+        end;
       end;
 
       function TMir3_TextureLibrary.GetOverallImage: Integer;
       var
         FPosition, I : Integer;
       begin
-        if FWIX <> nil then
-        begin
-          Result := 0;
-          for I := 0 to GetTotalIndex do
-          begin
-            CopyMemory(@FPosition, PInteger(Integer(FWIX) + ((I * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
-            if FPosition <> 0 then
-              Inc(Result);
+        case FUsingLibType of
+          LIB_TYPE_1 ,
+          LIB_TYPE_2 : begin
+            if FWIX <> nil then
+            begin
+              Result := 0;
+              for I := 0 to GetTotalIndex do
+              begin
+                CopyMemory(@FPosition, PInteger(Integer(FWIX) + ((I * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
+                if FPosition <> 0 then
+                  Inc(Result);
+              end;
+            end else Result := 0;
           end;
-        end else Result := 0;
+          LIB_TYPE_4 : begin
+            if FLMT <> nil then
+            begin
+              Result := 0;
+              for I := 0 to GetTotalIndex do
+              begin
+                CopyMemory(@FPosition, PInteger(Integer(FLMT) + ((I * 4) + GetLibTypeWixOffset(FHeaderLMTInfo.lhLib_Type))), sizeof(FPosition));
+                if FPosition <> 0 then
+                  Inc(Result);
+              end;
+            end else Result := 0;
+          end;
+        end;
       end;
 
       function TMir3_TextureLibrary.GetLastImageInt: Integer;
       var
         FPosition, I : Integer;
       begin
-        if FWIX <> nil then
-        begin
-          Result := 0;
-          for I := GetTotalIndex downto 0 do
-          begin
-            CopyMemory(@FPosition, PInteger(Integer(FWIX) + ((I * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
-            if FPosition <> 0 then
+        case FUsingLibType of
+          LIB_TYPE_1 ,
+          LIB_TYPE_2 : begin
+            if FWIX <> nil then
             begin
-              Result := I;
-              Break;
-            end;
+              Result := 0;
+              for I := GetTotalIndex downto 0 do
+              begin
+                CopyMemory(@FPosition, PInteger(Integer(FWIX) + ((I * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
+                if FPosition <> 0 then
+                begin
+                  Result := I;
+                  Break;
+                end;
+              end;
+            end else Result := 0;
           end;
-        end else Result := 0;
+          LIB_TYPE_4 : begin
+            if FLMT <> nil then
+            begin
+              Result := 0;
+              for I := GetTotalIndex downto 0 do
+              begin
+                CopyMemory(@FPosition, PInteger(Integer(FLMT) + ((I * 4) + GetLibTypeWixOffset(FHeaderLMTInfo.lhLib_Type))), sizeof(FPosition));
+                if FPosition <> 0 then
+                begin
+                  Result := I;
+                  Break;
+                end;
+              end;
+            end else Result := 0;
+          end;
+        end;
       end;
 
       function TMir3_TextureLibrary.GetLastImageStr: String;
       var
         FPosition, I : Integer;
-        FLastImage   : Integer;
       begin
-        if FWIX <> nil then
-        begin
-          FLastImage := 0;
-          for I := GetTotalIndex downto 0 do
-          begin
-            CopyMemory(@FPosition, PInteger(Integer(FWIX) + ((I * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
-            if FPosition <> 0 then
+        case FUsingLibType of
+          LIB_TYPE_1 ,
+          LIB_TYPE_2 : begin
+            if FWIX <> nil then
             begin
-              FLastImage := I;
-              Break;
-            end;
+              Result := '0';
+              for I := GetTotalIndex downto 0 do
+              begin
+                CopyMemory(@FPosition, PInteger(Integer(FWIX) + ((I * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
+                if FPosition <> 0 then
+                begin
+                  Result := IntToStr(I);
+                  Break;
+                end;
+              end;
+            end else Result := '0';
           end;
-          Result := IntToStr(FLastImage);
-        end else Result := '0';
+          LIB_TYPE_4 : begin
+            if FLMT <> nil then
+            begin
+              Result := '0';
+              for I := GetTotalIndex downto 0 do
+              begin
+                CopyMemory(@FPosition, PInteger(Integer(FLMT) + ((I * 4) + GetLibTypeWixOffset(FHeaderLMTInfo.lhLib_Type))), sizeof(FPosition));
+                if FPosition <> 0 then
+                begin
+                  Result := IntToStr(I);
+                  Break;
+                end;
+              end;
+            end else Result := '0';
+          end;
+        end;
       end;
 
       function TMir3_TextureLibrary.GetIndexInformation(AFrame: Integer): Integer;
       var
         FPosition : Integer;
       begin
-        if FWIX <> nil then
-        begin
-          CopyMemory(@FPosition, PInteger(Integer(FWIX) + ((AFrame * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
-          Result := FPosition;
-        end else Result := 0;
+        case FUsingLibType of
+          LIB_TYPE_1 ,
+          LIB_TYPE_2 : begin
+            if FWIX <> nil then
+            begin
+              CopyMemory(@FPosition, PInteger(Integer(FWIX) + ((AFrame * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
+              Result := FPosition;
+            end else Result := 0;
+          end;
+          LIB_TYPE_4 : begin
+            if FLMT <> nil then
+            begin
+              CopyMemory(@FPosition, PInteger(Integer(FLMT) + ((AFrame * 4) + GetLibTypeWixOffset(FHeaderLMTInfo.lhLib_Type))), sizeof(FPosition));
+              Result := FPosition;
+            end else Result := 0;
+          end;
+        end;
       end;
     
-      function TMir3_TextureLibrary.GetImageInformation(AFrame: Integer): PWIL_Img_Header;
+      function TMir3_TextureLibrary.GetImageInformationWIL(AFrame: Integer): PWIL_Img_Header;
       var
         FPosition : Integer;
       begin
         if (FWIX <> nil ) and (FWIL <> nil) then
         begin
-          CopyMemory(@FPosition      , PInteger(Integer(FWIX) + ((AFrame * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
-          CopyMemory(@FDumpImageInfo , PInteger(Integer(FWIL) + FPosition)          , sizeof(TWIL_Img_Header));
-          Result := @FDumpImageInfo;
+          CopyMemory(@FPosition         , PInteger(Integer(FWIX) + ((AFrame * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
+          CopyMemory(@FDumpWILImageInfo , PInteger(Integer(FWIL) + FPosition)          , sizeof(TWIL_Img_Header));
+          Result := @FDumpWILImageInfo;
+        end else Result := nil;
+      end;
+
+      function TMir3_TextureLibrary.GetImageInformationLMT(AFrame: Integer): PLMT_Img_Header;
+      var
+        FPosition : Integer;
+      begin
+        if (FLMT <> nil ) then
+        begin
+          CopyMemory(@FPosition         , PInteger(Integer(FLMT) + ((AFrame * 4) + GetLibTypeWixOffset(FHeaderLMTInfo.lhLib_Type))), sizeof(FPosition));
+          CopyMemory(@FDumpLMTImageInfo , PInteger(Integer(FLMT) + FPosition)          , sizeof(TLMT_Img_Header));
+          Result := @FDumpLMTImageInfo;
         end else Result := nil;
       end;
 
   {$ENDREGION}
 
   {$REGION ' - TMir3_TextureLibrary Decode Functions '}
+      function TMir3_TextureLibrary.DecodeFrame32ToMir3_D3D(const AFrame: Integer; var APImageRecord: PImageHeaderD3D): Boolean;
+      var                           
+        X, Y, H, W   : Integer;
+        FPosition    : Integer;
+        FCount       : Integer;
+        FHelp        : Integer;
+        FIncX        : Integer;
+        FBGR         : Integer;
+        PBGR         : PInteger;
+        FEncodeRGBA  : Integer;
+        PEncodeRGBA  : PInteger;
+        FColorCount  : Integer;
+        FTexture     : ITexture;
+        FD3DLockRect : TD3DLocked_Rect;
+        FFilePointer : PByte;
+      begin
+        {$IFDEF DEVELOP_PERFORMANCE_COUNTER}
+          // Using to get the Performance of this Decoder
+          GPerformanceCounter(False).StartPerformanceMeasure;
+        {$ENDIF}
+        Result := False;
+        case FUsingLibType of
+          LIB_TYPE_1 ,
+          LIB_TYPE_2 : begin //WIL-WIX
+            {$REGION ' - Get DX Image from WIL / WIX '}
+            if (FWIX = nil) or (FWIL = nil) then Exit;
+            PEncodeRGBA  := @FEncodeRGBA;
+            PBGR         := @FBGR;
+            // Copy Image Position from Wix file (use Type check)
+            CopyMemory(@FPosition, PInteger(Integer(FWIX) + ((AFrame * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), SizeOf(FPosition));
+            if FPosition = 0 then
+            begin
+              Result := False;
+              Exit;
+            end;
+            FFilePointer := PByte(Integer(FWIL) + FPosition);
+            // Copy Image Information from Wil file and set size to Power of 2
+            CopyMemory(@FHeaderWILImage, FFilePointer, sizeof(TWIL_Img_Header));
+            FPosition := GetLibTypeOffset(FHeaderWilInfo.whLib_Type);
+            Inc(FFilePointer, FPosition);
+            MakePowerOfTwoHW(H, W, FHeaderWILImage.imgHeight, FHeaderWILImage.imgWidth);
+            // Get 2 ms more power and save some memory
+            if FHeaderWILImage.imgHeight = 768 then H:=768;
+
+            // Check and Setup Image Record
+            if not Assigned(APImageRecord) then
+              new(APImageRecord)
+            else if APImageRecord^.ihD3DTexture <> nil then
+                   APImageRecord^.ihD3DTexture := nil;
+
+            // Create Texture with POW2 Size and Lock the Texture
+            FTexture     := GRenderEngine.Texture_Create(W, H);
+            FD3DLockRect := FTexture.LockExt(False);
+            try
+              {$REGION ' - Decoder '}
+              for Y:=0 to FHeaderWILImage.imgHeight-1 do
+              begin
+                FIncX := 0;  X := 0; FCount := 0;
+                CopyMemory(@FCount, FFilePointer, sizeOf(Word));
+                Inc(FFilePointer, 2);
+                while X < FCount do
+                begin
+                  Inc(X);
+                  case FFilePointer^ of
+                    192: begin
+                           Inc(X);
+                           Inc(FFilePointer, 2);
+                           Inc(FIncX, PWord(Integer(FFilePointer))^);
+                           Inc(FFilePointer, 2);
+                         end;//case in
+                    193: begin
+                           Inc(FFilePointer, 2); Inc(X); FHelp := 0; FColorCount :=0;
+                           CopyMemory(@FColorCount, FFilePointer, 2);
+                           Inc(FFilePointer, 2);
+                           while FHelp < FColorCount do
+                           begin
+                             PEncodeRGBA^ := 0;
+                             CopyMemory(PEncodeRGBA, FFilePointer, 2);
+                             PBGR^ := ($FF00 or ((((PEncodeRGBA^ and 63488) shr 11) * 8))) shl 8;
+                             PBGR^ := (PBGR^ or ((((PEncodeRGBA^ and  2016) shr  5) * 4))) shl 8;
+                             PBGR^ := (PBGR^ or ((((PEncodeRGBA^ and    31) shr  0) * 8)));
+                             PInteger(Integer(FD3DLockRect.pBits) + Y * FD3DLockRect.Pitch + FIncX * 4 )^ := PBGR^;
+                             Inc(X); Inc(FFilePointer, 2); Inc(FHelp); Inc(FIncX);
+                           end;//while
+                         end;//case in
+                    194: begin
+                           Inc(FFilePointer, 2); Inc(X); FHelp := 0; FColorCount :=0;
+                           CopyMemory(@FColorCount, FFilePointer, 2);
+                           Inc(FFilePointer, 2);
+                           while FHelp < FColorCount do
+                           begin
+                             PEncodeRGBA^ := 0;
+                             CopyMemory(PEncodeRGBA, FFilePointer, 2);
+                             PBGR^ := ($7F00 or ((((PEncodeRGBA^ and 63488) shr 11) * 8))) shl 8;
+                             PBGR^ := (PBGR^ or ((((PEncodeRGBA^ and  2016) shr  5) * 4))) shl 8;
+                             PBGR^ := (PBGR^ or ((((PEncodeRGBA^ and    31) shr  0) * 8)));
+                             PInteger(Integer(FD3DLockRect.pBits) + Y * FD3DLockRect.Pitch + FIncX * 4 )^ := PBGR^;
+                             Inc(X); Inc(FFilePointer, 2); Inc(FHelp); Inc(FIncX);
+                           end;//while
+                         end;//case in
+                    else X := FCount;
+                  end;//case
+                end;//while
+              end;//for
+              {$ENDREGION}
+
+              FTexture.Unlock;
+              APImageRecord.ihD3DTexture      := TMir3_Texture.Create;
+              APImageRecord.ihOffset_X        := FHeaderWILImage.imgOffset_X;
+              APImageRecord.ihOffset_Y        := FHeaderWILImage.imgOffset_Y;
+              APImageRecord.ihOffsetShadow_X  := FHeaderWILImage.imgShadow_Offset_X;
+              APImageRecord.ihOffsetShadow_Y  := FHeaderWILImage.imgShadow_Offset_Y;
+              APImageRecord.ihTypeShadow      := FHeaderWILImage.imgShadow_type;
+              APImageRecord.ihORG_Width       := FHeaderWILImage.imgWidth;
+              APImageRecord.ihORG_Height      := FHeaderWILImage.imgHeight;
+              APImageRecord.ihPO2_Width       := W;
+              APImageRecord.ihPO2_Height      := H;
+              APImageRecord.ihD3DTexture.LoadFromITexture(FTexture, FHeaderWILImage.imgWidth, FHeaderWILImage.imgHeight);
+            except
+              FTexture.Unlock;
+            end;
+            {$IFDEF DEVELOP_PERFORMANCE_COUNTER}
+              GRenderEngine.System_Log('DEBUG Decode Time (WIL) : ' + GPerformanceCounter.StopAndGetMircoTime +
+              ' - Real Texture Size : ' + IntToStr(FHeaderWILImage.imgWidth) + 'x' + IntToStr(FHeaderWILImage.imgHeight)+
+              ' - Pow2 Texture Size : ' + IntToStr(W) + 'x' + IntToStr(H) );
+            {$ENDIF}
+            {$ENDREGION}
+          end;
+          LIB_TYPE_4 : begin //LMT
+            {$REGION ' - Get DX Image from LMT '}
+            if (FLMT = nil) then Exit;
+            // Copy Image Position from LMT file (use Type check)
+            CopyMemory(@FPosition, PInteger(Integer(FLMT) + (((AFrame)* 4) + GetLibTypeWixOffset(FHeaderLMTInfo.lhLib_Type))), SizeOf(FPosition));
+            if FPosition = 0 then
+            begin
+              Result := False;
+              Exit;
+            end;
+            
+            Inc(FPosition, FBeginImage);
+            CopyMemory(@FHeaderLMTImage, PInteger(Integer(FLMT) + FPosition), sizeof(TLMT_Img_Header));
+            Inc(FPosition, 17);
+            MakePowerOfTwoHW(H, W, FHeaderLMTImage.imgHeight, FHeaderLMTImage.imgWidth);
+            // Get 2 ms more power and save some memory
+            if FHeaderLMTImage.imgHeight = 768 then H:=768;
+            
+            // Check and Setup Image Record
+            if not Assigned(APImageRecord) then
+              new(APImageRecord)
+            else if APImageRecord^.ihD3DTexture <> nil then
+                   APImageRecord^.ihD3DTexture := nil;
+
+            // Create Texture and load image from file
+            FTexture := GRenderEngine.Texture_LoadMemory(PInteger(Integer(FLMT)+FPosition), FHeaderLMTImage.imgFileSize, D3DFMT_A8R8G8B8);
+            APImageRecord.ihD3DTexture      := TMir3_Texture.Create;
+            APImageRecord.ihOffset_X        := FHeaderLMTImage.imgOffset_X;
+            APImageRecord.ihOffset_Y        := FHeaderLMTImage.imgOffset_Y;
+            APImageRecord.ihOffsetShadow_X  := FHeaderLMTImage.imgShadow_Offset_X;
+            APImageRecord.ihOffsetShadow_Y  := FHeaderLMTImage.imgShadow_Offset_Y;
+            APImageRecord.ihTypeShadow      := FHeaderLMTImage.imgShadow_type;
+            APImageRecord.ihORG_Width       := FHeaderLMTImage.imgWidth;
+            APImageRecord.ihORG_Height      := FHeaderLMTImage.imgHeight;
+            APImageRecord.ihPO2_Width       := W;
+            APImageRecord.ihPO2_Height      := H;
+            APImageRecord.ihD3DTexture.LoadFromITexture(FTexture, FHeaderLMTImage.imgWidth, FHeaderLMTImage.imgHeight);
+            {$IFDEF DEVELOP_PERFORMANCE_COUNTER}
+              GRenderEngine.System_Log('DEBUG Decode Time (LMT) : ' + GPerformanceCounter.StopAndGetMircoTime +
+              ' - Real Texture Size : ' + IntToStr(FHeaderLMTImage.imgWidth) + 'x' + IntToStr(FHeaderLMTImage.imgHeight)+
+              ' - Pow2 Texture Size : ' + IntToStr(W) + 'x' + IntToStr(H) );
+            {$ENDIF}
+            {$ENDREGION}
+          end;
+        end;
+      end;
+
       function TMir3_TextureLibrary.DecodeFrame32ToMir3D3DX(AFrame: Integer; var APImageRecord: PImageHeaderD3D): Boolean;
       var
         FPosition    : Integer;
@@ -539,6 +841,10 @@ var
         FTexture     : ITexture;
         d3dlr        : TD3DLocked_Rect;
       begin
+        {$IFDEF DEVELOP_PERFORMANCE_COUNTER}
+          // Using to get the Performance of this Decoder
+          GPerformanceCounter(False).StartPerformanceMeasure;
+        {$ENDIF}
 
         Result := False;
         if (FWIX = nil) or (FWIL = nil) then Exit;
@@ -549,15 +855,15 @@ var
         PIncX             := @FIncX;
         PBGR              := @FBGR;
 
-        CopyMemory(@FPosition   , PInteger(Integer(FWIX) + ((AFrame * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition      ));
+        CopyMemory(@FPosition   , PInteger(Integer(FWIX) + ((AFrame * 4) + GetLibTypeWixOffset(FHeaderWilInfo.whLib_Type))), sizeof(FPosition));
         if FPosition = 0 then
         begin
           Result := False;
           Exit;
         end;
-        CopyMemory(@FHeaderImage, PInteger(Integer(FWIL) + FPosition)         , sizeof(TWIL_Img_Header));
+        CopyMemory(@FHeaderWILImage, PInteger(Integer(FWIL) + FPosition)         , sizeof(TWIL_Img_Header));
         PosCount := FPosition + GetLibTypeOffset(FHeaderWilInfo.whLib_Type);
-        MakePowerOfTwoHW(H, W, FHeaderImage.imgHeight, FHeaderImage.imgWidth);
+        MakePowerOfTwoHW(H, W, FHeaderWILImage.imgHeight, FHeaderWILImage.imgWidth);
 
         if not Assigned(APImageRecord) then
           new(APImageRecord)
@@ -568,7 +874,7 @@ var
         d3dlr    := FTexture.LockExt(False);
         try
           {$REGION ' - Decoder '}
-          for Y:=0 to FHeaderImage.imgHeight-1 do
+          for Y:=0 to FHeaderWILImage.imgHeight-1 do
           begin
             PIncX^ := 0;  X := 0; PCount^ := 0;
             CopyMemory(PCount, PInteger(Integer(FWIL)+ PosCount), sizeOf(Word));
@@ -620,287 +926,27 @@ var
           {$ENDREGION}
           FTexture.Unlock;
           APImageRecord.ihD3DTexture      := TMir3_Texture.Create;
-          APImageRecord.ihOffset_X        := FHeaderImage.imgOffset_X;
-          APImageRecord.ihOffset_Y        := FHeaderImage.imgOffset_Y;
-          APImageRecord.ihOffsetShadow_X  := FHeaderImage.imgShadow_Offset_X;
-          APImageRecord.ihOffsetShadow_Y  := FHeaderImage.imgShadow_Offset_Y;
-          APImageRecord.ihTypeShadow      := FHeaderImage.imgShadow_type;
-          APImageRecord.ihORG_Width       := FHeaderImage.imgWidth;
-          APImageRecord.ihORG_Height      := FHeaderImage.imgHeight;
+          APImageRecord.ihOffset_X        := FHeaderWILImage.imgOffset_X;
+          APImageRecord.ihOffset_Y        := FHeaderWILImage.imgOffset_Y;
+          APImageRecord.ihOffsetShadow_X  := FHeaderWILImage.imgShadow_Offset_X;
+          APImageRecord.ihOffsetShadow_Y  := FHeaderWILImage.imgShadow_Offset_Y;
+          APImageRecord.ihTypeShadow      := FHeaderWILImage.imgShadow_type;
+          APImageRecord.ihORG_Width       := FHeaderWILImage.imgWidth;
+          APImageRecord.ihORG_Height      := FHeaderWILImage.imgHeight;
           APImageRecord.ihPO2_Width       := W;
           APImageRecord.ihPO2_Height      := H;
-          APImageRecord.ihD3DTexture.LoadFromITexture(FTexture, FHeaderImage.imgWidth, FHeaderImage.imgHeight);
+          APImageRecord.ihD3DTexture.LoadFromITexture(FTexture, FHeaderWILImage.imgWidth, FHeaderWILImage.imgHeight);
         except
           FTexture.Unlock;
         end;
+        {$IFDEF DEVELOP_PERFORMANCE_COUNTER}
+          GRenderEngine.System_Log('DEBUG Decode Time : ' + GPerformanceCounter.StopAndGetMircoTime +
+          ' - Real Texture Size : ' + IntToStr(FHeaderWILImage.imgWidth) + 'x' + IntToStr(FHeaderWILImage.imgHeight)+
+          ' - Pow2 Texture Size : ' + IntToStr(W) + 'x' + IntToStr(H) );
+        {$ENDIF}
       end;
-(*
-
-// the function can read Type 1 and 2 File
-function TMyWILWixReader.ReadImageFromIndex(IndexID: Integer; ImageContainer: TImageContainer): HResult;
-var
-  Hr            : HResult;
-  FWILHeader    : TWIL_Header;
-  FWILImage     : TWIL_Img_Header; 
-  d3dlr         : TD3DLocked_Rect;
-  FPosition     : Integer;
-  FReadPosition : Integer;
-  FSeek         : Integer;
-  Pow2Height    : Integer;
-  Pow2Width     : Integer;
-  xCount        : Integer;           
-  xInc          : Integer;  
-  BGR           : Integer;
-  ColorCount    : Integer;            
-  vHelp         : Integer;       
-  EncodeRGB     : Integer;            
-  PEncodeRGB    : PInteger;
-  PBGR, PCount  : PInteger;
-  PXInc         : PInteger;
-  PColorCount   : PInteger;
-
-  procedure MakePowerOfTwoHW(var H, W: Integer; valH, valW: Word);
-  begin
-    H := 1 shl ceil(log2(valH));
-    W := 1 shl ceil(log2(valW));
-  end;
-
-begin
-  if (IndexID < $00) or (IndexID > $FFFF) then Exit;
-  try
-    CopyMemory(@FPosition, PInteger(Integer(FWIXPointer) + ((IndexID * 4) + 28))  , sizeOf(FPosition));
-    if FPosition <=0 then Exit;
-
-    FillChar(FWILHeader, SizeOf(TWIL_Header), #0);
-    CopyMemory(@FWILHeader ,FWILPointer ,sizeOf(TWIL_Header));
-    case FWILHeader.Lib_Version of
-       17 : FSeek := 17; //type 1
-     5000 : FSeek := 21; //type 2
-     else exit;
-    end;
-
-    PEncodeRGB := @EncodeRGB;
-    PColorCount:= @ColorCount;
-    PBGR       := @BGR;
-    PCount     := @xCount;
-    PXInc      := @xInc;
-
-    FillChar(FWILImage, SizeOf(TWIL_Img_Header), #0);                        
-    CopyMemory(@FWILImage, PInteger(Integer(FWILPointer) + FPosition)  ,sizeOf(TWIL_Img_Header));
-    FReadPosition := FPossition + FSeek;
-
-    MakePowerOfTwoHW(Pow2Height ,Pow2Width ,FWILImage.Height, FWILImage.Width);
-
-    // .....
-    // put all the things to the ImageContainer Height ,Width ,Offsets from WILImageHeader ec...
-    // .....
-
-    if Failed(D3DXCreateTexture(D3DDevice ,Pow2Width ,Pow2Height ,0 ,0 ,D3DFMT_A8B8G8R8 ,D3DPOOL_MANAGED, ImageContainer.Texture)) then
-    begin
-      Result := E_Fail;
-      Exit;
-    end;
-    Hr := ImageContainer.Texture.LockRect(0, d3dlr, nil, 0);
-    if Hr <> D3D_OK then
-    begin
-      Result := E_Fail;
-      exit;
-    end;
-
-    try
-      for y:=0 to FWILImage.Height-1 do
-      begin
-        PXInc^  := 0;
-        x       := 0;
-        PCount^ := 0;
-        CopyMemory(PCount, PInteger(Integer(FWILPointer) + FReadPosition), sizeOf(Word));
-        Inc(FReadPosition, 2);
-        while x < PCount^ do
-        begin
-          Inc(x);
-          case PByte(Integer(FWILPointer)+ FReadPosition)^ of
-            192: begin // Black
-                   // I don't Read here the Black Color, it is not need if I work with DirectX Texture
-                   // so it is faster ^^. Only I Inc the counters
-                   Inc(x);
-                   Inc(FReadPosition, 2);
-                   Inc(PxInc^, PWord(Integer(FWILPointer)+ FReadPosition)^);
-                   Inc(FReadPosition, 2);
-                 end;
-            //
-            // Here I show you a optimize way, I know, it is not so easy to understand
-            // It is a bit like the Kaori Initial Code, I only have change some things 
-            // to get it faster. Don't Modifi it, if you don't have Knowlage !!
-            //
-
-            193: begin // Color
-                   Inc(FReadPosition, 2);
-                   Inc(x);
-                   vHelp := 0;
-                   PColorCount^ := 0;
-                   CopyMemory(PColorCount, PLongWord(Integer(FWILPointer)+ FReadPosition), 2);
-                   Inc(FReadPosition, 2);
-                   while vHelp < PColorCount^ do
-                   begin
-                     PEncodeRGB^ := 0;
-                     CopyMemory(PEncodeRGB, PInteger(Integer(FWILPointer)+ FReadPosition), 2);
-                     PBGR^ := ($FF00 or (Trunc((((PEncodeRGB^ and 63488) shr 11) * 8.225806)))) shl 8;
-                     PBGR^ := (PBGR^ or (Trunc((((PEncodeRGB^ and  2016) shr  5) * 4.047619)))) shl 8;
-                     PBGR^ := (PBGR^ or (Trunc((((PEncodeRGB^ and    31) shr  0) * 8.225806))));
-                     PInteger(Integer(d3dlr.pBits) + Y * d3dlr.Pitch + PXInc^ * 4 )^ := PBGR^;
-                     Inc(x);
-                     Inc(FReadPosition, 2);
-                     Inc(vHelp);
-                     Inc(PxInc^);
-                   end;// while do
-                 end;// if
-            194: begin // Alpha
-                   Inc(FReadPosition, 2);
-                   Inc(x);
-                   vHelp := 0;
-                   PColorCount^ := 0;
-                   CopyMemory(PColorCount, PInteger(Integer(FWILPointer)+ FReadPosition), 2);
-                   Inc(FReadPosition, 2);
-                   while vHelp < PColorCount^ do
-                   begin
-                     PEncodeRGB^ := 0;
-                     CopyMemory(PEncodeRGB, PInteger(Integer(FWILPointer)+ FReadPosition), 2);
-                     PBGR^ := ($7F00 or (Trunc((((PEncodeRGB^ and 63488) shr 11) * 8.225806) + 0.5))) shl 8;
-                     PBGR^ := (PBGR^ or (Trunc((((PEncodeRGB^ and  2016) shr  5) * 4.047619) + 0.5))) shl 8;
-                     PBGR^ := (PBGR^ or (Trunc((((PEncodeRGB^ and    31) shr  0) * 8.225806) + 0.5)));
-                     PInteger(Integer(d3dlr.pBits) + Y * d3dlr.Pitch + PXInc^ * 4)^ := PBGR^;
-                     Inc(x);
-                     Inc(FReadPosition, 2);
-                     Inc(vHelp);
-                     Inc(PxInc^);
-                   end;// while do
-                 end;// if
-          end;// case of
-        end;// while do
-      end;// for to do
-    finally
-      ImageContainer.Texture.UnlockRect(0);
-    end;
-  except
-   // Handle Error
-  end;
-end;
-
-  if Ftype = 0 then
-  begin
-    if G3 then
-      G3T := 0
-    else
-      G3T := 2;
-    m_FileStream.Seek(Position, 0);
-    m_FileStream.Read(imginfo2, sizeof(TNewWilImageInfo));
-    SetLength(Buf, imginfo2.Length * 2);
-    m_FileStream.Read(Buf[0], imginfo2.Length * 2);
-    nWidthStart := 0;
-    nWidthend := 0;
-    nCurrWidth := 0;
-    w := 1 Shl ceil(log2(imginfo2.Width));
-    h := 1 Shl ceil(log2(imginfo2.Height));
-
-
-    Image := FHGE.Texture_Create(w, h);
-    color := image.Lock(False);
-    colorfirst := LongWord(color);
-    for nYCnt := 0 To 1 - G3T Do
-    begin
-      nWidthend := nWidthend + Buf[nWidthStart];
-      //Inc(nWidthStart);
-      Inc(nWidthend);
-      nWidthStart := nWidthend;
-    end;
-
-    for nycnt := imginfo2.Height - G3T - 1 Downto 0 Do
-    begin
-      nWidthend := Buf[nwidthstart] + nWidthend;
-      Inc(nWidthStart);
-      x := nWidthStart;
-      While x < nwidthend Do
-      begin
-        if Buf[x] = $C0 then
-        begin
-          Inc(x);
-          nCntCopyWord := Buf[x];
-          Inc(x);
-          nCurrWidth := nCurrWidth + nCntCopyWord;
-        end
-        else if (Buf[x] = $C1) Or (Buf[x] = $C2) Or (Buf[x] = $C3) then
-        begin
-          Inc(x);
-          nCntCopyWord := Buf[x];
-          Inc(x);
-          nLastWidth := nCurrWidth;
-          nCurrWidth := nCurrWidth + nCntCopyWord;
-          if (imginfo2.Width < nLastWidth) then
-            x := x + nCntCopyWord
-          else
-          begin
-            if (nLastWidth <= imginfo2.Width) And (imginfo2.Width < nCurrWidth) then
-            begin
-              color := plongword((colorfirst + (nycnt * (w) + nlastwidth) * 4));
-              for k := x To (((imginfo2.Width - nlastwidth)) + x) - 1 Do
-              begin
-                color^ := ARGB(255, (buf[k] And $F800) Shr 8, (buf[k] And $7E0) Shr 3, (buf[k] And $1F) Shl 3);
-                inc(color);
-              end;
-              x := x + ncntcopyword;
-            end
-            else
-            begin
-              color := plongword((colorfirst + (nycnt * (w) + nlastwidth) * 4));
-              for k := x To (((nCntCopyWord)) + x) - 1 Do
-              begin
-                color^ := ARGB(255, (buf[k] And $F800) Shr 8, (buf[k] And $7E0) Shr 3, (buf[k] And $1F) Shl 3);
-                inc(color);
-              end;
-              x := x + ncntcopyword;
-            end;
-          end;
-        end
-        else
-        begin
-          inc(x);
-        end;
-      end;
-      Inc(nWidthend);
-      nWidthStart := nWidthend;
-      nCurrWidth := 0;
-    end;
-    Image.Unlock;
-    pdximg.surface := THGEEIImages.Create;
-    pdximg.nPx := imginfo2.px;
-    pdximg.nPy := imginfo2.py;
-    pdximg.nsPx := imginfo2.Shadowx;
-    pdximg.nsPy := imginfo2.Shadowy;
-    pdximg.btType := imginfo2.Shadow;
-    pdximg.surface.LoadFromITexture(image, imginfo2.Width, imginfo2.Height);
-  end;
-*)
-
-
 
       function TMir3_TextureLibrary.DecodeFrame32ToMir3D3DX(AFrame: Integer; var APImageRecord: PImageHeaderD3D;  AColor: Word): Boolean;
-//      var
-//        FPosition    : Integer;
-//        X, Y, H, W   : Integer;
-//        FHelp        : Integer;
-//        FEncodeRGBA  : Integer; PEncodeRGBA  : PInteger;
-//        FColorCount  : Integer; PColorCount  : PInteger;
-//        FCount       : Integer; PCount       : PInteger;
-//        FIncX        : Integer; PIncX        : PInteger;
-//        FBGR         : Integer; PBGR         : PInteger;
-//        PosCount     : LongInt;
-
-        function ByteSwapColor(Color:Integer):Integer; register;
-        asm
-          BSWAP EAX
-          SHR   EAX,8
-        end;
-
       begin
 
       end;
@@ -1087,9 +1133,9 @@ end;
 
       FQuad.V[0].TX      := 0;                     //left
       FQuad.V[0].TY      := 0;
-      FQuad.V[1].TX      := FWidth / FTexWidth;
+      FQuad.V[1].TX      := FWidth  / FTexWidth;
       FQuad.V[1].TY      := 0;                     //right
-      FQuad.V[2].TX      := FWidth / FTexWidth;
+      FQuad.V[2].TX      := FWidth  / FTexWidth;
       FQuad.V[2].TY      := FHeight / FTexHeight;  //rightbottom
       FQuad.V[3].TX      := 0;
       FQuad.V[3].TY      := FHeight / FTexHeight;  //leftbottom
@@ -1108,9 +1154,10 @@ end;
   {$ENDREGION}
 
 
-constructor TMir3_FileManager.Create();
+constructor TMir3_FileManager.Create(const AUsingLibType: TFileLibType = LIB_TYPE_2);
 begin
-  Inherited;
+  Inherited Create;
+  FUsingLibType   := AUsingLibType;
   FTextureManager := TMir3_FileMapping.Create;
   GStopThreads    := False;
   FThreadsRunning := 1;
@@ -1156,7 +1203,7 @@ begin
   Inherited;
 end;
 
-function TMir3_FileManager.TestIfInList(AType: Byte; AFileID: Integer) : PFileInformation;
+function TMir3_FileManager.TestIfInList(AType: Byte; AFileID: Integer; AUsingLibType: TFileLibType = LIB_TYPE_2) : PFileInformation;
 var
   FFileInfo : PFileInformation;
 begin
@@ -1165,15 +1212,15 @@ begin
   FFileInfo.fiImageOpenCount  := 0;
   FFileInfo.fiImageMemoryUsag := 0;
   FFileInfo.fiUnloadFile      := True;
-  FFileInfo.fiImageLib        := TMir3_TextureLibrary.Create;
-  FFileInfo.fiImageLib.Open(GetFileNameByID(AFileID));
+  FFileInfo.fiImageLib        := TMir3_TextureLibrary.Create(AUsingLibType);
+  FFileInfo.fiImageLib.Open(GetFileNameByID(AFileID, AUsingLibType));
   FFileInfo.fiLastUseTick     := GetTickCount;
   FFileInfo.fiFirstUseTick    := GetTickCount;
   FTextureManager.SetStaticFile(AFileID, FFileInfo);
   Result := FFileInfo;
 end;
 
-function TMir3_FileManager.GetFileNameByID(AIndexID: Integer): String;
+function TMir3_FileManager.GetFileNameByID(AIndexID: Integer; AUsingLibType: TFileLibType = LIB_TYPE_2): String;
 begin
   Result := '';
   case AIndexID of
@@ -1397,6 +1444,12 @@ begin
    250..299 : Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_NORMAL;
    300..349 : Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_SHADOW;
   end;
+  case AUsingLibType of
+    LIB_TYPE_1,
+    LIB_TYPE_2: Result := Result + '.wil';
+    LIB_TYPE_3: Result := Result + '.wtl';
+    LIB_TYPE_4: Result := Result + '.lmt';
+  end;
 end;
 
 function TMir3_FileManager.GetFileMapping : TMir3_FileMapping;
@@ -1424,7 +1477,7 @@ begin
   FFileInfo := FTextureManager.GetStaticFile(AFileID);
   if not Assigned(FFileInfo) then
   begin
-    FFileInfo := TestIfInList(1,AFileID);
+    FFileInfo := TestIfInList(1,AFileID, FUsingLibType);
   end;
   if High(FFileInfo.fiImageList)+1 <= FImageID then
   begin
@@ -1436,7 +1489,8 @@ begin
     FFileInfo.fiImageList[FImageID].ihUseTime    := GetTickCount;
     FFileInfo.fiLastUseTick                      := GetTickCount;
   end else begin
-    FFileInfo.fiImageLib.DecodeFrame32ToMir3D3DX(FImageID, FFileInfo.fiImageList[FImageID]);
+   // FFileInfo.fiImageLib.DecodeFrame32ToMir3D3DX(FImageID, FFileInfo.fiImageList[FImageID]);
+    FFileInfo.fiImageLib.DecodeFrame32ToMir3_D3D(FImageID, FFileInfo.fiImageList[FImageID]);
     if Assigned(FFileInfo.fiImageList[FImageID]) and Assigned(FFileInfo.fiImageList[FImageID].ihD3DTexture) then
     begin
       FFileInfo.fiImageList[FImageID].ihUseTime := GetTickCount;
@@ -1763,45 +1817,45 @@ var
   FLength : Int64;
 begin
   CoInitialize(nil);
-  CoCreateInstance(CLSID_FilterGraph, nil, CLSCTX_INPROC, IID_IGraphBuilder, pGraph);
-  pGraph.QueryInterface(IVideoWindow,pVidWin);
-  pGraph.QueryInterface(IID_IMediaControl, pMediaControl);
-  pGraph.QueryInterface(IID_IMediaEvent, pEvent);
-  pGraph.QueryInterface(IID_IMediaSeeking, pSeeking);
-  pGraph.QueryInterface(IID_IBasicAudio,pBasicAudio);
+  CoCreateInstance(CLSID_FilterGraph, nil, CLSCTX_INPROC, IID_IGraphBuilder, FGraphBuilder);
+  FGraphBuilder.QueryInterface(IVideoWindow     , FVideoWindow);
+  FGraphBuilder.QueryInterface(IID_IMediaControl, FMediaControl);
+  FGraphBuilder.QueryInterface(IID_IMediaEvent  , FMediaEvent);
+  FGraphBuilder.QueryInterface(IID_IMediaSeeking, FMediaSeeking);
+  FGraphBuilder.QueryInterface(IID_IBasicAudio  , FBasicAudio);
   case AType of
     0: begin
-      if FAILED(pGraph.RenderFile(MAP_TEXTURE_PHAT_DATA + VIDEO_GAME_START, nil)) then
+      if FAILED(FGraphBuilder.RenderFile(MAP_TEXTURE_PHAT_DATA + VIDEO_GAME_START, nil)) then
       begin
         GRenderEngine.System_Log(' - Intel Indeo 5 Codec not found...');
       end;
       FLength := INFINITE;
     end;
     1: begin
-      if FAILED(pGraph.RenderFile(MAP_TEXTURE_PHAT_DATA + VIDEO_GAME_CREATE_CHAR, nil)) then
+      if FAILED(FGraphBuilder.RenderFile(MAP_TEXTURE_PHAT_DATA + VIDEO_GAME_CREATE_CHAR, nil)) then
       begin
         GRenderEngine.System_Log(' - Intel Indeo 5 Codec not found...');
       end;
-      pGraph.RenderFile(SOUND_PHAT + VIDEO_SOUND_CREATE_CHAR, nil);
+      FGraphBuilder.RenderFile(SOUND_PHAT + VIDEO_SOUND_CREATE_CHAR, nil);
       FLength := 1324; // Video Special Cut, don't change it!!
     end;
     2: begin
-      if FAILED(pGraph.RenderFile(MAP_TEXTURE_PHAT_DATA + VIDEO_GAME_START_GAME, nil)) then
+      if FAILED(FGraphBuilder.RenderFile(MAP_TEXTURE_PHAT_DATA + VIDEO_GAME_START_GAME, nil)) then
       begin
         GRenderEngine.System_Log(' - Intel Indeo 5 Codec not found...');
       end;
-      pGraph.RenderFile(SOUND_PHAT + VIDEO_SOUND_START_GAME, nil);
+      FGraphBuilder.RenderFile(SOUND_PHAT + VIDEO_SOUND_START_GAME, nil);
       FLength := 1424; // Video Special Cut, don't change it!!
     end;
   end;
-  pBasicAudio.put_volume(FGameEngine.GameLauncherSetting.FVideoVolume);
-  pBasicAudio := nil;
-  pVidWin.put_owner(GRenderEngine.GetGameHWND);
-  pVidWin.SetWindowPosition(0,0,800,600);
-  pVidWin.put_MessageDrain(GRenderEngine.GetGameHWND);
-  pVidWin.put_WindowStyle(WS_CHILD or WS_CLIPSIBLINGS or WS_CLIPCHILDREN);
-  pMediaControl.Run();
-  pEvent.WaitForCompletion(FLength, evCode);
+  FBasicAudio.put_volume(FGameEngine.GameLauncherSetting.FVideoVolume);
+  FBasicAudio := nil;
+  FVideoWindow.put_owner(GRenderEngine.GetGameHWND);
+  FVideoWindow.SetWindowPosition(0,0,FScreen_Width, FScreen_Height);
+  FVideoWindow.put_MessageDrain(GRenderEngine.GetGameHWND);
+  FVideoWindow.put_WindowStyle(WS_CHILD or WS_CLIPSIBLINGS or WS_CLIPCHILDREN);
+  FMediaControl.Run();
+  FMediaEvent.WaitForCompletion(FLength, FEventCode);
   CoUninitialize();
 end;
 

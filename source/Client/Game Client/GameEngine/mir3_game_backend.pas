@@ -44,7 +44,7 @@ uses
 {Game   }  mir3_game_socket, mir3_game_engine, mir3_global_config, mir3_core_controls, mir3_game_sound, mir3_game_file_manager,
 {Game   }  mir3_game_file_manager_const, mir3_game_language_engine, mir3_misc_utils, mir3_game_font_engine,
 {Game   }  mir3_game_en_decode,
-{Scene  }  mir3_game_scene_logon, mir3_game_scene_selectchar, mir3_game_scene_ingame;
+{Scene  }  mir3_game_scene_logon_info, mir3_game_scene_logon, mir3_game_scene_selectchar, mir3_game_scene_ingame;
 
   (* Callback functions *)
   function OnCallbackDeviceRender(const PD3dDevice: IDirect3DDevice9): HRESULT; stdcall;
@@ -117,6 +117,7 @@ type
     FConnectTest         : TGame_Connection_Test;
     FCSTranslation       : TMir3LockSection;
     {Scene Classes}
+    FSceneLogonInfo      : TMir3GameSceneLogonInfo;
     FSceneLogon          : TMir3GameSceneLogon;
     FSceneSelectChar     : TMir3GameSceneSelectChar;
     FSceneInGame         : TMir3GameSceneInGame;
@@ -182,6 +183,7 @@ type
     property GameSceneStep       : TMIR3_Game_Scene          read GetGameScene        write SetGameScene;
     property GameLauncherSetting : TMir3_GameLauncherSetting read FGameLauncherSetting;
     { Game Scene }
+    property SceneLogonInfo      : TMir3GameSceneLogonInfo   read FSceneLogonInfo     write FSceneLogonInfo;
     property SceneLogon          : TMir3GameSceneLogon       read FSceneLogon         write FSceneLogon;
     property SceneSelectChar     : TMir3GameSceneSelectChar  read FSceneSelectChar    write FSceneSelectChar;
     property SceneInGame         : TMir3GameSceneInGame      read FSceneInGame        write FSceneInGame;
@@ -256,7 +258,14 @@ implementation
       {$IFDEF DEVELOP_INGAME}
          GameSceneStep := gsScene_PlayGame;
       {$ENDIF}
-      
+
+      {$IFDEF DEVELOP_1024x768}
+        FScreen_Width  := 1024;
+        FScreen_Height := 768;
+      {$ELSE}
+        FScreen_Width  := 800;
+        FScreen_Height := 600;
+      {$ENDIF}
       
       {set Network things}
       with FGameNetwork do
@@ -282,7 +291,7 @@ implementation
         DX9SetCallbackMouse(OnCallbackMouseProc);
         DX9SetCallbackMsgProc(OnCallbackMsgProc);
 
-        System_SetState(HGE_TITLE       , ' LOMCN Mir3 Client - ' + GGameClientVersion);
+        System_SetState(HGE_TITLE       , ' LOMCN Mir3 Client - ' + GGameClientVersion + ' - (' + IntToStr(FScreen_Width) + 'x' + IntToStr(FScreen_Height) + ')');
         System_SetState(HGE_USESOUND    , True);
         if FGameLauncherSetting.FFull_Screen then
           System_SetState(HGE_WINDOWED    , False)
@@ -292,6 +301,7 @@ implementation
         System_SetState(HGE_SCREENWIDTH , FScreen_Width);
         System_SetState(HGE_SCREENHEIGHT, FScreen_Height);
         System_SetState(HGE_SCREENBPP   ,    32);
+        // TODO : Add change from External : using HGEFPS_UNLIMITED or HGEFPS_VSYNC
         System_SetState(HGE_FPS, HGEFPS_UNLIMITED);
         if System_Initiate then
           Result := True
@@ -318,6 +328,7 @@ implementation
       FGameLanguageEngine := TMir3_GameLanguageEngine.Create(FGameLauncherSetting.FLanguageId);
       FGameFontManager    := TMIR3_Font.Create;
 
+      FSceneLogonInfo     := TMir3GameSceneLogonInfo.Create;
       FSceneLogon         := TMir3GameSceneLogon.Create;
       FSceneSelectChar    := TMir3GameSceneSelectChar.Create;
       FSceneInGame        := TMir3GameSceneInGame.Create;
@@ -354,8 +365,13 @@ implementation
       FGameNetwork.OnDisconnect := GameNetworkDisconnect;
       FGameNetwork.OnError      := GameNetworkError;
       FGameNetwork.OnRead       := GameNetworkRead;
-     
-      FGameFileManger           := TMir3_FileManager.Create;
+
+      {$IFDEF DEVELOP_LMT}
+        FGameFileManger         := TMir3_FileManager.Create(LIB_TYPE_4);
+      {$ELSE}
+        FGameFileManger         := TMir3_FileManager.Create(LIB_TYPE_2);
+      {$ENDIF}
+      
       Randomize;
     end;
      
@@ -381,6 +397,9 @@ implementation
 
       if Assigned(FGameLanguageEngine) then
         FreeAndNil(FGameLanguageEngine);
+
+      if Assigned(FSceneLogonInfo) then
+	      FreeAndNil(FSceneLogonInfo);
 
       if Assigned(FSceneLogon) then
 	      FreeAndNil(FSceneLogon);
@@ -457,6 +476,9 @@ implementation
         FGame_Scene_Step := AValue;
         FTranslationEngine.WorkScene := AValue;        
         case FGame_Scene_Step of
+          gsScene_LogonInfo: begin
+            SceneLogonInfo.ResetScene;
+          end;
           gsScene_Login    : begin
             SceneLogon.ResetScene;
           end;
@@ -478,6 +500,7 @@ implementation
       FServerConnected  := Socket.Connected;
       case GameSceneStep of
         gsScene_PlayVideo  :;
+        gsScene_LogonInfo  :;
         gsScene_Login      :;
         gsScene_SelChar    : Send_Query_Player;
         gsScene_PlayGame   :; //SendRunLogin;
@@ -498,6 +521,7 @@ implementation
       FServerConnected  := False;
       case GameSceneStep of
         gsScene_PlayVideo  : ;
+        gsScene_LogonInfo  : ;
         gsScene_Login      : ;
         gsScene_SelChar    : ;
         gsScene_PlayGame   : ;
@@ -537,29 +561,38 @@ implementation
       if not GSystemActive then Exit;
 	    case GameSceneStep of
         gsNone             : begin
-          GameSceneStep := gsScene_Login;
+          GameSceneStep := gsScene_LogonInfo;
         end;
         gsScene_PlayVideo  : begin
           FGameFileManger.RenderVideo(0);
-          GameSceneStep := gsScene_Login;
+          GameSceneStep := gsScene_LogonInfo;
+        end;
+        gsScene_LogonInfo  : begin
+//          if (FServerConnecting) and not(FServerConnected) then
+//          begin
+//            SceneLogon.SystemMessage(GameLanguage.GetTextFromLangSystem(11),[mbOK], 1);
+//          end;
+
+          SceneLogonInfo.OnRender(PD3dDevice, AElapsedTime);
+          FontManager.DrawText(GRenderEngine.Timer_GetFPSStrW, @FDrawSetting);
         end;
         gsScene_Login      : begin
-          if (FServerConnecting) and not(FServerConnected) then
-          begin
-            SceneLogon.SystemMessage(GameLanguage.GetTextFromLangSystem(11),[mbOK], 1);
-          end;
+//          if (FServerConnecting) and not(FServerConnected) then
+//          begin
+//            SceneLogon.SystemMessage(GameLanguage.GetTextFromLangSystem(11),[mbOK], 1);
+//          end;
 
           SceneLogon.OnRender(PD3dDevice, AElapsedTime);
-          FontManager.DrawText(PChar('FPS: ' + GRenderEngine.Timer_GetFPSStr), @FDrawSetting);
+          FontManager.DrawText(GRenderEngine.Timer_GetFPSStrW, @FDrawSetting);
         end;
         gsScene_SelChar    : begin
-          if (FServerConnecting) and not(FServerConnected) then
-          begin
-            SceneSelectChar.SystemMessage(GameLanguage.GetTextFromLangSystem(11),[mbOK], 1);
-          end;
+//          if (FServerConnecting) and not(FServerConnected) then
+//          begin
+//            SceneSelectChar.SystemMessage(GameLanguage.GetTextFromLangSystem(11),[mbOK], 1);
+//          end;
 
           SceneSelectChar.OnRender(PD3dDevice, AElapsedTime);
-          FontManager.DrawText(PChar('FPS: ' + GRenderEngine.Timer_GetFPSStr), @FDrawSetting);
+          FontManager.DrawText(GRenderEngine.Timer_GetFPSStrW, @FDrawSetting);
         end;
         gsScene_PlayGame   : begin
         {$IFNDEF DEVELOP_INGAME}
@@ -571,7 +604,7 @@ implementation
         {$ENDIF}
 
           SceneInGame.OnRender(PD3dDevice, AElapsedTime);
-          FontManager.DrawText(PChar('FPS: ' + GRenderEngine.Timer_GetFPSStr), @FDrawSetting);
+          FontManager.DrawText(GRenderEngine.Timer_GetFPSStrW, @FDrawSetting);
         end;
       end;
       Result := S_OK;
@@ -611,6 +644,7 @@ implementation
       if not GSystemActive then Exit;
       try
         case GameSceneStep of
+          gsScene_LogonInfo: pbNoFurtherProcessing := SceneLogonInfo.OnMsgProc(hWnd, uMsg, wParam, lParam);
           gsScene_Login    : pbNoFurtherProcessing := SceneLogon.OnMsgProc(hWnd, uMsg, wParam, lParam);
           gsScene_SelChar  : pbNoFurtherProcessing := SceneSelectChar.OnMsgProc(hWnd, uMsg, wParam, lParam);
           gsScene_PlayGame : pbNoFurtherProcessing := SceneInGame.OnMsgProc(hWnd, uMsg, wParam, lParam);
@@ -629,6 +663,7 @@ implementation
       if not GSystemActive then Exit;
       try
         case GameSceneStep of
+          gsScene_LogonInfo: SceneLogonInfo.OnKeyboardProc(AChar, AKeyDown, AAltDown);
           gsScene_Login    : SceneLogon.OnKeyboardProc(AChar, AKeyDown, AAltDown);
           gsScene_SelChar  : SceneSelectChar.OnKeyboardProc(AChar, AKeyDown, AAltDown);
           gsScene_PlayGame : SceneInGame.OnKeyboardProc(AChar, AKeyDown, AAltDown);
@@ -646,6 +681,8 @@ implementation
       if not GSystemActive then Exit;
       try
         case GameSceneStep of
+          gsScene_LogonInfo  :;
+            //SceneLogonInfo.OnMouseProc(bLeftButtonDown, bRightButtonDown, bMiddleButtonDown, bSideButton1Down, bSideButton2Down, nMouseWheelDelta? xPos, yPos);
           gsScene_Login      :;
             //SceneLogon.OnMouseProc(bLeftButtonDown, bRightButtonDown, bMiddleButtonDown, bSideButton1Down, bSideButton2Down, nMouseWheelDelta? xPos, yPos);
           gsScene_SelChar    :;
@@ -945,6 +982,7 @@ implementation
           case FWorkScene of
             gsNone,
             gsScene_PlayVideo  :;
+            gsScene_LogonInfo  :;
             gsScene_Login      : GGameEngine.SceneLogon.ReceiveMessagePacket(FReceivedata);
             gsScene_SelChar    : GGameEngine.SceneSelectChar.ReceiveMessagePacket(FReceivedata);
             gsScene_PlayGame   : GGameEngine.SceneInGame.ReceiveMessagePacket(FReceivedata);

@@ -2795,12 +2795,13 @@ object fmtTextureManagerMain: TfmtTextureManagerMain
       394)
     UpperLeftControls = (
       btnChangeDir
-      RzPanel5)
+      RzPanel5
+      RzPanel9)
     LowerRightControls = (
       sbBackground)
     object btnChangeDir: TRzButton
       Left = 0
-      Top = 0
+      Top = 30
       Width = 195
       Align = alTop
       Caption = 'Change Dir'
@@ -2815,9 +2816,9 @@ object fmtTextureManagerMain: TfmtTextureManagerMain
     end
     object RzPanel5: TRzPanel
       Left = 0
-      Top = 25
+      Top = 55
       Width = 195
-      Height = 369
+      Height = 339
       Align = alClient
       BorderOuter = fsNone
       TabOrder = 1
@@ -2825,7 +2826,7 @@ object fmtTextureManagerMain: TfmtTextureManagerMain
         Left = 5
         Top = 5
         Width = 190
-        Height = 291
+        Height = 261
         Align = alClient
         BorderStyle = bsNone
         Color = 14935270
@@ -2854,7 +2855,7 @@ object fmtTextureManagerMain: TfmtTextureManagerMain
         Left = 0
         Top = 5
         Width = 5
-        Height = 291
+        Height = 261
         Align = alLeft
         BorderOuter = fsNone
         Color = 14935270
@@ -2862,7 +2863,7 @@ object fmtTextureManagerMain: TfmtTextureManagerMain
       end
       object RzPanel3: TRzPanel
         Left = 0
-        Top = 296
+        Top = 266
         Width = 195
         Height = 73
         Align = alBottom
@@ -3275,6 +3276,67 @@ object fmtTextureManagerMain: TfmtTextureManagerMain
           Color = 14935270
           TabOrder = 1
         end
+      end
+    end
+    object RzPanel9: TRzPanel
+      Left = 0
+      Top = 0
+      Width = 195
+      Height = 30
+      Align = alTop
+      BorderOuter = fsNone
+      Color = 14935270
+      TabOrder = 2
+      object RzLabel1: TRzLabel
+        Left = 5
+        Top = 8
+        Width = 58
+        Height = 13
+        Caption = 'View Library'
+      end
+      object btnUseLMT: TRzBitBtn
+        Left = 77
+        Top = 2
+        Width = 32
+        Height = 28
+        GroupIndex = 1
+        Down = True
+        Caption = 'LMT'
+        LightTextStyle = True
+        TabOrder = 0
+        TextStyle = tsShadow
+        OnMouseDown = btnUseLMTMouseDown
+        NumGlyphs = 2
+      end
+      object btnUseWIL: TRzBitBtn
+        Left = 117
+        Top = 2
+        Width = 32
+        Height = 28
+        GroupIndex = 1
+        Caption = 'WIL'
+        LightTextStyle = True
+        TabOrder = 1
+        TextStyle = tsShadow
+        OnMouseDown = btnUseWILMouseDown
+        NumGlyphs = 2
+      end
+      object btnUseWTL: TRzBitBtn
+        Left = 155
+        Top = 2
+        Width = 32
+        Height = 28
+        GroupIndex = 1
+        ShowFocusRect = False
+        Caption = 'WTL'
+        HotTrackColorType = htctComplement
+        LightTextStyle = True
+        TabOrder = 2
+        TextStyle = tsShadow
+        OnMouseDown = btnUseWTLMouseDown
+        Layout = blGlyphRight
+        Margin = 1
+        NumGlyphs = 2
       end
     end
     object sbBackground: TScrollBox

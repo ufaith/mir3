@@ -60,7 +60,7 @@ type
       lhTotal_Image      : Word;                          // Total Image in this File
       lhSecuredImage     : Byte;                          // 0: No  |  1:Yes (Type 1 Crypt) |  2:Yes (Type 2 Crypt) ...
     end;
-    {$EXTERNALSYM TLMT_Header}        //3 223 999 479
+    {$EXTERNALSYM TLMT_Header}
 
    (*****************************************************************************
     * TLMT_Img_Header LMT_IMG (LomCN Texture) Image Header
@@ -78,9 +78,16 @@ type
       imgFileSize        : Cardinal;                      // FileSize
     end;
     {$EXTERNALSYM TLMT_Img_Header}
+
+    PIndexInfoLMT = ^TIndexInfoLMT;
+    TIndexInfoLMT = record
+      Position  : Cardinal;
+      ImageInfo : TLMT_Img_Header;
+    end;
+
   {$ENDREGION}
 
-  {$REGION ' - Wemade Orginal Header (For Import WIL/WIX) '}
+  {$REGION ' - Wemade Orginal Header (For Import WIL/WIX)   '}
      (*****************************************************************************
       * TWIL_Header WIL (Wemade Orginal) File Header
       *
@@ -118,6 +125,49 @@ type
         imgShadow_Offset_Y : Smallint;                      // Image Shadow Offset Y
         imgFileSize        : Cardinal;                      // FileSize Only in Type2
       end;
+
+      PIndexInfoWIX = ^TIndexInfoWIX;
+      TIndexInfoWIX = record
+        Position  : Cardinal;
+        ImageInfo : TWIL_Img_Header;
+      end;
+  {$ENDREGION}
+
+  {$REGION ' - Wemade Orginal Header (For Import WTL)       '}
+     (*****************************************************************************
+      * TWTL_Header WTL (Wemade Orginal) File Header
+      *
+      ****************************************************************************)
+      PWTL_Header =^TWTL_Header;
+      TWTL_Header = packed record
+        whValid            : Byte;                          // 1
+        whLib_Info         : array [0..20] of AnsiChar;     // ILIB v1.1-WEMADE
+        whLib_Type         : Word;                          // 6000=Type3 | 5000=Type2 | 17=Type1
+        whTotal_Image      : DWord;                         // Total Image in this File
+        whTotal_Index      : Word;                          // Total Indexes in this File
+      end;
+
+     (*****************************************************************************
+      * TWIL_Img_Header WIL_IMG (Wemade Orginal) Image Header
+      *
+      ****************************************************************************)
+      PWTL_Img_Header = ^TWTL_Img_Header;         // WIL-File Image Offset Header
+      TWTL_Img_Header = packed record
+        imgWidth           : Word;                          // Image Width
+        imgHeight          : Word;                          // Image Height
+        imgOffset_X        : Smallint;                      // Image Offset X
+        imgOffset_Y        : Smallint;                      // Image Offset Y
+        imgShadow_Offset_X : Smallint;                      // Image Shadow Offset X
+        imgShadow_Offset_Y : Smallint;                      // Image Shadow Offset Y
+        imgFileSize        : array[0..2]of byte;            // FileSize
+        imgShadow_type     : Byte;                          // Image Shadow Type
+      end;
+
+      PIndexInfoWTL = ^TIndexInfoWTL;
+      TIndexInfoWTL = record
+        Position  : Cardinal;
+        ImageInfo : TWTL_Img_Header;
+      end;
   {$ENDREGION}
 
   (* Classes *)
@@ -132,9 +182,12 @@ type
     FHeaderLMTInfo   : TLMT_Header;
     FHeaderWILInfo   : TWIL_Header;
     FHeaderWIXInfo   : TWIX_Header;
+    FHeaderWTLInfo   : TWTL_Header;
     FHeaderLMTImage  : TLMT_Img_Header;
     FHeaderWILImage  : TWIL_Img_Header;
+    FHeaderWTLImage  : TWTL_Img_Header;
     FLMT             : PByte;
+    FWTL             : PByte;
     FWIL             : PByte;
     FWIX             : PByte;
     FLastImage       : Integer;
@@ -142,6 +195,10 @@ type
     FLMTMemory       : TMemoryStream;
     FIndexMemory     : array of Cardinal;
     FLibOpenState    : Boolean;
+    // V2
+    FIndexList_LMT   : array of TIndexInfoLMT;
+    FIndexList_WIX   : array of TIndexInfoWIX;
+    FIndexList_WTL   : array of TIndexInfoWTL;
   private
     procedure CreateFilesMMF(FFileName: String);
     procedure CreateWILFilesMMF(FFileName: String);
