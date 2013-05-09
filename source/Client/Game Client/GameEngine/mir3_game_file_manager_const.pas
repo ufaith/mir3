@@ -223,6 +223,15 @@ const
   CONFIG_USER_FILE                = 'Mir3Client.conf';
   LOG_MIR3_CLIENT                 = 'Mir3Client.log';
   FONT_FILE                       = 'Mir3FontData.mfd';
+  
+  SOUND_WWL_FILE                  = 'Soundlist.wwl';
+  BGM_WWL_FILE                    = 'BGMList.wwl';
+  
+// --------------------------------------------------
+// For Internal use of Draw functions (V2.0)
+  FLIP_TO_NORMAL                  = 0;
+  FLIP_TO_GRAY_SCALE              = 1; 
+  FLIP_TO_COLOR                   = 2;
 
 implementation
 

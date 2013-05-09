@@ -3,7 +3,7 @@
  *                                                                                       *
  *   Web       : http://www.lomcn.co.uk                                                  *
  *   Version   : 0.0.0.12                                                                *
- *                                                                                       *
+ *                                                                                        *
  *   - File Info -                                                                       *
  *                                                                                       *
  *   It hold the mir3 game controls (no Delphi Forms / Objects)                          *
@@ -57,7 +57,7 @@ uses
   mir3_game_file_manager,
   mir3_game_font_engine,
   mir3_game_language_engine,
-  mir3_game_sound,
+  mir3_game_sound_engine,
   mir3_misc_utils;
 
 const
@@ -244,9 +244,9 @@ type
     gui_Font_Text_HAlign          : TMIR3_Align;
     gui_Font_Text_VAlign          : TMIR3_VAlign;
     gui_Font_Setting              : TMIR3_FontSettings;
-    gui_Font_Script_MouseNormal   : String[255];
-    gui_Font_Script_MouseOver     : String[255];
-    gui_Font_Script_MouseDown     : String[255];
+    gui_Font_Script_MouseNormal   : WideString;
+    gui_Font_Script_MouseOver     : WideString;
+    gui_Font_Script_MouseDown     : WideString;
   end;
   
   TMIR3_UI_Window_Info            = record
@@ -2255,9 +2255,9 @@ var
             begin
               if FGUI_Definition.gui_Use_Strech_Texture then
               begin
-                DrawStrech(gui_Background_Texture_ID, gui_Texture_File_ID, FLeft, FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, 2{BLEND_DEFAULT}, gui_Blend_Size);
+                DrawTextureStretch(gui_Background_Texture_ID, gui_Texture_File_ID, FLeft, FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, 2{BLEND_DEFAULT}, gui_Blend_Size);
               end else begin
-                Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FLeft, FTop, 2{BLEND_DEFAULT}, gui_Blend_Size);
+                DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FLeft, FTop, 2{BLEND_DEFAULT}, gui_Blend_Size);
               end;
             end;
           end;
@@ -2940,41 +2940,41 @@ var
           begin
             if (gui_ExtraBackground_Texture_ID > 0) and (gui_ExtraTexture_File_ID > 74) then
             begin
-              Draw(gui_ExtraBackground_Texture_ID, gui_ExtraTexture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, gui_Blend_Mode_Extra, gui_Blend_Size_Extra);
+              DrawTexture(gui_ExtraBackground_Texture_ID, gui_ExtraTexture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, gui_Blend_Mode_Extra, gui_Blend_Size_Extra);
             end;
 
             if gui_Background_Texture_ID > 0 then
             begin
               if gui_Use_Strech_Texture then
               begin
-                DrawStrech(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Blend_Mode, gui_Blend_Size);
+                DrawTextureStretch(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Blend_Mode, gui_Blend_Size);
               end else begin
                 if gui_Use_Null_Point_Calc then
                 begin
                   FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
                   if Assigned(FTempImage) then
                   begin
-                    Draw(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Blend_Mode, gui_Blend_Size);
+                    DrawTexture(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Blend_Mode, gui_Blend_Size);
                   end;
                 end else begin
                   if gui_Use_Cut_Rect then
                   begin
                     SetRect(FMoveRect, gui_WorkField.Left  + gui_Cut_Rect_Position_X, gui_WorkField.Top    + gui_Cut_Rect_Position_Y,
                                        gui_WorkField.Right + gui_Cut_Rect_Position_X, gui_WorkField.Bottom + gui_Cut_Rect_Position_Y);
-                    DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FMoveRect, gui_Blend_Mode, gui_Blend_Size);
+                    DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FMoveRect, gui_Blend_Mode, gui_Blend_Size);
                   end else begin
                     case gui_Texture_Align of
-                      taTop    : Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
+                      taTop    : DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
                       taCenter : begin
                         FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
                         FTempX := (FWidth  div 2) - (FTempImage.ihORG_Width  div 2);
                         FTempY := (FHeight div 2) - (FTempImage.ihORG_Height div 2);
-                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FTempX, FParentGUIForm.FTop + FTop +FTempY, gui_Blend_Mode, gui_Blend_Size);
+                        DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FTempX, FParentGUIForm.FTop + FTop +FTempY, gui_Blend_Mode, gui_Blend_Size);
                       end;
                       taBottom : begin
                         FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
                         FTempY     := FHeight - FTempImage.ihORG_Height;
-                        Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop + FTempY, gui_Blend_Mode, gui_Blend_Size);
+                        DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop + FTempY, gui_Blend_Mode, gui_Blend_Size);
                       end;
                     end;
                   end;
@@ -2995,9 +2995,9 @@ var
                   begin
                     if gui_Use_Strech_Texture then
                     begin
-                      DrawStrech(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                      DrawTextureStretch(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
                     end else begin
-                      Draw(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                      DrawTexture(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
                     end;
                   end;
                 end else if gui_Use_Offset_Calc then
@@ -3008,17 +3008,17 @@ var
                            begin
                              if gui_Use_Strech_Texture then
                              begin
-                               DrawStrech(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + FLeft + FTempImage.ihOffset_X, FParentGUIForm.FTop + FTop + FTempImage.ihOffset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                               DrawTextureStretch(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + FLeft + FTempImage.ihOffset_X, FParentGUIForm.FTop + FTop + FTempImage.ihOffset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
                              end else begin
-                               Draw(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + FLeft + FTempImage.ihOffset_X, FParentGUIForm.FTop + FTop + FTempImage.ihOffset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                               DrawTexture(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + FLeft + FTempImage.ihOffset_X, FParentGUIForm.FTop + FTop + FTempImage.ihOffset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
                              end;
                            end;
                          end else begin
                            if gui_Use_Strech_Texture then
                            begin
-                             DrawStrech(gui_Animation_Current + gui_Animation_Texture_From, gui_Animation_Texture_File_ID, FParentGUIForm.FLeft + gui_Animation_Offset_X, FParentGUIForm.FTop + gui_Animation_Offset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                             DrawTextureStretch(gui_Animation_Current + gui_Animation_Texture_From, gui_Animation_Texture_File_ID, FParentGUIForm.FLeft + gui_Animation_Offset_X, FParentGUIForm.FTop + gui_Animation_Offset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
                            end else begin
-                             Draw(gui_Animation_Current + gui_Animation_Texture_From, gui_Animation_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Animation_Offset_X, FParentGUIForm.FTop + FTop + gui_Animation_Offset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
+                             DrawTexture(gui_Animation_Current + gui_Animation_Texture_From, gui_Animation_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Animation_Offset_X, FParentGUIForm.FTop + FTop + gui_Animation_Offset_Y, gui_Animation_Blend_Mode, gui_Blend_Size);
                            end;
                          end;
                 if (GetTickCount - FAnimationTime) > gui_Animation_Interval then
@@ -3031,7 +3031,34 @@ var
                 end;
               end;
             end else gui_Use_Animation_Texture := False;
-            
+
+            if (Trim(FCaption) <> '') or (gui_CaptionID > 0) then
+            begin
+              with FDrawSetting do
+              begin
+                dsControlWidth  := FWidth;
+                dsControlHeigth := FHeight;
+                dsAX            := FParentGUIForm.FLeft + FLeft + 1;
+                dsAY            := FParentGUIForm.FTop  + FTop  + 1;
+                dsFontHeight    := gui_Font_Size;
+                dsFontSetting   := gui_Font_Setting;
+                dsFontType      := 0;
+                dsFontSpacing   := 0;
+                dsUseKerning    := gui_Font_Use_Kerning;
+                dsColor         := gui_Font_Color;
+                dsHAlign        := gui_Font_Text_HAlign;
+                dsVAlign        := gui_Font_Text_VAlign;
+                dsMagicUse      := False;
+              end;
+              if gui_CaptionID > 0 then
+              begin
+                DrawText(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
+                //DrawTextColor(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
+              end else begin
+                DrawText(PWideChar(FCaption), @FDrawSetting);
+                //DrawTextColor(PWideChar(FCaption), @FDrawSetting);
+              end;
+            end;
           end else if (Trim(FCaption) <> '') or (gui_CaptionID > 0) then
                    begin
                      case gui_Scroll_Text of
@@ -3092,7 +3119,8 @@ var
                          end;
                          if gui_CaptionID > 0 then
                          begin
-                           DrawTextColor(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
+                           DrawText(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
+                           //DrawTextColor(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
                          end else begin
                            DrawText(PWideChar(FCaption), @FDrawSetting);
                            //DrawTextColor(PWideChar(FCaption), @FDrawSetting);
@@ -3899,9 +3927,9 @@ var
           begin
             if gui_Use_Strech_Texture then
             begin
-              DrawStrech(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+              DrawTextureStretch(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
             end else begin
-              Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+              DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
             end;
           end;
         end;
@@ -4036,9 +4064,9 @@ var
 		        (* Render Button with given Texture *)
             if gui_Use_Strech_Texture then
             begin
-              DrawStrech(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+              DrawTextureStretch(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
             end else begin
-              Draw(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, BLEND_DEFAULT, gui_Blend_Size);
+              DrawTexture(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, BLEND_DEFAULT, gui_Blend_Size);
             end;
           end;
           
@@ -4190,9 +4218,9 @@ var
           begin
             if gui_Use_Strech_Texture then
             begin
-              DrawStrech(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, 2{BLEND_DEFAULT}, gui_Blend_Size);
+              DrawTextureStretch(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, 2{BLEND_DEFAULT}, gui_Blend_Size);
             end else begin
-              Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, 2{BLEND_DEFAULT}, gui_Blend_Size);
+              DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, 2{BLEND_DEFAULT}, gui_Blend_Size);
             end;
           end;
         end;
@@ -4341,6 +4369,7 @@ var
       FCharImage   : PImageHeaderD3D;
       FShadowImage : PImageHeaderD3D;
       FEffectImage : PImageHeaderD3D;
+      //FStaticImage : TMir3_Texture;
     begin
     // @override
       try
@@ -4350,6 +4379,9 @@ var
 		      (* Render Select Char Panel without Texture in Debug Mode *)
           GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FF0000FF, True);
         end else begin
+        //if FGUI_Definition.gui_ShowBorder then
+        //  GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Definition.gui_Color.gui_BorderColor, False);
+
           case CharacterSystem of
             csSelectChar : begin
               {$REGION ' - Select Char Render System  '}
@@ -4357,161 +4389,83 @@ var
                 C_WARRIOR  : case FCharacterInfo.Char_Gender of
                                C_MALE   : begin
                                  FFrameStart         := 199;
-                                 FAnimation_State_0  := 12;
-                                 FAnimation_State_1  := 21;
-                                 FAnimation_State_2  := 11;
+                                 FAnimation_State_0  := 1;
+                                 FAnimation_State_1  := 12;
                                end;
                                C_FEMALE : begin
-                                 FFrameStart         := 499;
-                                 FAnimation_State_0  := 10;
-                                 FAnimation_State_1  := 10;
-                                 FAnimation_State_2  := 10;
+                                 FFrameStart         := 399;
+                                 FAnimation_State_0  := 1;
+                                 FAnimation_State_1  := 12;
                                end;
                              end;
                 C_WIZZARD  : case FCharacterInfo.Char_Gender of
                                C_MALE   : begin
-                                 FFrameStart         := 801;
-                                 FAnimation_State_0  := 10;
-                                 FAnimation_State_1  := 11;
-                                 FAnimation_State_2  := 10;
+                                 FFrameStart         := 699;
+                                 FAnimation_State_0  := 1;
+                                 FAnimation_State_1  := 9;
                                end;
                                C_FEMALE : begin
-                                 FFrameStart         := 1101;
-                                 FAnimation_State_0  := 10;
-                                 FAnimation_State_1  := 17;
-                                 FAnimation_State_2  := 10;
+                                 FFrameStart         := 899;
+                                 FAnimation_State_0  := 1;
+                                 FAnimation_State_1  := 14;
                                end;
                              end;
                 C_TAOIST   : case FCharacterInfo.Char_Gender of
                                C_MALE   : begin
-                                 FFrameStart         := 1401;
-                                 FAnimation_State_0  := 10;
-                                 FAnimation_State_1  := 16;
-                                 FAnimation_State_2  := 19;
+                                 FFrameStart         := 1199;
+                                 FAnimation_State_0  := 1;
+                                 FAnimation_State_1  := 14;
                                end;
                                C_FEMALE : begin
-                                 FFrameStart         := 1701;
-                                 FAnimation_State_0  := 10;
-                                 FAnimation_State_1  := 16;
-                                 FAnimation_State_2  := 10;          //Extra Effect
+                                 FFrameStart         := 1399;
+                                 FAnimation_State_0  := 1;
+                                 FAnimation_State_1  := 9;
                                end;
                              end;
                 C_ASSASSIN : case FCharacterInfo.Char_Gender of
                                C_MALE   : begin
-                                 FFrameStart         := 2101;
-                                 FAnimation_State_0  := 11;
-                                 FAnimation_State_1  := 19;
-                                 FAnimation_State_2  := 10;
+                                 FFrameStart         := 1699;
+                                 FAnimation_State_0  := 1;
+                                 FAnimation_State_1  := 15;
                                end;
                                C_FEMALE : begin
-                                 FFrameStart         := 2401;
-                                 FAnimation_State_0  := 10;
-                                 FAnimation_State_1  := 16;
-                                 FAnimation_State_2  := 12;
+                                 FFrameStart         := 1899;
+                                 FAnimation_State_0  := 1;
+                                 FAnimation_State_1  := 9;
                                end;
                              end;
+              end;
+              
+              if FCurrentImageNumber = 0 then
+              begin
+                FCurrentImageNumber := FFrameStart;
+                FShadowImageNumber  := FFrameStart + 20;
               end;
 
               if FSelected and (FAnimationState = 0) then
                 FAnimationState := 1;
 
-              (* Save Start *)
-              if FCurrentImageNumber = 0 then
-              begin
-                case FAnimationState of
-                  0: FCurrentImageNumber := FFrameStart;
-                  1: FCurrentImageNumber := FFrameStart + 40;
-                  2: FCurrentImageNumber := FFrameStart + 100;
-                end;
-              end;
-
-              if (GetTickCount - FStartTime > 200) then
+              if (GetTickCount - FStartTime > 130) then
               begin
                 case FAnimationState of
                   0: begin
-                    if (FAnimationCount < FAnimation_State_0) then
-                    begin
-                      Inc(FAnimationCount);
-                      FStartTime := GetTickCount;
-                    end else begin
-                      FAnimationCount := 0;
-                    end;
-                    FUseEffect          := False;
+                    FAnimationCount     := FAnimation_State_0;
                     FCurrentImageNumber := FFrameStart + FAnimationCount;
                     FShadowImageNumber  := FCurrentImageNumber + 20;
                   end;
                   1: begin
-                    case FCharacterInfo.Char_Job of
-                      C_WARRIOR  ,
-                      C_WIZZARD  ,
-                      C_TAOIST   : begin
-                        if (FAnimationCount < FAnimation_State_1) then
-                        begin
-                          Inc(FAnimationCount);
-                          FStartTime := GetTickCount;
-                        end else begin
-                          FAnimationCount := 0;
-                          FAnimationState := 2;
-                        end;
-                        FUseEffect          := True;
-                        FCurrentImageNumber := FFrameStart + 40 + FAnimationCount;
-                        FEffectImageNumber  := FCurrentImageNumber + 100;
-                      end;
-                      C_ASSASSIN : begin
-                        if (FAnimationCount < FAnimation_State_1) then
-                        begin
-                          Inc(FAnimationCount);
-                          FStartTime := GetTickCount;
-                        end else begin
-                          FAnimationCount := 0;
-                          FAnimationState := 2;
-                        end;
-                        FCurrentImageNumber := FFrameStart + 40 + FAnimationCount;
-                        case FCharacterInfo.Char_Gender of
-                          C_MALE   : begin
-                            if (FAnimationCount > 2) and (FAnimationCount < 18) then
-                            begin
-                              FEffectImageNumber  := FCurrentImageNumber + 100;
-                              FUseEffect          := True;
-                            end else begin
-                              FUseEffect          := False;
-                            end;
-                          end;
-                          C_FEMALE : begin
-                            if FAnimationCount > 2 then
-                            begin
-                              FEffectImageNumber  := FCurrentImageNumber + 100;
-                              FUseEffect          := True;
-                            end else begin
-                              FUseEffect          := False;
-                            end;
-                          end;
-                        end;
-                      end;
-                    end;
-                    FShadowImageNumber := FCurrentImageNumber + 30;
-                  end;
-                  2: begin
-                    if (FAnimationCount < FAnimation_State_2) then
+                    if (FAnimationCount < FAnimation_State_1) then
                     begin
                       Inc(FAnimationCount);
                       FStartTime := GetTickCount;
                     end else begin
                       FAnimationCount := 0;
                     end;
-                    FCurrentImageNumber := FFrameStart + 100 + FAnimationCount;
-                    if  ((FCharacterInfo.Char_Job = C_TAOIST) or (FCharacterInfo.Char_Job = C_WIZZARD)) and (FCharacterInfo.Char_Gender = C_FEMALE) then
-                    begin
-                      FUseEffect          := True;
-                      FEffectImageNumber  := FCurrentImageNumber + 100;
-                    end else begin
-                      FUseEffect          := False;
-                    end;
-                    FShadowImageNumber := FCurrentImageNumber + 20;
+                    FCurrentImageNumber := FFrameStart + FAnimationCount;
+                    FShadowImageNumber  := FCurrentImageNumber + 20;
                   end;
                 end;
               end;
-
 
               with FGUI_Definition, gui_Control_Texture, GGameEngine.FGameFileManger do
               begin
@@ -4522,26 +4476,41 @@ var
                   begin
                     if gui_Use_Strech_Texture then
                     begin
-
-                    end else begin
-                      FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
                       if Assigned(FShadowImage) then
-                        Draw(FShadowImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FShadowImage.ihOffset_X), (FParentGUIForm.FTop + FTop + FShadowImage.ihOffset_Y), Blend_DestBright, gui_Blend_Size);
+                        DrawTextureStretch(FShadowImage.ihD3DTexture, (FLeft + FShadowImage.ihOffset_X)+9, (FTop + FShadowImage.ihOffset_Y)-45, gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, 150);
+
+                      FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       if Assigned(FCharImage) then
-                        Draw(FCharImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FCharImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FCharImage.ihOffset_Y  ), BLEND_DEFAULT, gui_Blend_Size);
-                      if FUseEffect then
-                      begin
-                        FEffectImage := GetImageD3DDirect(FEffectImageNumber, gui_Texture_File_ID);
-                        if Assigned(FEffectImage) then
-                          Draw(FEffectImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FEffectImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FEffectImage.ihOffset_Y  ), Blend_ADD, gui_Blend_Size);
-                      end;
+                        DrawTextureStretch(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y  ), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+                    end else begin
+                      FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
+                      if Assigned(FShadowImage) then
+                        DrawTexture(FShadowImage.ihD3DTexture, (FLeft + FShadowImage.ihOffset_X), (FTop + FShadowImage.ihOffset_Y), BLEND_DEFAULT, 150);
+
+                      FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
+                      if Assigned(FCharImage) then
+                        DrawTexture(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y  ), BLEND_DEFAULT, gui_Blend_Size);
                     end;
                   end else begin
-                    FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
-                    FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
-                    Draw(FShadowImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft  + FShadowImage.ihOffset_X), (FParentGUIForm.FTop + FTop + FShadowImage.ihOffset_Y), Blend_DestBright, gui_Blend_Size);
-                    DrawColor(FCharImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft  + FCharImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FCharImage.ihOffset_Y  ), $F0303030);
+                    if gui_Use_Strech_Texture then
+                    begin
+                      FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
+                      if Assigned(FShadowImage) then
+                        DrawTextureStretch(FShadowImage.ihD3DTexture, (FLeft + FShadowImage.ihOffset_X)+9, (FTop + FShadowImage.ihOffset_Y)-45, gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, 150);
+
+                      FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
+                      if Assigned(FCharImage) then
+                        DrawTextureGrayScaleStretch(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y  ), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+                    end else begin
+                      FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
+                      if Assigned(FShadowImage) then
+                        DrawTextureStretch(FShadowImage.ihD3DTexture, (FLeft + FShadowImage.ihOffset_X), (FTop + FShadowImage.ihOffset_Y), BLEND_DEFAULT, 150);
+
+                      FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
+                      if Assigned(FCharImage) then
+                        DrawTextureGrayScale(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y  ), BLEND_DEFAULT, gui_Blend_Size);
+                    end;
                   end;
                 end;
               end;
@@ -4558,7 +4527,7 @@ var
                                  FAnimation_State_0  := 17;
                                  FUseEffect          := False;
                                  if (FCurrentImageNumber = FFrameStart) and FSelected then
-                                   GGameEngine.SoundManager.PlaySound(ftWav,'JMCre.wav');
+                                   GGameEngine.SoundManager.PlaySound('JMCre.wav');
                                end;
                                C_FEMALE : begin
                                  FBaseX              := 0;
@@ -4567,7 +4536,7 @@ var
                                  FAnimation_State_0  := 15;
                                  FUseEffect          := False;
                                  if (FCurrentImageNumber = FFrameStart) and FSelected then
-                                   GGameEngine.SoundManager.PlaySound(ftWav,'JWCre.wav');
+                                   GGameEngine.SoundManager.PlaySound('JWCre.wav');
                                end;
                              end;
                 C_WIZZARD  : case FCharacterInfo.Char_Gender of
@@ -4578,7 +4547,7 @@ var
                                  FAnimation_State_0  := 14;
                                  FUseEffect          := True;
                                  if (FCurrentImageNumber = FFrameStart) and FSelected then
-                                   GGameEngine.SoundManager.PlaySound(ftWav,'SMCre.wav');
+                                   GGameEngine.SoundManager.PlaySound('SMCre.wav');
                                end;
                                C_FEMALE : begin
                                  FBaseX              := 10;
@@ -4587,7 +4556,7 @@ var
                                  FAnimation_State_0  := 16;
                                  FUseEffect          := True;
                                  if (FCurrentImageNumber = FFrameStart) and FSelected then
-                                   GGameEngine.SoundManager.PlaySound(ftWav,'SWCre.wav');
+                                   GGameEngine.SoundManager.PlaySound('SWCre.wav');
                                end;
                              end;
                 C_TAOIST   : case FCharacterInfo.Char_Gender of
@@ -4598,7 +4567,7 @@ var
                                  FAnimation_State_0  := 16;
                                  FUseEffect          := False;
                                  if (FCurrentImageNumber = FFrameStart) and FSelected then
-                                   GGameEngine.SoundManager.PlaySound(ftWav,'DMCre.wav');
+                                   GGameEngine.SoundManager.PlaySound('DMCre.wav');
                                end;
                                C_FEMALE : begin
                                  FBaseX              := 10;
@@ -4607,7 +4576,7 @@ var
                                  FAnimation_State_0  := 14;
                                  FUseEffect          := True;
                                  if (FCurrentImageNumber = FFrameStart) and FSelected then
-                                   GGameEngine.SoundManager.PlaySound(ftWav,'DWCre.wav');
+                                   GGameEngine.SoundManager.PlaySound('DWCre.wav');
                                end;
                              end;
                 C_ASSASSIN : case FCharacterInfo.Char_Gender of
@@ -4618,7 +4587,7 @@ var
                                  FAnimation_State_0  := 17;
                                  FUseEffect          := True;
                                  if (FCurrentImageNumber = FFrameStart) and FSelected then
-                                   GGameEngine.SoundManager.PlaySound(ftWav,'JMCre.wav'); //fix me with correct Sound
+                                   GGameEngine.SoundManager.PlaySound('JMCre.wav'); //fix me with correct Sound
                                end;
                                C_FEMALE : begin
                                  FBaseX              := 30;
@@ -4629,7 +4598,7 @@ var
                                    FUseEffect := False
                                  else  FUseEffect := True;
                                  if (FCurrentImageNumber = FFrameStart) and FSelected then
-                                   GGameEngine.SoundManager.PlaySound(ftWav,'DWCre.wav'); //fix me with correct Sound
+                                   GGameEngine.SoundManager.PlaySound('DWCre.wav'); //fix me with correct Sound
                                end;
                              end;
               end;
@@ -4673,18 +4642,18 @@ var
                   begin
                     FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                     FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
-                    Draw(FShadowImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FBaseX + FShadowImage.ihOffset_X), (FParentGUIForm.FTop + FTop + FBaseY + FShadowImage.ihOffset_Y), Blend_DestBright, gui_Blend_Size);
-                    Draw(FCharImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FBaseX + FCharImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FBaseY + FCharImage.ihOffset_Y  ), BLEND_DEFAULT, gui_Blend_Size);
+                    DrawTexture(FShadowImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FBaseX + FShadowImage.ihOffset_X), (FParentGUIForm.FTop + FTop + FBaseY + FShadowImage.ihOffset_Y), Blend_DestBright, gui_Blend_Size);
+                    DrawTexture(FCharImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FBaseX + FCharImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FBaseY + FCharImage.ihOffset_Y  ), BLEND_DEFAULT, gui_Blend_Size);
                     if FUseEffect then
                     begin
                       FEffectImage := GetImageD3DDirect(FEffectImageNumber, gui_Texture_File_ID);
                       if Assigned(FEffectImage) and Assigned(FEffectImage.ihD3DTexture) then
-                        Draw(FEffectImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FBaseX + FEffectImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FBaseY + FEffectImage.ihOffset_Y  ), Blend_ADD, gui_Blend_Size);
+                        DrawTexture(FEffectImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FBaseX + FEffectImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FBaseY + FEffectImage.ihOffset_Y  ), Blend_ADD, gui_Blend_Size);
                     end;
                   end else begin
                     FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                     FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
-                    Draw(FShadowImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FBaseX + FShadowImage.ihOffset_X), (FParentGUIForm.FTop + FTop + FBaseY + FShadowImage.ihOffset_Y), Blend_DestBright, gui_Blend_Size);
+                    DrawTexture(FShadowImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FBaseX + FShadowImage.ihOffset_X), (FParentGUIForm.FTop + FTop + FBaseY + FShadowImage.ihOffset_Y), Blend_DestBright, gui_Blend_Size);
                     DrawColor(FCharImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FBaseX + FCharImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FBaseY + FCharImage.ihOffset_Y  ), $F0303030);
                   end;
                 end;
@@ -4947,7 +4916,8 @@ var
                 dsMagicUse      := False;
               end;
               FScriptText := gui_Font_Script_MouseNormal;
-              GGameEngine.FontManager.DrawTextColor(PWideChar(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
+              //GGameEngine.FontManager.DrawTextColor(PWideChar(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
+              GGameEngine.FontManager.DrawText(PWideChar(FScriptText+GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
             end else begin
               with FDrawSetting do
               begin
@@ -4966,7 +4936,8 @@ var
                 dsMagicUse      := False;
               end;
               FScriptText := gui_Font_Script_MouseNormal;
-              GGameEngine.FontManager.DrawTextColor(PWideChar(FScriptText+FCaption), @FDrawSetting);
+              //GGameEngine.FontManager.DrawTextColor(PWideChar(FScriptText+FCaption), @FDrawSetting);
+              GGameEngine.FontManager.DrawText(PWideChar(FScriptText+FCaption), @FDrawSetting);
             end;
 
             if gui_Use_Extra_Caption then
@@ -5069,9 +5040,9 @@ var
 		        (* Render Slider with given Texture *)
             if gui_Use_Strech_Texture then
             begin
-              DrawStrech(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+              DrawTextureStretch(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
             end else begin
-              DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FSlidRect, BLEND_DEFAULT, gui_Blend_Size);
+              DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FSlidRect, BLEND_DEFAULT, gui_Blend_Size);
             end;
           end;
           {Render Slider Button}
@@ -5080,9 +5051,9 @@ var
 		        (* Render Button with given Texture *)
             if gui_Use_Strech_Texture then
             begin
-              DrawStrech(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+              DrawTextureStretch(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
             end else begin
-              DrawClipRect(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FLButton-5 , FParentGUIForm.FTop + FTop + gui_Slider_Setup.gui_Btn_Size.Top, gui_Slider_Setup.gui_Btn_Size ,BLEND_DEFAULT, gui_Blend_Size);
+              DrawTextureClipRect(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FLButton-5 , FParentGUIForm.FTop + FTop + gui_Slider_Setup.gui_Btn_Size.Top, gui_Slider_Setup.gui_Btn_Size ,BLEND_DEFAULT, gui_Blend_Size);
             end;
           end;
 
@@ -5303,7 +5274,7 @@ var
               if (gui_Background_Texture_ID > 0) then
               begin
 		            (* Render Progressbar with given Texture *)
-                DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
               end;
             end;
             ptVertical  : begin
@@ -5312,7 +5283,7 @@ var
               if (gui_Background_Texture_ID > 0) then
               begin
 		            (* Render Progressbar with given Texture *)
-                DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop +(gui_WorkField.Bottom - FSize), FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop +(gui_WorkField.Bottom - FSize), FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
               end;
               if FMouseOver and gui_ShowHint then
               begin
@@ -5342,7 +5313,7 @@ var
                    SetRect(FProgressRect,gui_WorkField.Left, gui_WorkField.Top, FSize, gui_WorkField.Bottom);
                    if (gui_Background_Texture_ID > 0) then
                    begin
-                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  11..20 : begin
@@ -5350,8 +5321,8 @@ var
                    SetRect(FProgressRect,gui_WorkField.Left, gui_WorkField.Top, FSize, gui_WorkField.Bottom);
                    if (gui_Background_Texture_ID > 0) then
                    begin
-                     Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
-                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+71, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+71, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  21..30 : begin
@@ -5361,9 +5332,9 @@ var
                    begin
                      for I := 0 to 1 do
                      begin
-                       Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+                       DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+140, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+140, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  31..40 : begin
@@ -5373,9 +5344,9 @@ var
                    begin
                      for I := 0 to 2 do
                      begin
-                       Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+                       DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+210, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+210, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  41..50 : begin
@@ -5385,9 +5356,9 @@ var
                    begin
                      for I := 0 to 3 do
                      begin
-                       Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+                       DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+280, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+280, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  51..60 : begin
@@ -5397,9 +5368,9 @@ var
                    begin
                      for I := 0 to 4 do
                      begin
-                       Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+                       DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+350, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+350, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  61..70 : begin
@@ -5409,9 +5380,9 @@ var
                    begin
                      for I := 0 to 5 do
                      begin
-                       Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+                       DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+420, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+420, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  71..80 : begin
@@ -5421,9 +5392,9 @@ var
                    begin
                      for I := 0 to 6 do
                      begin
-                       Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+                       DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+490, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+490, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  81..90 : begin
@@ -5433,9 +5404,9 @@ var
                    begin
                      for I := 0 to 7 do
                      begin
-                       Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+                       DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+560, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+560, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                  91..100: begin
@@ -5445,9 +5416,9 @@ var
                    begin
                      for I := 0 to 8 do
                      begin
-                       Draw(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
+                       DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + (I*70)   , FParentGUIForm.FTop + FTop, BLEND_DEFAULT, gui_Blend_Size);
                      end;
-                     DrawClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+630, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
+                     DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft+630, FParentGUIForm.FTop + FTop, FProgressRect, BLEND_DEFAULT, gui_Blend_Size);
                    end;
                  end;
                end;
@@ -5601,8 +5572,8 @@ var
               end;
             end;
           end;
-          
-          Draw(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FSliderThumb.Left, FParentGUIForm.FTop + FTop + FSliderThumb.Top, BLEND_DEFAULT, gui_Blend_Size);
+
+          DrawTexture(gui_Slider_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FSliderThumb.Left, FParentGUIForm.FTop + FTop + FSliderThumb.Top, BLEND_DEFAULT, gui_Blend_Size);
 
 
 
@@ -6229,29 +6200,29 @@ var
               case FShowFlag of
                 1,2: begin
                   SetRect(FClipRect,0,0,34,34);
-                  DrawClipRect(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FClipRect, BLEND_DEFAULT, gui_Blend_Size);
+                  DrawTextureClipRect(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FClipRect, BLEND_DEFAULT, gui_Blend_Size);
                   if (FMagicFKey  > 0) and (FMagicFKey  <= 12) then
                   begin
                     SetRect(FClipRect,0,0,32,18);
-                    DrawClipRect(1660+FMagicFKey, GAME_TEXTURE_GAMEINTER_INT, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FClipRect, BLEND_DEFAULT, 180);
+                    DrawTextureClipRect(1660+FMagicFKey, GAME_TEXTURE_GAMEINTER_INT, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FClipRect, BLEND_DEFAULT, 180);
                   end;
                 end;
                 3  : begin
                   SetRect(FClipRect,0,0,34,ABS(34-(FTop + gui_Extra_Offset_Y-(gui_Clip_Rect.Bottom - 36))));
-                  DrawClipRect(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FClipRect, BLEND_DEFAULT, gui_Blend_Size);
+                  DrawTextureClipRect(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FClipRect, BLEND_DEFAULT, gui_Blend_Size);
                   if (FMagicFKey  > 0) and (FMagicFKey  <= 12) then
                   begin
                     SetRect(FClipRect,0,0,32,ABS(18-(FTop + gui_Extra_Offset_Y-(gui_Clip_Rect.Bottom - 18))));
-                    DrawClipRect(1660+FMagicFKey, GAME_TEXTURE_GAMEINTER_INT, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FClipRect, BLEND_DEFAULT, 180);
+                    DrawTextureClipRect(1660+FMagicFKey, GAME_TEXTURE_GAMEINTER_INT, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, FClipRect, BLEND_DEFAULT, 180);
                   end;
                 end;
                 4: begin
                   SetRect(FClipRect,0,ABS(ABS((FTop + gui_Extra_Offset_Y) - gui_Clip_Rect.top)),34,34);
-                  DrawClipRect(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y + ABS(ABS((FTop + gui_Extra_Offset_Y) - gui_Clip_Rect.top)), FClipRect, BLEND_DEFAULT, gui_Blend_Size);
+                  DrawTextureClipRect(FTempTextureID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y + ABS(ABS((FTop + gui_Extra_Offset_Y) - gui_Clip_Rect.top)), FClipRect, BLEND_DEFAULT, gui_Blend_Size);
                   if (FMagicFKey  > 0) and (FMagicFKey  <= 12) then
                   begin
                     SetRect(FClipRect,0,ABS(ABS((FTop + gui_Extra_Offset_Y) - gui_Clip_Rect.top)),32,18);
-                    DrawClipRect(1660+FMagicFKey, GAME_TEXTURE_GAMEINTER_INT, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y + ABS(ABS((FTop + gui_Extra_Offset_Y) - gui_Clip_Rect.top)), FClipRect, BLEND_DEFAULT, 180);
+                    DrawTextureClipRect(1660+FMagicFKey, GAME_TEXTURE_GAMEINTER_INT, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y + ABS(ABS((FTop + gui_Extra_Offset_Y) - gui_Clip_Rect.top)), FClipRect, BLEND_DEFAULT, 180);
                   end;
                 end;
               end;

@@ -288,7 +288,7 @@ begin
             FImageID := GetTileImageIDPtr(I Div 2, J Div 2);
             if (FImageID <> 65535) and (FFileID < 73) then
             begin
-              GGameEngine.FGameFileManger.Draw(FImageID, FFileID, X - GGameActor.ActorShift_X, Y - GGameActor.ActorShift_Y, BLEND_DEFAULT);
+              GGameEngine.FGameFileManger.DrawTexture(FImageID, FFileID, X - GGameActor.ActorShift_X, Y - GGameActor.ActorShift_Y, BLEND_DEFAULT);
             end;
           end;
         end;
@@ -390,7 +390,7 @@ begin
               FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(FImageID, FFileID);
               if Assigned(FTempImage) then
               begin
-                GGameEngine.FGameFileManger.Draw(FTempImage.ihD3DTexture, X, Y + UNIT_Y - FTempImage.ihORG_Height, BLEND_DEFAULT);
+                GGameEngine.FGameFileManger.DrawTexture(FTempImage.ihD3DTexture, X, Y + UNIT_Y - FTempImage.ihORG_Height, BLEND_DEFAULT);
               end;
                 //mmm := Y + UNIT_Y - dsurface.pHeight;
                 //effect2 := True;
@@ -425,7 +425,7 @@ begin
               FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(FImageID, FFileID);
               if Assigned(FTempImage) then
               begin
-                GGameEngine.FGameFileManger.Draw(FTempImage.ihD3DTexture, X, Y + UNIT_Y - FTempImage.ihORG_Height, BLEND_DEFAULT);
+                GGameEngine.FGameFileManger.DrawTexture(FTempImage.ihD3DTexture, X, Y + UNIT_Y - FTempImage.ihORG_Height, BLEND_DEFAULT);
               end;
 //              dsurface := nil;
 //              dsurface := g_EiTiteArr[nFileIdx].Images[nimgidx];

@@ -2,7 +2,7 @@
  *   LomCN Mir3 file manager core File 2012                        *
  *                                                                 *
  *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.3                                           *
+ *   Version   : 0.0.0.5                                           *
  *                                                                 *
  *   - File Info -                                                 *
  *                                                                 *
@@ -16,7 +16,8 @@
  *  - 0.0.0.1 [2012-09-11] Coly : fist init                        *
  *  - 0.0.0.2 [2012-10-10] Coly : cleanup code                     *
  *  - 0.0.0.3 [2013-03-27] Coly : change img reading and cliping   *
- *  - 0.0.0.4 [2013-03-27] Coly : add more WTL and LMT code        * 
+ *  - 0.0.0.4 [2013-03-27] Coly : add more WTL and LMT code        *
+ *  - 0.0.0.5 [2013-05-08] Coly : Change Draw function and add more*  
  *                                                                 *
  *                                                                 *
  *                                                                 *
@@ -40,8 +41,8 @@ interface
 {$I DevelopmentDefinition.inc}
 
 uses Windows, SysUtils, Math, Graphics, Classes, D3DX9, Direct3D9, DirectShow9, ActiveX,
-     mir3_game_file_manager_const, mir3_global_config, mir3_misc_utils, mir3_game_engine_def, mir3_game_engine ;
-
+     mir3_game_file_manager_const, mir3_global_config, mir3_misc_utils, mir3_game_engine_def, mir3_game_engine ;     
+     
 type
   { Forweard declaration }
   TMir3_Texture         = class;
@@ -160,7 +161,12 @@ type
   { TMir3_Texture }
   TMir3_Texture = class
   strict private
-    FStaticImage: ITexture;
+    FStaticImage    : ITexture;
+    FGrayScaleImage : ITexture;
+    FColorImage     : ITexture;
+    FLastR          : Byte;
+    FLastG          : Byte;
+    FLastB          : Byte;
   public
     FQuad       : THGEQuad;
     FWidth      : Integer;
@@ -173,9 +179,10 @@ type
     destructor Destroy(); override;
   public
     function GetPixels(AX, AY: integer): LongWord;
-    procedure ColorToGray(out Tmp: ITexture);
-    procedure ChangeColor(out Tmp: ITexture; R, G, B: Byte);
-    procedure LoadFromITexture(AImages: ITexture; AWidth, AHeight: Integer);
+    procedure ColorToGray;
+    procedure FlipQuadTexture(const ATextureID: Integer);
+    procedure ChangeColor(const R, G, B: Byte);
+    procedure LoadFromITexture(const AImages: ITexture; AWidth, AHeight: Integer);
   end;
 
   { TMir3_TextureLibrary } // WIL         WIL         WTL         LMT
@@ -267,15 +274,21 @@ type
   public
     function GetImageD3DDirect(var AImageID, AFileID: Integer): PImageHeaderD3D;
     function GetFileMapping : TMir3_FileMapping;
-    procedure Draw(AImageID, AFileID: Integer; X, y: Integer; Drawmode: word = BLEND_DEFAULT; Alpha: Byte = 255); Overload;
-    procedure Draw(image: TMir3_Texture; X, y: Integer; Rect: TRect; Drawmode: Word = BLEND_DEFAULT; Alpha: Byte = 255); overload;
-    procedure Draw(Image: TMir3_Texture; X, y: Integer; Drawmode: word = BLEND_DEFAULT; Alpha: Byte = 255); Overload;
-    procedure DrawRect(AImageID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ADrawmode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
-    procedure DrawClipRect(AImageID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ADrawmode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
-    procedure DrawColorChange(AImage: TMir3_Texture; AX, AY: Integer; R, G, B: Byte);
+
     procedure DrawColor(AImage: TMir3_Texture; AX, AY: Integer; AColor: Cardinal);
-    procedure DrawStrech(Image: TMir3_Texture; X, y: integer; xRate: Single; yRate: Single; Drawmode: word = BLEND_DEFAULT; Alpha: Byte = 255); Overload;
-    procedure DrawStrech(AImageID, AFileID: Integer; AX, AY: Integer; ARateX: Single; yRate: Single; Drawmode: word; Alpha: Byte = 255); Overload;
+    //V2.0
+    procedure DrawTexture(ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTexture(ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;    
+    procedure DrawTextureClipRect(ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureClipRect(ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureClipRectStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureClipRectStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureGrayScale(ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureGrayScale(ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureGrayScaleStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureGrayScaleStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
   end;
 
   TMir3_FileCashManager = class(TThread)
@@ -1003,15 +1016,32 @@ var
     constructor TMir3_Texture.Create();
     begin
       Inherited;
-    
+      FLastR          := 0;
+      FLastG          := 0;
+      FLastB          := 0;      
+      FQuad.Tex       := nil;
+      FStaticImage    := nil;
+      FGrayScaleImage := nil;
+      FColorImage     := nil;      
     end;
     
     destructor TMir3_Texture.Destroy();
-    begin
-      FQuad.Tex.Handle    := nil;
-      FQuad.Tex           := nil;
-      FStaticImage.Handle := nil;
+    begin      
+      FQuad.Tex.Handle := nil;
+      FQuad.Tex        := nil;
+     
+     if Assigned(FColorImage) then
+        FStaticImage.Handle := nil;
       FStaticImage        := nil;
+
+      if Assigned(FGrayScaleImage) then
+        FGrayScaleImage.Handle := nil;
+      FGrayScaleImage        := nil;      
+      
+      if Assigned(FColorImage) then
+        FColorImage.Handle := nil;
+      FColorImage        := nil;  
+      
       Inherited;
     end;
 
@@ -1034,8 +1064,8 @@ var
       end else Result := 0;
     end;
     
-    procedure TMir3_Texture.ColorToGray(out Tmp: ITexture);
-    Var
+    procedure TMir3_Texture.ColorToGray; 
+    var
       OldColP : PLongWord;
       TmpColP : PLongWord;
       I, J    : Integer;
@@ -1043,86 +1073,115 @@ var
     begin
       if Assigned(FStaticImage) then
       begin
-        tmp := GRenderEngine.Texture_Create(self.FTexWidth, Self.FTexHeight);
-        OldColP := FStaticImage.Lock(False);
-        TmpColP := tmp.Lock(true);
-        for I := 0 to FHeight - 1 do
+        If not Assigned(FGrayScaleImage) then
         begin
-          for J := 0 to FWidth - 1 do
+          FGrayScaleImage := GRenderEngine.Texture_Create(Self.FTexWidth, Self.FTexHeight);
+          OldColP := FStaticImage.Lock(False);
+          TmpColP := FGrayScaleImage.Lock(True);
+          for I := 0 to FHeight - 1 do
           begin
-            if OldColP^ = 0 then
+            for J := 0 to FWidth - 1 do
             begin
+              if OldColP^ = 0 then
+              begin
+                Inc(OldColP);
+                Inc(tmpColP);
+                Continue;
+              end else begin
+                g := GetG(OldColp^);
+                tmpColP^ := ARGB(255, g, g, g);
+              end;
               Inc(OldColP);
-              Inc(tmpColP);
-              Continue;
-            end else begin
-              g := GetG(OldColp^);
-              tmpColP^ := ARGB(255, g, g, g);
+              inc(tmpColP);
             end;
-            Inc(OldColP);
-            inc(tmpColP);
+            Inc(OldColP, FTexWidth - FWidth);
+            Inc(TmpColP, FTexWidth - FWidth);
           end;
-          Inc(OldColP, FTexWidth - FWidth);
-          Inc(TmpColP, FTexWidth - FWidth);
-        end;
-        FStaticImage.Unlock;
-        tmp.Unlock;
+          FStaticImage.Unlock;
+          FGrayScaleImage.Unlock;
+        end;  
       end;
     end;
     
-    procedure TMir3_Texture.ChangeColor(out Tmp: ITexture; R, G, B: Byte);
+    
+    procedure TMir3_Texture.FlipQuadTexture(const ATextureID: Integer);
+    begin
+      case ATextureID of
+        0 : begin
+          FQuad.Tex := FStaticImage;
+        end;
+        1 : begin
+          FQuad.Tex := FGrayScaleImage;
+        end;
+        2 : begin
+          FQuad.Tex := FColorImage;
+        end;          
+      end;
+    end;    
+    
+    procedure TMir3_Texture.ChangeColor(const R, G, B: Byte);
     var
       OldColP           : PLongWord;
       TmpColP           : PLongWord;
       I, J              : Integer;
       R1, G1, B1, A1    : byte;
     begin
-      if FStaticImage <> nil then
+      if Assigned(FStaticImage) then
       begin
-        tmp := GRenderEngine.Texture_Create(self.FTexWidth, Self.FTexHeight);
-        OldColP := FStaticImage.Lock(False);
-        TmpColP := tmp.Lock(true);
-        for I := 0 to FHeight - 1 do
+        if (FLastR <> R) or (FLastG <> G) or (FLastB <> B) then
         begin
-          for J := 0 to FWidth - 1 do
-          begin
-            if OldColP^ = 0 then
-            begin
-              Inc(OldColP);
-              Inc(tmpColP);
-              Continue;
-            end;
-            R1 := GetR(OldColP^);
-            G1 := GetG(OldColP^);
-            B1 := GetB(OldColP^);
-            if (R1 < 128) Or (G1 < 128) Or (B1 < 128) then
-            begin
-              TmpColp^ := OldColP^;
-              Inc(OldColP);
-              Inc(tmpColP);
-              Continue;
-            end;
-            A1 := GetA(OldColP^);
-            if (abs(R1 - G1) In [0..15]) And (abs(G1 - B1) In [0..15]) then
-            begin
-              TmpColp^ := ARGB(A1, R, G, B);
-              Inc(OldColP);
-              Inc(tmpColP);
-            end else begin
-              TmpColp^ := OldColP^;
-              Inc(OldColP);
-              Inc(tmpColP);
-            end;
-          end;
-          Inc(OldColP, FTexWidth - FWidth);
-          Inc(TmpColP, FTexWidth - FWidth);
+          if Assigned(FColorImage) then
+            FColorImage.Handle := nil;
+          FColorImage := nil;  
         end;
-        FStaticImage.Unlock;
-        tmp.Unlock;
-      end;
+        if not Assigned(FColorImage) then
+        begin      
+          FLastR := R; FLastG := G; FLastB := B;
+          FColorImage := GRenderEngine.Texture_Create(self.FTexWidth, Self.FTexHeight);
+          OldColP     := FStaticImage.Lock(False);
+          TmpColP     := FColorImage.Lock(True);
+          for I := 0 to FHeight - 1 do
+          begin
+            for J := 0 to FWidth - 1 do
+            begin
+              if OldColP^ = 0 then
+              begin
+                Inc(OldColP);
+                Inc(tmpColP);
+                Continue;
+              end;
+              R1 := GetR(OldColP^);
+              G1 := GetG(OldColP^);
+              B1 := GetB(OldColP^);
+              if (R1 < 128) Or (G1 < 128) Or (B1 < 128) then
+              begin
+                TmpColp^ := OldColP^;
+                Inc(OldColP);
+                Inc(tmpColP);
+                Continue;
+              end;
+              A1 := GetA(OldColP^);
+              if (ABS(R1 - G1) In [0..15]) And (ABS(G1 - B1) In [0..15]) then
+              begin
+                TmpColp^ := ARGB(A1, R, G, B);
+                Inc(OldColP);
+                Inc(tmpColP);
+              end else begin
+                TmpColp^ := OldColP^;
+                Inc(OldColP);
+                Inc(tmpColP);
+              end;
+            end;
+            Inc(OldColP, FTexWidth - FWidth);
+            Inc(TmpColP, FTexWidth - FWidth);
+          end;
+          FStaticImage.Unlock;
+          FColorImage.Unlock;
+        end;
+      end;  
     end;
     
-    procedure TMir3_Texture.LoadFromITexture(AImages: ITexture; AWidth, AHeight: Integer);
+    procedure TMir3_Texture.LoadFromITexture(const AImages: ITexture; AWidth, AHeight: Integer);
     begin
       FStaticImage       := AImages;
       FTexWidth          := FStaticImage.GetWidth();
@@ -1461,8 +1520,8 @@ function TMir3_FileManager.GetImageD3DDirect(var AImageID, AFileID: Integer): PI
 var
   FFileInfo : PFileInformation;
   FImageID  : Integer;
-  
-  //This little hack is need for the gui system 
+
+  //This little hack is need for the gui system
   function GetImageOffset(AValue: Integer): Integer;
   begin
     case AFileID of
@@ -1473,315 +1532,34 @@ var
 
 begin
   try
-  FImageID  := GetImageOffset(AImageID);
-  FFileInfo := FTextureManager.GetStaticFile(AFileID);
-  if not Assigned(FFileInfo) then
-  begin
-    FFileInfo := TestIfInList(1,AFileID, FUsingLibType);
-  end;
-  if High(FFileInfo.fiImageList)+1 <= FImageID then
-  begin
-    SetLength(FFileInfo.fiImageList, FFileInfo.fiImageLib.GetLastImageInt+1);
-  end;
-  if Assigned(FFileInfo.fiImageList[FImageID]) and Assigned(FFileInfo.fiImageList[FImageID].ihD3DTexture) then
-  begin
-    Result                                       := FFileInfo.fiImageList[FImageID];
-    FFileInfo.fiImageList[FImageID].ihUseTime    := GetTickCount;
-    FFileInfo.fiLastUseTick                      := GetTickCount;
-  end else begin
-   // FFileInfo.fiImageLib.DecodeFrame32ToMir3D3DX(FImageID, FFileInfo.fiImageList[FImageID]);
-    FFileInfo.fiImageLib.DecodeFrame32ToMir3_D3D(FImageID, FFileInfo.fiImageList[FImageID]);
+    FImageID  := GetImageOffset(AImageID);
+    FFileInfo := FTextureManager.GetStaticFile(AFileID);
+    if not Assigned(FFileInfo) then
+    begin
+      FFileInfo := TestIfInList(1,AFileID, FUsingLibType);
+    end;
+    if High(FFileInfo.fiImageList)+1 <= FImageID then
+    begin
+      SetLength(FFileInfo.fiImageList, FFileInfo.fiImageLib.GetLastImageInt+1);
+    end;
     if Assigned(FFileInfo.fiImageList[FImageID]) and Assigned(FFileInfo.fiImageList[FImageID].ihD3DTexture) then
     begin
-      FFileInfo.fiImageList[FImageID].ihUseTime := GetTickCount;
-      FFileInfo.fiLastUseTick                   := GetTickCount;
-      Inc(FFileInfo.fiImageOpenCount);
-      //IncExtended(FFileInfo.fiImageMemoryUsag, ((FFileInfo.fiImageList[FImageID].ihPO2_Width * FFileInfo.fiImageList[FImageID].ihPO2_Height) * 4));
-    end;
-    Result := FFileInfo.fiImageList[FImageID];
-  end;
-  except
-    GRenderEngine.System_Log('ERROR:Draw:IMAGEID('+IntToStr(AImageID)+')-FILEID('+ IntToStr(AFileID) +')');
-  end;
-end;
-
-procedure TMir3_FileManager.Draw(image: TMir3_Texture; X, y: Integer; Rect: TRect; Drawmode: Word; Alpha: byte);
-var
-  OldQuad           : THGEQuad;
-  H               : Single;
-  W               : Single;
-  Tx1, ty1, tx2, ty2: single;
-begin
-  if Image <> nil then
-  begin
-    OldQuad := Image.FQuad;
-    If Rect.Left > image.FWidth Then
-      Rect.Left := image.FWidth;
-    If Rect.Top > image.FHeight Then
-      Rect.Top := image.FHeight;
-    If Rect.Right > image.FWidth Then
-      rect.Right := image.FWidth;
-    If Rect.Bottom > image.FHeight Then
-      rect.Bottom := image.FHeight;
-
-    H := Rect.bottom - Rect.top;
-    W := Rect.Right  - Rect.Left;
-
-    TX1 := Rect.Left / Image.FTexWidth;
-    TY1 := Rect.Top  / Image.FTexHeight;
-    TX2 := TX1 + (Rect.Right  - Rect.left) / Image.FTexWidth;
-    TY2 := TY1 + (Rect.Bottom - Rect.top ) / Image.FTexHeight;
-
-    Image.FQuad.V[0].TX := TX1; Image.FQuad.V[0].TY := TY1;
-    Image.FQuad.V[1].TX := TX2; Image.FQuad.V[1].TY := TY1;
-    Image.FQuad.V[2].TX := TX2; Image.FQuad.V[2].TY := TY2;
-    Image.FQuad.V[3].TX := TX1; Image.FQuad.V[3].TY := TY2;
-
-    Image.FQuad.V[0].X := X;     Image.FQuad.V[0].Y := Y;
-    Image.FQuad.V[1].X := X + W; Image.FQuad.V[1].Y := Y;
-    Image.FQuad.V[2].X := X + W; Image.FQuad.V[2].Y := Y +H;
-    Image.FQuad.V[3].X := X;     Image.FQuad.V[3].Y := Y +H;
-    
-    Image.FQuad.V[0].Col := SetA(Image.FQuad.V[0].Col, Alpha);
-    Image.FQuad.V[1].Col := SetA(Image.FQuad.V[1].Col, Alpha);
-    Image.FQuad.V[2].Col := SetA(Image.FQuad.V[2].Col, Alpha);
-    Image.FQuad.V[3].Col := SetA(Image.FQuad.V[3].Col, Alpha);
-    image.FQuad.Blend := Drawmode;
-    GRenderEngine.Gfx_RenderQuad(Image.FQuad);
-    image.FQuad := OldQuad;
-    OldQuad.Tex := nil;
-  end;
-end;
-
-procedure TMir3_FileManager.Draw(Image: TMir3_Texture; X, y: integer; Drawmode: word; Alpha: Byte);
-var
-  OldQuad : THGEQuad;
-begin
-  If Image <> nil then
-  begin
-    OldQuad := Image.FQuad;
-    Image.FQuad.V[0].X := x;
-    Image.FQuad.V[0].Y := y;
-    Image.FQuad.V[1].X := x + Image.FWidth;
-    Image.FQuad.V[1].Y := y;
-    Image.FQuad.V[2].X := x + Image.FWidth;
-    Image.FQuad.V[2].Y := y + Image.FHeight;
-    Image.FQuad.V[3].X := x;
-    Image.FQuad.V[3].Y := y + Image.FHeight;
-    Image.FQuad.V[0].Col := SetA(Image.FQuad.V[0].Col, Alpha);
-    Image.FQuad.V[1].Col := SetA(Image.FQuad.V[1].Col, Alpha);
-    Image.FQuad.V[2].Col := SetA(Image.FQuad.V[2].Col, Alpha);
-    Image.FQuad.V[3].Col := SetA(Image.FQuad.V[3].Col, Alpha);
-    image.FQuad.Blend := Drawmode;
-    GRenderEngine.Gfx_RenderQuad(Image.FQuad);
-    Image.FQuad := OldQuad;
-  end;
-end;
-
-procedure TMir3_FileManager.DrawRect(AImageID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ADrawmode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
-var
-  FOldQuad : THGEQuad;
-  FImage   : TMir3_Texture;
-  FTX      : Single;
-  FTY      : Single;
-  Tx1, Ty1,
-  Tx2, Ty2 : single;
-begin
-  FImage := GetImageD3DDirect(AImageID, AFileID).ihD3DTexture;
-  if Assigned(FImage) then
-  begin
-    FOldQuad := FImage.FQuad;
-    If ARect.Left > FImage.FWidth Then
-      ARect.Left := FImage.FWidth;
-    If ARect.Top > FImage.FHeight Then
-      ARect.Top := FImage.FHeight;
-    If ARect.Right > FImage.FWidth Then
-      ARect.Right := FImage.FWidth;
-    If ARect.Bottom > FImage.FHeight Then
-      ARect.Bottom := FImage.FHeight;
-    Ftx := ARect.Left;
-    Fty := ARect.Top;
-    TX1 := FTX / FImage.FTexWidth;
-    TY1 := FTY / FImage.FTexHeight;
-    TX2 := (FTX + ARect.Right - ARect.left) / FImage.FTexWidth;
-    TY2 := (FTY + ARect.Bottom - ARect.top) / FImage.FTexHeight;
-
-    FImage.FQuad.V[0].TX := TX1; FImage.FQuad.V[0].TY := TY1;
-    FImage.FQuad.V[1].TX := TX2; FImage.FQuad.V[1].TY := TY1;
-    FImage.FQuad.V[2].TX := TX2; FImage.FQuad.V[2].TY := TY2;
-    FImage.FQuad.V[3].TX := TX1; FImage.FQuad.V[3].TY := TY2;
-
-    FImage.FQuad.V[3].X := AX;
-    FImage.FQuad.V[3].Y := AY;
-    FImage.FQuad.V[2].X := AX + ARect.Right  - ARect.left;
-    FImage.FQuad.V[2].Y := AY;
-    FImage.FQuad.V[1].X := AX + ARect.right  - ARect.left;
-    FImage.FQuad.V[1].Y := AY + ARect.Bottom - ARect.top;
-    FImage.FQuad.V[0].X := AX;
-    FImage.FQuad.V[0].Y := AY + ARect.bottom - ARect.top;
-    FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, AAlpha);
-    FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, AAlpha);
-    FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, AAlpha);
-    FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, AAlpha);
-    FImage.FQuad.Blend := ADrawmode;
-    GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
-    FImage.FQuad := FOldQuad;
-  end;
-end;
-
-procedure TMir3_FileManager.DrawClipRect(AImageID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ADrawmode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
-var
-  FOldQuad : THGEQuad;
-  FImage   : TMir3_Texture;
-  Tx1, Ty1,
-  Tx2, Ty2 : single;
-  W, H       : Single;
-begin
-  FImage := GetImageD3DDirect(AImageID, AFileID).ihD3DTexture;
-  if Assigned(FImage) then
-  begin
-    FOldQuad := FImage.FQuad;
-
-    If ARect.Left > FImage.FWidth Then
-      ARect.Left := FImage.FWidth;
-    If ARect.Top > FImage.FHeight Then
-      ARect.Top := FImage.FHeight;
-    If ARect.Right > FImage.FWidth Then
-      ARect.Right := FImage.FWidth;
-    If ARect.Bottom > FImage.FHeight Then
-      ARect.Bottom := FImage.FHeight;
-
-    H := ARect.bottom - ARect.top;
-    W := ARect.Right  - ARect.Left;
-
-    TX1 := ARect.Left / FImage.FTexWidth;
-    TY1 := ARect.Top  / FImage.FTexHeight;
-    TX2 := TX1 + (ARect.Right  - ARect.left) / FImage.FTexWidth;
-    TY2 := TY1 + (ARect.Bottom - ARect.top ) / FImage.FTexHeight;
-
-    FImage.FQuad.V[0].TX := TX1; FImage.FQuad.V[0].TY := TY1;
-    FImage.FQuad.V[1].TX := TX2; FImage.FQuad.V[1].TY := TY1;
-    FImage.FQuad.V[2].TX := TX2; FImage.FQuad.V[2].TY := TY2;
-    FImage.FQuad.V[3].TX := TX1; FImage.FQuad.V[3].TY := TY2;
-
-    FImage.FQuad.V[0].X := AX;     FImage.FQuad.V[0].Y := AY;
-    FImage.FQuad.V[1].X := AX + W; FImage.FQuad.V[1].Y := AY;
-    FImage.FQuad.V[2].X := AX + W; FImage.FQuad.V[2].Y := AY +H;
-    FImage.FQuad.V[3].X := AX;     FImage.FQuad.V[3].Y := AY +H;
-
-    FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, AAlpha);
-    FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, AAlpha);
-    FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, AAlpha);
-    FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, AAlpha);
-    FImage.FQuad.Blend := ADrawmode;
-    GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
-    FImage.FQuad := FOldQuad;
-  end;
-end;
-
-procedure TMir3_FileManager.DrawStrech(Image: TMir3_Texture; X, y: integer; xRate: Single; yRate: Single; Drawmode: word; Alpha: Byte);
-var
-  OldQuad : THGEQuad;
-begin
-  if Image <> nil then
-  begin
-    OldQuad := Image.FQuad;
-    Image.FQuad.V[0].X := x;
-    Image.FQuad.V[0].Y := y;
-    Image.FQuad.V[1].X := x + Image.FWidth * xRate;
-    Image.FQuad.V[1].Y := y;
-    Image.FQuad.V[2].X := x + Image.FWidth * xRate;
-    Image.FQuad.V[2].Y := y + Image.FHeight * YRate;
-    Image.FQuad.V[3].X := x;
-    Image.FQuad.V[3].Y := y + Image.FHeight * YRate;
-    Image.FQuad.V[0].Col := SetA(Image.FQuad.V[0].Col, Alpha);
-    Image.FQuad.V[1].Col := SetA(Image.FQuad.V[1].Col, Alpha);
-    Image.FQuad.V[2].Col := SetA(Image.FQuad.V[2].Col, Alpha);
-    Image.FQuad.V[3].Col := SetA(Image.FQuad.V[3].Col, Alpha);
-    image.FQuad.Blend := Drawmode;
-    GRenderEngine.Gfx_RenderQuad(Image.FQuad);
-    Image.FQuad := OldQuad;
-  end;
-end;
-
-procedure TMir3_FileManager.DrawStrech(AImageID, AFileID: Integer; AX, AY: Integer; ARateX: Single; yRate: Single; Drawmode: word; Alpha: Byte);
-var
-  OldQuad : THGEQuad;
-  FImage  : TMir3_Texture;
-begin
-  FImage := GetImageD3DDirect(AImageID, AFileID).ihD3DTexture;
-  if Assigned(FImage) then
-  begin
-    OldQuad := FImage.FQuad;
-    FImage.FQuad.V[0].X   := AX;
-    FImage.FQuad.V[0].Y   := AY;
-    FImage.FQuad.V[1].X   := AX + FImage.FWidth  * ARateX;
-    FImage.FQuad.V[1].Y   := AY;
-    FImage.FQuad.V[2].X   := AX + FImage.FWidth  * ARateX;
-    FImage.FQuad.V[2].Y   := AY + FImage.FHeight * YRate;
-    FImage.FQuad.V[3].X   := AX;
-    FImage.FQuad.V[3].Y   := AY + FImage.FHeight * YRate;
-    FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, Alpha);
-    FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, Alpha);
-    FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, Alpha);
-    FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, Alpha);
-    FImage.FQuad.Blend := DrawMode;
-    GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
-    FImage.FQuad := OldQuad;
-  end;
-end;
-
-procedure TMir3_FileManager.Draw(AImageID, AFileID: Integer; X, y: Integer; DrawMode: word = BLEND_DEFAULT; Alpha: Byte = 255);
-var
-  OldQuad : THGEQuad;
-  FImage  : TMir3_Texture;
-begin
-  try
-    FImage := GetImageD3DDirect(AImageID, AFileID).ihD3DTexture;
-    if Assigned(FImage) then
-    begin
-      OldQuad := FImage.FQuad;
-      FImage.FQuad.V[0].X := x;
-      FImage.FQuad.V[0].Y := y;
-      FImage.FQuad.V[1].X := x + FImage.FWidth;
-      FImage.FQuad.V[1].Y := y;
-      FImage.FQuad.V[2].X := x + FImage.FWidth;
-      FImage.FQuad.V[2].Y := y + FImage.FHeight;
-      FImage.FQuad.V[3].X := x;
-      FImage.FQuad.V[3].Y := y + FImage.FHeight;
-      FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, Alpha);
-      FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, Alpha);
-      FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, Alpha);
-      FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, Alpha);
-      FImage.FQuad.Blend := Drawmode;
-      GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
-      FImage.FQuad := OldQuad;
+      Result                                       := FFileInfo.fiImageList[FImageID];
+      FFileInfo.fiImageList[FImageID].ihUseTime    := GetTickCount;
+      FFileInfo.fiLastUseTick                      := GetTickCount;
+    end else begin
+      FFileInfo.fiImageLib.DecodeFrame32ToMir3_D3D(FImageID, FFileInfo.fiImageList[FImageID]);
+      if Assigned(FFileInfo.fiImageList[FImageID]) and Assigned(FFileInfo.fiImageList[FImageID].ihD3DTexture) then
+      begin
+        FFileInfo.fiImageList[FImageID].ihUseTime := GetTickCount;
+        FFileInfo.fiLastUseTick                   := GetTickCount;
+        Inc(FFileInfo.fiImageOpenCount);
+        //IncExtended(FFileInfo.fiImageMemoryUsag, ((FFileInfo.fiImageList[FImageID].ihPO2_Width * FFileInfo.fiImageList[FImageID].ihPO2_Height) * 4));
+      end;
+      Result := FFileInfo.fiImageList[FImageID];
     end;
   except
     GRenderEngine.System_Log('ERROR:Draw:IMAGEID('+IntToStr(AImageID)+')-FILEID('+ IntToStr(AFileID) +')');
-  end;
-end;
-
-procedure TMir3_FileManager.DrawColorChange(AImage: TMir3_Texture; AX, AY: Integer; R, G, B: Byte);
-var
-  FImageTemp        : ITexture;
-  TmpQuad           : THGEQuad;
-begin
-  AImage.ChangeColor(FImageTemp, R, G, b);
-  if FImageTemp <> nil then
-  begin
-    TmpQuad := AImage.FQuad;
-    TmpQuad.V[0].X := AX;
-    TmpQuad.V[0].Y := AY;
-    TmpQuad.V[1].X := AX + AImage.FWidth;
-    TmpQuad.V[1].Y := AY;
-    TmpQuad.V[2].X := AX + AImage.FWidth;
-    TmpQuad.V[2].Y := AY + AImage.FHeight;
-    TmpQuad.V[3].X := AX;
-    TmpQuad.V[3].Y := AY + AImage.FHeight;
-    TmpQuad.Blend := BLEND_DEFAULT;
-    TmpQuad.Tex := FImageTemp;
-    GRenderEngine.Gfx_RenderQuad(TmpQuad);
   end;
 end;
 
@@ -1790,7 +1568,6 @@ Var
   FColor            : Cardinal;
 Begin
   FColor := AImage.FQuad.V[0].Col;
-
   AImage.FQuad.V[0].X := AX;
   AImage.FQuad.V[0].Y := AY;
   AImage.FQuad.V[1].X := AX + AImage.FWidth;
@@ -1858,6 +1635,462 @@ begin
   FMediaEvent.WaitForCompletion(FLength, FEventCode);
   CoUninitialize();
 end;
+
+
+///////////// V2.0 ///////////////////////////////////
+ 
+procedure TMir3_FileManager.DrawTexture(ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad : THGEQuad;
+  FImage   : TMir3_Texture;
+begin
+  try
+    FImage := GetImageD3DDirect(ATextureID, AFileID).ihD3DTexture;
+    if Assigned(FImage) then
+    begin
+      FOldQuad := FImage.FQuad;
+      FImage.FQuad.V[0].X   := AX;
+      FImage.FQuad.V[0].Y   := AY;
+      FImage.FQuad.V[1].X   := AX + FImage.FWidth;
+      FImage.FQuad.V[1].Y   := AY;
+      FImage.FQuad.V[2].X   := AX + FImage.FWidth;
+      FImage.FQuad.V[2].Y   := AY + FImage.FHeight;
+      FImage.FQuad.V[3].X   := AX;
+      FImage.FQuad.V[3].Y   := AY + FImage.FHeight;
+      FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, AAlpha);
+      FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, AAlpha);
+      FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, AAlpha);
+      FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, AAlpha);
+      FImage.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
+      FImage.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::TEXTURE::1::TEXTUREID('+IntToStr(ATextureID)+')-FILEID('+ IntToStr(AFileID) +')');
+  end;
+end;
+
+procedure TMir3_FileManager.DrawTexture(ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad : THGEQuad;
+begin
+  try
+    if Assigned(ATexture) then
+    begin
+      FOldQuad := ATexture.FQuad;
+      ATexture.FQuad.V[0].X   := AX;
+      ATexture.FQuad.V[0].Y   := AY;
+      ATexture.FQuad.V[1].X   := AX + ATexture.FWidth;
+      ATexture.FQuad.V[1].Y   := AY;
+      ATexture.FQuad.V[2].X   := AX + ATexture.FWidth;
+      ATexture.FQuad.V[2].Y   := AY + ATexture.FHeight;
+      ATexture.FQuad.V[3].X   := AX;
+      ATexture.FQuad.V[3].Y   := AY + ATexture.FHeight;
+      ATexture.FQuad.V[0].Col := SetA(ATexture.FQuad.V[0].Col, AAlpha);
+      ATexture.FQuad.V[1].Col := SetA(ATexture.FQuad.V[1].Col, AAlpha);
+      ATexture.FQuad.V[2].Col := SetA(ATexture.FQuad.V[2].Col, AAlpha);
+      ATexture.FQuad.V[3].Col := SetA(ATexture.FQuad.V[3].Col, AAlpha);
+      ATexture.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(ATexture.FQuad);
+      ATexture.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::TEXTURE::2');
+  end;
+end;
+
+procedure TMir3_FileManager.DrawTextureStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad : THGEQuad;
+  FImage   : TMir3_Texture;
+begin
+  try
+    FImage := GetImageD3DDirect(ATextureID, AFileID).ihD3DTexture;
+    if Assigned(FImage) then
+    begin
+      FOldQuad := FImage.FQuad;
+      FImage.FQuad.V[0].X   := AX;
+      FImage.FQuad.V[0].Y   := AY;
+      FImage.FQuad.V[1].X   := AX + FImage.FWidth  * ARateX;
+      FImage.FQuad.V[1].Y   := AY;
+      FImage.FQuad.V[2].X   := AX + FImage.FWidth  * ARateX;
+      FImage.FQuad.V[2].Y   := AY + FImage.FHeight * ARateY;
+      FImage.FQuad.V[3].X   := AX;
+      FImage.FQuad.V[3].Y   := AY + FImage.FHeight * ARateY;
+      FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, AAlpha);
+      FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, AAlpha);
+      FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, AAlpha);
+      FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, AAlpha);
+      FImage.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
+      FImage.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::TEXTURE::STRETCH::1::TEXTUREID('+IntToStr(ATextureID)+')-FILEID('+ IntToStr(AFileID) +')');
+  end;  
+end;
+
+procedure TMir3_FileManager.DrawTextureStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad : THGEQuad;
+begin
+  try
+    if Assigned(ATexture) then
+    begin
+      FOldQuad := ATexture.FQuad;
+      ATexture.FQuad.V[0].X   := AX;
+      ATexture.FQuad.V[0].Y   := AY;
+      ATexture.FQuad.V[1].X   := AX + ATexture.FWidth  * ARateX;
+      ATexture.FQuad.V[1].Y   := AY;
+      ATexture.FQuad.V[2].X   := AX + ATexture.FWidth  * ARateX;
+      ATexture.FQuad.V[2].Y   := AY + ATexture.FHeight * ARateY;
+      ATexture.FQuad.V[3].X   := AX;
+      ATexture.FQuad.V[3].Y   := AY + ATexture.FHeight * ARateY;
+      ATexture.FQuad.V[0].Col := SetA(ATexture.FQuad.V[0].Col, AAlpha);
+      ATexture.FQuad.V[1].Col := SetA(ATexture.FQuad.V[1].Col, AAlpha);
+      ATexture.FQuad.V[2].Col := SetA(ATexture.FQuad.V[2].Col, AAlpha);
+      ATexture.FQuad.V[3].Col := SetA(ATexture.FQuad.V[3].Col, AAlpha);
+      ATexture.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(ATexture.FQuad);
+      ATexture.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::TEXTURE::STRETCH::2');
+  end;  
+end;
+
+procedure TMir3_FileManager.DrawTextureClipRect(ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad    : THGEQuad;
+  FImage      : TMir3_Texture;
+  FTX1, FTY1  : Single;
+  FTX2, FTY2  : Single;
+  FTempWidth  : Single;  
+  FTempHeight : Single;
+begin
+  try
+    FImage := GetImageD3DDirect(ATextureID, AFileID).ihD3DTexture;
+    if Assigned(FImage) then
+    begin
+      FOldQuad := FImage.FQuad;
+   
+      if ARect.Left   > FImage.FWidth  then ARect.Left   := FImage.FWidth;
+      if ARect.Top    > FImage.FHeight then ARect.Top    := FImage.FHeight;
+      if ARect.Right  > FImage.FWidth  then ARect.Right  := FImage.FWidth;
+      if ARect.Bottom > FImage.FHeight then ARect.Bottom := FImage.FHeight;
+   
+      FTempHeight := ARect.bottom - ARect.top;
+      FTempWidth  := ARect.Right  - ARect.Left;
+   
+      FTX1 := ARect.Left / FImage.FTexWidth;
+      FTY1 := ARect.Top  / FImage.FTexHeight;
+      FTX2 := FTX1 + (ARect.Right  - ARect.left) / FImage.FTexWidth;
+      FTY2 := FTY1 + (ARect.Bottom - ARect.top ) / FImage.FTexHeight;
+   
+      FImage.FQuad.V[0].TX := FTX1; FImage.FQuad.V[0].TY := FTY1;
+      FImage.FQuad.V[1].TX := FTX2; FImage.FQuad.V[1].TY := FTY1;
+      FImage.FQuad.V[2].TX := FTX2; FImage.FQuad.V[2].TY := FTY2;
+      FImage.FQuad.V[3].TX := FTX1; FImage.FQuad.V[3].TY := FTY2;
+   
+      FImage.FQuad.V[0].X  := AX;              FImage.FQuad.V[0].Y := AY;
+      FImage.FQuad.V[1].X  := AX + FTempWidth; FImage.FQuad.V[1].Y := AY;
+      FImage.FQuad.V[2].X  := AX + FTempWidth; FImage.FQuad.V[2].Y := AY + FTempHeight;
+      FImage.FQuad.V[3].X  := AX;              FImage.FQuad.V[3].Y := AY + FTempHeight;
+   
+      FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, AAlpha);
+      FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, AAlpha);
+      FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, AAlpha);
+      FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, AAlpha);
+      FImage.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
+      FImage.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::TEXTURE::CLIPRECT::1::TEXTUREID('+IntToStr(ATextureID)+')-FILEID('+ IntToStr(AFileID) +')');
+  end;  
+end;
+
+procedure TMir3_FileManager.DrawTextureClipRect(ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad    : THGEQuad;
+  FTX1, FTY1  : Single;
+  FTX2, FTY2  : Single;
+  FTempWidth  : Single;  
+  FTempHeight : Single;
+begin
+  try
+    if Assigned(ATexture) then
+    begin
+      FOldQuad := ATexture.FQuad;
+    
+      if ARect.Left   > ATexture.FWidth  then ARect.Left   := ATexture.FWidth;
+      if ARect.Top    > ATexture.FHeight then ARect.Top    := ATexture.FHeight;
+      if ARect.Right  > ATexture.FWidth  then ARect.Right  := ATexture.FWidth;
+      if ARect.Bottom > ATexture.FHeight then ARect.Bottom := ATexture.FHeight;
+    
+      FTempHeight := ARect.bottom - ARect.top;
+      FTempWidth  := ARect.Right  - ARect.Left;
+    
+      FTX1 := ARect.Left / ATexture.FTexWidth;
+      FTY1 := ARect.Top  / ATexture.FTexHeight;
+      FTX2 := FTX1 + (ARect.Right  - ARect.left) / ATexture.FTexWidth;
+      FTY2 := FTY1 + (ARect.Bottom - ARect.top ) / ATexture.FTexHeight;
+    
+      ATexture.FQuad.V[0].TX := FTX1; ATexture.FQuad.V[0].TY := FTY1;
+      ATexture.FQuad.V[1].TX := FTX2; ATexture.FQuad.V[1].TY := FTY1;
+      ATexture.FQuad.V[2].TX := FTX2; ATexture.FQuad.V[2].TY := FTY2;
+      ATexture.FQuad.V[3].TX := FTX1; ATexture.FQuad.V[3].TY := FTY2;
+    
+      ATexture.FQuad.V[0].X  := AX;              ATexture.FQuad.V[0].Y := AY;
+      ATexture.FQuad.V[1].X  := AX + FTempWidth; ATexture.FQuad.V[1].Y := AY;
+      ATexture.FQuad.V[2].X  := AX + FTempWidth; ATexture.FQuad.V[2].Y := AY + FTempHeight;
+      ATexture.FQuad.V[3].X  := AX;              ATexture.FQuad.V[3].Y := AY + FTempHeight;
+    
+      ATexture.FQuad.V[0].Col := SetA(ATexture.FQuad.V[0].Col, AAlpha);
+      ATexture.FQuad.V[1].Col := SetA(ATexture.FQuad.V[1].Col, AAlpha);
+      ATexture.FQuad.V[2].Col := SetA(ATexture.FQuad.V[2].Col, AAlpha);
+      ATexture.FQuad.V[3].Col := SetA(ATexture.FQuad.V[3].Col, AAlpha);
+      ATexture.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(ATexture.FQuad);
+      ATexture.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::TEXTURE::CLIPRECT::2');
+  end;  
+end;
+
+procedure TMir3_FileManager.DrawTextureClipRectStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad    : THGEQuad;
+  FImage      : TMir3_Texture;
+  FTX1, FTY1  : Single;
+  FTX2, FTY2  : Single;
+  FTempWidth  : Single;  
+  FTempHeight : Single;
+begin
+  try
+    FImage := GetImageD3DDirect(ATextureID, AFileID).ihD3DTexture;
+    if Assigned(FImage) then
+    begin
+      FOldQuad := FImage.FQuad;
+   
+      if ARect.Left   > FImage.FWidth  then ARect.Left   := FImage.FWidth;
+      if ARect.Top    > FImage.FHeight then ARect.Top    := FImage.FHeight;
+      if ARect.Right  > FImage.FWidth  then ARect.Right  := FImage.FWidth;
+      if ARect.Bottom > FImage.FHeight then ARect.Bottom := FImage.FHeight;
+   
+      FTempHeight := ARect.bottom - ARect.top;
+      FTempWidth  := ARect.Right  - ARect.Left;
+   
+      FTX1 := ARect.Left / FImage.FTexWidth;
+      FTY1 := ARect.Top  / FImage.FTexHeight;
+      FTX2 := FTX1 + (ARect.Right  - ARect.left) / FImage.FTexWidth;
+      FTY2 := FTY1 + (ARect.Bottom - ARect.top ) / FImage.FTexHeight;
+   
+      FImage.FQuad.V[0].TX := FTX1; FImage.FQuad.V[0].TY := FTY1;
+      FImage.FQuad.V[1].TX := FTX2; FImage.FQuad.V[1].TY := FTY1;
+      FImage.FQuad.V[2].TX := FTX2; FImage.FQuad.V[2].TY := FTY2;
+      FImage.FQuad.V[3].TX := FTX1; FImage.FQuad.V[3].TY := FTY2;
+
+      FImage.FQuad.V[0].X  := AX;                       FImage.FQuad.V[0].Y := AY;
+      FImage.FQuad.V[1].X  := AX + FTempWidth * ARateX; FImage.FQuad.V[1].Y := AY;
+      FImage.FQuad.V[2].X  := AX + FTempWidth * ARateX; FImage.FQuad.V[2].Y := AY + FTempHeight * ARateY;
+      FImage.FQuad.V[3].X  := AX;                       FImage.FQuad.V[3].Y := AY + FTempHeight * ARateY;
+   
+      FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, AAlpha);
+      FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, AAlpha);
+      FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, AAlpha);
+      FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, AAlpha);
+      FImage.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
+      FImage.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::TEXTURE::CLIPRECT::STRETCH::1::TEXTUREID('+IntToStr(ATextureID)+')-FILEID('+ IntToStr(AFileID) +')');
+  end;  
+end;
+
+procedure TMir3_FileManager.DrawTextureClipRectStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad    : THGEQuad;
+  FTX1, FTY1  : Single;
+  FTX2, FTY2  : Single;
+  FTempWidth  : Single;  
+  FTempHeight : Single;
+begin
+  try
+    if Assigned(ATexture) then
+    begin
+      FOldQuad := ATexture.FQuad;
+    
+      if ARect.Left   > ATexture.FWidth  then ARect.Left   := ATexture.FWidth;
+      if ARect.Top    > ATexture.FHeight then ARect.Top    := ATexture.FHeight;
+      if ARect.Right  > ATexture.FWidth  then ARect.Right  := ATexture.FWidth;
+      if ARect.Bottom > ATexture.FHeight then ARect.Bottom := ATexture.FHeight;
+    
+      FTempHeight := ARect.bottom - ARect.top;
+      FTempWidth  := ARect.Right  - ARect.Left;
+    
+      FTX1 := ARect.Left / ATexture.FTexWidth;
+      FTY1 := ARect.Top  / ATexture.FTexHeight;
+      FTX2 := FTX1 + (ARect.Right  - ARect.left) / ATexture.FTexWidth;
+      FTY2 := FTY1 + (ARect.Bottom - ARect.top ) / ATexture.FTexHeight;
+    
+      ATexture.FQuad.V[0].TX := FTX1; ATexture.FQuad.V[0].TY := FTY1;
+      ATexture.FQuad.V[1].TX := FTX2; ATexture.FQuad.V[1].TY := FTY1;
+      ATexture.FQuad.V[2].TX := FTX2; ATexture.FQuad.V[2].TY := FTY2;
+      ATexture.FQuad.V[3].TX := FTX1; ATexture.FQuad.V[3].TY := FTY2;
+    
+      ATexture.FQuad.V[0].X  := AX;                       ATexture.FQuad.V[0].Y := AY;
+      ATexture.FQuad.V[1].X  := AX + FTempWidth * ARateX; ATexture.FQuad.V[1].Y := AY;
+      ATexture.FQuad.V[2].X  := AX + FTempWidth * ARateX; ATexture.FQuad.V[2].Y := AY + FTempHeight * ARateY;
+      ATexture.FQuad.V[3].X  := AX;                       ATexture.FQuad.V[3].Y := AY + FTempHeight * ARateY;
+    
+      ATexture.FQuad.V[0].Col := SetA(ATexture.FQuad.V[0].Col, AAlpha);
+      ATexture.FQuad.V[1].Col := SetA(ATexture.FQuad.V[1].Col, AAlpha);
+      ATexture.FQuad.V[2].Col := SetA(ATexture.FQuad.V[2].Col, AAlpha);
+      ATexture.FQuad.V[3].Col := SetA(ATexture.FQuad.V[3].Col, AAlpha);
+      ATexture.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(ATexture.FQuad);
+      ATexture.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::TEXTURE::CLIPRECT::STRETCH::2');
+  end;
+end;
+
+procedure TMir3_FileManager.DrawTextureGrayScale(ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad : THGEQuad;
+  FImage   : TMir3_Texture;
+begin
+  try
+    FImage := GetImageD3DDirect(ATextureID, AFileID).ihD3DTexture;
+    if Assigned(FImage) then
+    begin
+      FImage.ColorToGray; 
+      FOldQuad := FImage.FQuad;
+      FImage.FlipQuadTexture(FLIP_TO_GRAY_SCALE);
+      FImage.FQuad.V[0].X   := AX;
+      FImage.FQuad.V[0].Y   := AY;
+      FImage.FQuad.V[1].X   := AX + FImage.FWidth;
+      FImage.FQuad.V[1].Y   := AY;
+      FImage.FQuad.V[2].X   := AX + FImage.FWidth;
+      FImage.FQuad.V[2].Y   := AY + FImage.FHeight;
+      FImage.FQuad.V[3].X   := AX;
+      FImage.FQuad.V[3].Y   := AY + FImage.FHeight;
+      FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, AAlpha);
+      FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, AAlpha);
+      FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, AAlpha);
+      FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, AAlpha);
+      FImage.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
+      FImage.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::GRAYSCALE::1::TEXTUREID('+IntToStr(ATextureID)+')-FILEID('+ IntToStr(AFileID) +')');
+  end;
+end;
+
+procedure TMir3_FileManager.DrawTextureGrayScale(ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad : THGEQuad;
+begin
+  try
+    if Assigned(ATexture) then
+    begin
+      ATexture.ColorToGray; 
+      FOldQuad := ATexture.FQuad;
+      ATexture.FlipQuadTexture(FLIP_TO_GRAY_SCALE);
+      ATexture.FQuad.V[0].X   := AX;
+      ATexture.FQuad.V[0].Y   := AY;
+      ATexture.FQuad.V[1].X   := AX + ATexture.FWidth;
+      ATexture.FQuad.V[1].Y   := AY;
+      ATexture.FQuad.V[2].X   := AX + ATexture.FWidth;
+      ATexture.FQuad.V[2].Y   := AY + ATexture.FHeight;
+      ATexture.FQuad.V[3].X   := AX;
+      ATexture.FQuad.V[3].Y   := AY + ATexture.FHeight;
+      ATexture.FQuad.V[0].Col := SetA(ATexture.FQuad.V[0].Col, AAlpha);
+      ATexture.FQuad.V[1].Col := SetA(ATexture.FQuad.V[1].Col, AAlpha);
+      ATexture.FQuad.V[2].Col := SetA(ATexture.FQuad.V[2].Col, AAlpha);
+      ATexture.FQuad.V[3].Col := SetA(ATexture.FQuad.V[3].Col, AAlpha);
+      ATexture.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(ATexture.FQuad);
+      ATexture.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::GRAYSCALE::2');
+  end;
+end;
+
+procedure TMir3_FileManager.DrawTextureGrayScaleStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+var
+  FOldQuad : THGEQuad;
+  FImage   : TMir3_Texture;
+begin
+  try
+    FImage := GetImageD3DDirect(ATextureID, AFileID).ihD3DTexture;
+    if Assigned(FImage) then
+    begin
+      FImage.ColorToGray; 
+      FOldQuad := FImage.FQuad;
+      FImage.FlipQuadTexture(FLIP_TO_GRAY_SCALE);
+      FImage.FQuad.V[0].X   := AX;
+      FImage.FQuad.V[0].Y   := AY;
+      FImage.FQuad.V[1].X   := AX + FImage.FWidth  * ARateX;
+      FImage.FQuad.V[1].Y   := AY;
+      FImage.FQuad.V[2].X   := AX + FImage.FWidth  * ARateX;
+      FImage.FQuad.V[2].Y   := AY + FImage.FHeight * ARateY;
+      FImage.FQuad.V[3].X   := AX;
+      FImage.FQuad.V[3].Y   := AY + FImage.FHeight * ARateY;
+      FImage.FQuad.V[0].Col := SetA(FImage.FQuad.V[0].Col, AAlpha);
+      FImage.FQuad.V[1].Col := SetA(FImage.FQuad.V[1].Col, AAlpha);
+      FImage.FQuad.V[2].Col := SetA(FImage.FQuad.V[2].Col, AAlpha);
+      FImage.FQuad.V[3].Col := SetA(FImage.FQuad.V[3].Col, AAlpha);
+      FImage.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(FImage.FQuad);
+      FImage.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::TEXTURE::STRETCH::1::TEXTUREID('+IntToStr(ATextureID)+')-FILEID('+ IntToStr(AFileID) +')');
+  end;  
+end;
+
+procedure TMir3_FileManager.DrawTextureGrayScaleStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);  
+var
+  FOldQuad : THGEQuad;
+begin
+  try
+    if Assigned(ATexture) then
+    begin
+      ATexture.ColorToGray; 
+      FOldQuad := ATexture.FQuad;
+      ATexture.FlipQuadTexture(FLIP_TO_GRAY_SCALE);
+      ATexture.FQuad.V[0].X   := AX;
+      ATexture.FQuad.V[0].Y   := AY;
+      ATexture.FQuad.V[1].X   := AX + ATexture.FWidth  * ARateX;
+      ATexture.FQuad.V[1].Y   := AY;
+      ATexture.FQuad.V[2].X   := AX + ATexture.FWidth  * ARateX;
+      ATexture.FQuad.V[2].Y   := AY + ATexture.FHeight * ARateY;
+      ATexture.FQuad.V[3].X   := AX;
+      ATexture.FQuad.V[3].Y   := AY + ATexture.FHeight * ARateY;
+      ATexture.FQuad.V[0].Col := SetA(ATexture.FQuad.V[0].Col, AAlpha);
+      ATexture.FQuad.V[1].Col := SetA(ATexture.FQuad.V[1].Col, AAlpha);
+      ATexture.FQuad.V[2].Col := SetA(ATexture.FQuad.V[2].Col, AAlpha);
+      ATexture.FQuad.V[3].Col := SetA(ATexture.FQuad.V[3].Col, AAlpha);
+      ATexture.FQuad.Blend    := ABlendMode;
+      GRenderEngine.Gfx_RenderQuad(ATexture.FQuad);
+      ATexture.FQuad := FOldQuad;
+    end;
+  except
+    GRenderEngine.System_Log('ERROR::DRAW::TEXTURE::GREYSCALE::STRETCH::2');
+  end;  
+end;
+
+
+
+
+
 
  { TMir3_FileCashManager }
 

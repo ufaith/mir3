@@ -173,10 +173,10 @@ begin
     72: Value := 'Character creation failure - Error code 4';
     73: Value := 'Unknown errors have occurred.\Please visit www.lomcn.org\for more information.';
     74: Value := 'An error has occurred while deleting\your character.';
-    75: Value := 'Start Game¦CE¦';
-    76: Value := 'New Character¦CE¦';
-    77: Value := 'Delete Character¦CE¦';
-    78: Value := 'Exit¦CE¦';
+    75: Value := 'Start Game';//¦CE¦';
+    76: Value := 'New Character';//¦CE¦';
+    77: Value := 'Delete Character';//¦CE¦';
+    78: Value := 'Exit';//¦CE¦';
     79: Value := 'Confirm';                       //Button Text
     80: Value := 'Cancel';                        //Button Text
     (*******************************************************************
@@ -193,7 +193,9 @@ begin
     88: Value := 'Auto-Features';
     89: Value := 'Exit';
     90: Value := 'Close';
-    91..100 : Value := 'Reserved';
+    91: Value := 'Set 2nd Password';//¦CE¦';
+    92: Value := 'Character Selection';
+    93..100 : Value := 'Reserved';
     {Game Settings}
     101: Value := 'Basic';
     102: Value := 'Security'; //'Permissions'; //'Privileges'; // SE: Security should fit! //'Permit';

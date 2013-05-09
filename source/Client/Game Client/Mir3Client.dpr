@@ -11,7 +11,6 @@ uses
   mir3_game_engine_def in 'GameEngine\mir3_game_engine_def.pas',
   mir3_game_file_manager in 'GameEngine\mir3_game_file_manager.pas',
   mir3_game_file_manager_const in 'GameEngine\mir3_game_file_manager_const.pas',
-  mir3_game_sound in 'GameEngine\mir3_game_sound.pas',
   mir3_game_actor in 'GameInternal\mir3_game_actor.pas',
   mir3_game_actor_action in 'GameInternal\mir3_game_actor_action.pas',
   mir3_game_language_engine in 'GameInternal\mir3_game_language_engine.pas',
@@ -24,7 +23,8 @@ uses
   mir3_global_config in '..\..\Common\mir3_global_config.pas',
   mir3_game_map_framework in 'GameInternal\mir3_game_map_framework.pas',
   mir3_misc_ingame in 'GameCommon\mir3_misc_ingame.pas',
-  mir3_game_scene_logon_info in 'GameScene\mir3_game_scene_logon_info.pas';
+  mir3_game_scene_logon_info in 'GameScene\mir3_game_scene_logon_info.pas',
+  mir3_game_sound_engine in 'GameEngine\mir3_game_sound_engine.pas';
 
 {$R Mir3Client.res}
 

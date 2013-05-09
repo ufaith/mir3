@@ -41,7 +41,7 @@ uses
 {Delphi }  Windows, SysUtils, Classes,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
 {Game   }  mir3_game_socket, mir3_game_en_decode, mir3_game_language_engine, mir3_game_map_framework,
-{Game   }  mir3_game_gui_definition, mir3_core_controls, mir3_global_config, mir3_game_sound,
+{Game   }  mir3_game_gui_definition, mir3_core_controls, mir3_global_config, mir3_game_sound_engine,
 {Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils,
 {Game   }  mir3_game_actor;
 

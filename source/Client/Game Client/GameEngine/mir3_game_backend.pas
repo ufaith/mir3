@@ -41,7 +41,7 @@ interface
 uses
 {Delphi }  Windows, Messages, Classes, SysUtils, Math,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
-{Game   }  mir3_game_socket, mir3_game_engine, mir3_global_config, mir3_core_controls, mir3_game_sound, mir3_game_file_manager,
+{Game   }  mir3_game_socket, mir3_game_engine, mir3_global_config, mir3_core_controls, mir3_game_sound_engine, mir3_game_file_manager,
 {Game   }  mir3_game_file_manager_const, mir3_game_language_engine, mir3_misc_utils, mir3_game_font_engine,
 {Game   }  mir3_game_en_decode,
 {Scene  }  mir3_game_scene_logon_info, mir3_game_scene_logon, mir3_game_scene_selectchar, mir3_game_scene_ingame;
@@ -307,6 +307,9 @@ implementation
           Result := True
         else Result := False;
       end;
+
+      FGameSoundEngine := TMir3_Sound_Engine.Create;
+
       {$IFDEF TEST_LANGUAGE_FILE}
         {$IFDEF CHECK_ENGLISH}
           //Debug English

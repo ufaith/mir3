@@ -38,7 +38,7 @@ uses
 {Delphi }  Windows, SysUtils, Classes, Math,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
 {Game   }  mir3_game_socket, mir3_game_en_decode, mir3_game_language_engine,
-{Game   }  mir3_game_gui_definition, mir3_core_controls, mir3_global_config, mir3_game_sound,
+{Game   }  mir3_game_gui_definition, mir3_core_controls, mir3_global_config, mir3_game_sound_engine,
 {Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils;
 
 { Callback Functions }
@@ -48,7 +48,7 @@ procedure SelectCharGUIHotKeyEvent(AChar: LongWord); stdcall;
 type
   TMir3GameSceneSelectChar = class(TMIR3_GUI_Manager)
   strict private
-    FCharacterList    : array [0..2] of TMir3Character;
+    FCharacterList    : array [0..3] of TMir3Character;
     FCharacterInfo    : TMir3Character;
     FLastMessageError : Integer;
   public
@@ -127,15 +127,88 @@ uses mir3_game_backend;
         case FScreen_Width of
            800 : begin
              FSelectForm  := TMIR3_GUI_Form(Self.AddForm(FSelectChar_Background_800,  True));
-             Self.AddControl(FSelectForm, FSelectChar_Animation_800    , True);
+             Self.AddControl(FSelectForm, FSelectChar_Animation_1_800  , True);
+             Self.AddControl(FSelectForm, FSelectChar_Animation_2_800  , True);
              Self.AddControl(FSelectForm, FSelectChar_Character_1_800  , True);
              Self.AddControl(FSelectForm, FSelectChar_Character_2_800  , True);
              Self.AddControl(FSelectForm, FSelectChar_Character_3_800  , True);
              Self.AddControl(FSelectForm, FSelectChar_Character_4_800  , True);
+
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Top_800    , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Bottom_800 , True);
+
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Start_800       , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Exit_800        , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Delete_Char_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_New_Char_800    , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Set2ndPassword_800, True);
+
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_1_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_2_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_3_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_4_800 , True);
+
+
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_1_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_2_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_3_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_4_800 , True);
+
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_1_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_2_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_3_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_4_800 , True);
+
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_1_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_2_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_3_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_4_800 , True);
+
+
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1)).Caption := 'Kaito';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_2)).Caption := 'Clementina';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_3)).Caption := 'Coly';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_4)).Caption := 'Tester';
+
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1)).Caption := 'Level : 1000';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_2)).Caption := 'Level : 100';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_3)).Caption := 'Level : 9';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_4)).Caption := 'Level : 10000';
+
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1)).Caption := 'Class : Taoist';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_2)).Caption := 'Class : Warrior';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_3)).Caption := 'Class : Wizzard';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_4)).Caption := 'Class : Assassin';
+
+             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).Selected := True;
+
+             FCharacterList[0].Char_Job    := 2;
+             FCharacterList[0].Char_Gender := 0;
+             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).CharacterInfo := FCharacterList[0];
+             FCharacterList[1].Char_Job    := 0;
+             FCharacterList[1].Char_Gender := 1;
+             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_2)).CharacterInfo := FCharacterList[1];
+             FCharacterList[2].Char_Job    := 1;
+             FCharacterList[2].Char_Gender := 0;
+             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_3)).CharacterInfo := FCharacterList[2];
+             FCharacterList[3].Char_Job    := 3;
+             FCharacterList[3].Char_Gender := 0;
+             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)).CharacterInfo := FCharacterList[3];
            end;
           1024 : begin
              FSelectForm  := TMIR3_GUI_Form(Self.AddForm(FSelectChar_Background_1024, True));
-             Self.AddControl(FSelectForm, FSelectChar_Animation_1024, True);
+             Self.AddControl(FSelectForm, FSelectChar_Animation_1_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Animation_2_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Character_1_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Character_2_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Character_3_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Character_4_1024 , True);
+
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Top_1024   , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Bottom_1024, True);
+
+             Self.AddControl(FSelectForm, FSelectChar_Button_Start_1024, True);
+
            end;
         end;
       end;
@@ -192,8 +265,8 @@ uses mir3_game_backend;
     begin
       GGameEngine.SoundManager.StopBackgroundMusic;
       // Reset all Game Vars
-      GGameEngine.SoundManager.PlayBackgroundMusic('SelChr.wav');
-      ZeroMemory(@FCharacterList, SizeOf(TMir3Character)*3);
+      GGameEngine.SoundManager.PlayBackgroundMusic('SelChr.wav', True);
+      ZeroMemory(@FCharacterList, SizeOf(TMir3Character)*4);
     end;
   {$ENDREGION}
 
@@ -277,7 +350,7 @@ uses mir3_game_backend;
       I : Integer;
     begin
       Result := 0;
-      for I := 0 to 2 do
+      for I := 0 to 3 do
       begin
         if Trim(FCharacterList[I].Char_Name) <> '' then
         begin
@@ -291,7 +364,7 @@ uses mir3_game_backend;
       I : Integer;
     begin
       Result := -1;
-      for I := 0 to 2 do
+      for I := 0 to 3 do
       begin
         if ATestWithDelete then
         begin
@@ -311,13 +384,29 @@ uses mir3_game_backend;
     end;
 
     procedure TMir3GameSceneSelectChar.UpdateSelectCharacter(ASelectedChar: Integer);
+    var
+      I : Integer;
     begin
       FCharacterList[0].Char_Select := False;
       FCharacterList[1].Char_Select := False;
       FCharacterList[2].Char_Select := False;
+      FCharacterList[3].Char_Select := False;
+      // Reset Selection Color
+      for I := 0 to 3 do
+        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1+I)).FGUI_Definition.gui_Font.gui_Font_Color := $FF989898;
+      for I := 0 to 3 do
+        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1+I)).FGUI_Definition.gui_Font.gui_Font_Color := $FF989898;
+      for I := 0 to 3 do
+        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1+I)).FGUI_Definition.gui_Font.gui_Font_Color := $FF989898;
+
       case ASelectedChar of
         0 : begin
           FCharacterList[0].Char_Select := True;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1)).FGUI_Definition.gui_Font.gui_Font_Color  := $FFFFFFFF;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
+
+
 //          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_INFO)).Caption  := PWideChar(String(FCharacterList[0].Char_Name));
 //          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := PWideChar(GetClassAsString(FCharacterList[0].Char_Job));
 //          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := PWideChar(IntToStr(FCharacterList[0].Char_Level));
@@ -326,25 +415,28 @@ uses mir3_game_backend;
           TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).Selected   := True;
           case FCharacterList[0].Char_Job of
             C_WARRIOR  : case FCharacterList[0].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'JMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'JWMSel.wav');
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('JMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('JWMSel.wav');
                          end;
             C_WIZZARD  : case FCharacterList[0].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'SMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'SWMSel.wav');
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('SMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('SWMSel.wav');
                          end;
             C_TAOIST   : case FCharacterList[0].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'DMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'DWMSel.wav');
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('DMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('DWMSel.wav');
                          end;
             C_ASSASSIN : case FCharacterList[0].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'as_168-m.wav');  //fix me with correct Sound
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'as_168-f.wav');  //fix me with correct Sound
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('as_168-m.wav');  //fix me with correct Sound
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('as_168-f.wav');  //fix me with correct Sound
                          end;
           end;
         end;
         1 : begin
           FCharacterList[1].Char_Select := True;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_2)).FGUI_Definition.gui_Font.gui_Font_Color  := $FFFFFFFF;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_2)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_2)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
 //          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_INFO)).Caption  := PWideChar(String(FCharacterList[1].Char_Name));
 //          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := PWideChar(GetClassAsString(FCharacterList[1].Char_Job));
 //          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := PWideChar(IntToStr(FCharacterList[1].Char_Level));
@@ -353,25 +445,28 @@ uses mir3_game_backend;
           TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_2)).Selected   := True;
           case FCharacterList[1].Char_Job of
             C_WARRIOR  : case FCharacterList[1].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'JMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'JWMSel.wav');
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('JMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('JWMSel.wav');
                          end;
             C_WIZZARD  : case FCharacterList[1].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'SMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'SWMSel.wav');
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('SMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('SWMSel.wav');
                          end;
             C_TAOIST   : case FCharacterList[1].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'DMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'DWMSel.wav');
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('DMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('DWMSel.wav');
                          end;
             C_ASSASSIN : case FCharacterList[1].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'as_168-m.wav'); //fix me with correct Sound
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'as_168-f.wav'); //fix me with correct Sound
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('as_168-m.wav'); //fix me with correct Sound
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('as_168-f.wav'); //fix me with correct Sound
                          end;
           end;
         end;
         2 : begin
           FCharacterList[2].Char_Select := True;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_3)).FGUI_Definition.gui_Font.gui_Font_Color  := $FFFFFFFF;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_3)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_3)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
 //          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_INFO)).Caption  := PWideChar(String(FCharacterList[2].Char_Name));
 //          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := PWideChar(GetClassAsString(FCharacterList[2].Char_Job));
 //          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := PWideChar(IntToStr(FCharacterList[2].Char_Level));
@@ -380,20 +475,51 @@ uses mir3_game_backend;
           TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_3)).Selected   := True;
           case FCharacterList[2].Char_Job of
             C_WARRIOR  : case FCharacterList[2].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'JMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'JWMSel.wav');
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('JMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('JWMSel.wav');
                          end;
             C_WIZZARD  : case FCharacterList[2].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'SMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'SWMSel.wav');
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('SMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('SWMSel.wav');
                          end;
             C_TAOIST   : case FCharacterList[2].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'DMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'DWMSel.wav');
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('DMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('DWMSel.wav');
                          end;
             C_ASSASSIN : case FCharacterList[2].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound(ftWav, 'as_168-m.wav'); //fix me with correct Sound
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound(ftWav, 'as_168-f.wav'); //fix me with correct Sound
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('as_168-m.wav'); //fix me with correct Sound
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('as_168-f.wav'); //fix me with correct Sound
+                         end;
+          end;
+        end;
+        3 : begin
+          FCharacterList[3].Char_Select := True;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_4)).FGUI_Definition.gui_Font.gui_Font_Color  := $FFFFFFFF;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_4)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_4)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
+
+//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_INFO)).Caption  := PWideChar(String(FCharacterList[2].Char_Name));
+//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := PWideChar(GetClassAsString(FCharacterList[2].Char_Job));
+//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := PWideChar(IntToStr(FCharacterList[2].Char_Level));
+//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_GOLD_INFO)).Caption  := PWideChar(IntToStr(FCharacterList[2].Char_Gold));
+//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := PWideChar(String(FCharacterList[2].Char_Exp + '%'));
+          TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)).Selected   := True;
+          case FCharacterList[3].Char_Job of
+            C_WARRIOR  : case FCharacterList[3].Char_Gender of
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('JMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('JWMSel.wav');
+                         end;
+            C_WIZZARD  : case FCharacterList[3].Char_Gender of
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('SMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('SWMSel.wav');
+                         end;
+            C_TAOIST   : case FCharacterList[3].Char_Gender of
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('DMMSel.wav');
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('DWMSel.wav');
+                         end;
+            C_ASSASSIN : case FCharacterList[3].Char_Gender of
+                           C_MALE   : GGameEngine.SoundManager.PlaySound('as_168-m.wav'); //fix me with correct Sound
+                           C_FEMALE : GGameEngine.SoundManager.PlaySound('as_168-f.wav'); //fix me with correct Sound
                          end;
           end;
         end;
@@ -583,6 +709,10 @@ uses mir3_game_backend;
           begin
             ResetSelection(False);
           end;
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)) do
+          begin
+            ResetSelection(False);
+          end;
           UpdateSelectCharacter(0);
         end;
         GUI_ID_SELECTCHAR_CHARACTER_2 : begin
@@ -595,6 +725,10 @@ uses mir3_game_backend;
             ResetSelection(True);
           end;
           with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_3)) do
+          begin
+            ResetSelection(False);
+          end;
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)) do
           begin
             ResetSelection(False);
           end;
@@ -613,7 +747,30 @@ uses mir3_game_backend;
           begin
             ResetSelection(True);
           end;
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)) do
+          begin
+            ResetSelection(False);
+          end;
           UpdateSelectCharacter(2);
+        end;
+        GUI_ID_SELECTCHAR_CHARACTER_4 : begin
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)) do
+          begin
+            ResetSelection(False);
+          end;
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_2)) do
+          begin
+            ResetSelection(False);
+          end;
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_3)) do
+          begin
+            ResetSelection(False);
+          end;
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)) do
+          begin
+            ResetSelection(True);
+          end;
+          UpdateSelectCharacter(3);
         end;
         ////////////  Create Char ////////////////////////////////////////////////
         GUI_ID_CREATECHAR_CHARACTER_MALE   : begin
@@ -820,6 +977,7 @@ uses mir3_game_backend;
             GUI_ID_SELECTCHAR_CHARACTER_1        : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_SELECTCHAR_CHARACTER_1);
             GUI_ID_SELECTCHAR_CHARACTER_2        : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_SELECTCHAR_CHARACTER_2);
             GUI_ID_SELECTCHAR_CHARACTER_3        : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_SELECTCHAR_CHARACTER_3);
+            GUI_ID_SELECTCHAR_CHARACTER_4        : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_SELECTCHAR_CHARACTER_4);
             {$ENDREGION}
             {$REGION ' - Create Char   - EVENT_BUTTON_CLICKED '}
             GUI_ID_CREATECHAR_CHARACTER_MALE     : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_CREATECHAR_CHARACTER_MALE);

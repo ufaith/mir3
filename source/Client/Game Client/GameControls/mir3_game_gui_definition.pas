@@ -99,19 +99,35 @@ const
 
   (* SelectChar Control IDs *)
   {$REGION ' - SelectChar Control IDs             '}
-  GUI_ID_SELECTCHAR_BACKGROUND                    = 150;
-  GUI_ID_SELECTCHAR_CHARACTER                     = 151;   // Helper Field, don't change it
-  GUI_ID_SELECTCHAR_CHARACTER_1                   = 151;
-  GUI_ID_SELECTCHAR_CHARACTER_2                   = 152;
-  GUI_ID_SELECTCHAR_CHARACTER_3                   = 153;
-  GUI_ID_SELECTCHAR_BUTTON_START                  = 154;
-  GUI_ID_SELECTCHAR_BUTTON_EXIT                   = 155;
-  GUI_ID_SELECTCHAR_BUTTON_DELETE_CHAR            = 156;
-  GUI_ID_SELECTCHAR_BUTTON_NEW_CHAR               = 157;
-  GUI_ID_SELECTCHAR_INFO_PANEL                    = 158;
-  GUI_ID_SELECTCHAR_INFO_NAME                     = 159;
-  GUI_ID_SELECTCHAR_INFO_CLASS                    = 160;
-  GUI_ID_SELECTCHAR_INFO_LEVEL                    = 161;
+  GUI_ID_SELECTCHAR_BACKGROUND                    = 140;
+  GUI_ID_SELECTCHAR_CHARACTER                     = 141;   // Helper Field, don't change it
+  GUI_ID_SELECTCHAR_CHARACTER_1                   = 141;
+  GUI_ID_SELECTCHAR_CHARACTER_2                   = 142;
+  GUI_ID_SELECTCHAR_CHARACTER_3                   = 143;
+  GUI_ID_SELECTCHAR_CHARACTER_4                   = 144;
+  GUI_ID_SELECTCHAR_ANIMATION                     = 145;
+  GUI_ID_SELECTCHAR_BUTTON_START                  = 146;
+  GUI_ID_SELECTCHAR_BUTTON_EXIT                   = 147;
+  GUI_ID_SELECTCHAR_BUTTON_DELETE_CHAR            = 148;
+  GUI_ID_SELECTCHAR_BUTTON_NEW_CHAR               = 149;
+  GUI_ID_SELECTCHAR_BUTTON_SET_2ND_PASSWORD       = 150;
+  GUI_ID_SELECTCHAR_INFO_PANEL                    = 151;
+  GUI_ID_SELECTCHAR_INFO_PANEL_TOP                = 154;
+  GUI_ID_SELECTCHAR_INFO_PANEL_BOTTOM             = 155;
+  GUI_ID_SELECTCHAR_INFO_NAME_1                   = 156;
+  GUI_ID_SELECTCHAR_INFO_NAME_2                   = 157; 
+  GUI_ID_SELECTCHAR_INFO_NAME_3                   = 158; 
+  GUI_ID_SELECTCHAR_INFO_NAME_4                   = 159; 
+  GUI_ID_SELECTCHAR_INFO_CLASS_1                  = 160;
+  GUI_ID_SELECTCHAR_INFO_CLASS_2                  = 161;
+  GUI_ID_SELECTCHAR_INFO_CLASS_3                  = 162;
+  GUI_ID_SELECTCHAR_INFO_CLASS_4                  = 163;
+  GUI_ID_SELECTCHAR_INFO_LEVEL_1                  = 164;
+  GUI_ID_SELECTCHAR_INFO_LEVEL_2                  = 165;
+  GUI_ID_SELECTCHAR_INFO_LEVEL_3                  = 166;
+  GUI_ID_SELECTCHAR_INFO_LEVEL_4                  = 167;
+  
+
   GUI_ID_SELECTCHAR_INFO_GOLD                     = 162;
   GUI_ID_SELECTCHAR_INFO_EXP                      = 163;
   GUI_ID_SELECTCHAR_INFO_NAME_INFO                = 164;
@@ -119,7 +135,7 @@ const
   GUI_ID_SELECTCHAR_INFO_LEVEL_INFO               = 166;
   GUI_ID_SELECTCHAR_INFO_GOLD_INFO                = 167;
   GUI_ID_SELECTCHAR_INFO_EXP_INFO                 = 168;
-  GUI_ID_SELECTCHAR_ANIMATION_1                   = 169;
+ 
   {$ENDREGION}
 
   (* CreateChar Control IDs *)
@@ -790,31 +806,58 @@ type
     (* Select Char Scene *)
     {$REGION ' - Select Char and Create Char Scene             '}
     FSelectChar_Background_800           : TMir3_GUI_Ground_Info;  //used for Select Char background texture and Contols Placeholder
-      FSelectChar_Animation_800          : TMir3_GUI_Ground_Info;  // Fire Animation
+      FSelectChar_Animation_1_800        : TMir3_GUI_Ground_Info;  // Fire Animation
+      FSelectChar_Animation_2_800        : TMir3_GUI_Ground_Info;  // Ambient Animation
       FSelectChar_Character_1_800        : TMir3_GUI_Ground_Info;  // Character View 1
       FSelectChar_Character_2_800        : TMir3_GUI_Ground_Info;  // Character View 2
       FSelectChar_Character_3_800        : TMir3_GUI_Ground_Info;  // Character View 3
       FSelectChar_Character_4_800        : TMir3_GUI_Ground_Info;  // Character View 4
-      FSelectChar_Button_Start           : TMir3_GUI_Ground_Info;  // Start Game
-      FSelectChar_Button_Exit            : TMir3_GUI_Ground_Info;  // Exit Game
-      FSelectChar_Button_Delete_Char     : TMir3_GUI_Ground_Info;  // Delete old Char
-      FSelectChar_Button_New_Char        : TMir3_GUI_Ground_Info;  // Create new Char
+      FSelectChar_Panel_Top_800          : TMir3_GUI_Ground_Info;  //
+      FSelectChar_Panel_Bottom_800       : TMir3_GUI_Ground_Info;  //
+      FSelectChar_Btn_Start_800          : TMir3_GUI_Ground_Info;  // Start Game
+      FSelectChar_Btn_Exit_800           : TMir3_GUI_Ground_Info;  // Exit Game
+      FSelectChar_Btn_Delete_Char_800    : TMir3_GUI_Ground_Info;  // Delete old Char
+      FSelectChar_Btn_New_Char_800       : TMir3_GUI_Ground_Info;  // Create new Char
+      FSelectChar_Btn_Set2ndPassword_800 : TMir3_GUI_Ground_Info;  // Create new Char
+      FSelectChar_Panel_Char_1_800       : TMir3_GUI_Ground_Info;  // Info
+      FSelectChar_Panel_Char_2_800       : TMir3_GUI_Ground_Info;  // Info
+      FSelectChar_Panel_Char_3_800       : TMir3_GUI_Ground_Info;  // Info
+      FSelectChar_Panel_Char_4_800       : TMir3_GUI_Ground_Info;  // Info
+
       // Character Info
-      FSelectChar_Dialog_Text            : TMir3_GUI_Ground_Info;  // Info Background
-      FSelectChar_Dialog_Name            : TMir3_GUI_Ground_Info;  // Character Name Info
-      FSelectChar_Dialog_Level           : TMir3_GUI_Ground_Info;  // Character Level Info
-      FSelectChar_Dialog_Class           : TMir3_GUI_Ground_Info;  // Character Class Info
-      FSelectChar_Dialog_Gold            : TMir3_GUI_Ground_Info;  // Character Gold Info
-      FSelectChar_Dialog_Exp             : TMir3_GUI_Ground_Info;  // Character Exp Info
-      FSelectChar_Dialog_Name_Info       : TMir3_GUI_Ground_Info;  // Character Name Value
-      FSelectChar_Dialog_Level_Info      : TMir3_GUI_Ground_Info;  // Character Level Value
-      FSelectChar_Dialog_Class_Info      : TMir3_GUI_Ground_Info;  // Character Class Value
-      FSelectChar_Dialog_Gold_Info       : TMir3_GUI_Ground_Info;  // Character Gold Value
-      FSelectChar_Dialog_Exp_Info        : TMir3_GUI_Ground_Info;  // Character Exp Value
+      // Name for Char 1 - 4
+      FSelectChar_Dialog_Name_1_800      : TMir3_GUI_Ground_Info;  // Character Name Info
+      FSelectChar_Dialog_Name_2_800      : TMir3_GUI_Ground_Info;  // Character Name Info
+      FSelectChar_Dialog_Name_3_800      : TMir3_GUI_Ground_Info;  // Character Name Info
+      FSelectChar_Dialog_Name_4_800      : TMir3_GUI_Ground_Info;  // Character Name Info
+      // Level for Char 1 - 4
+      FSelectChar_Dialog_Level_1_800     : TMir3_GUI_Ground_Info;  // Character Level Info
+      FSelectChar_Dialog_Level_2_800     : TMir3_GUI_Ground_Info;  // Character Level Info
+      FSelectChar_Dialog_Level_3_800     : TMir3_GUI_Ground_Info;  // Character Level Info
+      FSelectChar_Dialog_Level_4_800     : TMir3_GUI_Ground_Info;  // Character Level Info
+      // Class for Char 1 - 4
+      FSelectChar_Dialog_Class_1_800     : TMir3_GUI_Ground_Info;  // Character Class Info
+      FSelectChar_Dialog_Class_2_800     : TMir3_GUI_Ground_Info;  // Character Class Info
+      FSelectChar_Dialog_Class_3_800     : TMir3_GUI_Ground_Info;  // Character Class Info
+      FSelectChar_Dialog_Class_4_800     : TMir3_GUI_Ground_Info;  // Character Class Info
+
 
     // Setup for 1024x768
     FSelectChar_Background_1024          : TMir3_GUI_Ground_Info;  //used for Select Char background texture and Contols Placeholder
-      FSelectChar_Animation_1024         : TMir3_GUI_Ground_Info;  // Fire Animation
+      FSelectChar_Animation_1_1024       : TMir3_GUI_Ground_Info;  // Fire Animation
+      FSelectChar_Animation_2_1024       : TMir3_GUI_Ground_Info;  // Fire Animation
+      FSelectChar_Character_1_1024       : TMir3_GUI_Ground_Info;  // Character View 1
+      FSelectChar_Character_2_1024       : TMir3_GUI_Ground_Info;  // Character View 2
+      FSelectChar_Character_3_1024       : TMir3_GUI_Ground_Info;  // Character View 3
+      FSelectChar_Character_4_1024       : TMir3_GUI_Ground_Info;  // Character View 4
+      FSelectChar_Panel_Top_1024         : TMir3_GUI_Ground_Info;  //
+      FSelectChar_Panel_Bottom_1024      : TMir3_GUI_Ground_Info;  //
+      FSelectChar_Button_Start_1024      : TMir3_GUI_Ground_Info;  // Start Game
+
+      FSelectChar_Panel_Char_1_1024      : TMir3_GUI_Ground_Info;  // Info
+      FSelectChar_Panel_Char_2_1024      : TMir3_GUI_Ground_Info;  // Info
+      FSelectChar_Panel_Char_3_1024      : TMir3_GUI_Ground_Info;  // Info
+      FSelectChar_Panel_Char_4_1024      : TMir3_GUI_Ground_Info;  // Info
 
     (* Create Char Scene *)
     FCreateChar_Background               : TMir3_GUI_Ground_Info;  // used for Create Char background texture and Contols Placeholder
@@ -1852,7 +1895,7 @@ var
                                      {$ENDREGION}
               );
     FLogin_Button_Exit_800           : ({$REGION ' - FLogin_Button_Exit_800               '}
-                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_EXIT; 
+                                     gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_EXIT;
                                      gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
@@ -2297,8 +2340,8 @@ var
                                      gui_Visible                : True                                   
                                      {$ENDREGION}
               );
-    FSelectChar_Animation_800        : ({$REGION ' - FSelectChar_Animation_800           '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_ANIMATION_1;
+    FSelectChar_Animation_1_800      : ({$REGION ' - FSelectChar_Animation_800           '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_ANIMATION;
                                      gui_Type                   : ctPanel;
                                      gui_Form_Type              : ftNone;
                                      gui_Top                    : -30;
@@ -2324,18 +2367,51 @@ var
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
+    FSelectChar_Animation_2_800      : ({$REGION ' - FSelectChar_Animation_800           '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_ANIMATION;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 20;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 600;
+                                     gui_Width                  : 800;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2799;
+                                                                   gui_Animation_Texture_To      : 2815;
+                                                                   gui_Animation_Blend_Mode      : Blend_Add;
+                                                                   gui_Animation_Interval        : 100;
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_Use_Offset_Calc        : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
     FSelectChar_Character_1_800      : ({$REGION ' - FSelectChar_Character_1          '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_1;
                                      gui_Type                   : ctSelectChar;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                     gui_Top                    : 150;
-                                     gui_Left                   : -25;
-                                     gui_Height                 : 200;
-                                     gui_Width                  : 100;
+                                     gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:200);
+                                     gui_Top                    : 200;
+                                     gui_Left                   : -45;
+                                     gui_Height                 : 250;
+                                     gui_Width                  : 120;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
                                      gui_Blend_Size             : 255;
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                    gui_Background_Texture_ID : 201);
+                                     gui_Color                  : (gui_ControlColor : $FFFF0000;
+                                                                   gui_BorderColor  : $FFFF0000);
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_ShowBorder             : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -2344,14 +2420,20 @@ var
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_2;
                                      gui_Type                   : ctSelectChar;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                     gui_Top                    : 150;
-                                     gui_Left                   : 80;
-                                     gui_Height                 : 200;
-                                     gui_Width                  : 100;
+                                     gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:200);
+                                     gui_Top                    : 210;
+                                     gui_Left                   : 120;
+                                     gui_Height                 : 250;
+                                     gui_Width                  : 120;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
                                      gui_Blend_Size             : 255;
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                    gui_Background_Texture_ID : 201);
+                                     gui_Color                  : (gui_ControlColor : $FFFF0000;
+                                                                   gui_BorderColor  : $FFFF00FF);
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_ShowBorder             : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                      {$ENDREGION}
@@ -2360,312 +2442,534 @@ var
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_3;
                                      gui_Type                   : ctSelectChar;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                     gui_Top                    : 150;
-                                     gui_Left                   : 100;
-                                     gui_Height                 : 200;
-                                     gui_Width                  : 100;
+                                     gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:200);
+                                     gui_Top                    : 210;
+                                     gui_Left                   : 265;
+                                     gui_Height                 : 260;
+                                     gui_Width                  : 120;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
                                      gui_Blend_Size             : 255;
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                    gui_Background_Texture_ID : 201);
+                                     gui_Color                  : (gui_ControlColor : $FFFF0000;
+                                                                   gui_BorderColor  : $FFFF0000);
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_ShowBorder             : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                      {$ENDREGION}
               );
     FSelectChar_Character_4_800      : ({$REGION ' - FSelectChar_Character_4_800          '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_3;
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_4;
                                      gui_Type                   : ctSelectChar;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                     gui_Top                    : 150;
-                                     gui_Left                   : 300;
-                                     gui_Height                 : 200;
-                                     gui_Width                  : 100;
+                                     gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:200);
+                                     gui_Top                    : 210;
+                                     gui_Left                   : 420;
+                                     gui_Height                 : 260;
+                                     gui_Width                  : 120;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
                                      gui_Blend_Size             : 255;
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 201);
+                                                                   gui_Background_Texture_ID : 199);
+                                     gui_Color                  : (gui_ControlColor : $FFFF0000;
+                                                                   gui_BorderColor  : $FFFF00FF);
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_ShowBorder             : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                      {$ENDREGION}
               );
-
-    FSelectChar_Button_Start         : ({$REGION ' - FSelectChar_Button_Start         '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_START;
-                                     gui_Type                   : ctTextButton;
+    FSelectChar_Panel_Top_800        : ({$REGION ' - FSelectChar_Panel_Top_800          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BACKGROUND;
+                                     gui_Type                   : ctPanel;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:92; Bottom:21);
-                                     gui_Top                    : 50;
-                                     gui_Left                   : 365;
-                                     gui_Height                 : 21;
-                                     gui_Width                  : 92;
+                                     gui_WorkField              : (Left:0; Top:0; Right:800; Bottom:80);
+                                     gui_Top                    : 0;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 80;
+                                     gui_Width                  : 800;
+                                     gui_Strech_Rate_X          : 0.7809;
+                                     gui_Strech_Rate_Y          : 0.7809;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_CaptionID              : 92;                                     
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
+                                                                   gui_Font_Color       : $FFBEA97A;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 50);
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Panel_Bottom_800     : ({$REGION ' - FSelectChar_Panel_Bottom_800          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BACKGROUND;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:800; Bottom:600);
+                                     gui_Top                    : 554;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 62;
+                                     gui_Width                  : 800;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 51);
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Btn_Start_800        : ({$REGION ' - FSelectChar_Button_Start         '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_START;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                     gui_Top                    : 520;
+                                     gui_Left                   : 340;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 120;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 75;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
-                                                                   gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFBEA97A;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 56;
+                                                                   gui_Mouse_Over_Texture_ID : 54;
+                                                                   gui_Mouse_Down_Texture_ID : 55);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FSelectChar_Button_Exit          : ({$REGION ' - FSelectChar_Button_Exit          '}
+    FSelectChar_Btn_Exit_800         : ({$REGION ' - FSelectChar_Button_Exit_800          '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_EXIT;
-                                     gui_Type                   : ctTextButton;
+                                     gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:40; Bottom:21);
-                                     gui_Top                    : 476;
-                                     gui_Left                   : 45;
-                                     gui_Height                 : 21;
-                                     gui_Width                  : 40;
+                                     gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:26);
+                                     gui_Top                    : 570;
+                                     gui_Left                   : 12;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 120;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 78;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
-                                                                   gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFBEA97A;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 56;
+                                                                   gui_Mouse_Over_Texture_ID : 54;
+                                                                   gui_Mouse_Down_Texture_ID : 55);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FSelectChar_Button_Delete_Char   : ({$REGION ' - FSelectChar_Button_Delete_Char   '}
+    FSelectChar_Btn_Delete_Char_800  : ({$REGION ' - FSelectChar_Button_Delete_Char_800   '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_DELETE_CHAR;
-                                     gui_Type                   : ctTextButton;
+                                     gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:21);
-                                     gui_Top                    : 289;
-                                     gui_Left                   : 90;
-                                     gui_Height                 : 21;
-                                     gui_Width                  : 100;
+                                     gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:26);
+                                     gui_Top                    : 570;
+                                     gui_Left                   : 410;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 120;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 77;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
-                                                                   gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFBEA97A;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 56;
+                                                                   gui_Mouse_Over_Texture_ID : 54;
+                                                                   gui_Mouse_Down_Texture_ID : 55);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FSelectChar_Button_New_Char      : ({$REGION ' - FSelectChar_Button_New_Char      '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_NEW_CHAR;
-                                     gui_Type                   : ctTextButton;
+    FSelectChar_Btn_New_Char_800     : ({$REGION ' - FSelectChar_Button_New_Char_800      '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_DELETE_CHAR;
+                                     gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:104; Bottom:21);
-                                     gui_Top                    : 135;
-                                     gui_Left                   : 553;
-                                     gui_Height                 : 21;
-                                     gui_Width                  : 104;
+                                     gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:26);
+                                     gui_Top                    : 570;
+                                     gui_Left                   : 270;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 120;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 76;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
-                                                                   gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Setting     : [fsBold];
-                                                                   gui_Font_Script_MouseNormal   : '¦C1c55e02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseOver     : '¦C1c53d02¦¦C2bfbfbf?';
-                                                                   gui_Font_Script_MouseDown     : '¦C1c55e02¦¦C2bfbfbf?');
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFBEA97A;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 56;
+                                                                   gui_Mouse_Over_Texture_ID : 54;
+                                                                   gui_Mouse_Down_Texture_ID : 55);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FSelectChar_Dialog_Text          : ({$REGION ' - FSelectChar_Dialog_Text          '}
+    FSelectChar_Btn_Set2ndPassword_800  : ({$REGION ' - FSelectChar_Button_New_Char_800      '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BUTTON_SET_2ND_PASSWORD;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:26);
+                                     gui_Top                    : 570;
+                                     gui_Left                   : 668;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 120;
+                                     gui_Blend_Size             : 255;
+                                     gui_CaptionID              : 91;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFBEA97A;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                   gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 56;
+                                                                   gui_Mouse_Over_Texture_ID : 54;
+                                                                   gui_Mouse_Down_Texture_ID : 55);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Panel_Char_1_800     : ({$REGION ' - FSelectChar_Panel_Char_1_800          '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL;
                                      gui_Type                   : ctPanel;
                                      gui_Form_Type              : ftNone;
-                                     gui_Top                    : 110;
-                                     gui_Left                   : 105;
-                                     gui_Height                 : 120;
-                                     gui_Width                  : 190;
-                                     gui_Blend_Size             : 240;
-                                     gui_Font                   : (gui_Font_Size    : 20;
-                                                                   gui_Font_Color   : $FFB5D5BD);
-                                     gui_Color                  : (gui_ControlColor : $7F313A19;
-                                                                   gui_BorderColor  : $FF717171);
-                                     gui_ShowBorder             : True;
-                                     gui_ShowPanel              : True;
+                                     gui_Top                    : 160;
+                                     gui_Left                   : 80;
+                                     gui_Height                 : 74;
+                                     gui_Width                  : 184;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 52);
+                                     gui_Use_Strech_Texture     : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
                                      {$ENDREGION}
               );
-    FSelectChar_Dialog_Name          : ({$REGION ' - FSelectChar_Dialog_Name          '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_NAME;
+    FSelectChar_Panel_Char_2_800     : ({$REGION ' - FSelectChar_Panel_Char_2_800          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 160;
+                                     gui_Left                   : 235;
+                                     gui_Height                 : 74;
+                                     gui_Width                  : 184;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 52);
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Panel_Char_3_800     : ({$REGION ' - FSelectChar_Panel_Char_3_800          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 160;
+                                     gui_Left                   : 390;
+                                     gui_Height                 : 74;
+                                     gui_Width                  : 184;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 52);
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Panel_Char_4_800     : ({$REGION ' - FSelectChar_Panel_Char_4_800          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 160;
+                                     gui_Left                   : 545;
+                                     gui_Height                 : 74;
+                                     gui_Width                  : 184;
+                                     gui_Strech_Rate_X          : 0.79;
+                                     gui_Strech_Rate_Y          : 0.79;
+                                     gui_Blend_Size             : 255;
+                                     gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 52);
+                                     gui_Use_Strech_Texture     : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Dialog_Name_1_800    : ({$REGION ' - FSelectChar_Dialog_Name_1_800     '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_NAME_1;
                                      gui_Type                   : ctTextLabel;
                                      gui_Form_Type              : ftNone;
-                                     gui_Top                    : 120;
-                                     gui_Left                   : 105;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 100;
+                                     gui_Top                    : 162;
+                                     gui_Left                   : 83;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size  : 20;
-                                                                   gui_Font_Color : $FFFF8100);
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True  
                                      {$ENDREGION}
               );
-    FSelectChar_Dialog_Level         : ({$REGION ' - FSelectChar_Dialog_Level         '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_LEVEL;
+    FSelectChar_Dialog_Name_2_800    : ({$REGION ' - FSelectChar_Dialog_Name_2_800     '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_NAME_2;
                                      gui_Type                   : ctTextLabel;
                                      gui_Form_Type              : ftNone;
-                                     gui_Top                    : 140;
-                                     gui_Left                   : 105;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 100;
+                                     gui_Top                    : 162;
+                                     gui_Left                   : 238;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size  : 20;
-                                                                   gui_Font_Color : $FFBF7830);
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
+                                     gui_ShowBorder             : True;
+                                     gui_ShowPanel              : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False
+                                     {$ENDREGION}
+              );
+    FSelectChar_Dialog_Name_3_800    : ({$REGION ' - FSelectChar_Dialog_Name_3_800     '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_NAME_3;
+                                     gui_Type                   : ctTextLabel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 162;
+                                     gui_Left                   : 393;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
+                                     gui_ShowBorder             : True;
+                                     gui_ShowPanel              : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False
+                                     {$ENDREGION}
+              );
+    FSelectChar_Dialog_Name_4_800    : ({$REGION ' - FSelectChar_Dialog_Name_4_800     '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_NAME_4;
+                                     gui_Type                   : ctTextLabel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 162;
+                                     gui_Left                   : 548;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
+                                     gui_ShowBorder             : True;
+                                     gui_ShowPanel              : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False
+                                     {$ENDREGION}
+              );
+    FSelectChar_Dialog_Level_1_800   : ({$REGION ' - FSelectChar_Dialog_Level_1_800         '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_LEVEL_1;
+                                     gui_Type                   : ctTextLabel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 186;
+                                     gui_Left                   : 80;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FSelectChar_Dialog_Class         : ({$REGION ' - FSelectChar_Dialog_Class         '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_CLASS;
+    FSelectChar_Dialog_Level_2_800   : ({$REGION ' - FSelectChar_Dialog_Level_2_800         '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_LEVEL_2;
                                      gui_Type                   : ctTextLabel;
                                      gui_Form_Type              : ftNone;
-                                     gui_Top                    : 160;
-                                     gui_Left                   : 105;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 100;
+                                     gui_Top                    : 186;
+                                     gui_Left                   : 235;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size  : 20;
-                                                                   gui_Font_Color : $FFFFA040);
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FSelectChar_Dialog_Gold          : ({$REGION ' - FSelectChar_Dialog_Gold          '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_GOLD;
+    FSelectChar_Dialog_Level_3_800   : ({$REGION ' - FSelectChar_Dialog_Level_3_800         '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_LEVEL_3;
                                      gui_Type                   : ctTextLabel;
                                      gui_Form_Type              : ftNone;
-                                     gui_Top                    : 180;
-                                     gui_Left                   : 105;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 100;
+                                     gui_Top                    : 186;
+                                     gui_Left                   : 390;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : ( gui_Font_Size  : 20;
-                                                                    gui_Font_Color : $FFFFBA73);
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FSelectChar_Dialog_Exp           : ({$REGION ' - FSelectChar_Dialog_Exp           '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_EXP;
+    FSelectChar_Dialog_Level_4_800   : ({$REGION ' - FSelectChar_Dialog_Level_4_800         '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_LEVEL_4;
+                                     gui_Type                   : ctTextLabel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 186;
+                                     gui_Left                   : 545;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
+                                     gui_ShowBorder             : True;
+                                     gui_ShowPanel              : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Dialog_Class_1_800   : ({$REGION ' - FSelectChar_Dialog_Class_1_800         '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_CLASS_1;
                                      gui_Type                   : ctTextLabel;
                                      gui_Form_Type              : ftNone;
                                      gui_Top                    : 200;
-                                     gui_Left                   : 105;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 100;
+                                     gui_Left                   : 80;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : ( gui_Font_Size  : 20;
-                                                                    gui_Font_Color : $FFFFBA73);
-                                     gui_ShowBorder             : True;
-                                     gui_ShowPanel              : True;
-                                     gui_Enabled                : True;
-                                     gui_Visible                : True
-                                     {$ENDREGION}
-              );            
-    FSelectChar_Dialog_Name_Info     : ({$REGION ' - FSelectChar_Dialog_Name_Info     '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_NAME_INFO;
-                                     gui_Type                   : ctTextLabel;
-                                     gui_Form_Type              : ftNone;
-                                     gui_Top                    : 120;
-                                     gui_Left                   : 165;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 100;
-                                     gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size  : 20;
-                                                                   gui_Font_Color : $FFFF8100);
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FSelectChar_Dialog_Level_Info    : ({$REGION ' - FSelectChar_Dialog_Level_Info    '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_LEVEL_INFO;
-                                     gui_Type                   : ctTextLabel;
-                                     gui_Form_Type              : ftNone;
-                                     gui_Top                    : 140;
-                                     gui_Left                   : 165;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 100;
-                                     gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size  : 20;
-                                                                   gui_Font_Color : $FFBF7830);
-                                     gui_ShowBorder             : True;
-                                     gui_ShowPanel              : True;
-                                     gui_Enabled                : True;
-                                     gui_Visible                : True
-                                     {$ENDREGION}
-              );
-    FSelectChar_Dialog_Class_Info    : ({$REGION ' - FSelectChar_Dialog_Class_Info    '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_CLASS_INFO;
-                                     gui_Type                   : ctTextLabel;
-                                     gui_Form_Type              : ftNone;
-                                     gui_Top                    : 160;
-                                     gui_Left                   : 165;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 100;
-                                     gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size  : 20;
-                                                                   gui_Font_Color : $FFFFA040);
-                                     gui_ShowBorder             : True;
-                                     gui_ShowPanel              : True;
-                                     gui_Enabled                : True;
-                                     gui_Visible                : True
-                                     {$ENDREGION}
-              );
-    FSelectChar_Dialog_Gold_Info     : ({$REGION ' - FSelectChar_Dialog_Level_Info    '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_GOLD_INFO;
-                                     gui_Type                   : ctTextLabel;
-                                     gui_Form_Type              : ftNone;
-                                     gui_Top                    : 180;
-                                     gui_Left                   : 165;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 100;
-                                     gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size  : 20;
-                                                                   gui_Font_Color : $FFFFBA73);
-                                     gui_ShowBorder             : True;
-                                     gui_ShowPanel              : True;
-                                     gui_Enabled                : True;
-                                     gui_Visible                : True
-                                     {$ENDREGION}
-              );
-    FSelectChar_Dialog_Exp_Info      : ({$REGION ' - FSelectChar_Dialog_Exp_Info      '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_EXP_INFO;
+    FSelectChar_Dialog_Class_2_800   : ({$REGION ' - FSelectChar_Dialog_Class_2_800         '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_CLASS_2;
                                      gui_Type                   : ctTextLabel;
                                      gui_Form_Type              : ftNone;
                                      gui_Top                    : 200;
-                                     gui_Left                   : 165;
-                                     gui_Height                 : 20;
-                                     gui_Width                  : 100;
+                                     gui_Left                   : 235;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size  : 20;
-                                                                   gui_Font_Color : $FFFFBA73);
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
                                      gui_ShowBorder             : True;
                                      gui_ShowPanel              : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
+    FSelectChar_Dialog_Class_3_800   : ({$REGION ' - FSelectChar_Dialog_Class_3_800         '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_CLASS_3;
+                                     gui_Type                   : ctTextLabel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 200;
+                                     gui_Left                   : 390;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
+                                     gui_ShowBorder             : True;
+                                     gui_ShowPanel              : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Dialog_Class_4_800   : ({$REGION ' - FSelectChar_Dialog_Class_4_800         '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_CLASS_4;
+                                     gui_Type                   : ctTextLabel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 200;
+                                     gui_Left                   : 545;
+                                     gui_Height                 : 24;
+                                     gui_Width                  : 144;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FF989898;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
+                                     gui_ShowBorder             : True;
+                                     gui_ShowPanel              : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+
+
     // 1024
     FSelectChar_Background_1024      : ({$REGION ' - FSelectChar_Background_1024          '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_BACKGROUND;
@@ -2683,8 +2987,8 @@ var
                                      gui_Visible                : True                                   
                                      {$ENDREGION}
               );
-    FSelectChar_Animation_1024       : ({$REGION ' - FSelectChar_Animation_1024           '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_ANIMATION_1;
+    FSelectChar_Animation_1_1024     : ({$REGION ' - FSelectChar_Animation_1024           '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_ANIMATION;
                                      gui_Type                   : ctPanel;
                                      gui_Form_Type              : ftNone;
                                      gui_Top                    : 22;
@@ -2707,6 +3011,95 @@ var
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
+    FSelectChar_Animation_2_1024     : ({$REGION ' - FSelectChar_Animation_1024           '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_ANIMATION;
+                                     gui_Type                   : ctPanel;
+                                     gui_Form_Type              : ftNone;
+                                     gui_Top                    : 22;
+                                     gui_Left                   : 0;
+                                     gui_Height                 : 768;
+                                     gui_Width                  : 1024;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID     : 0);
+                                     gui_Animation              : (
+                                                                   gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Animation_Texture_From    : 2799;
+                                                                   gui_Animation_Texture_To      : 2815;
+                                                                   gui_Animation_Blend_Mode      : Blend_Add;
+                                                                   gui_Animation_Interval        : 100;
+                                                                  );
+                                     gui_Use_Animation_Texture  : True;
+                                     gui_Use_Offset_Calc        : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Character_1_1024     : ({$REGION ' - FSelectChar_Character_1_1024          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_1;
+                                     gui_Type                   : ctSelectChar;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
+                                     gui_Top                    : 150;
+                                     gui_Left                   : -25;
+                                     gui_Height                 : 200;
+                                     gui_Width                  : 100;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 201);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True
+                                     {$ENDREGION}
+              );
+    FSelectChar_Character_2_1024     : ({$REGION ' - FSelectChar_Character_2_1024          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_2;
+                                     gui_Type                   : ctSelectChar;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
+                                     gui_Top                    : 150;
+                                     gui_Left                   : 80;
+                                     gui_Height                 : 200;
+                                     gui_Width                  : 100;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 201);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False 
+                                     {$ENDREGION}
+              );
+    FSelectChar_Character_3_1024     : ({$REGION ' - FSelectChar_Character_3_1024          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_3;
+                                     gui_Type                   : ctSelectChar;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
+                                     gui_Top                    : 150;
+                                     gui_Left                   : 100;
+                                     gui_Height                 : 200;
+                                     gui_Width                  : 100;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 201);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False 
+                                     {$ENDREGION}
+              );
+    FSelectChar_Character_4_1024     : ({$REGION ' - FSelectChar_Character_4_1024          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_CHARACTER_4;
+                                     gui_Type                   : ctSelectChar;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
+                                     gui_Top                    : 150;
+                                     gui_Left                   : 300;
+                                     gui_Height                 : 200;
+                                     gui_Width                  : 100;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Background_Texture_ID : 201);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False 
+                                     {$ENDREGION}
+              );
+
     {$ENDREGION}
 
     {$REGION ' - CreateChar Scene       '}

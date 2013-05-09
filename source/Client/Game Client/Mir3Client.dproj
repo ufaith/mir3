@@ -72,7 +72,7 @@
     <DCCReference Include="GameEngine\mir3_game_file_manager.pas" />
     <DCCReference Include="GameEngine\mir3_game_file_manager_const.pas" />
     <DCCReference Include="GameEngine\mir3_game_font_engine.pas" />
-    <DCCReference Include="GameEngine\mir3_game_sound.pas" />
+    <DCCReference Include="GameEngine\mir3_game_sound_engine.pas" />
     <DCCReference Include="GameInternal\mir3_game_actor.pas" />
     <DCCReference Include="GameInternal\mir3_game_actor_action.pas" />
     <DCCReference Include="GameInternal\mir3_game_language_engine.pas" />
