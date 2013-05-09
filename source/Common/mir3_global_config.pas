@@ -46,7 +46,7 @@ uses
   mir3_game_socket;
 
 const
-  GGameClientVersion             = '0.0.2.1';
+  GGameClientVersion             = '0.0.2.8';
 
   KEY                            = 20100730;
   RUNGATEMAX                     = 20;
