@@ -1,34 +1,34 @@
-(*******************************************************************
- *   LomCN Mir3 Login Scene File 2013                              *
- *                                                                 *
- *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.1                                           *
- *                                                                 *
- *   - File Info -                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- * Change History                                                  *
- *                                                                 *
- *  - 0.0.0.1 [2013-01-01] Coly : first init                       *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- *  - TODO List for this *.pas file -                              *
- *-----------------------------------------------------------------*
- *  if a todo finished, then delete it here...                     *
- *  if you find a global TODO thats need to do, then add it here.. *
- *-----------------------------------------------------------------*
- *                                                                 *
- *  - TODO : -all -fill *.pas header information                   *
- *                 (how to need this file etc.)                    *
- *                                                                 *
- *******************************************************************)
+(*****************************************************************************************
+ *   LomCN Mir3 Login Scene File 2013                                                    *
+ *                                                                                       *
+ *   Web       : http://www.lomcn.co.uk                                                  *
+ *   Version   : 0.0.0.1                                                                 *
+ *                                                                                       *
+ *   - File Info -                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ * Change History                                                                        *
+ *                                                                                       *
+ *  - 0.0.0.1 [2013-05-10] Coly : first init                                             *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ *  - TODO List for this *.pas file -                                                    *
+ *---------------------------------------------------------------------------------------*
+ *  if a todo finished, then delete it here...                                           *
+ *  if you find a global TODO thats need to do, then add it here..                       *
+ *---------------------------------------------------------------------------------------*
+ *                                                                                       *
+ *  - TODO : -all -fill *.pas header information                                         *
+ *                 (how to need this file etc.)                                          *
+ *                                                                                       *
+ *****************************************************************************************)
  
-unit mir3_game_scene_logon;
+unit mir3_game_scene_login;
 
 interface
 
@@ -37,9 +37,10 @@ interface
 uses
 {Delphi }  Windows, SysUtils, Classes,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
-{Game   }  mir3_game_socket, mir3_game_en_decode, mir3_game_language_engine,
-{Game   }  mir3_game_gui_definition, mir3_core_controls, mir3_global_config, mir3_game_sound_engine,
-{Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils;
+{Game   }  mir3_game_socket, mir3_game_en_decode, mir3_game_language_engine, mir3_global_config,
+{Game   }  mir3_game_gui_definition_system, mir3_game_gui_definition_login, mir3_core_controls, 
+{Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils,
+{Game   }  mir3_game_sound_engine;
 
 { Callback Functions }
 procedure LoginGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;

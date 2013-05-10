@@ -45,6 +45,9 @@
     <Borland.ProjectType />
     <BorlandProject>
 <BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters><Parameters Name="RunParams">launcher</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">False</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">0</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">1</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1031</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">LomCN.co.uk</VersionInfoKeys><VersionInfoKeys Name="FileDescription">LomCN Mir3 Client</VersionInfoKeys><VersionInfoKeys Name="FileVersion">0.0.0.1</VersionInfoKeys><VersionInfoKeys Name="InternalName">coly mir3 engine</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright">Illusion Server Team</VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">0.0.0.1</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      
+      
+      
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\D7WinNetworkSocket.bpl">WinSocket Server / Client</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dclsdac105.bpl">SQL Server Data Access Components</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dcldac105.bpl">Devart Data Access Components</Excluded_Packages>
@@ -65,7 +68,13 @@
     <DCCReference Include="GameCommon\mir3_misc_ingame.pas" />
     <DCCReference Include="GameCommon\mir3_misc_utils.pas" />
     <DCCReference Include="GameControls\mir3_core_controls.pas" />
-    <DCCReference Include="GameControls\mir3_game_gui_definition.pas" />
+    <DCCReference Include="GameControls\mir3_game_gui_definition_end_game.pas" />
+    <DCCReference Include="GameControls\mir3_game_gui_definition_in_game.pas" />
+    <DCCReference Include="GameControls\mir3_game_gui_definition_login.pas" />
+    <DCCReference Include="GameControls\mir3_game_gui_definition_logon_info.pas" />
+    <DCCReference Include="GameControls\mir3_game_gui_definition_select_create_char.pas" />
+    <DCCReference Include="GameControls\mir3_game_gui_definition_select_server.pas" />
+    <DCCReference Include="GameControls\mir3_game_gui_definition_system.pas" />
     <DCCReference Include="GameEngine\mir3_game_backend.pas" />
     <DCCReference Include="GameEngine\mir3_game_engine.pas" />
     <DCCReference Include="GameEngine\mir3_game_engine_def.pas" />
@@ -77,10 +86,12 @@
     <DCCReference Include="GameInternal\mir3_game_actor_action.pas" />
     <DCCReference Include="GameInternal\mir3_game_language_engine.pas" />
     <DCCReference Include="GameInternal\mir3_game_map_framework.pas" />
+    <DCCReference Include="GameScene\mir3_game_scene_end_game.pas" />
     <DCCReference Include="GameScene\mir3_game_scene_ingame.pas" />
-    <DCCReference Include="GameScene\mir3_game_scene_logon.pas" />
+    <DCCReference Include="GameScene\mir3_game_scene_login.pas" />
     <DCCReference Include="GameScene\mir3_game_scene_logon_info.pas" />
-    <DCCReference Include="GameScene\mir3_game_scene_selectchar.pas" />
+    <DCCReference Include="GameScene\mir3_game_scene_select_create_char.pas" />
+    <DCCReference Include="GameScene\mir3_game_scene_select_server.pas" />
     <None Include="DevelopmentDefinition.inc" />
     <None Include="TODO_List.txt" />
   </ItemGroup>

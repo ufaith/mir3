@@ -1,0 +1,17 @@
+
+:: 10.05.2013 (Coly) ::
+  * splitt mir3_game_gui_definition file to one for a scene
+   + mir3_game_gui_definition_logon
+   + mir3_game_gui_definition_logon_info
+   + mir3_game_gui_definition_select_server
+   + mir3_game_gui_definition_select_create_char 
+   + mir3_game_gui_definition_in_game
+   + mir3_game_gui_definition_end_game
+   ~ mir3_game_gui_definition (only use for special things... System Menue etc.)
+  
+  * create new scene 
+   + mir3_game_scene_select_server
+   + mir3_game_scene_end_game
+   
+  * adding more things to all scenes
+  * adding support for the new scenes EndGame and SelectSever to the backend system

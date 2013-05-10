@@ -98,7 +98,7 @@ begin
     37: Value := 'Reserved';
     38: Value := 'Reserved';
     39: Value := 'Reserved';
-    40: Value := 'Reserved';
+    40: Value := 'Select Server';
     (*******************************************************************
     *               Character Selection / Creation                     *
     *******************************************************************)

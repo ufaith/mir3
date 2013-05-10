@@ -1,44 +1,44 @@
-(*******************************************************************
- *   LomCN Mir3 Select and Create Character Scene File 2013        *
- *                                                                 *
- *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.1                                           *
- *                                                                 *
- *   - File Info -                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- * Change History                                                  *
- *                                                                 *
- *  - 0.0.0.1 [2013-01-01] Coly : first init                       *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- *  - TODO List for this *.pas file -                              *
- *-----------------------------------------------------------------*
- *  if a todo finished, then delete it here...                     *
- *  if you find a global TODO thats need to do, then add it here.. *
- *-----------------------------------------------------------------*
- *                                                                 *
- *  - TODO : -all -fill *.pas header information                   *
- *                 (how to need this file etc.)                    *
- *                                                                 *
- *******************************************************************)
+(*****************************************************************************************
+ *   LomCN Mir3 Select and Create Scene File 2013                                        *
+ *                                                                                       *
+ *   Web       : http://www.lomcn.co.uk                                                  *
+ *   Version   : 0.0.0.1                                                                 *
+ *                                                                                       *
+ *   - File Info -                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ * Change History                                                                        *
+ *                                                                                       *
+ *  - 0.0.0.1 [2013-05-10] Coly : first init                                             *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ *  - TODO List for this *.pas file -                                                    *
+ *---------------------------------------------------------------------------------------*
+ *  if a todo finished, then delete it here...                                           *
+ *  if you find a global TODO thats need to do, then add it here..                       *
+ *---------------------------------------------------------------------------------------*
+ *                                                                                       *
+ *  - TODO : -all -fill *.pas header information                                         *
+ *                 (how to need this file etc.)                                          *
+ *                                                                                       *
+ *****************************************************************************************)
 
-unit mir3_game_scene_selectchar;
+unit mir3_game_scene_select_create_char;
 
 interface
 
 {$I DevelopmentDefinition.inc}
 
 uses
-{Delphi }  Windows, SysUtils, Classes,
+{Delphi }  Windows, SysUtils, Classes, Math,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
 {Game   }  mir3_game_socket, mir3_game_en_decode, mir3_game_language_engine, mir3_global_config,
-{Game   }  mir3_game_gui_definition, mir3_game_gui_definition_select_create_char, mir3_core_controls, 
+{Game   }  mir3_game_gui_definition_system, mir3_game_gui_definition_select_create_char, mir3_core_controls, 
 {Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils,
 {Game   }  mir3_game_sound_engine;
 
@@ -208,7 +208,7 @@ uses mir3_game_backend;
              Self.AddControl(FSelectForm, FSelectChar_Panel_Top_1024   , True);
              Self.AddControl(FSelectForm, FSelectChar_Panel_Bottom_1024, True);
 
-             Self.AddControl(FSelectForm, FSelectChar_Button_Start_1024, True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Start_800, True);
 
            end;
         end;
@@ -321,19 +321,12 @@ uses mir3_game_backend;
       FCharInfo : TMir3Character;
     begin
       FCharacterInfo.Char_Job := C_WARRIOR;
-      with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_MALE)) do
+      with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER)) do
       begin
         FCharInfo.Char_Job    := C_WARRIOR;
         FCharInfo.Char_Gender := C_MALE;
         CharacterInfo         := FCharInfo;
         ResetSelection(True);
-      end;
-      with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
-      begin
-        FCharInfo.Char_Job    := C_WARRIOR;
-        FCharInfo.Char_Gender := C_FEMALE;
-        CharacterInfo         := FCharInfo;
-        ResetSelection(False);
       end;
     end;
 
@@ -676,7 +669,7 @@ uses mir3_game_backend;
         ZeroMemory(@FCharacterInfo, SizeOf(TMir3Character));
         TMIR3_GUI_Form(GetFormByID(GUI_ID_SELECTCHAR_BACKGROUND)).Visible := False;
         GGameEngine.FGameFileManger.RenderVideo(1);
-        TMIR3_GUI_Form(GetFormByID(GUI_ID_CREATECHAR_BACKGROUND)).Visible := True;
+        //TMIR3_GUI_Form(GetFormByID(GUI_ID_CREATECHAR_BACKGROUND)).Visible := True;
       end else begin
         SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(67), [mbOk], 0);
       end;
@@ -774,125 +767,119 @@ uses mir3_game_backend;
           UpdateSelectCharacter(3);
         end;
         ////////////  Create Char ////////////////////////////////////////////////
-        GUI_ID_CREATECHAR_CHARACTER_MALE   : begin
+        GUI_ID_CREATECHAR_CHARACTER   : begin
           FCharacterInfo.Char_Gender := C_MALE;
-          with GGameEngine.GameLanguage do
-            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(61 + FCharacterInfo.Char_Job), [GetTextFromLangSystem(55)]));
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_MALE)) do
-          begin
-            ResetSelection(True);
-          end;
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
-          begin
-            ResetSelection(False);
-          end;
-        end;
-        GUI_ID_CREATECHAR_CHARACTER_FEMALE : begin
-          FCharacterInfo.Char_Gender := C_FEMALE;
-          with GGameEngine.GameLanguage do
-             TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(61 + FCharacterInfo.Char_Job), [GetTextFromLangSystem(56)]));
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_MALE)) do
-          begin
-            ResetSelection(False);
-          end;
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
+          //with GGameEngine.GameLanguage do
+            //TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(61 + FCharacterInfo.Char_Job), [GetTextFromLangSystem(55)]));
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER)) do
           begin
             ResetSelection(True);
           end;
         end;
+//        GUI_ID_CREATECHAR_CHARACTER_FEMALE : begin
+//          FCharacterInfo.Char_Gender := C_FEMALE;
+//          with GGameEngine.GameLanguage do
+//             TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(61 + FCharacterInfo.Char_Job), [GetTextFromLangSystem(56)]));
+//          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_MALE)) do
+//          begin
+//            ResetSelection(False);
+//          end;
+//          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
+//          begin
+//            ResetSelection(True);
+//          end;
+//        end;
         GUI_ID_CREATECHAR_BUTTON_WARRIOR  : begin
           FCharacterInfo.Char_Job := C_WARRIOR;
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_MALE)) do
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER)) do
           begin
             FCharInfo.Char_Job    := C_WARRIOR;
             FCharInfo.Char_Gender := C_MALE;
             CharacterInfo         := FCharInfo;
             ResetSelection(Selected);
-            if Selected then
-              with GGameEngine.GameLanguage do
-                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(61), [GetTextFromLangSystem(55)]));
+            //if Selected then
+              //with GGameEngine.GameLanguage do
+                //TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(61), [GetTextFromLangSystem(55)]));
           end;
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
-          begin
-            FCharInfo.Char_Job    := C_WARRIOR;
-            FCharInfo.Char_Gender := C_FEMALE;
-            CharacterInfo         := FCharInfo;
-            ResetSelection(Selected);
-            if Selected then
-              with GGameEngine.GameLanguage do
-                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(61), [GetTextFromLangSystem(56)]));
-          end;
+//          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
+//          begin
+//            FCharInfo.Char_Job    := C_WARRIOR;
+//            FCharInfo.Char_Gender := C_FEMALE;
+//            CharacterInfo         := FCharInfo;
+//            ResetSelection(Selected);
+//            if Selected then
+//              with GGameEngine.GameLanguage do
+//                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(61), [GetTextFromLangSystem(56)]));
+//          end;
         end;
         GUI_ID_CREATECHAR_BUTTON_WIZZARD  : begin
           FCharacterInfo.Char_Job := C_WIZZARD;
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_MALE)) do
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER)) do
           begin
             FCharInfo.Char_Job    := C_WIZZARD;
             FCharInfo.Char_Gender := C_MALE;
             CharacterInfo         := FCharInfo;
             ResetSelection(Selected);
-            if Selected then
-              with GGameEngine.GameLanguage do
-                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(62), [GetTextFromLangSystem(55)]));
+            //if Selected then
+              //with GGameEngine.GameLanguage do
+                //TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(62), [GetTextFromLangSystem(55)]));
           end;
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
-          begin
-            FCharInfo.Char_Job    := C_WIZZARD;
-            FCharInfo.Char_Gender := C_FEMALE;
-            CharacterInfo         := FCharInfo;
-            ResetSelection(Selected);
-            if Selected then
-              with GGameEngine.GameLanguage do
-                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(62), [GetTextFromLangSystem(56)]));
-          end;
+//          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
+//          begin
+//            FCharInfo.Char_Job    := C_WIZZARD;
+//            FCharInfo.Char_Gender := C_FEMALE;
+//            CharacterInfo         := FCharInfo;
+//            ResetSelection(Selected);
+//            if Selected then
+//              with GGameEngine.GameLanguage do
+//                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(62), [GetTextFromLangSystem(56)]));
+//          end;
         end;
         GUI_ID_CREATECHAR_BUTTON_TAOIST  : begin
           FCharacterInfo.Char_Job := C_TAOIST;
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_MALE)) do
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER)) do
           begin
             FCharInfo.Char_Job    := C_TAOIST;
             FCharInfo.Char_Gender := C_MALE;
             CharacterInfo         := FCharInfo;
             ResetSelection(Selected);
-            if Selected then
-              with GGameEngine.GameLanguage do
-                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(63), [GetTextFromLangSystem(55)]));
+            //if Selected then
+              //with GGameEngine.GameLanguage do
+                //TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(63), [GetTextFromLangSystem(55)]));
           end;
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
-          begin
-            FCharInfo.Char_Job    := C_TAOIST;
-            FCharInfo.Char_Gender := C_FEMALE;
-            CharacterInfo         := FCharInfo;
-            ResetSelection(Selected);
-            if Selected then
-              with GGameEngine.GameLanguage do
-                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(63), [GetTextFromLangSystem(56)]));
-          end;
+//          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
+//          begin
+//            FCharInfo.Char_Job    := C_TAOIST;
+//            FCharInfo.Char_Gender := C_FEMALE;
+//            CharacterInfo         := FCharInfo;
+//            ResetSelection(Selected);
+//            if Selected then
+//              with GGameEngine.GameLanguage do
+//                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(63), [GetTextFromLangSystem(56)]));
+//          end;
         end;
         GUI_ID_CREATECHAR_BUTTON_ASSASSIN  : begin
           FCharacterInfo.Char_Job := C_ASSASSIN;
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_MALE)) do
+          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER)) do
           begin
             FCharInfo.Char_Job    := C_ASSASSIN;
             FCharInfo.Char_Gender := C_MALE;
             CharacterInfo         := FCharInfo;
             ResetSelection(Selected);
-            if Selected then
-              with GGameEngine.GameLanguage do
-                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(64), [GetTextFromLangSystem(55)]));
+            //if Selected then
+              //with GGameEngine.GameLanguage do
+                //TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(64), [GetTextFromLangSystem(55)]));
           end;
-          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
-          begin
-            FCharInfo.Char_Job    := C_ASSASSIN;
-            FCharInfo.Char_Gender := C_FEMALE;
-            CharacterInfo         := FCharInfo;
-            ResetSelection(Selected);
-            if Selected then
-              with GGameEngine.GameLanguage do
-                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(64), [GetTextFromLangSystem(56)]));
-          end;
-
-          
+//          with TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER_FEMALE)) do
+//          begin
+//            FCharInfo.Char_Job    := C_ASSASSIN;
+//            FCharInfo.Char_Gender := C_FEMALE;
+//            CharacterInfo         := FCharInfo;
+//            ResetSelection(Selected);
+//            if Selected then
+//              with GGameEngine.GameLanguage do
+//                TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(64), [GetTextFromLangSystem(56)]));
+//          end;
         end;
       end;
     end;
@@ -903,7 +890,7 @@ uses mir3_game_backend;
       FCharacterInfo.Char_Hair := RandomRange(0,3);
       FGameEngine.Send_New_Player(FCharacterInfo);
       { Close Create Char Scene and open Select Char Scene }
-      TMIR3_GUI_Form(GetFormByID(GUI_ID_CREATECHAR_BACKGROUND)).Visible := False;
+      //TMIR3_GUI_Form(GetFormByID(GUI_ID_CREATECHAR_BACKGROUND)).Visible := False;
       TMIR3_GUI_Edit(GetComponentByID(GUI_ID_CREATECHAR_EDIT_CHAR_NAME)).ClearText;
       ResetCreateCharScene;
       ResetScene;
@@ -912,7 +899,7 @@ uses mir3_game_backend;
 
     procedure TMir3GameSceneSelectChar.Event_CreateChar_Cancel;
     begin
-      TMIR3_GUI_Form(GetFormByID(GUI_ID_CREATECHAR_BACKGROUND)).Visible := False;
+      //TMIR3_GUI_Form(GetFormByID(GUI_ID_CREATECHAR_BACKGROUND)).Visible := False;
       TMIR3_GUI_Edit(GetComponentByID(GUI_ID_CREATECHAR_EDIT_CHAR_NAME)).ClearText;
       ResetCreateCharScene;
       ResetScene;
@@ -981,8 +968,8 @@ uses mir3_game_backend;
             GUI_ID_SELECTCHAR_CHARACTER_4        : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_SELECTCHAR_CHARACTER_4);
             {$ENDREGION}
             {$REGION ' - Create Char   - EVENT_BUTTON_CLICKED '}
-            GUI_ID_CREATECHAR_CHARACTER_MALE     : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_CREATECHAR_CHARACTER_MALE);
-            GUI_ID_CREATECHAR_CHARACTER_FEMALE   : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_CREATECHAR_CHARACTER_FEMALE);
+            GUI_ID_CREATECHAR_CHARACTER          : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_CREATECHAR_CHARACTER);
+            //GUI_ID_CREATECHAR_CHARACTER_FEMALE   : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_CREATECHAR_CHARACTER_FEMALE);
             GUI_ID_CREATECHAR_BUTTON_WARRIOR     : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_CREATECHAR_BUTTON_WARRIOR);
             GUI_ID_CREATECHAR_BUTTON_WIZZARD     : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_CREATECHAR_BUTTON_WIZZARD);
             GUI_ID_CREATECHAR_BUTTON_TAOIST      : GGameEngine.SceneSelectChar.Event_Select(GUI_ID_CREATECHAR_BUTTON_TAOIST);

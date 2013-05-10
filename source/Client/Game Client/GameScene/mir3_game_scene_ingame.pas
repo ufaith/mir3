@@ -41,9 +41,9 @@ uses
 {Delphi }  Windows, SysUtils, Classes,
 {DirectX}  DXTypes, Direct3D9, D3DX9,
 {Game   }  mir3_game_socket, mir3_game_en_decode, mir3_game_language_engine, mir3_game_map_framework,
-{Game   }  mir3_game_gui_definition, mir3_core_controls, mir3_global_config, mir3_game_sound_engine,
+{Game   }  mir3_game_gui_definition_system, mir3_game_gui_definition_in_game, mir3_core_controls, mir3_global_config,
 {Game   }  mir3_game_file_manager, mir3_game_file_manager_const, mir3_game_engine, mir3_misc_utils,
-{Game   }  mir3_game_actor;
+{Game   }  mir3_game_actor, mir3_game_sound_engine;
 
 
 { Callback Functions }
@@ -79,6 +79,7 @@ type
     FMagicWWTPageActive : Integer;    // Used for War,Wiz,Tao Magic Window (get active Page back)
     FMagicASSPageActive : Integer;    // Used for Assassin Magic Window (get active Page back)
   strict private
+    procedure Create_LoadGame_UI_Interface;
     procedure Create_ExitWindow_UI_Interface;
     procedure Create_Bottm_UI_Interface;
     procedure Create_MenueBar_UI_Interface;
@@ -133,6 +134,20 @@ implementation
 uses mir3_misc_ingame, mir3_game_backend;
 
   {$REGION ' - TMir3GameSceneInGame :: InGame Forms and Controls Constructor '}
+  
+    procedure TMir3GameSceneInGame.Create_LoadGame_UI_Interface;
+    var
+      FLoadGameForm : TMIR3_GUI_Form;
+    begin
+      with FGame_GUI_Definition_InGame do
+      begin
+        { Create Load Game Static Base UI Forms and Controls }
+        FLoadGameForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Load_Game_Background, True));
+        //Self.AddControl(FLoadGameForm, FInGame_UI_Exit_Text_Info  , True);
+        //Self.AddControl(FLoadGameForm, FInGame_UI_Exit_Btn_Exit   , True);
+      end;
+    end;  
+  
     procedure TMir3GameSceneInGame.Create_ExitWindow_UI_Interface;
     var
       FExitWindow  : TMIR3_GUI_Form;
@@ -428,7 +443,7 @@ uses mir3_misc_ingame, mir3_game_backend;
 
       end;
     end;
-
+    
     procedure TMir3GameSceneInGame.Create_GameSetting_UI_Interface;
     var
       FGameSetting  : TMIR3_GUI_Form;
@@ -942,6 +957,9 @@ uses mir3_misc_ingame, mir3_game_backend;
       Create_Magic_UI_Interface;
       (* End Ingame Controls *)
 
+      (* Begin Load Game Controls *)
+      Create_LoadGame_UI_Interface; 
+      (* End Load Game Controls *)
       // Static Elements
       Create_Bottm_UI_Interface;      
       Create_Minimap_UI_Interface;
@@ -1002,7 +1020,14 @@ uses mir3_misc_ingame, mir3_game_backend;
 
     procedure TMir3GameSceneInGame.ResetScene;
     begin
-      GGameEngine.SoundManager.StopBackgroundMusic;
+      if GGameEngine.FGame_Scene_Step = gsScene_LoadGame then
+      begin
+        GGameEngine.SoundManager.StopBackgroundMusic;
+        //HideAllIngameControls;  //Show only the Loading interface
+      end else begin
+        GGameEngine.SoundManager.StopBackgroundMusic;
+        //HideAllLoadControls;    //Show only the Ingame interfaces
+      end;
       // Reset all Game Vars
       // Notice / Load Scene?
     end;

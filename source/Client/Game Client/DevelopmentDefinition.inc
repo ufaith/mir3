@@ -20,8 +20,12 @@
 
 {*$DEFINE DEVELOP_PERFORMANCE_COUNTER}
 
-
+{Set Reseloution}
 {*$DEFINE DEVELOP_1024x768}
+
+{Show FPS in all Scenes}
+{$DEFINE DEVELOP_SHOW_FPS}
 
 (* Set Using Texture Lib*)
 {*$DEFINE DEVELOP_LMT}
+{*$DEFINE DEVELOP_WIL_2} //for later if LMT not good fast (include Wil and Wix in one file)

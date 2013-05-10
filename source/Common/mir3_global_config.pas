@@ -1043,7 +1043,7 @@ type
   TSayMsgType      = (s_NoneMsg, s_GroupMsg, s_GuildMsg, s_SystemMsg, s_NoticeMsg);
   TConnectionStep  = (csLogin, csSelChr, csReSelChr, csNotice, csPlay);
   
-  TMIR3_Game_Scene = (gsNone, gsScene_PlayVideo, gsScene_LogonInfo, gsScene_Login, gsScene_SelChar, gsScene_PlayGame);
+  TMIR3_Game_Scene = (gsNone, gsScene_PlayVideo, gsScene_LogonInfo, gsScene_Login, gsScene_SelServer, gsScene_SelChar, gsScene_LoadGame, gsScene_PlayGame, gsScene_EndGame);
 
 {$REGION ' - Records  '}
 

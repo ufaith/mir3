@@ -2,7 +2,7 @@
  *   LomCN Mir3 Control core File 2012                                                   *
  *                                                                                       *
  *   Web       : http://www.lomcn.co.uk                                                  *
- *   Version   : 0.0.0.12                                                                *
+ *   Version   : 0.0.0.13                                                                *
  *                                                                                        *
  *   - File Info -                                                                       *
  *                                                                                       *
@@ -25,6 +25,7 @@
  *  - 0.0.0.10 [2013-03-25] Coly : create Scrollbar and MagicButton                      *
  *  - 0.0.0.11 [2013-04-07] Coly : add TextButton Auto Adjustmend for Multi Language use *
  *  - 0.0.0.12 [2013-05-02] 1PKRyan : code clean-up                                      *
+ *  - 0.0.0.13 [2013-05-09] Coly : rewrite SelectChar Controls                           * 
  *                                                                                       *
  *****************************************************************************************
  *  - TODO List for this *.pas file -                                                    *
@@ -49,6 +50,7 @@ uses
   Classes,
   Controls,
   SysUtils,
+  Math,
   { DirectX}
   Direct3D9,
   D3DX9,
@@ -62,28 +64,28 @@ uses
 
 const
   // Minimum scroll bar thumb size
-  SCROLLBAR_MINTHUMBSIZE      = 8;
+  SCROLLBAR_MINTHUMBSIZE                 = 8;
   // Delay and repeat period when clicking on the scroll bar arrows
-  SCROLLBAR_ARROWCLICK_DELAY  = 0.33;
-  SCROLLBAR_ARROWCLICK_REPEAT = 0.05;
+  SCROLLBAR_ARROWCLICK_DELAY             = 0.33;
+  SCROLLBAR_ARROWCLICK_REPEAT            = 0.05;
 
 const
-  EVENT_SYSTEM_TOOL_X           =   100;
-  EVENT_FORM_X                  =  1000;
-  EVENT_PANEL_X                 =  2000;
-  EVENT_EDITBOX_RETURN          =  3000;
-  EVENT_EDITBOX_CHANGE          =  3001;
-  EVENT_GRID_X                  =  4000;
-  EVENT_BUTTON_DOWN             =  5000;
-  EVENT_BUTTON_UP               =  5001;
-  EVENT_BUTTON_DBCLICKED        =  5002;
-  EVENT_LISTBOX_X               =  6000;
-  EVENT_COMBOBOX_X              =  7000;
-  EVENT_CHECKBOX_X              =  8000;
-  EVENT_RADIOBUTTON_X           =  9000;
-  EVENT_SLIDER_VALUE_CHANGED    = 10000;
-  EVENT_SCROLLBAR_VALUE_CHANGED = 10100;
-  EVENT_TIMER_TIME_EXPIRE       = 20000;
+  EVENT_SYSTEM_TOOL_X                    =   100;
+  EVENT_FORM_X                           =  1000;
+  EVENT_PANEL_X                          =  2000;
+  EVENT_EDITBOX_RETURN                   =  3000;
+  EVENT_EDITBOX_CHANGE                   =  3001;
+  EVENT_GRID_X                           =  4000;
+  EVENT_BUTTON_DOWN                      =  5000;
+  EVENT_BUTTON_UP                        =  5001;
+  EVENT_BUTTON_DBCLICKED                 =  5002;
+  EVENT_LISTBOX_X                        =  6000;
+  EVENT_COMBOBOX_X                       =  7000;
+  EVENT_CHECKBOX_X                       =  8000;
+  EVENT_RADIOBUTTON_X                    =  9000;
+  EVENT_SLIDER_VALUE_CHANGED             = 10000;
+  EVENT_SCROLLBAR_VALUE_CHANGED          = 10100;
+  EVENT_TIMER_TIME_EXPIRE                = 20000;
 
 ////////////////////////////////////////////////////////////////////////////////
 ///  Key Handling Info Constanten
@@ -294,8 +296,8 @@ type
     gui_CaptionID                 : Integer;
   end;
 
-  PMir3_GUI_Ground_Info    = ^TMir3_GUI_Ground_Info;
-  TMir3_GUI_Ground_Info    = record
+  PMir3_GUI_Ground_Info        = ^TMir3_GUI_Ground_Info;
+  TMir3_GUI_Ground_Info        = record
     gui_Unique_Control_Number  : Integer;
     gui_Type                   : TMIR3_GUI_Type;       // Control Typ Info
     gui_Form_Type              : TMIR3_GUI_Form_Type;  // Only for forms Movable / Static / Background
@@ -313,6 +315,7 @@ type
     gui_Cut_Rect_Position_X    : Integer;   // used to move Cutted Image
     gui_Cut_Rect_Position_Y    : Integer;   // used to move Cutted Image
     gui_Clip_Rect              : TRect;
+    gui_Repeat_Count           : Integer;
     gui_Timer_Intervall        : Integer;
     gui_Blend_Size             : Byte;
     gui_Blend_Size_Extra       : Byte;
@@ -333,13 +336,14 @@ type
     gui_Slider_Setup           : TMIR3_UI_Slider_Setup;
     gui_ScrollBar_Setup        : TMIR3_UI_ScrollBar_Setup;
     gui_Progress_Setup         : TMIR3_UI_Progress_Setup;
-    gui_Caption_Extra          : TMIR3_UI_Extra_Text;     // atm only on TextLabel Controls
+    gui_Caption_Extra          : TMIR3_UI_Extra_Text;     // atm only on TextLabel and Panel Controls
     gui_PreSelected            : Boolean;
     gui_Scroll_Text            : Boolean;
     gui_Use_Extra_Caption      : Boolean;
     gui_Use_Animation_Texture  : Boolean;
     gui_Use_Random_Texture     : Boolean;
     gui_Use_Strech_Texture     : Boolean;
+    gui_Use_Repeat_Texture     : Boolean;
     gui_Use_Image_Offset       : Boolean;
     gui_Use_Cut_Rect           : Boolean;
     gui_Use_Null_Point_Calc    : Boolean;
@@ -846,8 +850,8 @@ type
   {$ENDREGION}  
 
 implementation
- 
-uses mir3_game_backend, mir3_game_engine, mir3_game_file_manager_const, Math;
+
+uses mir3_game_backend, mir3_game_engine, mir3_game_file_manager_const;
 
 var
   G_MousePoint      : TPoint;
@@ -2915,6 +2919,7 @@ var
     //..............................................................................
     procedure TMIR3_GUI_Panel.RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
     var
+     I              : Integer;
      FMoveRect      : TRect;
      FTempX, FTempY : Integer;
      FTempImageID   : Integer;
@@ -2934,13 +2939,18 @@ var
           GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Definition.gui_Color.gui_BorderColor, False);
           
         (* Render Panel with given Texture *)
-        with FGUI_Definition, gui_Font, gui_Control_Texture, gui_Animation, GGameEngine.FGameFileManger, GGameEngine.FontManager do
+        with FGUI_Definition, gui_Font, gui_Control_Texture, gui_Caption_Extra, gui_Animation, GGameEngine.FGameFileManger, GGameEngine.FontManager do
         begin
           if gui_Texture_File_ID > 74 then
           begin
             if (gui_ExtraBackground_Texture_ID > 0) and (gui_ExtraTexture_File_ID > 74) then
             begin
-              DrawTexture(gui_ExtraBackground_Texture_ID, gui_ExtraTexture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, gui_Blend_Mode_Extra, gui_Blend_Size_Extra);
+              if gui_Use_Strech_Texture then
+              begin
+                DrawTextureStretch(gui_ExtraBackground_Texture_ID, gui_ExtraTexture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Blend_Mode_Extra, gui_Blend_Size_Extra);
+              end else begin
+                DrawTexture(gui_ExtraBackground_Texture_ID, gui_ExtraTexture_File_ID, FParentGUIForm.FLeft + FLeft + gui_Extra_Offset_X, FParentGUIForm.FTop + FTop + gui_Extra_Offset_Y, gui_Blend_Mode_Extra, gui_Blend_Size_Extra);
+              end;
             end;
 
             if gui_Background_Texture_ID > 0 then
@@ -2949,37 +2959,46 @@ var
               begin
                 DrawTextureStretch(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, gui_Blend_Mode, gui_Blend_Size);
               end else begin
-                if gui_Use_Null_Point_Calc then
+                if gui_Use_Repeat_Texture then
                 begin
                   FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
-                  if Assigned(FTempImage) then
+                  for I := 0 to gui_Repeat_Count do
                   begin
-                    DrawTexture(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Blend_Mode, gui_Blend_Size);
-                  end;
-                end else begin
-                  if gui_Use_Cut_Rect then
-                  begin
-                    SetRect(FMoveRect, gui_WorkField.Left  + gui_Cut_Rect_Position_X, gui_WorkField.Top    + gui_Cut_Rect_Position_Y,
-                                       gui_WorkField.Right + gui_Cut_Rect_Position_X, gui_WorkField.Bottom + gui_Cut_Rect_Position_Y);
-                    DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FMoveRect, gui_Blend_Mode, gui_Blend_Size);
-                  end else begin
-                    case gui_Texture_Align of
-                      taTop    : DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
-                      taCenter : begin
-                        FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
-                        FTempX := (FWidth  div 2) - (FTempImage.ihORG_Width  div 2);
-                        FTempY := (FHeight div 2) - (FTempImage.ihORG_Height div 2);
-                        DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FTempX, FParentGUIForm.FTop + FTop +FTempY, gui_Blend_Mode, gui_Blend_Size);
-                      end;
-                      taBottom : begin
-                        FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
-                        FTempY     := FHeight - FTempImage.ihORG_Height;
-                        DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop + FTempY, gui_Blend_Mode, gui_Blend_Size);
-                      end;
+                    if Assigned(FTempImage) then
+                    begin
+                      DrawTexture(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop + ((FTempImage.ihORG_Height-1) * I), gui_Blend_Mode, gui_Blend_Size);
                     end;
                   end;
-                end;
-
+                end else if gui_Use_Null_Point_Calc then
+                         begin
+                           FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
+                           if Assigned(FTempImage) then
+                           begin
+                             DrawTexture(FTempImage.ihD3DTexture, FParentGUIForm.FLeft + gui_Null_Point_X + FTempImage.ihOffset_X, FParentGUIForm.FTop + gui_Null_Point_Y + FTempImage.ihOffset_Y, gui_Blend_Mode, gui_Blend_Size);
+                           end;
+                         end else begin
+                           if gui_Use_Cut_Rect then
+                           begin
+                             SetRect(FMoveRect, gui_WorkField.Left  + gui_Cut_Rect_Position_X, gui_WorkField.Top    + gui_Cut_Rect_Position_Y,
+                                                gui_WorkField.Right + gui_Cut_Rect_Position_X, gui_WorkField.Bottom + gui_Cut_Rect_Position_Y);
+                             DrawTextureClipRect(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FMoveRect, gui_Blend_Mode, gui_Blend_Size);
+                           end else begin
+                             case gui_Texture_Align of
+                               taTop    : DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, gui_Blend_Mode, gui_Blend_Size);
+                               taCenter : begin
+                                 FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
+                                 FTempX := (FWidth  div 2) - (FTempImage.ihORG_Width  div 2);
+                                 FTempY := (FHeight div 2) - (FTempImage.ihORG_Height div 2);
+                                 DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft + FTempX, FParentGUIForm.FTop + FTop +FTempY, gui_Blend_Mode, gui_Blend_Size);
+                               end;
+                               taBottom : begin
+                                 FTempImage := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID, gui_Texture_File_ID);
+                                 FTempY     := FHeight - FTempImage.ihORG_Height;
+                                 DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop + FTempY, gui_Blend_Mode, gui_Blend_Size);
+                               end;
+                             end;
+                           end;
+                         end;
               end;
             end;
 
@@ -3038,7 +3057,7 @@ var
               begin
                 dsControlWidth  := FWidth;
                 dsControlHeigth := FHeight;
-                dsAX            := FParentGUIForm.FLeft + FLeft + 1;
+                dsAX            := FParentGUIForm.FLeft + FLeft + 1 + gui_Caption_Offset; 
                 dsAY            := FParentGUIForm.FTop  + FTop  + 1;
                 dsFontHeight    := gui_Font_Size;
                 dsFontSetting   := gui_Font_Setting;
@@ -3067,8 +3086,8 @@ var
                          begin
                            dsControlWidth  := FWidth;
                            dsControlHeigth := FHeight;
-                           dsAX            := FParentGUIForm.FLeft + FLeft + 1;
-                           dsAY            := FParentGUIForm.FTop  + FTop  + 1 ;
+                           dsAX            := FParentGUIForm.FLeft + FLeft + 1 + gui_Caption_Offset;
+                           dsAY            := FParentGUIForm.FTop  + FTop  + 1;
                            dsFontHeight    := gui_Font_Size;
                            dsFontSetting   := gui_Font_Setting;
                            dsFontType      := 0;
@@ -3105,7 +3124,7 @@ var
                          begin
                            dsControlWidth  := FWidth;
                            dsControlHeigth := FHeight;
-                           dsAX            := FParentGUIForm.FLeft + FLeft + 1;
+                           dsAX            := FParentGUIForm.FLeft + FLeft + 1 + gui_Caption_Offset;
                            dsAY            := FParentGUIForm.FTop  + FTop  + 1;
                            dsFontHeight    := gui_Font_Size;
                            dsFontSetting   := gui_Font_Setting;
@@ -4466,7 +4485,8 @@ var
                   end;
                 end;
               end;
-
+              
+              // Test ohne Offsets um zu sehen woran es liegen könnte
               with FGUI_Definition, gui_Control_Texture, GGameEngine.FGameFileManger do
               begin
 		          (* Render Select Char Panel with given Texture *)
@@ -4482,7 +4502,7 @@ var
 
                       FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       if Assigned(FCharImage) then
-                        DrawTextureStretch(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y  ), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+                        DrawTextureStretch(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
                     end else begin
                       FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
                       if Assigned(FShadowImage) then
@@ -4490,7 +4510,7 @@ var
 
                       FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       if Assigned(FCharImage) then
-                        DrawTexture(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y  ), BLEND_DEFAULT, gui_Blend_Size);
+                        DrawTexture(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y), BLEND_DEFAULT, gui_Blend_Size);
                     end;
                   end else begin
                     if gui_Use_Strech_Texture then
@@ -4501,7 +4521,7 @@ var
 
                       FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       if Assigned(FCharImage) then
-                        DrawTextureGrayScaleStretch(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y  ), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+                        DrawTextureGrayScaleStretch(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X), (FTop + FCharImage.ihOffset_Y), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
                     end else begin
                       FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
                       if Assigned(FShadowImage) then
@@ -4509,7 +4529,7 @@ var
 
                       FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       if Assigned(FCharImage) then
-                        DrawTextureGrayScale(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y  ), BLEND_DEFAULT, gui_Blend_Size);
+                        DrawTextureGrayScale(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X), (FTop + FCharImage.ihOffset_Y), BLEND_DEFAULT, gui_Blend_Size);
                     end;
                   end;
                 end;
