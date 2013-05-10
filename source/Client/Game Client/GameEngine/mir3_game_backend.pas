@@ -143,7 +143,6 @@ type
     FGameLauncherSetting : TMir3_GameLauncherSetting;
   private
     function GetGameScene: TMIR3_Game_Scene;
-    procedure SetGameScene(AValue: TMIR3_Game_Scene);
   public
     FServerConnecting  : Boolean;
     FServerConnected   : Boolean;
@@ -170,8 +169,8 @@ type
     function OnMsgProc(hWnd: HWND; uMsg: LongWord; wParam: WPARAM; lParam: LPARAM; out pbNoFurtherProcessing: Boolean): LRESULT;
     procedure OnKeyboardProc(AChar: LongWord; AKeyDown, AAltDown: Boolean);
     procedure OnMouseProc(bLeftButtonDown, bRightButtonDown, bMiddleButtonDown, bSideButton1Down, bSideButton2Down: Boolean; nMouseWheelDelta: Integer; xPos, yPos: Integer);
-  public //Client Get
-
+  public
+   procedure SetGameScene(AValue: TMIR3_Game_Scene);
   public //Client Sent
     procedure SendSocket(ASendData: String);
     procedure SendClientMessage(AMessage, ARecog, AParam, ATag, ASeries: Integer);

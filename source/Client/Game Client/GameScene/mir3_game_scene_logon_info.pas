@@ -181,7 +181,8 @@ uses mir3_game_backend;
      begin
        TMIR3_GUI_Timer(GetComponentByID(GUI_ID_LOGON_TIMER)).SetTimerEnabled(False);
        GGameEngine.SceneLogon.ResetScene;
-       GGameEngine.FGame_Scene_Step := gsScene_SelServer;//gsScene_Login; gsScene_SelChar gsScene_SelServer gsScene_EndGame
+       GGameEngine.SetGameScene(gsScene_SelChar);                        
+       //GGameEngine.FGame_Scene_Step := gsScene_SelServer;//gsScene_Login; gsScene_SelChar gsScene_SelServer gsScene_EndGame
      end;
 
   {$ENDREGION}

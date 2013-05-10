@@ -1,7 +1,7 @@
 (*****************************************************************************************
  *   LomCN Mir3 Select and Create Scene File 2013                                        *
  *                                                                                       *
- *   Web       : http://www.lomcn.co.uk                                                  *
+ *   Web       : http://www.lomcn.org                                                    *
  *   Version   : 0.0.0.1                                                                 *
  *                                                                                       *
  *   - File Info -                                                                       *
@@ -205,41 +205,69 @@ uses mir3_game_backend;
              Self.AddControl(FSelectForm, FSelectChar_Character_3_1024 , True);
              Self.AddControl(FSelectForm, FSelectChar_Character_4_1024 , True);
 
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Top_1024   , True);
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Bottom_1024, True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Top_1024         , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Bottom_1024      , True);
 
-             Self.AddControl(FSelectForm, FSelectChar_Btn_Start_800, True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Start_1024         , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Exit_1024          , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Delete_Char_1024   , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_New_Char_1024      , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Set2ndPassword_1024, True);
 
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_1_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_2_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_3_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_4_1024 , True);
+
+
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_1_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_2_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_3_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_4_1024 , True);
+
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_1_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_2_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_3_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_4_1024 , True);
+
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_1_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_2_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_3_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_4_1024 , True);
+
+
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1)).Caption := 'Kaito';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_2)).Caption := 'Clementina';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_3)).Caption := 'Coly';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_4)).Caption := 'Tester';
+
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1)).Caption := 'Level : 1000';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_2)).Caption := 'Level : 100';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_3)).Caption := 'Level : 9';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_4)).Caption := 'Level : 10000';
+
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1)).Caption := 'Class : Taoist';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_2)).Caption := 'Class : Warrior';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_3)).Caption := 'Class : Wizzard';
+             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_4)).Caption := 'Class : Assassin';
+
+             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).Selected := True;
+
+             FCharacterList[0].Char_Job    := 2;
+             FCharacterList[0].Char_Gender := 0;
+             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).CharacterInfo := FCharacterList[0];
+             FCharacterList[1].Char_Job    := 0;
+             FCharacterList[1].Char_Gender := 1;
+             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_2)).CharacterInfo := FCharacterList[1];
+             FCharacterList[2].Char_Job    := 1;
+             FCharacterList[2].Char_Gender := 0;
+             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_3)).CharacterInfo := FCharacterList[2];
+             FCharacterList[3].Char_Job    := 3;
+             FCharacterList[3].Char_Gender := 0;
+             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)).CharacterInfo := FCharacterList[3];             
            end;
         end;
       end;
-
-//      FSelectForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_SelChar.FSelectChar_Background,  True));
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Character_1         , False);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Character_2         , False);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Character_3         , False);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Button_Start        , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Button_Exit         , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Button_Delete_Char  , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Button_New_Char     , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Text         , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Name         , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Class        , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Level        , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Gold         , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Exp          , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Name_Info    , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Class_Info   , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Level_Info   , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Gold_Info    , True);
-//      Self.AddControl(FSelectForm, FGame_GUI_Definition_SelChar.FSelectChar_Dialog_Exp_Info     , True);
-
-
-//      TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME)).Caption  := ' Name';
-//      TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS)).Caption := ' Class';
-//      TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL)).Caption := ' Level';
-//      TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_GOLD)).Caption  := ' Gold';
-//      TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP)).Caption   := ' Exp';
       {$ENDREGION}
 
       {$REGION ' - System Forms and Controls        '}
@@ -648,8 +676,7 @@ uses mir3_game_backend;
       if GetSelectedCharacterID(False) <> -1 then
       begin
         TMIR3_GUI_Form(GetFormByID(GUI_ID_SELECTCHAR_BACKGROUND)).Visible := False;
-        GGameEngine.FGameFileManger.RenderVideo(2);
-        GGameEngine.GameSceneStep := gsScene_PlayGame;
+        GGameEngine.SetGameScene(gsScene_PlayGame); //GameSceneStep := gsScene_PlayGame;
 //        with GGameEngine.GameNetwork do
 //        begin
 //          Active  := False;

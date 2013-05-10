@@ -61,6 +61,7 @@ type
     procedure Event_System_Ok;
     procedure Event_System_Yes;
     procedure Event_System_No;
+    procedure EventSetServerCount(AServerCount: Integer);
     procedure Event_Select_Server_1;
     procedure Event_Select_Server_2;
     procedure Event_Select_Server_3;
@@ -111,10 +112,14 @@ uses mir3_game_backend;
              Self.AddControl(FSelectServerForm, FSelectServer_Btn_Server_2_1024, True);
              Self.AddControl(FSelectServerForm, FSelectServer_Btn_Server_3_1024, True);
              Self.AddControl(FSelectServerForm, FSelectServer_Btn_Server_4_1024, True);
-
            end;
         end;
       end;
+
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_1)).Caption := 'Test Server 1';
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_2)).Caption := 'Test Server 2';
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_3)).Caption := 'Test Server 3';
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_4)).Caption := 'Test Server 4';
 
       { Create System Forms and Controls }
       FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_System.FSys_Dialog_Info, False));
@@ -132,7 +137,8 @@ uses mir3_game_backend;
     
     procedure TMir3GameSceneSelectServer.ResetScene;
     begin
-      //
+      // Debug, later move to ServerSelection
+      EventSetServerCount(4);
     end;
   {$ENDREGION}
   
@@ -213,29 +219,88 @@ uses mir3_game_backend;
       TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := False;
     end;
 
-     procedure TMir3GameSceneSelectServer.Event_Select_Server_1;
-     begin
-       //add Server Select things
-       GGameEngine.FGame_Scene_Step := gsScene_SelChar;
-     end;
+    procedure TMir3GameSceneSelectServer.EventSetServerCount(AServerCount: Integer);
+    begin
+      case AServerCount of
+        0 ,
+        1 : begin
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_1)).Visible := True;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_2)).Visible := False;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_3)).Visible := False;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_4)).Visible := False;
+          TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_2)).FGUI_Definition.gui_Repeat_Count   := 3;
+          if FScreen_Width <> 1024 then
+          begin
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_3)).FTop := 262;
+          end else begin
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_3)).FTop := 292;
+          end;
+        end;
+        2 : begin
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_1)).Visible := True;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_2)).Visible := True;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_3)).Visible := False;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_4)).Visible := False;
+          TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_2)).FGUI_Definition.gui_Repeat_Count   := 8;
+          if FScreen_Width <> 1024 then
+          begin
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_3)).FTop := 302;
+          end else begin
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_3)).FTop := 332;
+          end;
+        end;
+        3 : begin
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_1)).Visible := True;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_2)).Visible := True;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_3)).Visible := True;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_4)).Visible := False;
+          TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_2)).FGUI_Definition.gui_Repeat_Count   := 12;
+          if FScreen_Width <> 1024 then
+          begin
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_3)).FTop := 341;
+          end else begin
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_3)).FTop := 371;
+          end;
+        end;
+        4 : begin
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_1)).Visible := True;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_2)).Visible := True;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_3)).Visible := True;
+          TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_4)).Visible := True;
+          TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_2)).FGUI_Definition.gui_Repeat_Count   := 16;
+          if FScreen_Width <> 1024 then
+          begin
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_3)).FTop := 380;
+          end else begin
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SEL_SERVER_BACK_PANEL_PART_3)).FTop := 409;
+          end;
+        end;
+      end;
+    end;
 
-     procedure TMir3GameSceneSelectServer.Event_Select_Server_2;
-     begin
-       //add Server Select things
-       GGameEngine.FGame_Scene_Step := gsScene_SelChar;
-     end;
+    procedure TMir3GameSceneSelectServer.Event_Select_Server_1;
+    begin
+      //add Server Select things
+      GGameEngine.FGame_Scene_Step := gsScene_SelChar;
+    end;
 
-     procedure TMir3GameSceneSelectServer.Event_Select_Server_3;
-     begin
-       //add Server Select things
-       GGameEngine.FGame_Scene_Step := gsScene_SelChar;
-     end;
+    procedure TMir3GameSceneSelectServer.Event_Select_Server_2;
+    begin
+      //add Server Select things
+      GGameEngine.FGame_Scene_Step := gsScene_SelChar;
+    end;
 
-     procedure TMir3GameSceneSelectServer.Event_Select_Server_4;
-     begin
-       //add Server Select things
-       GGameEngine.FGame_Scene_Step := gsScene_SelChar;
-     end;     
+    procedure TMir3GameSceneSelectServer.Event_Select_Server_3;
+    begin
+      //add Server Select things
+      GGameEngine.FGame_Scene_Step := gsScene_SelChar;
+    end;
+
+    procedure TMir3GameSceneSelectServer.Event_Select_Server_4;
+    begin
+      //add Server Select things
+      GGameEngine.FGame_Scene_Step := gsScene_SelChar;
+    end;     
 
   {$ENDREGION}
 
@@ -248,9 +313,14 @@ uses mir3_game_backend;
           {$REGION ' - EVENT_BUTTON_CLICKED '}
           case AControl.ControlIdentifier of
             (* System Buttons *)
-            GUI_ID_SYSINFO_BUTTON_OK   : GGameEngine.SceneLogonInfo.Event_System_Ok;
-            GUI_ID_SYSINFO_BUTTON_YES  : GGameEngine.SceneLogonInfo.Event_System_Yes;
-            GUI_ID_SYSINFO_BUTTON_NO   : GGameEngine.SceneLogonInfo.Event_System_No;
+            GUI_ID_SYSINFO_BUTTON_OK       : GGameEngine.SceneSelectServer.Event_System_Ok;
+            GUI_ID_SYSINFO_BUTTON_YES      : GGameEngine.SceneSelectServer.Event_System_Yes;
+            GUI_ID_SYSINFO_BUTTON_NO       : GGameEngine.SceneSelectServer.Event_System_No;
+            // Server Selection Button
+            GUI_ID_SEL_SERVER_BTN_SERVER_1 :GGameEngine.SceneSelectServer.Event_Select_Server_1;
+            GUI_ID_SEL_SERVER_BTN_SERVER_2 :GGameEngine.SceneSelectServer.Event_Select_Server_2;
+            GUI_ID_SEL_SERVER_BTN_SERVER_3 :GGameEngine.SceneSelectServer.Event_Select_Server_3;
+            GUI_ID_SEL_SERVER_BTN_SERVER_4 :GGameEngine.SceneSelectServer.Event_Select_Server_4;
           end;
           {$ENDREGION}
         end;

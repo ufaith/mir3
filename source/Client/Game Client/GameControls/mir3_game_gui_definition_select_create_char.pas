@@ -293,7 +293,7 @@ var
                                      gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:200);
                                      gui_Top                    : 200;
                                      gui_Left                   : -45;
-                                     gui_Height                 : 250;
+                                     gui_Height                 : 170;
                                      gui_Width                  : 120;
                                      gui_Strech_Rate_X          : 0.79;
                                      gui_Strech_Rate_Y          : 0.79;
@@ -315,7 +315,7 @@ var
                                      gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:200);
                                      gui_Top                    : 210;
                                      gui_Left                   : 120;
-                                     gui_Height                 : 250;
+                                     gui_Height                 : 170;
                                      gui_Width                  : 120;
                                      gui_Strech_Rate_X          : 0.79;
                                      gui_Strech_Rate_Y          : 0.79;
@@ -337,7 +337,7 @@ var
                                      gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:200);
                                      gui_Top                    : 210;
                                      gui_Left                   : 265;
-                                     gui_Height                 : 260;
+                                     gui_Height                 : 170;
                                      gui_Width                  : 120;
                                      gui_Strech_Rate_X          : 0.79;
                                      gui_Strech_Rate_Y          : 0.79;
@@ -359,7 +359,7 @@ var
                                      gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:200);
                                      gui_Top                    : 210;
                                      gui_Left                   : 420;
-                                     gui_Height                 : 260;
+                                     gui_Height                 : 170;
                                      gui_Width                  : 120;
                                      gui_Strech_Rate_X          : 0.79;
                                      gui_Strech_Rate_Y          : 0.79;
@@ -396,7 +396,7 @@ var
                                                                    gui_Font_Setting     : [fsBold]);
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                    gui_Background_Texture_ID : 50);
-                                     gui_Caption_Extra          : (gui_Caption_Offset : 10);
+                                     gui_Caption_Extra          : (gui_Caption_Offset : 12);
                                      gui_Use_Strech_Texture     : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True
@@ -933,10 +933,10 @@ var
                                         gui_Type                   : ctSelectChar;
                                         gui_Form_Type              : ftNone;
                                         gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                        gui_Top                    : 150;
-                                        gui_Left                   : -25;
-                                        gui_Height                 : 200;
-                                        gui_Width                  : 100;
+                                        gui_Top                    : 290;
+                                        gui_Left                   : -20;
+                                        gui_Height                 : 230;
+                                        gui_Width                  : 150;
                                         gui_Blend_Size             : 255;
                                         gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                       gui_Background_Texture_ID : 201);
@@ -949,10 +949,10 @@ var
                                         gui_Type                   : ctSelectChar;
                                         gui_Form_Type              : ftNone;
                                         gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                        gui_Top                    : 150;
-                                        gui_Left                   : 80;
-                                        gui_Height                 : 200;
-                                        gui_Width                  : 100;
+                                        gui_Top                    : 300;
+                                        gui_Left                   : 215;
+                                        gui_Height                 : 230;
+                                        gui_Width                  : 150;
                                         gui_Blend_Size             : 255;
                                         gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                       gui_Background_Texture_ID : 201);
@@ -965,10 +965,10 @@ var
                                         gui_Type                   : ctSelectChar;
                                         gui_Form_Type              : ftNone;
                                         gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                        gui_Top                    : 150;
-                                        gui_Left                   : 100;
-                                        gui_Height                 : 200;
-                                        gui_Width                  : 100;
+                                        gui_Top                    : 290;
+                                        gui_Left                   : 400;
+                                        gui_Height                 : 230;
+                                        gui_Width                  : 150;
                                         gui_Blend_Size             : 255;
                                         gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                       gui_Background_Texture_ID : 201);
@@ -981,10 +981,10 @@ var
                                         gui_Type                   : ctSelectChar;
                                         gui_Form_Type              : ftNone;
                                         gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:200);
-                                        gui_Top                    : 150;
-                                        gui_Left                   : 300;
-                                        gui_Height                 : 200;
-                                        gui_Width                  : 100;
+                                        gui_Top                    : 300;
+                                        gui_Left                   : 600;
+                                        gui_Height                 : 230;
+                                        gui_Width                  : 150;
                                         gui_Blend_Size             : 255;
                                         gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                       gui_Background_Texture_ID : 201);
@@ -1021,7 +1021,7 @@ var
                                         gui_Type                   : ctPanel;
                                         gui_Form_Type              : ftNone;
                                         gui_WorkField              : (Left:0; Top:0; Right:1024; Bottom:62);
-                                        gui_Top                    : 554;
+                                        gui_Top                    : 707;
                                         gui_Left                   : 0;
                                         gui_Height                 : 62;
                                         gui_Width                  : 1024;
@@ -1038,8 +1038,8 @@ var
                                         gui_Type                   : ctButton;
                                         gui_Form_Type              : ftNone;
                                         gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:26);
-                                        gui_Top                    : 520;
-                                        gui_Left                   : 340;
+                                        gui_Top                    : 665;
+                                        gui_Left                   : 452;
                                         gui_Height                 : 26;
                                         gui_Width                  : 120;
                                         gui_Blend_Size             : 255;
@@ -1065,7 +1065,7 @@ var
                                         gui_Type                   : ctButton;
                                         gui_Form_Type              : ftNone;
                                         gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:26);
-                                        gui_Top                    : 570;
+                                        gui_Top                    : 732;
                                         gui_Left                   : 12;
                                         gui_Height                 : 26;
                                         gui_Width                  : 120;
@@ -1092,8 +1092,8 @@ var
                                         gui_Type                   : ctButton;
                                         gui_Form_Type              : ftNone;
                                         gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:26);
-                                        gui_Top                    : 570;
-                                        gui_Left                   : 410;
+                                        gui_Top                    : 732;
+                                        gui_Left                   : 532;
                                         gui_Height                 : 26;
                                         gui_Width                  : 120;
                                         gui_Blend_Size             : 255;
@@ -1119,8 +1119,8 @@ var
                                         gui_Type                   : ctButton;
                                         gui_Form_Type              : ftNone;
                                         gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:26);
-                                        gui_Top                    : 570;
-                                        gui_Left                   : 270;
+                                        gui_Top                    : 732;
+                                        gui_Left                   : 372;
                                         gui_Height                 : 26;
                                         gui_Width                  : 120;
                                         gui_Blend_Size             : 255;
@@ -1146,8 +1146,8 @@ var
                                         gui_Type                   : ctButton;
                                         gui_Form_Type              : ftNone;
                                         gui_WorkField              : (Left:0; Top:0; Right:120; Bottom:26);
-                                        gui_Top                    : 570;
-                                        gui_Left                   : 668;
+                                        gui_Top                    : 732;
+                                        gui_Left                   : 892;
                                         gui_Height                 : 26;
                                         gui_Width                  : 120;
                                         gui_Blend_Size             : 255;
@@ -1172,8 +1172,8 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL_1;
                                         gui_Type                   : ctPanel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 160;
-                                        gui_Left                   : 80;
+                                        gui_Top                    : 200;
+                                        gui_Left                   : 100;
                                         gui_Height                 : 74;
                                         gui_Width                  : 184;
                                         gui_Blend_Size             : 255;
@@ -1188,8 +1188,8 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL_2;
                                         gui_Type                   : ctPanel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 160;
-                                        gui_Left                   : 235;
+                                        gui_Top                    : 200;
+                                        gui_Left                   : 305;
                                         gui_Height                 : 74;
                                         gui_Width                  : 184;
                                         gui_Blend_Size             : 255;
@@ -1204,8 +1204,8 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL_3;
                                         gui_Type                   : ctPanel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 160;
-                                        gui_Left                   : 390;
+                                        gui_Top                    : 200;
+                                        gui_Left                   : 512;
                                         gui_Height                 : 74;
                                         gui_Width                  : 184;
                                         gui_Blend_Size             : 255;
@@ -1220,8 +1220,8 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL_4;
                                         gui_Type                   : ctPanel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 160;
-                                        gui_Left                   : 545;
+                                        gui_Top                    : 200;
+                                        gui_Left                   : 718;
                                         gui_Height                 : 74;
                                         gui_Width                  : 184;
                                         gui_Blend_Size             : 255;
@@ -1236,10 +1236,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_NAME_1;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 162;
-                                        gui_Left                   : 83;
+                                        gui_Top                    : 208;
+                                        gui_Left                   : 100;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1255,10 +1255,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_NAME_2;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 162;
-                                        gui_Left                   : 238;
+                                        gui_Top                    : 208;
+                                        gui_Left                   : 305;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1274,10 +1274,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_NAME_3;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 162;
-                                        gui_Left                   : 393;
+                                        gui_Top                    : 208;
+                                        gui_Left                   : 512;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1293,10 +1293,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_NAME_4;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 162;
-                                        gui_Left                   : 548;
+                                        gui_Top                    : 208;
+                                        gui_Left                   : 718;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1312,10 +1312,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_LEVEL_1;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 186;
-                                        gui_Left                   : 80;
+                                        gui_Top                    : 235;
+                                        gui_Left                   : 100;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1331,10 +1331,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_LEVEL_2;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 186;
-                                        gui_Left                   : 235;
+                                        gui_Top                    : 235;
+                                        gui_Left                   : 305;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1350,10 +1350,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_LEVEL_3;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 186;
-                                        gui_Left                   : 390;
+                                        gui_Top                    : 235;
+                                        gui_Left                   : 512;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1369,10 +1369,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_LEVEL_4;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 186;
-                                        gui_Left                   : 545;
+                                        gui_Top                    : 235;
+                                        gui_Left                   : 718;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1388,10 +1388,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_CLASS_1;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 200;
-                                        gui_Left                   : 80;
+                                        gui_Top                    : 252;
+                                        gui_Left                   : 100;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1407,10 +1407,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_CLASS_2;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 200;
-                                        gui_Left                   : 235;
+                                        gui_Top                    : 252;
+                                        gui_Left                   : 305;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1426,10 +1426,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_CLASS_3;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 200;
-                                        gui_Left                   : 390;
+                                        gui_Top                    : 252;
+                                        gui_Left                   : 512;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1445,10 +1445,10 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_CLASS_4;
                                         gui_Type                   : ctTextLabel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 200;
-                                        gui_Left                   : 545;
+                                        gui_Top                    : 252;
+                                        gui_Left                   : 718;
                                         gui_Height                 : 24;
-                                        gui_Width                  : 144;
+                                        gui_Width                  : 180;
                                         gui_Blend_Size             : 255;
                                         gui_Font                   : (gui_Font_Size        : 18;
                                                                       gui_Font_Color       : $FF989898;
@@ -1466,7 +1466,7 @@ var
     ///////////////////////////         
           (* 800x600 *) 
     ///////////////////////////    
-    FCreateChar_Character            : ({$REGION ' - FCreateChar_Character         '}
+    FCreateChar_Character            : ({$REGION ' - FCreateChar_Character            '}
                                      gui_Unique_Control_Number  : GUI_ID_CREATECHAR_CHARACTER;
                                      gui_Type                   : ctSelectChar;
                                      gui_Form_Type              : ftNone;

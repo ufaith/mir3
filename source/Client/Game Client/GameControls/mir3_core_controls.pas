@@ -293,7 +293,7 @@ type
   TMIR3_UI_Extra_Text             = record
     gui_Caption_Offset            : Integer;
     gui_Extra_Font                : TMIR3_UI_Fonts;
-    gui_CaptionID                 : Integer;
+    gui_CaptionExtraID            : Integer;
   end;
 
   PMir3_GUI_Ground_Info        = ^TMir3_GUI_Ground_Info;
@@ -638,6 +638,7 @@ type
     FColorDisabled : TD3DColor;
     FSelected      : Boolean;
     FSwitchOn      : Boolean;
+    FCaption       : WideString;
     FButtonState   : TMIR3_Button_State;
   private
     function GetSelected: Boolean;
@@ -649,11 +650,12 @@ type
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
     function HandleMouse(uMsg: LongWord; AMousePoint: TPoint; wParam: WPARAM; lParam: LPARAM): Boolean; override;
   public
-    property SwitchOn      : Boolean   read FSwitchOn      write FSwitchOn;
-    property Selected      : Boolean   read GetSelected    write SetSelected;
-    property ColorSelect   : TD3DColor read FColorSelect   write FColorSelect;
-    property ColorPress    : TD3DColor read FColorPress    write FColorPress;
-    property ColorDisabled : TD3DColor read FColorDisabled write FColorDisabled;
+    property Caption       : WideString read FCaption       write FCaption;
+    property SwitchOn      : Boolean    read FSwitchOn      write FSwitchOn;
+    property Selected      : Boolean    read GetSelected    write SetSelected;
+    property ColorSelect   : TD3DColor  read FColorSelect   write FColorSelect;
+    property ColorPress    : TD3DColor  read FColorPress    write FColorPress;
+    property ColorDisabled : TD3DColor  read FColorDisabled write FColorDisabled;
   end;
   
   (* class TMIR3_GUI_List_Box *)
@@ -695,6 +697,8 @@ type
   (* class TMIR3_GUI_SelectChar *)
   TMIR3_GUI_SelectChar  = class(TMIR3_GUI_Button)
   private
+    FLastOffsetX        : Integer;
+    FLastOffsetY        : Integer;
     FStartTime          : Cardinal;
     FUseEffect          : Boolean;
     FSelected           : Boolean;
@@ -715,6 +719,7 @@ type
   public
     constructor Create(PGUI_Definition: PMir3_GUI_Ground_Info = nil; PParentGUIManager: TMIR3_GUI_Manager = nil); override;
   public
+    function ContainsPoint(AMousePoint: TPoint): LongBool; override;
     procedure RenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single); override;
     procedure ResetSelection(ASelected: Boolean);
   public
@@ -3051,14 +3056,14 @@ var
               end;
             end else gui_Use_Animation_Texture := False;
 
-            if (Trim(FCaption) <> '') or (gui_CaptionID > 0) then
+            if (gui_CaptionID > 0) or (Trim(FCaption) <> '') then
             begin
               with FDrawSetting do
               begin
                 dsControlWidth  := FWidth;
                 dsControlHeigth := FHeight;
-                dsAX            := FParentGUIForm.FLeft + FLeft + 1 + gui_Caption_Offset; 
-                dsAY            := FParentGUIForm.FTop  + FTop  + 1;
+                dsAX            := FParentGUIForm.FLeft + FLeft + 1;
+                dsAY            := FParentGUIForm.FTop  + FTop  + 1 + gui_Caption_Offset;
                 dsFontHeight    := gui_Font_Size;
                 dsFontSetting   := gui_Font_Setting;
                 dsFontType      := 0;
@@ -3086,8 +3091,8 @@ var
                          begin
                            dsControlWidth  := FWidth;
                            dsControlHeigth := FHeight;
-                           dsAX            := FParentGUIForm.FLeft + FLeft + 1 + gui_Caption_Offset;
-                           dsAY            := FParentGUIForm.FTop  + FTop  + 1;
+                           dsAX            := FParentGUIForm.FLeft + FLeft + 1;
+                           dsAY            := FParentGUIForm.FTop  + FTop  + 1 + gui_Caption_Offset;
                            dsFontHeight    := gui_Font_Size;
                            dsFontSetting   := gui_Font_Setting;
                            dsFontType      := 0;
@@ -3124,8 +3129,8 @@ var
                          begin
                            dsControlWidth  := FWidth;
                            dsControlHeigth := FHeight;
-                           dsAX            := FParentGUIForm.FLeft + FLeft + 1 + gui_Caption_Offset;
-                           dsAY            := FParentGUIForm.FTop  + FTop  + 1;
+                           dsAX            := FParentGUIForm.FLeft + FLeft + 1;
+                           dsAY            := FParentGUIForm.FTop  + FTop  + 1 + gui_Caption_Offset;
                            dsFontHeight    := gui_Font_Size;
                            dsFontSetting   := gui_Font_Setting;
                            dsFontType      := 0;
@@ -4089,7 +4094,7 @@ var
             end;
           end;
           
-          if gui_CaptionID <> 0 then
+          if (FCaption <> '') or (gui_CaptionID <> 0) then
           begin
            (* Render Button with given Texture *)
             with FDrawSetting do
@@ -4108,7 +4113,9 @@ var
               dsVAlign        := gui_Font_Text_VAlign;
               dsMagicUse      := False;
             end;
-            GGameEngine.FontManager.DrawText(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting);
+            if gui_CaptionID <> 0 then
+              GGameEngine.FontManager.DrawText(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID)), @FDrawSetting)
+            else GGameEngine.FontManager.DrawText(PWideChar(FCaption), @FDrawSetting);
           end;
 
           (* Hint Render System *)
@@ -4351,6 +4358,8 @@ var
       FEffectImageNumber  := 0;
       FShadowImageNumber  := 0;
       FCurrentImageNumber := 0;
+      FLastOffsetX        := 0;
+      FLastOffsetY        := 0;
       FUseEffect          := False;
       FSelected           := False;
       CharacterSystem     := csSelectChar;
@@ -4374,6 +4383,16 @@ var
       end;
     end;
 
+    function TMIR3_GUI_SelectChar.ContainsPoint(AMousePoint: TPoint): LongBool;
+    begin
+      if FParentGUIForm = nil then
+      begin
+        Result := PtInRect(Rect(FLeft,FTop,FLeft+FWidth,FTop+FHeight), AMousePoint);
+      end else begin
+        Result := PtInRect(Rect(FParentGUIForm.FLeft + FLeft + FLastOffsetX, FParentGUIForm.FTop + FTop + FLastOffsetY, FParentGUIForm.FLeft + FLeft+FWidth+ FLastOffsetX, FParentGUIForm.FTop + FTop+FHeight + FLastOffsetY), AMousePoint);
+      end;
+    end;
+
   {$ENDREGION}
 
   {$REGION ' - TMIR3_GUI_SelectChar :: functions   '}
@@ -4388,7 +4407,6 @@ var
       FCharImage   : PImageHeaderD3D;
       FShadowImage : PImageHeaderD3D;
       FEffectImage : PImageHeaderD3D;
-      //FStaticImage : TMir3_Texture;
     begin
     // @override
       try
@@ -4499,10 +4517,16 @@ var
                       FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
                       if Assigned(FShadowImage) then
                         DrawTextureStretch(FShadowImage.ihD3DTexture, (FLeft + FShadowImage.ihOffset_X)+9, (FTop + FShadowImage.ihOffset_Y)-45, gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, 150);
+                        //DrawTextureStretch(FShadowImage.ihD3DTexture, (FLeft + FShadowImage.ihOffset_X), (FTop + FShadowImage.ihOffset_Y), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, 150);
 
                       FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       if Assigned(FCharImage) then
+                      begin
+                        FLastOffsetX := FCharImage.ihOffset_X;
+                        FLastOffsetY := FCharImage.ihOffset_Y;
+                        //GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft+ FLastOffsetX , FParentGUIForm.FTop + FTop + FLastOffsetY, FWidth, FHeight, FGUI_Definition.gui_Color.gui_BorderColor, False);
                         DrawTextureStretch(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+                      end;
                     end else begin
                       FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
                       if Assigned(FShadowImage) then
@@ -4510,7 +4534,12 @@ var
 
                       FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       if Assigned(FCharImage) then
+                      begin
+                        FLastOffsetX := FCharImage.ihOffset_X;
+                        FLastOffsetY := FCharImage.ihOffset_Y;
+                        //GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft+ FLastOffsetX , FParentGUIForm.FTop + FTop + FLastOffsetY, FWidth, FHeight, $FFFF0000, False);
                         DrawTexture(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y), BLEND_DEFAULT, gui_Blend_Size);
+                      end;
                     end;
                   end else begin
                     if gui_Use_Strech_Texture then
@@ -4521,15 +4550,23 @@ var
 
                       FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       if Assigned(FCharImage) then
+                      begin
+                        FLastOffsetX := FCharImage.ihOffset_X;
+                        FLastOffsetY := FCharImage.ihOffset_Y;
                         DrawTextureGrayScaleStretch(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X), (FTop + FCharImage.ihOffset_Y), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
+                      end;
                     end else begin
                       FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
                       if Assigned(FShadowImage) then
-                        DrawTextureStretch(FShadowImage.ihD3DTexture, (FLeft + FShadowImage.ihOffset_X), (FTop + FShadowImage.ihOffset_Y), BLEND_DEFAULT, 150);
+                        DrawTexture(FShadowImage.ihD3DTexture, (FLeft + FShadowImage.ihOffset_X), (FTop + FShadowImage.ihOffset_Y), BLEND_DEFAULT, 150);
 
                       FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       if Assigned(FCharImage) then
+                      begin
+                        FLastOffsetX := FCharImage.ihOffset_X;
+                        FLastOffsetY := FCharImage.ihOffset_Y;                      
                         DrawTextureGrayScale(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X), (FTop + FCharImage.ihOffset_Y), BLEND_DEFAULT, gui_Blend_Size);
+                      end;
                     end;
                   end;
                 end;
@@ -4962,7 +4999,7 @@ var
 
             if gui_Use_Extra_Caption then
             begin
-              if gui_Caption_Extra.gui_CaptionID > 0 then
+              if gui_Caption_Extra.gui_CaptionExtraID > 0 then
               begin
                 with FDrawSetting, gui_Caption_Extra do
                 begin
@@ -4979,7 +5016,7 @@ var
                   dsHAlign        := gui_Extra_Font.gui_Font_Text_HAlign;
                   dsVAlign        := gui_Extra_Font.gui_Font_Text_VAlign;
                 end;
-                GGameEngine.FontManager.DrawTextColor(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_Caption_Extra.gui_CaptionID)), @FDrawSetting);
+                GGameEngine.FontManager.DrawTextColor(PWideChar(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_Caption_Extra.gui_CaptionExtraID)), @FDrawSetting);
               end;
             end;
 

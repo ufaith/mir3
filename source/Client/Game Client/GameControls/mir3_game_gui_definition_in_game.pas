@@ -5127,7 +5127,7 @@ var
                                                                                                     gui_Font_Color       : $FF0ebb12;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1067);
+                                                                            gui_CaptionExtraID   : 1067);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5153,7 +5153,7 @@ var
                                                                                                     gui_Font_Color       : $FF0e9cbb;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID    : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5179,7 +5179,7 @@ var
                                                                                                     gui_Font_Color       : $FFbb0e0e;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID   : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5205,7 +5205,7 @@ var
                                                                                                     gui_Font_Color       : $FF0ebb12;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1067);
+                                                                            gui_CaptionExtraID   : 1067);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5231,7 +5231,7 @@ var
                                                                                                     gui_Font_Color       : $FF0e9cbb;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5257,7 +5257,7 @@ var
                                                                                                     gui_Font_Color       : $FFbb0e0e;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5283,7 +5283,7 @@ var
                                                                                                     gui_Font_Color       : $FF0ebb12;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1067);
+                                                                            gui_CaptionExtraID        : 1067);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5309,7 +5309,7 @@ var
                                                                                                     gui_Font_Color       : $FF0e9cbb;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5335,7 +5335,7 @@ var
                                                                                                     gui_Font_Color       : $FFbb0e0e;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5361,7 +5361,7 @@ var
                                                                                                     gui_Font_Color       : $FF0ebb12;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1067);
+                                                                            gui_CaptionExtraID        : 1067);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5387,7 +5387,7 @@ var
                                                                                                     gui_Font_Color       : $FF0e9cbb;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5413,7 +5413,7 @@ var
                                                                                                     gui_Font_Color       : $FFbb0e0e;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5439,7 +5439,7 @@ var
                                                                                                     gui_Font_Color       : $FF0ebb12;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1067);
+                                                                            gui_CaptionExtraID        : 1067);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5465,7 +5465,7 @@ var
                                                                                                     gui_Font_Color       : $FF0e9cbb;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5491,7 +5491,7 @@ var
                                                                                                     gui_Font_Color       : $FFbb0e0e;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5517,7 +5517,7 @@ var
                                                                                                     gui_Font_Color       : $FFbb340e;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1068);
+                                                                            gui_CaptionExtraID        : 1068);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5543,7 +5543,7 @@ var
                                                                                                     gui_Font_Color       : $FF0e9cbb;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5569,7 +5569,7 @@ var
                                                                                                     gui_Font_Color       : $FFbb0e0e;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5595,7 +5595,7 @@ var
                                                                                                     gui_Font_Color       : $FF0ebb12;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1067);
+                                                                            gui_CaptionExtraID        : 1067);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5621,7 +5621,7 @@ var
                                                                                                     gui_Font_Color       : $FF0e9cbb;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
@@ -5647,7 +5647,7 @@ var
                                                                                                     gui_Font_Color       : $FFbb0e0e;
                                                                                                     gui_Font_Text_HAlign : alCenter;
                                                                                                     gui_Font_Text_VAlign : avCenter);
-                                                                            gui_CaptionID        : 1069);
+                                                                            gui_CaptionExtraID        : 1069);
                                               gui_Use_Extra_Caption      : True;
                                               gui_Enabled                : True;
                                               gui_Visible                : True
