@@ -36,7 +36,7 @@
  *                                                                                       *
  *****************************************************************************************)
 
-unit mir3_game_gui_definition;
+unit mir3_game_gui_definition_system;
 
 interface
 
