@@ -104,21 +104,22 @@ var
                                      gui_Unique_Control_Number  : GUI_ID_LOGON_PANEL_INFO;
                                      gui_Type                   : ctPanel;
                                      gui_Form_Type              : ftNone;
-                                     gui_Top                    : 100;
-                                     gui_Left                   : 40;
-                                     gui_Height                 : 245;
-                                     gui_Width                  : 780;
+                                     gui_Top                    : 305;
+                                     gui_Left                   : 105;
+                                     gui_Height                 : 180;
+                                     gui_Width                  : 600;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF2F2F2;
-                                                                   gui_Font_Text_HAlign : alCenter;
-                                                                   gui_Font_Text_VAlign : avTop;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFA2A292;
                                                                    gui_Font_Setting     : [fsBold]);
+                                     gui_Color                  : (gui_BorderColor      : $FFF2F2F2);
+                                     gui_ShowBorder             : False; //for debug
                                      gui_Enabled                : True;
-                                     gui_Visible                : True                                   
+                                     gui_Visible                : True
                                      {$ENDREGION}
               );
-    ///////////////////////////         
+                                       
+    ///////////////////////////
             (* 1024 *) 
     /////////////////////////// 
     FLogonInfo_Background_1024       : ({$REGION ' - FLogonInfo_Background_1024            '}
@@ -141,16 +142,16 @@ var
                                      gui_Unique_Control_Number  : GUI_ID_LOGON_PANEL_INFO;
                                      gui_Type                   : ctPanel;
                                      gui_Form_Type              : ftNone;
-                                     gui_Top                    : 375;
-                                     gui_Left                   : 120;
-                                     gui_Height                 : 245;
-                                     gui_Width                  : 780;
+                                     gui_Top                    : 385;
+                                     gui_Left                   : 135;
+                                     gui_Height                 : 220;
+                                     gui_Width                  : 720;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF2F2F2;
-                                                                   gui_Font_Text_HAlign : alCenter;
-                                                                   gui_Font_Text_VAlign : avTop;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFA2A292;
                                                                    gui_Font_Setting     : [fsBold]);
+                                     gui_Color                  : (gui_BorderColor      : $FFF2F2F2);
+                                     gui_ShowBorder             : False; //for debug
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
                                      {$ENDREGION}
@@ -166,7 +167,7 @@ var
                                      gui_Left                   : 0;
                                      gui_Height                 : 1;
                                      gui_Width                  : 1;
-                                     gui_Timer_Intervall        : 1000;//5000;
+                                     gui_Timer_Intervall        : 2000;//5000;
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
                                      {$ENDREGION}

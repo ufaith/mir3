@@ -162,19 +162,19 @@ var
                                      gui_Unique_Control_Number  : GUI_ID_END_GAME_PANEL_INFO;
                                      gui_Type                   : ctPanel;
                                      gui_Form_Type              : ftNone;
-                                     gui_Top                    : -10;
+                                     gui_Top                    : -500;
                                      gui_Left                   : 190;
-                                     gui_Height                 : 620;
+                                     gui_Height                 : 1120;
                                      gui_Width                  : 600;
                                      gui_Blend_Size             : 255;
                                      gui_Blend_Mode             : BLEND_DEFAULT;
                                      gui_Font                   : (gui_Font_Size        : 18;
-                                                                   gui_Font_Color       : $FFF2F2F2;
+                                                                   gui_Font_Color       : $FFF3F350;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avTop;
                                                                    gui_Font_Setting     : [fsBold]);
                                      gui_Color                  : (gui_BorderColor      : $FFF2F2F2);
-                                     gui_Scroll_Text            : False;
+                                     gui_Scroll_Text            : True;
                                      gui_ShowBorder             : False;
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
@@ -276,20 +276,20 @@ var
                                      gui_Unique_Control_Number  : GUI_ID_END_GAME_PANEL_INFO;
                                      gui_Type                   : ctPanel;
                                      gui_Form_Type              : ftNone;
-                                     gui_Top                    : -10;
+                                     gui_Top                    : -500;
                                      gui_Left                   : 230;
-                                     gui_Height                 : 788;
+                                     gui_Height                 : 1288;
                                      gui_Width                  : 780;
                                      gui_Blend_Size             : 255;
                                      gui_Blend_Mode             : BLEND_DEFAULT;
                                      gui_Font                   : (gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF2F2F2;
+                                                                   gui_Font_Color       : $FFF3F350;//$FFF2F2F2;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avTop;
                                                                    gui_Font_Setting     : [fsBold]);
                                      gui_Color                  : (gui_BorderColor      : $FFF2F2F2);
-                                     gui_Scroll_Text            : False;
-                                     gui_ShowBorder             : True;
+                                     gui_Scroll_Text            : True;
+                                     gui_ShowBorder             : False;
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
                                      {$ENDREGION}

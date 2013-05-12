@@ -85,7 +85,7 @@ uses mir3_game_backend;
     var
       FSystemForm : TMIR3_GUI_Form;
       FSelectForm : TMIR3_GUI_Form;
-      FCrateForm  : TMIR3_GUI_Form;
+      //FCrateForm  : TMIR3_GUI_Form;
       FCharControl: TMIR3_GUI_SelectChar;
       FCharInfo   : TMir3Character;
     begin
@@ -122,154 +122,109 @@ uses mir3_game_backend;
 //      {$ENDREGION}
 
       {$REGION ' - Select Char Forms and Controls   '}
-      { Create Select Char / Create Char Forms and Controls }
+      { Select Char / Create Char Forms and Controls }
       with FGame_GUI_Definition_SelChar do
       begin
         case FScreen_Width of
            800 : begin
              FSelectForm  := TMIR3_GUI_Form(Self.AddForm(FSelectChar_Background_800,  True));
-             Self.AddControl(FSelectForm, FSelectChar_Animation_1_800  , True);
-             Self.AddControl(FSelectForm, FSelectChar_Animation_2_800  , True);
-             Self.AddControl(FSelectForm, FSelectChar_Character_1_800  , True);
-             Self.AddControl(FSelectForm, FSelectChar_Character_2_800  , True);
-             Self.AddControl(FSelectForm, FSelectChar_Character_3_800  , True);
-             Self.AddControl(FSelectForm, FSelectChar_Character_4_800  , True);
-
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Top_800    , True);
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Bottom_800 , True);
-
-             Self.AddControl(FSelectForm, FSelectChar_Btn_Start_800       , True);
-             Self.AddControl(FSelectForm, FSelectChar_Btn_Exit_800        , True);
-             Self.AddControl(FSelectForm, FSelectChar_Btn_Delete_Char_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Btn_New_Char_800    , True);
-             Self.AddControl(FSelectForm, FSelectChar_Btn_Set2ndPassword_800, True);
-
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_1_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_2_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_3_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_4_800 , True);
-
-
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_1_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_2_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_3_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_4_800 , True);
-
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_1_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_2_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_3_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_4_800 , True);
-
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_1_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_2_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_3_800 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_4_800 , True);
-
-
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1)).Caption := 'Kaito';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_2)).Caption := 'Clementina';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_3)).Caption := 'Coly';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_4)).Caption := 'Tester';
-
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1)).Caption := 'Level : 1000';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_2)).Caption := 'Level : 100';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_3)).Caption := 'Level : 9';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_4)).Caption := 'Level : 10000';
-
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1)).Caption := 'Class : Taoist';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_2)).Caption := 'Class : Warrior';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_3)).Caption := 'Class : Wizzard';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_4)).Caption := 'Class : Assassin';
-
-             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).Selected := True;
-
-             FCharacterList[0].Char_Job    := 2;
-             FCharacterList[0].Char_Gender := 0;
-             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).CharacterInfo := FCharacterList[0];
-             FCharacterList[1].Char_Job    := 0;
-             FCharacterList[1].Char_Gender := 1;
-             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_2)).CharacterInfo := FCharacterList[1];
-             FCharacterList[2].Char_Job    := 1;
-             FCharacterList[2].Char_Gender := 0;
-             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_3)).CharacterInfo := FCharacterList[2];
-             FCharacterList[3].Char_Job    := 3;
-             FCharacterList[3].Char_Gender := 0;
-             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)).CharacterInfo := FCharacterList[3];
+             Self.AddControl(FSelectForm, FSelectChar_Animation_1_800        , True);
+             Self.AddControl(FSelectForm, FSelectChar_Animation_2_800        , True);
+             Self.AddControl(FSelectForm, FSelectChar_Character_1_800        , False);
+             Self.AddControl(FSelectForm, FSelectChar_Character_2_800        , False);
+             Self.AddControl(FSelectForm, FSelectChar_Character_3_800        , False);
+             Self.AddControl(FSelectForm, FSelectChar_Character_4_800        , False);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Top_800          , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Bottom_800       , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Start_800          , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Exit_800           , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Delete_Char_800    , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_New_Char_800       , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Set2ndPassword_800 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_1_800       , False);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_2_800       , False);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_3_800       , False);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_4_800       , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_1_800      , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_2_800      , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_3_800      , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_4_800      , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_1_800     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_2_800     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_3_800     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_4_800     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_1_800     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_2_800     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_3_800     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_4_800     , False);
            end;
           1024 : begin
              FSelectForm  := TMIR3_GUI_Form(Self.AddForm(FSelectChar_Background_1024, True));
-             Self.AddControl(FSelectForm, FSelectChar_Animation_1_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Animation_2_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Character_1_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Character_2_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Character_3_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Character_4_1024 , True);
-
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Top_1024         , True);
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Bottom_1024      , True);
-
-             Self.AddControl(FSelectForm, FSelectChar_Btn_Start_1024         , True);
-             Self.AddControl(FSelectForm, FSelectChar_Btn_Exit_1024          , True);
-             Self.AddControl(FSelectForm, FSelectChar_Btn_Delete_Char_1024   , True);
-             Self.AddControl(FSelectForm, FSelectChar_Btn_New_Char_1024      , True);
-             Self.AddControl(FSelectForm, FSelectChar_Btn_Set2ndPassword_1024, True);
-
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_1_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_2_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_3_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_4_1024 , True);
-
-
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_1_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_2_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_3_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_4_1024 , True);
-
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_1_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_2_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_3_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_4_1024 , True);
-
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_1_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_2_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_3_1024 , True);
-             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_4_1024 , True);
-
-
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1)).Caption := 'Kaito';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_2)).Caption := 'Clementina';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_3)).Caption := 'Coly';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_4)).Caption := 'Tester';
-
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1)).Caption := 'Level : 1000';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_2)).Caption := 'Level : 100';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_3)).Caption := 'Level : 9';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_4)).Caption := 'Level : 10000';
-
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1)).Caption := 'Class : Taoist';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_2)).Caption := 'Class : Warrior';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_3)).Caption := 'Class : Wizzard';
-             TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_4)).Caption := 'Class : Assassin';
-
-             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).Selected := True;
-
-             FCharacterList[0].Char_Job    := 2;
-             FCharacterList[0].Char_Gender := 0;
-             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).CharacterInfo := FCharacterList[0];
-             FCharacterList[1].Char_Job    := 0;
-             FCharacterList[1].Char_Gender := 1;
-             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_2)).CharacterInfo := FCharacterList[1];
-             FCharacterList[2].Char_Job    := 1;
-             FCharacterList[2].Char_Gender := 0;
-             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_3)).CharacterInfo := FCharacterList[2];
-             FCharacterList[3].Char_Job    := 3;
-             FCharacterList[3].Char_Gender := 0;
-             TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)).CharacterInfo := FCharacterList[3];             
+             Self.AddControl(FSelectForm, FSelectChar_Animation_1_1024        , True);
+             Self.AddControl(FSelectForm, FSelectChar_Animation_2_1024        , True);
+             Self.AddControl(FSelectForm, FSelectChar_Character_1_1024        , False);
+             Self.AddControl(FSelectForm, FSelectChar_Character_2_1024        , False);
+             Self.AddControl(FSelectForm, FSelectChar_Character_3_1024        , False);
+             Self.AddControl(FSelectForm, FSelectChar_Character_4_1024        , False);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Top_1024          , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Bottom_1024       , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Start_1024          , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Exit_1024           , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Delete_Char_1024    , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_New_Char_1024       , True);
+             Self.AddControl(FSelectForm, FSelectChar_Btn_Set2ndPassword_1024 , True);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_1_1024       , False);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_2_1024       , False);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_3_1024       , False);
+             Self.AddControl(FSelectForm, FSelectChar_Panel_Char_4_1024       , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_1_1024      , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_2_1024      , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_3_1024      , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Name_4_1024      , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_1_1024     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_2_1024     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_3_1024     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Level_4_1024     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_1_1024     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_2_1024     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_3_1024     , False);
+             Self.AddControl(FSelectForm, FSelectChar_Dialog_Class_4_1024     , False);
            end;
         end;
       end;
       {$ENDREGION}
 
+      {$REGION ' - Select Char Forms and Controls   '}
+      { Select Char / Create Char Forms and Controls }
+      with FGame_GUI_Definition_SelChar do
+      begin
+        case FScreen_Width of
+           800 : begin
+             Self.AddControl(FSelectForm, FCreateChar_Info_Field_800        , False);
+             Self.AddControl(FSelectForm, FCreateChar_Setup_Field_800       , False);
+             FCharControl := TMIR3_GUI_SelectChar(Self.AddControl(FSelectForm,  FGame_GUI_Definition_SelChar.FCreateChar_Character_800  , False));
+             Self.AddControl(FSelectForm, FCreateChar_Button_Warrior_800    , False);
+             Self.AddControl(FSelectForm, FCreateChar_Button_Wizzard_800    , False);
+             Self.AddControl(FSelectForm, FCreateChar_Button_Taoist_800     , False);
+             Self.AddControl(FSelectForm, FCreateChar_Button_Assassin_800   , False);
+           end;
+          1024 : begin
+             Self.AddControl(FSelectForm, FCreateChar_Info_Field_1024       , False);
+             Self.AddControl(FSelectForm, FCreateChar_Setup_Field_1024      , False);
+             FCharControl := TMIR3_GUI_SelectChar(Self.AddControl(FSelectForm,  FGame_GUI_Definition_SelChar.FCreateChar_Character_1024 , False));
+             //Self.AddControl(FSelectForm, FCreateChar_Button_Warrior_1024   , False);
+             //Self.AddControl(FSelectForm, FCreateChar_Button_Wizzard_1024   , False);
+             //Self.AddControl(FSelectForm, FCreateChar_Button_Taoist_1024    , False);
+             //Self.AddControl(FSelectForm, FCreateChar_Button_Assassin_1024  , False);
+           end;
+        end;
+        //FCharControl.Selected        := True;
+        FCharControl.CharacterSystem := csCreateChar;
+        FCharInfo.Char_Job           := C_WARRIOR;
+        FCharInfo.Char_Gender        := C_MALE;
+        FCharControl.CharacterInfo   := FCharInfo;
+      end;
+      {$ENDREGION}
       {$REGION ' - System Forms and Controls        '}
       FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_System.FSys_Dialog_Info, False));
       Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Dialog_Text        , True);
@@ -415,11 +370,11 @@ uses mir3_game_backend;
       FCharacterList[3].Char_Select := False;
       // Reset Selection Color
       for I := 0 to 3 do
-        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1+I)).FGUI_Definition.gui_Font.gui_Font_Color := $FF989898;
-      for I := 0 to 3 do
+      begin
+        TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1+I)).FGUI_Definition.gui_Font.gui_Font_Color  := $FF989898;
         TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1+I)).FGUI_Definition.gui_Font.gui_Font_Color := $FF989898;
-      for I := 0 to 3 do
         TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1+I)).FGUI_Definition.gui_Font.gui_Font_Color := $FF989898;
+      end;
 
       case ASelectedChar of
         0 : begin
@@ -427,123 +382,32 @@ uses mir3_game_backend;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1)).FGUI_Definition.gui_Font.gui_Font_Color  := $FFFFFFFF;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
-
-
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_INFO)).Caption  := PWideChar(String(FCharacterList[0].Char_Name));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := PWideChar(GetClassAsString(FCharacterList[0].Char_Job));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := PWideChar(IntToStr(FCharacterList[0].Char_Level));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_GOLD_INFO)).Caption  := PWideChar(IntToStr(FCharacterList[0].Char_Gold));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := PWideChar(String(FCharacterList[0].Char_Exp + '%'));
-          TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).Selected   := True;
-          case FCharacterList[0].Char_Job of
-            C_WARRIOR  : case FCharacterList[0].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('JMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('JWMSel.wav');
-                         end;
-            C_WIZZARD  : case FCharacterList[0].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('SMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('SWMSel.wav');
-                         end;
-            C_TAOIST   : case FCharacterList[0].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('DMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('DWMSel.wav');
-                         end;
-            C_ASSASSIN : case FCharacterList[0].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('as_168-m.wav');  //fix me with correct Sound
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('as_168-f.wav');  //fix me with correct Sound
-                         end;
-          end;
+          // Set Character as Selected
+          TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1)).Selected := True;
         end;
         1 : begin
           FCharacterList[1].Char_Select := True;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_2)).FGUI_Definition.gui_Font.gui_Font_Color  := $FFFFFFFF;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_2)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_2)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_INFO)).Caption  := PWideChar(String(FCharacterList[1].Char_Name));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := PWideChar(GetClassAsString(FCharacterList[1].Char_Job));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := PWideChar(IntToStr(FCharacterList[1].Char_Level));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_GOLD_INFO)).Caption  := PWideChar(IntToStr(FCharacterList[1].Char_Gold));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := PWideChar(String(FCharacterList[1].Char_Exp + '%'));
-          TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_2)).Selected   := True;
-          case FCharacterList[1].Char_Job of
-            C_WARRIOR  : case FCharacterList[1].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('JMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('JWMSel.wav');
-                         end;
-            C_WIZZARD  : case FCharacterList[1].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('SMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('SWMSel.wav');
-                         end;
-            C_TAOIST   : case FCharacterList[1].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('DMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('DWMSel.wav');
-                         end;
-            C_ASSASSIN : case FCharacterList[1].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('as_168-m.wav'); //fix me with correct Sound
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('as_168-f.wav'); //fix me with correct Sound
-                         end;
-          end;
+          // Set Character as Selected
+          TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_2)).Selected := True;
         end;
         2 : begin
           FCharacterList[2].Char_Select := True;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_3)).FGUI_Definition.gui_Font.gui_Font_Color  := $FFFFFFFF;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_3)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_3)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_INFO)).Caption  := PWideChar(String(FCharacterList[2].Char_Name));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := PWideChar(GetClassAsString(FCharacterList[2].Char_Job));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := PWideChar(IntToStr(FCharacterList[2].Char_Level));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_GOLD_INFO)).Caption  := PWideChar(IntToStr(FCharacterList[2].Char_Gold));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := PWideChar(String(FCharacterList[2].Char_Exp + '%'));
-          TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_3)).Selected   := True;
-          case FCharacterList[2].Char_Job of
-            C_WARRIOR  : case FCharacterList[2].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('JMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('JWMSel.wav');
-                         end;
-            C_WIZZARD  : case FCharacterList[2].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('SMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('SWMSel.wav');
-                         end;
-            C_TAOIST   : case FCharacterList[2].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('DMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('DWMSel.wav');
-                         end;
-            C_ASSASSIN : case FCharacterList[2].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('as_168-m.wav'); //fix me with correct Sound
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('as_168-f.wav'); //fix me with correct Sound
-                         end;
-          end;
+          // Set Character as Selected
+          TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_3)).Selected := True;
         end;
         3 : begin
           FCharacterList[3].Char_Select := True;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_4)).FGUI_Definition.gui_Font.gui_Font_Color  := $FFFFFFFF;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_4)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
           TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_4)).FGUI_Definition.gui_Font.gui_Font_Color := $FFFFFFFF;
-
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_INFO)).Caption  := PWideChar(String(FCharacterList[2].Char_Name));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_INFO)).Caption := PWideChar(GetClassAsString(FCharacterList[2].Char_Job));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_INFO)).Caption := PWideChar(IntToStr(FCharacterList[2].Char_Level));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_GOLD_INFO)).Caption  := PWideChar(IntToStr(FCharacterList[2].Char_Gold));
-//          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_EXP_INFO)).Caption   := PWideChar(String(FCharacterList[2].Char_Exp + '%'));
-          TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)).Selected   := True;
-          case FCharacterList[3].Char_Job of
-            C_WARRIOR  : case FCharacterList[3].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('JMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('JWMSel.wav');
-                         end;
-            C_WIZZARD  : case FCharacterList[3].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('SMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('SWMSel.wav');
-                         end;
-            C_TAOIST   : case FCharacterList[3].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('DMMSel.wav');
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('DWMSel.wav');
-                         end;
-            C_ASSASSIN : case FCharacterList[3].Char_Gender of
-                           C_MALE   : GGameEngine.SoundManager.PlaySound('as_168-m.wav'); //fix me with correct Sound
-                           C_FEMALE : GGameEngine.SoundManager.PlaySound('as_168-f.wav'); //fix me with correct Sound
-                         end;
-          end;
+          // Set Character as Selected
+          TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_4)).Selected := True;
         end;
       end;
     end;
@@ -583,10 +447,21 @@ uses mir3_game_backend;
             Exit;
           end;
 
-          (* read the character from connection stream *)
-          for I := 0 to 2 do
+          // Hide and reset the Chararcter things fully
+          for I := 0 to 3 do
           begin
-            //Result + FCharName + '/' + FJob + '/' + FGold + '/' + FLevel + '/' + FGender + '/' + FExp +'/';
+            TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1+I)).FGUI_Definition.gui_Font.gui_Font_Color  := $FF989898;
+            TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1+I)).FGUI_Definition.gui_Font.gui_Font_Color := $FF989898;
+            TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1+I)).FGUI_Definition.gui_Font.gui_Font_Color := $FF989898;
+            TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1+I)).Visible  := False;
+            TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1+I)).Visible := False;
+            TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1+I)).Visible := False;
+            TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_PANEL_1+I)).Visible     := False;
+          end;
+
+          (* read the character from connection stream *)
+          for I := 0 to 3 do
+          begin
             with FCharacterList[I] do
             begin
               FTempBody := GetValidStr3(FTempBody,  FTempString, ['/']);
@@ -605,7 +480,7 @@ uses mir3_game_backend;
           end;
 
           (* checks if the character exist and determines which of them was drawn first. *)
-          for I := 0 to 2 do
+          for I := 0 to 3 do
           begin
             with FCharacterList[I], TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1+I)) do
             begin
@@ -620,10 +495,26 @@ uses mir3_game_backend;
                   Selected      := True;
                   CharacterInfo := FCharacterList[I];
                   Visible       := True;
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1+I)).Visible  := True;
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1+I)).Visible := True;
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1+I)).Visible := True;
+                  TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_PANEL_1+I)).Visible     := True;                  
+                  // Add Text Information from the Character
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1+I)).Caption    := Char_Name;
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1+I)).Caption   := 'Level : ' + IntToStr(Char_Level);
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1+I)).Caption   := 'Class : ' + GetClassAsString(Char_Job);
                 end else begin
                   Selected      := False;
                   CharacterInfo := FCharacterList[I];
                   Visible       := True;
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1+I)).Visible  := True;
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1+I)).Visible := True;
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1+I)).Visible := True;
+                  TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_PANEL_1+I)).Visible     := True;
+                  // Add Text Information from the Character
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1+I)).Caption    := Char_Name;
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1+I)).Caption   := 'Level : ' + IntToStr(Char_Level);
+                  TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1+I)).Caption   := 'Class : ' + GetClassAsString(Char_Job);
                 end;
               end else begin
                 Selected := False;
@@ -634,7 +525,7 @@ uses mir3_game_backend;
 
           if Trim(FCharacterInfo.Char_Name) <> '' then
             ZeroMemory(@FCharacterInfo, SizeOf(TMir3Character));
-            
+
           TestAndSetNewSelection;
           {$ENDREGION}
         end;
@@ -676,7 +567,7 @@ uses mir3_game_backend;
       if GetSelectedCharacterID(False) <> -1 then
       begin
         TMIR3_GUI_Form(GetFormByID(GUI_ID_SELECTCHAR_BACKGROUND)).Visible := False;
-        GGameEngine.SetGameScene(gsScene_PlayGame); //GameSceneStep := gsScene_PlayGame;
+        GGameEngine.SetGameScene(gsScene_LoadGame);
 //        with GGameEngine.GameNetwork do
 //        begin
 //          Active  := False;
@@ -689,13 +580,46 @@ uses mir3_game_backend;
     end;
 
     procedure TMir3GameSceneSelectChar.Event_Create_New_Char;
+    var
+      I : Integer;
     begin
       if GetCharacterCount < 3 then
       begin
         GGameEngine.SoundManager.StopBackgroundMusic;
+        GGameEngine.SoundManager.PlayBackgroundMusic('CreateChr.wes', True);
         ZeroMemory(@FCharacterInfo, SizeOf(TMir3Character));
-        TMIR3_GUI_Form(GetFormByID(GUI_ID_SELECTCHAR_BACKGROUND)).Visible := False;
-        GGameEngine.FGameFileManger.RenderVideo(1);
+
+        //SaveSelectCharState;  // <-- save all information
+
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_SELECTCHAR_BUTTON_START)).Visible            := False;
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_SELECTCHAR_BUTTON_EXIT)).Visible             := False;
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_SELECTCHAR_BUTTON_DELETE_CHAR)).Visible      := False;
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_SELECTCHAR_BUTTON_NEW_CHAR)).Visible         := False;
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_SELECTCHAR_BUTTON_SET_2ND_PASSWORD)).Visible := False;
+        TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_PANEL_BOTTOM)).Visible        := False;
+        TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_PANEL_TOP)).FGUI_Definition.gui_CaptionID := 38;
+        for I := 0 to 3 do
+        begin
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_NAME_1+I)).Visible  := False;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_LEVEL_1+I)).Visible := False;
+          TMIR3_GUI_TextLabel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_CLASS_1+I)).Visible := False;
+          TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SELECTCHAR_INFO_PANEL_1+I)).Visible     := False;
+          TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_SELECTCHAR_CHARACTER_1+I)).Visible := False;
+        end;
+
+        TMIR3_GUI_SelectChar(GetComponentByID(GUI_ID_CREATECHAR_CHARACTER)).Visible := True;
+        TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_OPTION_PANEL)).Visible   := True;
+        TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO_PANEL)).Visible     := True;
+
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_CREATECHAR_BUTTON_WARRIOR)).Visible  := True;
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_CREATECHAR_BUTTON_WIZZARD)).Visible  := True;
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_CREATECHAR_BUTTON_TAOIST)).Visible   := True;
+        TMIR3_GUI_Button(GetComponentByID(GUI_ID_CREATECHAR_BUTTON_ASSASSIN)).Visible := True;
+       // FCreateChar_Button_Warrior_800
+
+
+        //TMIR3_GUI_Form(GetFormByID(GUI_ID_SELECTCHAR_BACKGROUND)).Visible := False;
+        //GGameEngine.FGameFileManger.RenderVideo(1);
         //TMIR3_GUI_Form(GetFormByID(GUI_ID_CREATECHAR_BACKGROUND)).Visible := True;
       end else begin
         SystemMessage(GGameEngine.GameLanguage.GetTextFromLangSystem(67), [mbOk], 0);

@@ -15,3 +15,10 @@
    
   * adding more things to all scenes
   * adding support for the new scenes EndGame and SelectSever to the backend system
+
+:: 11.05.2013 (Coly) ::
+  * Finish End Scene (1024 and 800)
+  * Finish Logon Info Scene (1024 and 800)
+  * Finish Login Scene (1024 and 800)
+  * Finish Select Char Scene (1024 and 800)
+  * Fist things for the Create Char Scene (1024 and 800)

@@ -239,8 +239,16 @@ var
                                      gui_Width                  : 784;
                                      gui_Blend_Size             : 255;
                                      gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_CaptionID              : 39;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
+                                                                   gui_Font_Color       : $FFAEA99A;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avTop;
+                                                                   gui_Font_Setting     : [fsBold]);
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                    gui_Background_Texture_ID : 1);
+                                     gui_Caption_Extra          : (gui_Caption_Offset : 36);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -272,22 +280,18 @@ var
                                      gui_Type                   : ctEdit;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:2; Top:0; Right:182; Bottom:16);
-                                     gui_Top                    : 625;
+                                     gui_Top                    : 624;
                                      gui_Left                   : 188;
                                      gui_Height                 : 16;
                                      gui_Width                  : 184;
                                      gui_Blend_Size             : 245;
-                                     gui_Font                   : (gui_Font_Use_ID      : 15;
-                                                                   gui_Font_Size        : 21;
+                                     gui_Font                   : (gui_Font_Use_ID      : 13;
+                                                                   gui_Font_Size        : 16;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Text_VAlign : avCenter);
                                      gui_Password_Char          : '';
                                      gui_Edit_Max_Length        : 25;
                                      gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
-                                     gui_Color                  : (gui_ControlColor : $F5050505;
-                                                                   gui_BorderColor  : $FF717171);
-                                     gui_ShowBorder             : False;
-                                     gui_ShowPanel              : False;
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
                                      {$ENDREGION}
@@ -297,23 +301,19 @@ var
                                      gui_Type                   : ctEdit;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:2; Top:0; Right:182; Bottom:16);
-                                     gui_Top                    : 625;
+                                     gui_Top                    : 624;
                                      gui_Left                   : 475;
                                      gui_Height                 : 16;
                                      gui_Width                  : 184;
                                      gui_Blend_Size             : 245;
-                                     gui_Font                   : (gui_Font_Use_ID      : 15;
-                                                                   gui_Font_Size        : 21;
+                                     gui_Font                   : (gui_Font_Use_ID      : 13;
+                                                                   gui_Font_Size        : 16;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Text_HAlign : alLeft;
                                                                    gui_Font_Text_VAlign : avCenter);
                                      gui_Password_Char          : '*';
                                      gui_Edit_Max_Length        : 25;
                                      gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
-                                     gui_Color                  : (gui_ControlColor : $F5050505;
-                                                                   gui_BorderColor  : $FF717171);
-                                     gui_ShowBorder             : False;
-                                     gui_ShowPanel              : False;
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -325,22 +325,22 @@ var
                                      gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
                                      gui_Top                    : 618;
                                      gui_Left                   : 770;
-                                     gui_Height                 : 21;
-                                     gui_Width                  : 28;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 2;
-                                     gui_HintID                 : 7;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 18;
-                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Color       : $FFBEA97A;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Setting     : [fsBold];
                                                                    gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 29;
-                                                                   gui_Mouse_Over_Texture_ID : 31;
+                                                                   gui_Background_Texture_ID : 31; 
+                                                                   gui_Mouse_Over_Texture_ID : 29;
                                                                    gui_Mouse_Down_Texture_ID : 30);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
@@ -353,22 +353,22 @@ var
                                      gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
                                      gui_Top                    : 618;
                                      gui_Left                   : 667;
-                                     gui_Height                 : 21;
-                                     gui_Width                  : 44;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 1;
-                                     gui_HintID                 : 6;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 18;
-                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Color       : $FFBEA97A;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Setting     : [fsBold];
                                                                    gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 29;
-                                                                   gui_Mouse_Over_Texture_ID : 31;
+                                                                   gui_Background_Texture_ID : 31; 
+                                                                   gui_Mouse_Over_Texture_ID : 29;
                                                                    gui_Mouse_Down_Texture_ID : 30);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
@@ -381,21 +381,22 @@ var
                                      gui_WorkField              : (Left:0; Top:0; Right:228; Bottom:30);
                                      gui_Top                    : 560;
                                      gui_Left                   : 441;
-                                     gui_Height                 : 18;
+                                     gui_Height                 : 30;
                                      gui_Width                  : 210;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 3;
-                                     gui_HintID                 : 8;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 18;
-                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Color       : $FFBEA97A;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Setting     : [fsBold];
                                                                    gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                    gui_Mouse_Over_Texture_ID : 9);
+                                     gui_Caption_Extra          : (gui_Caption_Offset : 1);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
@@ -407,21 +408,22 @@ var
                                      gui_WorkField              : (Left:0; Top:0; Right:228; Bottom:30);
                                      gui_Top                    : 560;
                                      gui_Left                   : 670;
-                                     gui_Height                 : 18;
+                                     gui_Height                 : 30;
                                      gui_Width                  : 210;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 4;
-                                     gui_HintID                 : 9;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 18;
-                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Color       : $FFBEA97A;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Setting     : [fsBold];
                                                                    gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                    gui_Mouse_Over_Texture_ID : 9);
+                                     gui_Caption_Extra          : (gui_Caption_Offset : 1);
                                      gui_Enabled                : True;
                                      gui_Visible                : True  
                                      {$ENDREGION}
@@ -556,8 +558,16 @@ var
                                      gui_Width                  : 784;
                                      gui_Blend_Size             : 255;
                                      gui_Blend_Mode             : BLEND_DEFAULT;
+                                     gui_CaptionID              : 39;
+                                     gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                   gui_Font_Size        : 21;
+                                                                   gui_Font_Color       : $FFAEA99A;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avTop;
+                                                                   gui_Font_Setting     : [fsBold]);                                     
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
                                                                    gui_Background_Texture_ID : 1);
+                                     gui_Caption_Extra          : (gui_Caption_Offset : 36);
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                    
                                      {$ENDREGION}
@@ -589,22 +599,18 @@ var
                                      gui_Type                   : ctEdit;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:2; Top:0; Right:182; Bottom:16);
-                                     gui_Top                    : 625;
+                                     gui_Top                    : 624;
                                      gui_Left                   : 188;
                                      gui_Height                 : 16;
                                      gui_Width                  : 184;
                                      gui_Blend_Size             : 245;
-                                     gui_Font                   : (gui_Font_Use_ID      : 15;
+                                     gui_Font                   : (gui_Font_Use_ID      : 13;
                                                                    gui_Font_Size        : 16;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Text_VAlign : avCenter);
                                      gui_Password_Char          : '';
                                      gui_Edit_Max_Length        : 25;
                                      gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
-                                     gui_Color                  : (gui_ControlColor : $F5050505;
-                                                                   gui_BorderColor  : $FF717171);
-                                     gui_ShowBorder             : False;
-                                     gui_ShowPanel              : False;
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
                                      {$ENDREGION}
@@ -614,12 +620,12 @@ var
                                      gui_Type                   : ctEdit;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:2; Top:0; Right:182; Bottom:16);
-                                     gui_Top                    : 625;
+                                     gui_Top                    : 624;
                                      gui_Left                   : 475;
                                      gui_Height                 : 16;
                                      gui_Width                  : 184;
                                      gui_Blend_Size             : 245;
-                                     gui_Font                   : (gui_Font_Use_ID      : 15;
+                                     gui_Font                   : (gui_Font_Use_ID      : 13;
                                                                    gui_Font_Size        : 16;
                                                                    gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Text_HAlign : alLeft;
@@ -627,10 +633,6 @@ var
                                      gui_Password_Char          : '*';
                                      gui_Edit_Max_Length        : 25;
                                      gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
-                                     gui_Color                  : (gui_ControlColor : $F5050505;
-                                                                   gui_BorderColor  : $FF717171);
-                                     gui_ShowBorder             : False;
-                                     gui_ShowPanel              : False;
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
@@ -642,22 +644,22 @@ var
                                      gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
                                      gui_Top                    : 618;
                                      gui_Left                   : 770;
-                                     gui_Height                 : 21;
-                                     gui_Width                  : 28;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 2;
-                                     gui_HintID                 : 7;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
-                                                                   gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFBEA97A;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Setting     : [fsBold];
                                                                    gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 29;
-                                                                   gui_Mouse_Over_Texture_ID : 31;
+                                                                   gui_Background_Texture_ID : 31; 
+                                                                   gui_Mouse_Over_Texture_ID : 29;
                                                                    gui_Mouse_Down_Texture_ID : 30);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
@@ -670,22 +672,22 @@ var
                                      gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
                                      gui_Top                    : 618;
                                      gui_Left                   : 667;
-                                     gui_Height                 : 21;
-                                     gui_Width                  : 44;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 1;
-                                     gui_HintID                 : 6;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
-                                                                   gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFBEA97A;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Setting     : [fsBold];
                                                                    gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 29;
-                                                                   gui_Mouse_Over_Texture_ID : 31;
+                                                                   gui_Background_Texture_ID : 31;
+                                                                   gui_Mouse_Over_Texture_ID : 29;
                                                                    gui_Mouse_Down_Texture_ID : 30);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
@@ -693,48 +695,54 @@ var
               );
     FLogin_Button_URL_1_1024         : ({$REGION ' - FLogin_Button_URL_1_1024              '}
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_URL_1;
-                                     gui_Type                   : ctTextButton;
+                                     gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:0; Top:0; Right:228; Bottom:30);
                                      gui_Top                    : 560;
                                      gui_Left                   : 441;
-                                     gui_Height                 : 18;
-                                     gui_Width                  : 210;
+                                     gui_Height                 : 30;
+                                     gui_Width                  : 228;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 3;
-                                     gui_HintID                 : 8;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
-                                                                   gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFBEA97A;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Setting     : [fsBold];
                                                                    gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Mouse_Over_Texture_ID : 9);
+                                     gui_Caption_Extra          : (gui_Caption_Offset : 1);
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
     FLogin_Button_URL_2_1024         : ({$REGION ' - FLogin_Button_URL_2_1024              '}
                                      gui_Unique_Control_Number  : GUI_ID_LOGIN_BUTTON_URL_1;
-                                     gui_Type                   : ctTextButton;
+                                     gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:0; Top:0; Right:228; Bottom:30);
                                      gui_Top                    : 560;
                                      gui_Left                   : 670;
-                                     gui_Height                 : 18;
-                                     gui_Width                  : 210;
+                                     gui_Height                 : 30;
+                                     gui_Width                  : 228;
                                      gui_Blend_Size             : 255;
                                      gui_CaptionID              : 4;
-                                     gui_HintID                 : 9;
                                      gui_Font                   : (gui_Font_Use_ID      : 2;
                                                                    gui_Font_Size        : 18;
-                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Color       : $FFBEA97A;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Setting     : [fsBold];
                                                                    gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
                                                                    gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                   gui_Mouse_Over_Texture_ID : 9);
+                                     gui_Caption_Extra          : (gui_Caption_Offset : 1);
                                      gui_Enabled                : True;
                                      gui_Visible                : True  
                                      {$ENDREGION}

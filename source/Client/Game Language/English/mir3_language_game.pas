@@ -96,8 +96,8 @@ begin
     35: Value := 'Reserved';
     36: Value := 'Reserved';
     37: Value := 'Reserved';
-    38: Value := 'Reserved';
-    39: Value := 'Reserved';
+    38: Value := 'Create Character';
+    39: Value := 'Login to the Game';
     40: Value := 'Select Server';
     (*******************************************************************
     *               Character Selection / Creation                     *

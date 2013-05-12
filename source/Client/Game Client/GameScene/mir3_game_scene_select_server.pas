@@ -138,7 +138,7 @@ uses mir3_game_backend;
     procedure TMir3GameSceneSelectServer.ResetScene;
     begin
       // Debug, later move to ServerSelection
-      EventSetServerCount(4);
+      EventSetServerCount(1);
     end;
   {$ENDREGION}
   
@@ -147,8 +147,8 @@ uses mir3_game_backend;
     var
       //FNetPort       : String;
       //FNetHost       : String;
-      FTempBody      : String;
-      FTempString    : String;
+      //FTempBody      : String;
+      //FTempString    : String;
       FMessageHead   : String;
       FMessageBody   : String;
       FMessage       : TDefaultMessage;

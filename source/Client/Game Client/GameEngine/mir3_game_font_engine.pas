@@ -178,7 +178,7 @@ type
     //procedure DrawHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
     procedure DrawHint(AX, AY: Integer; AText: PWideChar; ADrawSetting: PDrawSetting);
     procedure DrawItemHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
-    procedure DrawMoveV(AIndex: Integer; AText: String; ADrawSetting: PDrawSetting);
+    procedure DrawMoveV(AIndex: Integer; AText: WideString; ADrawSetting: PDrawSetting);
   end;
 
   TMIR3_Font = class(TInterfacedObject, IMIR3_Font)
@@ -218,7 +218,7 @@ type
     //procedure DrawHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
     procedure DrawHint(AX, AY: Integer; AText: PWideChar; ADrawSetting: PDrawSetting);
     procedure DrawItemHint(AX, AY: Integer; AText: array of char; ADrawSetting: PDrawSetting);
-    procedure DrawMoveV(AIndex: Integer; AText: String; ADrawSetting: PDrawSetting);
+    procedure DrawMoveV(AIndex: Integer; AText: WideString; ADrawSetting: PDrawSetting);
   end;
    
   procedure InitDrawSetting(var ADrawSetting: TDrawSetting);
@@ -1541,8 +1541,9 @@ begin
         FTempLines := GetLineCountW(AText) * (dsFontHeight + 1);
         FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
 
-        for I := AFirstVisibleChar+1 to Length(AText) do
+        for I := AFirstVisibleChar to Length(AText) do
         begin
+          if AText[I] = #0 then Break;
           with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
           begin
             // Test if Char in List.. if not set "?" as place holder
@@ -1564,8 +1565,9 @@ begin
         FX         := dsAX + (dsControlWidth div 2) - Trunc(GetTextWidthW(AText, ADrawSetting) / 2);
         FTempLines := GetLineCount(PChar(AText)) * (dsFontHeight + 1);
         FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
-        for I := AFirstVisibleChar+1 to Length(AText) do
+        for I := AFirstVisibleChar to Length(AText) do
         begin
+          if AText[I] = #0 then Break;
           with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
           begin
             // Test if Char in List.. if not set "?" as place holder
@@ -1590,6 +1592,7 @@ begin
         FY         := dsAY + (dsControlHeigth div 2) - (FTempLines div 2);
         for I := AFirstVisibleChar+1 to Length(AText) do
         begin
+          if AText[I] = #0 then Break;
           with FMFD_FontSets[FFontIndex].FCharHeader[Ord(AText[I])] do
           begin
             // Test if Char in List.. if not set "?" as place holder
@@ -2205,11 +2208,11 @@ begin
 
 end;
 
-procedure TMIR3_Font.DrawMoveV(AIndex: Integer; AText: String; ADrawSetting: PDrawSetting);
+procedure TMIR3_Font.DrawMoveV(AIndex: Integer; AText: WideString; ADrawSetting: PDrawSetting);
 var
   I               : Integer;
   FTempLines      : Integer;
-  FTempText       : String;
+  FTempText       : WideString;
   FCutRect        : TRect;
   FTextArray      : array of TTextScrollInfo;
 begin
@@ -2218,17 +2221,17 @@ begin
     FCutRect   := Rect(dsAX, dsAY-dsFontHeight, dsAX+dsControlWidth, dsAY+dsControlHeigth-(dsFontHeight * 2));
     dsAY       := dsAY + dsControlHeigth - AIndex;
     FTempText  := AText;
-    FTempLines := GetLineCount(PChar(AText));
+    FTempLines := GetLineCountW(PWideChar(AText));
     SetLength(FTextArray, FTempLines);
 
     for I := 0 to FTempLines-1 do
     begin
-      if Pos(#13, FTempText) > 0 then
+      if Pos('\', FTempText) > 0 then
       begin
-        FTextArray[I].FText := Copy(FTempText, 0, Pos(#10, FTempText));
+        FTextArray[I].FText := Copy(FTempText, 0, Pos('\', FTempText)-1);
         if PtInRect(FCutRect, Point(dsAX +1, dsAY + ( I * (dsFontHeight + 1))))  then
           FTextArray[I].FShow := True;
-        FTempText    := Copy(FTempText, Pos(#13, FTempText)+1, 9999);
+        FTempText    := Copy(FTempText, Pos('\', FTempText)+1, 9999);
       end else begin
         FTextArray[I].FText := FTempText;
         if PtInRect(FCutRect, Point(dsAX +1, dsAY + ( I * (dsFontHeight + 1))))  then
@@ -2241,7 +2244,7 @@ begin
       dsAY := dsAY + (dsFontHeight + 1);    
       if FTextArray[I].FShow then
       begin
-        DrawText(PWideChar(FTextArray[I].FText), ADrawSetting);
+        DrawText(FTextArray[I].FText, ADrawSetting);
       end;
     end;
 

@@ -143,7 +143,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       begin
         { Create Load Game Static Base UI Forms and Controls }
         FLoadGameForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Load_Game_Background, True));
-        //Self.AddControl(FLoadGameForm, FInGame_UI_Exit_Text_Info  , True);
+        Self.AddControl(FLoadGameForm, FInGame_UI_Exit_Text_Info  , True);
         //Self.AddControl(FLoadGameForm, FInGame_UI_Exit_Btn_Exit   , True);
       end;
     end;  

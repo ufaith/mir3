@@ -106,12 +106,13 @@ uses mir3_game_backend;
       Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_No   , False);
 
       // later use Config file                                                  // TODO : Add more Text here (Hard coded for ever)
-      TMIR3_GUI_Panel(GetComponentByID(GUI_ID_END_GAME_PANEL_INFO)).Caption := 'Hello'+#10#13+
+      TMIR3_GUI_Panel(GetComponentByID(GUI_ID_END_GAME_PANEL_INFO)).Caption := 'Hello\'+
                                                                                'this is the new LomCN Mir3 client...\'+
                                                                                'Completely re-created from begin...\\'+
                                                                                'Create by Coly, Azura, ElAmO and 1PKRyan\\'+
-                                                                               ' Thank you LomCN staff, for all the help...\\'+
-                                                                               ' Thank you WeMade, for this very nice game...';
+                                                                               '....add more...\\'+
+                                                                               'Thank you LomCN staff, for all the help...\\'+
+                                                                               'Thank you WeMade, for this very nice game...';
 
     end;
     

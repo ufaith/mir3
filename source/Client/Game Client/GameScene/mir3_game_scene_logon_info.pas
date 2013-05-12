@@ -103,14 +103,12 @@ uses mir3_game_backend;
       Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_No   , False);
 
       // later use Config file
-//      TMIR3_GUI_Panel(GetComponentByID(GUI_ID_LOGON_PANEL_INFO)).Caption := 'Hello'+#10#13+
-//                                                                            'this is the new LomCN Mir3 client...\'+
-//                                                                            'Completely re-created from begin...\\'+
-//                                                                            'Create by Coly, Azura, ElAmO and 1PKRyan\\'+
-//                                                                            ' Thank you LomCN staff, for all the help...\\'+
-//                                                                            ' Thank you WeMade, for this very nice game...';
+      TMIR3_GUI_Panel(GetComponentByID(GUI_ID_LOGON_PANEL_INFO)).Caption := 'This is the new LomCN Client / Server System for Mir3.\'+
+                                                                            'It use the latest new Intreface and In-Game stuff. \'+
+                                                                            'We have the client completely re-created from begin...\\'+
+                                                                            'Create by Coly, Azura, ElAmO and 1PKRyan\\';
 
-      FWaitTimeInterval := 30000;                                                                            ;
+      FWaitTimeInterval := 30000;
     end;
     
     destructor TMir3GameSceneLogonInfo.Destroy;
@@ -181,7 +179,7 @@ uses mir3_game_backend;
      begin
        TMIR3_GUI_Timer(GetComponentByID(GUI_ID_LOGON_TIMER)).SetTimerEnabled(False);
        GGameEngine.SceneLogon.ResetScene;
-       GGameEngine.SetGameScene(gsScene_SelChar);                        
+       GGameEngine.SetGameScene(gsScene_SelChar);
        //GGameEngine.FGame_Scene_Step := gsScene_SelServer;//gsScene_Login; gsScene_SelChar gsScene_SelServer gsScene_EndGame
      end;
 

@@ -583,7 +583,7 @@ implementation
           end;
           {$ENDIF}
           SceneLogonInfo.OnRender(PD3dDevice, AElapsedTime);
-          {$IFNDEF DEVELOP_SHOW_FPS}
+          {$IFDEF DEVELOP_SHOW_FPS}
           FontManager.DrawText(GRenderEngine.Timer_GetFPSStrW, @FDrawSetting);
           {$ENDIF}
         end;
@@ -595,16 +595,16 @@ implementation
           end;
           {$ENDIF}
           SceneLogon.OnRender(PD3dDevice, AElapsedTime);
-          {$IFNDEF DEVELOP_SHOW_FPS}
+          {$IFDEF DEVELOP_SHOW_FPS}
           FontManager.DrawText(GRenderEngine.Timer_GetFPSStrW, @FDrawSetting);
           {$ENDIF}
         end;
         gsScene_SelServer: begin
           SceneSelectServer.OnRender(PD3dDevice, AElapsedTime);
-          {$IFNDEF DEVELOP_SHOW_FPS}
+          {$IFDEF DEVELOP_SHOW_FPS}
           FontManager.DrawText(GRenderEngine.Timer_GetFPSStrW, @FDrawSetting);
           {$ENDIF}
-        end;        
+        end;
         gsScene_SelChar    : begin
           {$IFNDEF DEVELOP_MODE}
           if (FServerConnecting) and not(FServerConnected) then
@@ -613,7 +613,7 @@ implementation
           end;
           {$ENDIF}
           SceneSelectChar.OnRender(PD3dDevice, AElapsedTime);
-          {$IFNDEF DEVELOP_SHOW_FPS}
+          {$IFDEF DEVELOP_SHOW_FPS}
           FontManager.DrawText(GRenderEngine.Timer_GetFPSStrW, @FDrawSetting);
           {$ENDIF}
         end;
@@ -626,13 +626,13 @@ implementation
           end;
           {$ENDIF}
           SceneInGame.OnRender(PD3dDevice, AElapsedTime);
-          {$IFNDEF DEVELOP_SHOW_FPS}
+          {$IFDEF DEVELOP_SHOW_FPS}
           FontManager.DrawText(GRenderEngine.Timer_GetFPSStrW, @FDrawSetting);
           {$ENDIF}
         end;
         gsScene_EndGame    : begin
           SceneEndGame.OnRender(PD3dDevice, AElapsedTime);
-          {$IFNDEF DEVELOP_SHOW_FPS}
+          {$IFDEF DEVELOP_SHOW_FPS}
           FontManager.DrawText(GRenderEngine.Timer_GetFPSStrW, @FDrawSetting);
           {$ENDIF}
         end;

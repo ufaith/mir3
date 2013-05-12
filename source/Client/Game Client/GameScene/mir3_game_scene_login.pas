@@ -255,8 +255,8 @@ uses mir3_game_backend;
       FUserName : String;
       FPassword : String;
     begin
-      FUserName := 'Test'; //TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_USER)).Text;
-      FPassword := 'Test';//TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_PASSWORD)).Text;
+      FUserName := TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_USER)).Text;
+      FPassword := TMIR3_GUI_Edit(GetComponentByID(GUI_ID_LOGIN_EDIT_PASSWORD)).Text;
       if (Trim(FUserName) <> '') and (Trim(FPassword) <> '') then
       begin
         GGameEngine.Send_Login(FUserName, FPassword);

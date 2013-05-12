@@ -3980,10 +3980,10 @@ var
       begin
         if gui_ColorSelect <> 0 then
           ColorSelect := gui_ColorSelect
-        else ColorSelect := D3DCOLOR_ARGB($FF,$FF,$D7,$0A);
+        else ColorSelect := D3DCOLOR_ARGB($FF,$f1,$d4,$7b);
         if gui_ColorPress <> 0 then
           ColorPress := gui_ColorPress
-        else ColorPress := D3DCOLOR_ARGB($FF,$DF,$FF,$00);
+        else ColorPress := D3DCOLOR_ARGB($FF,$d2,$90,$5b);
         if gui_ColorDisabled <> 0 then
           ColorDisabled := gui_ColorDisabled
         else ColorDisabled := D3DCOLOR_ARGB($FF,$09,$09,$09);
@@ -4009,7 +4009,7 @@ var
 		    (* Render Button without Texture in Debug Mode *)
         GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FFFF0000, True);
       end else begin
-        with FGUI_Definition, gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
+        with FGUI_Definition, gui_Caption_Extra ,gui_Control_Texture, gui_Font, GGameEngine.FGameFileManger do
         begin
           if FMouseOver and (FButtonState = bsBase) then
           begin
@@ -4102,7 +4102,7 @@ var
               dsControlWidth  := FWidth;
               dsControlHeigth := FHeight;
               dsAX            := FParentGUIForm.FLeft + FLeft + 1;
-              dsAY            := FParentGUIForm.FTop  + FTop  + 2;
+              dsAY            := FParentGUIForm.FTop  + FTop  + 2 + gui_Caption_Offset;
               dsFontHeight    := gui_Font_Size;
               dsFontSetting   := gui_Font_Setting;
               dsFontType      := 0;
@@ -4417,7 +4417,7 @@ var
           GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FF0000FF, True);
         end else begin
         //if FGUI_Definition.gui_ShowBorder then
-        //  GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Definition.gui_Color.gui_BorderColor, False);
+          GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Definition.gui_Color.gui_BorderColor, False);
 
           case CharacterSystem of
             csSelectChar : begin
@@ -4580,82 +4580,79 @@ var
                                C_MALE   : begin
                                  FBaseX              := 0;
                                  FBaseY              := 0;
-                                 FFrameStart         := 441;
-                                 FAnimation_State_0  := 17;
+                                 FFrameStart         := 239;
+                                 FAnimation_State_0  := 21;
                                  FUseEffect          := False;
-                                 if (FCurrentImageNumber = FFrameStart) and FSelected then
+                                 if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('JMCre.wav');
                                end;
                                C_FEMALE : begin
                                  FBaseX              := 0;
                                  FBaseY              := 0;                               
-                                 FFrameStart         := 741;
-                                 FAnimation_State_0  := 15;
+                                 FFrameStart         := 439;
+                                 FAnimation_State_0  := 27;
                                  FUseEffect          := False;
-                                 if (FCurrentImageNumber = FFrameStart) and FSelected then
+                                 if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('JWCre.wav');
                                end;
                              end;
                 C_WIZZARD  : case FCharacterInfo.Char_Gender of
                                C_MALE   : begin
                                  FBaseX              := 0;
-                                 FBaseY              := 5;
-                                 FFrameStart         := 1041;
-                                 FAnimation_State_0  := 14;
+                                 FBaseY              := 0;
+                                 FFrameStart         := 739;
+                                 FAnimation_State_0  := 19;
                                  FUseEffect          := True;
-                                 if (FCurrentImageNumber = FFrameStart) and FSelected then
+                                 if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('SMCre.wav');
                                end;
                                C_FEMALE : begin
-                                 FBaseX              := 10;
-                                 FBaseY              := -48;
-                                 FFrameStart         := 1341;
-                                 FAnimation_State_0  := 16;
+                                 FBaseX              := 0;
+                                 FBaseY              := 0;
+                                 FFrameStart         := 939;
+                                 FAnimation_State_0  := 25;
                                  FUseEffect          := True;
-                                 if (FCurrentImageNumber = FFrameStart) and FSelected then
+                                 if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('SWCre.wav');
                                end;
                              end;
                 C_TAOIST   : case FCharacterInfo.Char_Gender of
                                C_MALE   : begin
                                  FBaseX              := 0;
-                                 FBaseY              := 5;
-                                 FFrameStart         := 1641;
-                                 FAnimation_State_0  := 16;
+                                 FBaseY              := 0;
+                                 FFrameStart         := 1239;
+                                 FAnimation_State_0  := 26;
                                  FUseEffect          := False;
-                                 if (FCurrentImageNumber = FFrameStart) and FSelected then
+                                 if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('DMCre.wav');
                                end;
                                C_FEMALE : begin
-                                 FBaseX              := 10;
-                                 FBaseY              := -48;
-                                 FFrameStart         := 1941;
-                                 FAnimation_State_0  := 14;
+                                 FBaseX              := 0;
+                                 FBaseY              := 0;
+                                 FFrameStart         := 1439;
+                                 FAnimation_State_0  := 19;
                                  FUseEffect          := True;
-                                 if (FCurrentImageNumber = FFrameStart) and FSelected then
+                                 if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('DWCre.wav');
                                end;
                              end;
                 C_ASSASSIN : case FCharacterInfo.Char_Gender of
                                C_MALE   : begin
-                                 FBaseX              := 32;
-                                 FBaseY              := 185;
-                                 FFrameStart         := 2341;
-                                 FAnimation_State_0  := 17;
+                                 FBaseX              := 0;
+                                 FBaseY              := 0;
+                                 FFrameStart         := 1739;
+                                 FAnimation_State_0  := 24;
                                  FUseEffect          := True;
-                                 if (FCurrentImageNumber = FFrameStart) and FSelected then
-                                   GGameEngine.SoundManager.PlaySound('JMCre.wav'); //fix me with correct Sound
+                                 if (FCurrentImageNumber = FFrameStart) then
+                                   GGameEngine.SoundManager.PlaySound('AMCre.wav');
                                end;
                                C_FEMALE : begin
-                                 FBaseX              := 30;
-                                 FBaseY              := 135;
-                                 FFrameStart         := 2641;
+                                 FBaseX              := 0;
+                                 FBaseY              := 0;
+                                 FFrameStart         := 1939;
                                  FAnimation_State_0  := 19;
-                                 if FAnimationCount > 10 then
-                                   FUseEffect := False
-                                 else  FUseEffect := True;
-                                 if (FCurrentImageNumber = FFrameStart) and FSelected then
-                                   GGameEngine.SoundManager.PlaySound('DWCre.wav'); //fix me with correct Sound
+                                 if (FCurrentImageNumber = FFrameStart) then
+                                   GGameEngine.SoundManager.PlaySound('AWCre.wav');
                                end;
                              end;
               end;
@@ -4664,8 +4661,8 @@ var
               if FCurrentImageNumber = 0 then
               begin
                 FCurrentImageNumber := FFrameStart;
-                FEffectImageNumber  := FCurrentImageNumber + 40;
-                FShadowImageNumber  := FCurrentImageNumber + 20;
+                FEffectImageNumber  := FCurrentImageNumber + 100;
+                FShadowImageNumber  := FCurrentImageNumber + 30;
               end;
               if (GetTickCount - FStartTime > 165) then
               begin
@@ -4679,13 +4676,13 @@ var
                       FAnimationCount := 0;
                     end;
                     FCurrentImageNumber := FFrameStart + FAnimationCount;
-                    FEffectImageNumber  := FCurrentImageNumber + 40;
-                    FShadowImageNumber  := FCurrentImageNumber + 20;
+                    FEffectImageNumber  := FCurrentImageNumber + 100;
+                    FShadowImageNumber  := FCurrentImageNumber + 30;
                   end;
                   False : begin
                     FUseEffect          := False;
                     FCurrentImageNumber := FFrameStart;
-                    FShadowImageNumber  := FCurrentImageNumber + 20;
+                    FShadowImageNumber  := FCurrentImageNumber + 30;
                   end;
                 end;
               end;
