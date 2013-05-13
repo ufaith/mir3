@@ -261,7 +261,7 @@ implementation
       GameSceneStep := gsNone;
 
       {$IFDEF DEVELOP_INGAME}
-         GameSceneStep := gsScene_PlayGame;
+         SetGameScene(gsScene_SelChar);
       {$ENDIF}
 
       {$IFDEF DEVELOP_1024x768}

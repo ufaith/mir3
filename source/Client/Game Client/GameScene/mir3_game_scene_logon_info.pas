@@ -179,7 +179,7 @@ uses mir3_game_backend;
      begin
        TMIR3_GUI_Timer(GetComponentByID(GUI_ID_LOGON_TIMER)).SetTimerEnabled(False);
        GGameEngine.SceneLogon.ResetScene;
-       GGameEngine.SetGameScene(gsScene_SelChar);
+       GGameEngine.SetGameScene(gsScene_PlayGame);
        //GGameEngine.FGame_Scene_Step := gsScene_SelServer;//gsScene_Login; gsScene_SelChar gsScene_SelServer gsScene_EndGame
      end;
 

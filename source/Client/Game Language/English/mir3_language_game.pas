@@ -92,10 +92,10 @@ begin
     31: Value := 'Your ID will be valid for another\ %d hours.';
     32: Value := 'Reserved';
     33: Value := 'Reserved';
-    34: Value := 'Reserved';
-    35: Value := 'Reserved';
-    36: Value := 'Reserved';
-    37: Value := 'Reserved';
+    34: Value := 'Character Creation'; // Create Char Main Überschrift
+    35: Value := 'Class Selection';  // Create Char Class Selection Überschrift
+    36: Value := 'Gender Selection'; // Create Char Gender Selection Überschrift
+    37: Value := 'Enter the name';   // Create Char Edit field Überschrift
     38: Value := 'Create Character';
     39: Value := 'Login to the Game';
     40: Value := 'Select Server';
@@ -123,42 +123,99 @@ begin
     59: Value := 'Taoist';
     60: Value := 'Assassin';
     { Information about Warriors }
-    61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Warrior]¦CE¦\¦Y08¦'             // SE: Better to have gender first
-               + ' Warriors are a class of great strength and vitality. They are not easily\'
-               + ' killed in battle and have the advantage of being able to use a variety of\'
-               + ' heavy weapons and armour. Warriors favour attacks that are based on close\'
-               + ' range physical damage, and are weak against ranged attacks. The variety\'
-               + ' of equipment that is developed specifically for Warriors complements\'
-               + ' their weakness in ranged combat. Warrior characters are recommended for\'
-               + ' beginners because of their simple yet powerful abilities.\';
+//    61: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Warrior]¦CE¦\¦Y08¦'             // SE: Better to have gender first
+//               + ' Warriors are a class of great strength and vitality. They are not easily\'
+//               + ' killed in battle and have the advantage of being able to use a variety of\'
+//               + ' heavy weapons and armour. Warriors favour attacks that are based on close\'
+//               + ' range physical damage, and are weak against ranged attacks. The variety\'
+//               + ' of equipment that is developed specifically for Warriors complements\'
+//               + ' their weakness in ranged combat. Warrior characters are recommended for\'
+//               + ' beginners because of their simple yet powerful abilities.\';
+    61: Value := 'Warriors are a class of great strength\'
+               + 'and vitality. They are not easily killed\'
+               + 'in battle and have the advantage of being\'
+               + 'able to use a variety of heavy weapons\'
+               + 'and armour. Warriors favour attacks that\'
+               + 'are based on close range physical\'
+               + 'damage, and are weak against ranged\'
+               + 'attacks. The variety of equipment that\'
+               + 'is developed specifically for Warriors\'
+               + 'complements their weakness in ranged\'
+               + 'combat. Warrior characters are\'
+               + 'recommended for beginners because of\'
+               + 'their simple yet powerful abilities.\';
     { Information about Wizards }
-    62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Wizard]¦CE¦\¦Y08¦'
-               + ' Wizards are a class of low strength and stamina, but have the ability to use\'
-               + ' powerful spells. Their offensive spells are very effective, but the time it\'
-               + ' takes to cast these spells is likely to leave them vulnerable to enemy\'
-               + ' counterattacks. Therefore, a Wizard must always aim to attack his enemies\'
-               + ' from a safe distance. Being physically weak, Wizards are difficult to train\'
-               + ' in the early stages of the game, but grow into powerful characters as they\'
-               + ' learn the more advanced spells. Because of their many advantages and\'
-               + ' drawbacks, Wizards require a lot of attention and skill.\';
+//    62: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Wizard]¦CE¦\¦Y08¦'
+//               + ' Wizards are a class of low strength and stamina, but have the ability to use\'
+//               + ' powerful spells. Their offensive spells are very effective, but the time it\'
+//               + ' takes to cast these spells is likely to leave them vulnerable to enemy\'
+//               + ' counterattacks. Therefore, a Wizard must always aim to attack his enemies\'
+//               + ' from a safe distance. Being physically weak, Wizards are difficult to train\'
+//               + ' in the early stages of the game, but grow into powerful characters as they\'
+//               + ' learn the more advanced spells. Because of their many advantages and\'
+//               + ' drawbacks, Wizards require a lot of attention and skill.\';
+    62: Value := 'Wizards are a class of low strength and\'
+               + 'stamina, but have the ability to use\'
+               + 'powerful spells. Their offensive spells\'
+               + 'are very effective, but the time it takes\'
+               + 'to cast these spells is likely to leave\'
+               + 'them vulnerable to enemy counterattacks.\'
+               + 'Therefore, a Wizard must always aim to\'
+               + 'attack his enemies from a safe distance.\'
+               + 'Being physically weak, Wizards are\'
+               + 'difficult to train in the early stages of\'
+               + 'the game, but grow into powerful\'
+               + 'characters as they learn the more\'
+               + 'advanced spells.';
+               //Because of their many advantages and\'
+               //+ 'drawbacks, Wizards require a lot of\'
+               //+ 'attention and skill.\';
     { Information about Taoists }
-    63: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Taoist]¦CE¦\¦Y08¦'
-               + ' Taoists lie between Wizards and Warriors in terms of strength and\'
-               + ' survivability, but rather than directly engaging their enemies, their true\'
-               + ' strength lies in supporting others. Their most essential skills are the\'
-               + ' ability to heal and protect other characters. They can also summon powerful\'
-               + ' creatures to assist them, and have a few well balanced offensive options.\'
-               + ' Even though Taoists have many skills, their lack of physical power makes them\'
-               + ' difficult to train. They must always look out for other players to fight with.\';
+//    63: Value := '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Taoist]¦CE¦\¦Y08¦'
+//               + ' Taoists lie between Wizards and Warriors in terms of strength and\'
+//               + ' survivability, but rather than directly engaging their enemies, their true\'
+//               + ' strength lies in supporting others. Their most essential skills are the\'
+//               + ' ability to heal and protect other characters. They can also summon powerful\'
+//               + ' creatures to assist them, and have a few well balanced offensive options.\'
+//               + ' Even though Taoists have many skills, their lack of physical power makes them\'
+//               + ' difficult to train. They must always look out for other players to fight with.\';
+    63: Value := 'Taoists lie between Wizards and Warriors\'
+               + 'in terms of strength and survivability,\'
+               + 'but rather than directly engaging their\'
+               + 'enemies, their true strength lies in\'
+               + 'supporting others. Their most essential\'
+               + 'skills are the ability to heal and protect\'
+               + 'other characters. They can also summon\'
+               + 'powerful creatures to assist them, and\'
+               + 'have a few well balanced offensive\'
+               + 'options. Even though Taoists have many\'
+               + 'skills, their lack of physical power\'
+               + 'makes them difficult to train.\';
+               // They must\'
+               //+ 'always look out for other players to\'
+               //+ 'fight with.\';
     { Information about Assassins }
-    64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Assassin]¦CE¦\¦Y08¦'
-               + '¦C1D1AD69¦¦C2C19D59¦ Assassins are members of a secret organization and their history is relatively\'
-               + ' unknown. They are physically weak but are capable of hiding themselves and\'
-               + ' performing attacks while being unseen by others, and are naturally excellent\'
-               + ' at making fast kills. However they must be careful to avoid engagements\'
-               + ' against multiple opponents as they have less defensive options than other\'
-               + ' characters. Assassins are recommended for experienced players, as they\'
-               + ' require smart moves, cunning decisions and quick thinking.¦CE¦\';
+//    64: Value :=  '¦Y05¦¦C1D1AD69¦¦C23A3A3A¦ [%s Assassin]¦CE¦\¦Y08¦'
+//               + '¦C1D1AD69¦¦C2C19D59¦ Assassins are members of a secret organization and their history is relatively\'
+//               + ' unknown. They are physically weak but are capable of hiding themselves and\'
+//               + ' performing attacks while being unseen by others, and are naturally excellent\'
+//               + ' at making fast kills. However they must be careful to avoid engagements\'
+//               + ' against multiple opponents as they have less defensive options than other\'
+//               + ' characters. Assassins are recommended for experienced players, as they\'
+//               + ' require smart moves, cunning decisions and quick thinking.¦CE¦\';
+    64: Value := 'Assassins are members of a secret\'
+               + 'organization and their history is\'
+               + 'relatively unknown. They are physically\'
+               + 'weak but are capable of hiding themselves\'
+               + 'and performing attacks while being unseen\'
+               + 'by others, and are naturally excellent at\'
+               + 'making fast kills. However they must be\'
+               + 'careful to avoid engagements against\'
+               + 'multiple opponents as they have less\'
+               + 'defensive options than other characters.\'
+               + 'Assassins are recommended for experienced\'
+               + 'players, as they require smart moves,\'
+               + 'cunning decisions and quick thinking.\';
     65: Value := 'Character deleted.';
     66: Value := 'Deleted characters cannot be recovered, and\'
                + 'you cannot create another character with\'

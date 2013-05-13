@@ -4408,7 +4408,7 @@ var
       FShadowImage : PImageHeaderD3D;
       FEffectImage : PImageHeaderD3D;
     begin
-    // @override
+      // @override
       try
 	      (* Select Char Panel *)
         if FParentGUIContainer.FDebugMode then
@@ -4416,9 +4416,6 @@ var
 		      (* Render Select Char Panel without Texture in Debug Mode *)
           GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, $FF0000FF, True);
         end else begin
-        //if FGUI_Definition.gui_ShowBorder then
-          GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft, FParentGUIForm.FTop + FTop, FWidth, FHeight, FGUI_Definition.gui_Color.gui_BorderColor, False);
-
           case CharacterSystem of
             csSelectChar : begin
               {$REGION ' - Select Char Render System  '}
@@ -4517,14 +4514,12 @@ var
                       FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
                       if Assigned(FShadowImage) then
                         DrawTextureStretch(FShadowImage.ihD3DTexture, (FLeft + FShadowImage.ihOffset_X)+9, (FTop + FShadowImage.ihOffset_Y)-45, gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, 150);
-                        //DrawTextureStretch(FShadowImage.ihD3DTexture, (FLeft + FShadowImage.ihOffset_X), (FTop + FShadowImage.ihOffset_Y), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, 150);
 
                       FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
                       if Assigned(FCharImage) then
                       begin
                         FLastOffsetX := FCharImage.ihOffset_X;
                         FLastOffsetY := FCharImage.ihOffset_Y;
-                        //GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft+ FLastOffsetX , FParentGUIForm.FTop + FTop + FLastOffsetY, FWidth, FHeight, FGUI_Definition.gui_Color.gui_BorderColor, False);
                         DrawTextureStretch(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y), gui_Strech_Rate_X,  gui_Strech_Rate_Y, BLEND_DEFAULT, gui_Blend_Size);
                       end;
                     end else begin
@@ -4537,7 +4532,6 @@ var
                       begin
                         FLastOffsetX := FCharImage.ihOffset_X;
                         FLastOffsetY := FCharImage.ihOffset_Y;
-                        //GRenderEngine.Rectangle(FParentGUIForm.FLeft + FLeft+ FLastOffsetX , FParentGUIForm.FTop + FTop + FLastOffsetY, FWidth, FHeight, $FFFF0000, False);
                         DrawTexture(FCharImage.ihD3DTexture  , (FLeft + FCharImage.ihOffset_X  ), (FTop + FCharImage.ihOffset_Y), BLEND_DEFAULT, gui_Blend_Size);
                       end;
                     end;
@@ -4575,6 +4569,7 @@ var
 	          end;
             csCreateChar : begin
               {$REGION ' - Create Char Render System  '}
+              FUseEffect          := True;
               case FCharacterInfo.Char_Job of
                 C_WARRIOR  : case FCharacterInfo.Char_Gender of
                                C_MALE   : begin
@@ -4582,8 +4577,10 @@ var
                                  FBaseY              := 0;
                                  FFrameStart         := 239;
                                  FAnimation_State_0  := 21;
+                                 FAnimation_State_1  := 12;
                                  FUseEffect          := False;
-                                 if (FCurrentImageNumber = FFrameStart) then
+                                 if (FCurrentImageNumber = FFrameStart) or
+                                    (FCurrentImageNumber = 0) then
                                    GGameEngine.SoundManager.PlaySound('JMCre.wav');
                                end;
                                C_FEMALE : begin
@@ -4591,6 +4588,7 @@ var
                                  FBaseY              := 0;                               
                                  FFrameStart         := 439;
                                  FAnimation_State_0  := 27;
+                                 FAnimation_State_1  := 12;
                                  FUseEffect          := False;
                                  if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('JWCre.wav');
@@ -4602,6 +4600,7 @@ var
                                  FBaseY              := 0;
                                  FFrameStart         := 739;
                                  FAnimation_State_0  := 19;
+                                 FAnimation_State_1  := 9;
                                  FUseEffect          := True;
                                  if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('SMCre.wav');
@@ -4611,6 +4610,7 @@ var
                                  FBaseY              := 0;
                                  FFrameStart         := 939;
                                  FAnimation_State_0  := 25;
+                                 FAnimation_State_1  := 14;
                                  FUseEffect          := True;
                                  if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('SWCre.wav');
@@ -4622,6 +4622,7 @@ var
                                  FBaseY              := 0;
                                  FFrameStart         := 1239;
                                  FAnimation_State_0  := 26;
+                                 FAnimation_State_1  := 14;
                                  FUseEffect          := False;
                                  if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('DMCre.wav');
@@ -4631,6 +4632,7 @@ var
                                  FBaseY              := 0;
                                  FFrameStart         := 1439;
                                  FAnimation_State_0  := 19;
+                                 FAnimation_State_1  := 9;
                                  FUseEffect          := True;
                                  if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('DWCre.wav');
@@ -4642,6 +4644,7 @@ var
                                  FBaseY              := 0;
                                  FFrameStart         := 1739;
                                  FAnimation_State_0  := 24;
+                                 FAnimation_State_1  := 15;
                                  FUseEffect          := True;
                                  if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('AMCre.wav');
@@ -4651,6 +4654,7 @@ var
                                  FBaseY              := 0;
                                  FFrameStart         := 1939;
                                  FAnimation_State_0  := 19;
+                                 FAnimation_State_1  := 9;
                                  if (FCurrentImageNumber = FFrameStart) then
                                    GGameEngine.SoundManager.PlaySound('AWCre.wav');
                                end;
@@ -4658,31 +4662,45 @@ var
               end;
 
               (* Save Start *)
-              if FCurrentImageNumber = 0 then
+              if (FCurrentImageNumber = 0) and (FAnimationState = 0) then
               begin
                 FCurrentImageNumber := FFrameStart;
                 FEffectImageNumber  := FCurrentImageNumber + 100;
                 FShadowImageNumber  := FCurrentImageNumber + 30;
               end;
-              if (GetTickCount - FStartTime > 165) then
+              if (FCurrentImageNumber = 0) and (FAnimationState = 1) then
               begin
-                case FSelected of
-                  True  : begin
+                FCurrentImageNumber := FFrameStart + 60;
+                FShadowImageNumber  := FCurrentImageNumber + 20;
+              end;
+
+              if (GetTickCount - FStartTime > 130) then
+              begin
+                case FAnimationState of
+                  0: begin
                     if (FAnimationCount < FAnimation_State_0) then
+                    begin
+                      Inc(FAnimationCount);
+                      FStartTime := GetTickCount;
+                    end else begin
+                      FAnimationState := 1;
+                    end;
+
+                    FCurrentImageNumber := FFrameStart + FAnimationCount;
+                    FEffectImageNumber  := FCurrentImageNumber + 100;
+                    FShadowImageNumber  := FCurrentImageNumber + 30;
+                  end;
+                  1: begin
+                    if (FAnimationCount < FAnimation_State_1) then
                     begin
                       Inc(FAnimationCount);
                       FStartTime := GetTickCount;
                     end else begin
                       FAnimationCount := 0;
                     end;
-                    FCurrentImageNumber := FFrameStart + FAnimationCount;
-                    FEffectImageNumber  := FCurrentImageNumber + 100;
-                    FShadowImageNumber  := FCurrentImageNumber + 30;
-                  end;
-                  False : begin
-                    FUseEffect          := False;
-                    FCurrentImageNumber := FFrameStart;
-                    FShadowImageNumber  := FCurrentImageNumber + 30;
+                    FEffectImageNumber  := FFrameStart + 100-1;
+                    FCurrentImageNumber := FFrameStart + 60 + FAnimationCount;
+                    FShadowImageNumber  := FCurrentImageNumber + 20;
                   end;
                 end;
               end;
@@ -4692,24 +4710,17 @@ var
               begin
                 if gui_Texture_File_ID > 74 then
                 begin
-                  if FSelected then
-                  begin
-                    FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
-                    FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
-                    DrawTexture(FShadowImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FBaseX + FShadowImage.ihOffset_X), (FParentGUIForm.FTop + FTop + FBaseY + FShadowImage.ihOffset_Y), Blend_DestBright, gui_Blend_Size);
-                    DrawTexture(FCharImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FBaseX + FCharImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FBaseY + FCharImage.ihOffset_Y  ), BLEND_DEFAULT, gui_Blend_Size);
-                    if FUseEffect then
-                    begin
-                      FEffectImage := GetImageD3DDirect(FEffectImageNumber, gui_Texture_File_ID);
-                      if Assigned(FEffectImage) and Assigned(FEffectImage.ihD3DTexture) then
-                        DrawTexture(FEffectImage.ihD3DTexture  , (FParentGUIForm.FLeft + FLeft + FBaseX + FEffectImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FBaseY + FEffectImage.ihOffset_Y  ), Blend_ADD, gui_Blend_Size);
-                    end;
-                  end else begin
-                    FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
-                    FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
-                    DrawTexture(FShadowImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FBaseX + FShadowImage.ihOffset_X), (FParentGUIForm.FTop + FTop + FBaseY + FShadowImage.ihOffset_Y), Blend_DestBright, gui_Blend_Size);
-                    DrawColor(FCharImage.ihD3DTexture, (FParentGUIForm.FLeft + FLeft + FBaseX + FCharImage.ihOffset_X  ), (FParentGUIForm.FTop + FTop + FBaseY + FCharImage.ihOffset_Y  ), $F0303030);
-                  end;
+                  FShadowImage := GetImageD3DDirect(FShadowImageNumber , gui_Texture_File_ID);
+                  if Assigned(FShadowImage) then
+                    DrawTexture(FShadowImage.ihD3DTexture, (FLeft + FBaseX + FShadowImage.ihOffset_X), (FTop + FBaseY + FShadowImage.ihOffset_Y), BLEND_DEFAULT, 130);
+
+                  FCharImage   := GetImageD3DDirect(FCurrentImageNumber, gui_Texture_File_ID);
+                  if Assigned(FCharImage) then
+                    DrawTexture(FCharImage.ihD3DTexture  , (FLeft + FBaseX + FCharImage.ihOffset_X), (FTop + FBaseY + FCharImage.ihOffset_Y), BLEND_DEFAULT, gui_Blend_Size);
+
+                  FEffectImage := GetImageD3DDirect(FEffectImageNumber, gui_Texture_File_ID);
+                  if Assigned(FEffectImage) then
+                    DrawTexture(FEffectImage.ihD3DTexture  , (FLeft + FBaseX + FEffectImage.ihOffset_X ), (FTop + FBaseY + FEffectImage.ihOffset_Y), Blend_Add, gui_Blend_Size);
                 end;
               end;
               {$ENDREGION}

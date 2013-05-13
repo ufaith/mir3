@@ -166,45 +166,77 @@ uses mir3_misc_ingame, mir3_game_backend;
     procedure TMir3GameSceneInGame.Create_Bottm_UI_Interface;
     var
       FBottomForm       : TMIR3_GUI_Form;
-      FBottomAvatarForm : TMIR3_GUI_Form;
+      //FBottomAvatarForm : TMIR3_GUI_Form;
     begin
+//      with FGame_GUI_Definition_InGame do
+//      begin
+        { Create Ingame Static Base UI Forms and Controls }
+//        FBottomAvatarForm := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Bottom_Avatar_Background, True));
+//        Self.AddControl(FBottomAvatarForm, FInGame_UI_Bottom_Panel_Avatar_LowB  , True);
+//        Self.AddControl(FBottomAvatarForm, FInGame_UI_Bottom_Panel_Avatar_Low   , True);
+//        Self.AddControl(FBottomAvatarForm, FInGame_UI_Bottom_Panel_Avatar_HighB , False);
+//        Self.AddControl(FBottomAvatarForm, FInGame_UI_Bottom_Panel_Avatar_High  , False);
+
+        { Create Ingame Static Base UI Forms and Controls }
+//        FBottomForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Bottom_Background_800, True));
+//        // Rigth Button Menue
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_1_Body    , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_2_Bag     , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_3_Magic   , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_4_Trade   , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_5_Belt    , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_6_MiniMap , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_7_Quest   , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_8_Setting , True);
+//
+//        //Textbutton = SC DC MC BC Switch the Power types
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_Power    , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_Power    , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_BA       , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_Class , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_Level , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_FP    , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_Power , True); //DC SC MC BC
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_AC    , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_MA    , True);
+//
+//        // HP / MP / Exp / BagW Gauge
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_HP        , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_MP        , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_Exp       , True);
+//        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_Bag_Size  , True);
+//      end;
+      { Create Bottom Forms and Controls }
       with FGame_GUI_Definition_InGame do
       begin
-        { Create Ingame Static Base UI Forms and Controls }
-        FBottomAvatarForm := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Bottom_Avatar_Background, True));
-        Self.AddControl(FBottomAvatarForm, FInGame_UI_Bottom_Panel_Avatar_LowB  , True);
-        Self.AddControl(FBottomAvatarForm, FInGame_UI_Bottom_Panel_Avatar_Low   , True);
-        Self.AddControl(FBottomAvatarForm, FInGame_UI_Bottom_Panel_Avatar_HighB , False);
-        Self.AddControl(FBottomAvatarForm, FInGame_UI_Bottom_Panel_Avatar_High  , False);
+        case FScreen_Width of
+          800 : begin
+            { Create Ingame Static Base UI Forms and Controls }
+            FBottomForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Bottom_Background_800,  True));
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_1_Body_800   , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_2_Bag_800    , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_3_Magic_800  , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_4_Quest_800  , True);
 
-        { Create Ingame Static Base UI Forms and Controls }
-        FBottomForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Bottom_Background, True));
-        // Rigth Button Menue
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_1_Body    , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_2_Bag     , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_3_Magic   , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_4_Trade   , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_5_Belt    , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_6_MiniMap , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_7_Quest   , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_8_Setting , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_6_Belt_800   , True);
 
-        //Textbutton = SC DC MC BC Switch the Power types
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_Power    , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_Power    , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_BA       , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_Class , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_Level , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_FP    , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_Power , True); //DC SC MC BC
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_AC    , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_TextField_MA    , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_8_Setting_800, True);
 
-        // HP / MP / Exp / BagW Gauge
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_HP        , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_MP        , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_Exp       , True);
-        Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_Bag_Size  , True);
+
+
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_Exp_800       , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_HP_800        , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_MP_800        , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_IP_800        , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Exp_Overlay_800     , True);
+          end;
+          1024 : begin
+            { Create Ingame Static Base UI Forms and Controls }
+            FBottomForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Bottom_Background_1024, True));
+
+
+          end;
+        end;
       end;
     end;
     
@@ -948,23 +980,25 @@ uses mir3_misc_ingame, mir3_game_backend;
       
       (* Begin Ingame Controls *)
        // Only ADD here all GUI Forms thats is not a UI elemend
-      Create_Belt_UI_Interface;
-      Create_Body_UI_Interface;
-      Create_Body_Show_UI_Interface;
-      Create_GameSetting_UI_Interface;
-      Create_Trade_UI_Interface;
-      Create_Group_UI_Interface;
-      Create_Magic_UI_Interface;
+//      Create_Belt_UI_Interface;
+//      Create_Body_UI_Interface;
+//      Create_Body_Show_UI_Interface;
+//      Create_GameSetting_UI_Interface;
+//      Create_Trade_UI_Interface;
+//      Create_Group_UI_Interface;
+//      Create_Magic_UI_Interface;
       (* End Ingame Controls *)
 
-      (* Begin Load Game Controls *)
-      Create_LoadGame_UI_Interface; 
+//      (* Begin Load Game Controls *)
+//      Create_LoadGame_UI_Interface;
+//      (* End Load Game Controls *)
+//      // Static Elements
+//      Create_Bottm_UI_Interface;
+//      Create_Minimap_UI_Interface;
+//      Create_MenueBar_UI_Interface;
+//      Create_ExitWindow_UI_Interface;
       (* End Load Game Controls *)
-      // Static Elements
-      Create_Bottm_UI_Interface;      
-      Create_Minimap_UI_Interface;
-      Create_MenueBar_UI_Interface;
-      Create_ExitWindow_UI_Interface;
+      Create_Bottm_UI_Interface;
 
       { Create System Forms and Controls }
       with FGame_GUI_Definition_System do
@@ -1608,7 +1642,7 @@ uses mir3_misc_ingame, mir3_game_backend;
         end;
       end;
     end;
-    
+
     procedure TMir3GameSceneInGame.EventBodyShowWindow(AEventType: Integer; AEventControl: Integer);
     begin
       case AEventType of
@@ -2170,32 +2204,33 @@ uses mir3_misc_ingame, mir3_game_backend;
           with GGameEngine.SceneInGame do
           begin
             case AControl.ControlIdentifier of
-              { Mini Map UI Events }
-               50..100   : EventMiniMapWindow(AEventID, AControl.ControlIdentifier);
-              { Group UI Events }
-              216..223   : EventGroupWindow(AEventID, AControl.ControlIdentifier);
-              { Exit Window UI Events }
-              402..404   : EventExitWindow(AEventID, AControl.ControlIdentifier);
-              { Bottom UI Events }
-              411..458   : EventBottomWindow(AEventID, AControl.ControlIdentifier);
-              { Menue Bar UI Events }
-              460..470   : EventMenueBarWindow(AEventID, AControl.ControlIdentifier);
-              { Belt UI Events }
-              481..488   : EventBeltWindow(AEventID, AControl.ControlIdentifier);
-              { Game Setting UI Events }
-              601..647   : EventGameSettingWindow(AEventID, AControl.ControlIdentifier);
-              { Free }
-              750..820   : ;
-              { Body UI Events }
-              901..902   : EventBodyWindow(AEventID, AControl.ControlIdentifier);
-              { Body Show UI Events }
-              1000..1010 : EventBodyShowWindow(AEventID, AControl.ControlIdentifier);
-              { Magic Windows (WWT and ASS) }
-              2000..2500 : EventMagicWindow(AEventID, AControl.ControlIdentifier);
-              (* System Buttons *)
-              GUI_ID_SYSINFO_BUTTON_OK   : GGameEngine.SceneInGame.Event_System_Ok;
-              GUI_ID_SYSINFO_BUTTON_YES  : GGameEngine.SceneInGame.Event_System_Yes;
-              GUI_ID_SYSINFO_BUTTON_NO   : GGameEngine.SceneInGame.Event_System_No;
+              0:;
+//              { Mini Map UI Events }
+//               50..100   : EventMiniMapWindow(AEventID, AControl.ControlIdentifier);
+//              { Group UI Events }
+//              216..223   : EventGroupWindow(AEventID, AControl.ControlIdentifier);
+//              { Exit Window UI Events }
+//              402..404   : EventExitWindow(AEventID, AControl.ControlIdentifier);
+//              { Bottom UI Events }
+//              411..458   : EventBottomWindow(AEventID, AControl.ControlIdentifier);
+//              { Menue Bar UI Events }
+//              460..470   : EventMenueBarWindow(AEventID, AControl.ControlIdentifier);
+//              { Belt UI Events }
+//              481..488   : EventBeltWindow(AEventID, AControl.ControlIdentifier);
+//              { Game Setting UI Events }
+//              601..647   : EventGameSettingWindow(AEventID, AControl.ControlIdentifier);
+//              { Free }
+//              750..820   : ;
+//              { Body UI Events }
+//              901..902   : EventBodyWindow(AEventID, AControl.ControlIdentifier);
+//              { Body Show UI Events }
+//              1000..1010 : EventBodyShowWindow(AEventID, AControl.ControlIdentifier);
+//              { Magic Windows (WWT and ASS) }
+//              2000..2500 : EventMagicWindow(AEventID, AControl.ControlIdentifier);
+//              (* System Buttons *)
+//              GUI_ID_SYSINFO_BUTTON_OK   : GGameEngine.SceneInGame.Event_System_Ok;
+//              GUI_ID_SYSINFO_BUTTON_YES  : GGameEngine.SceneInGame.Event_System_Yes;
+//              GUI_ID_SYSINFO_BUTTON_NO   : GGameEngine.SceneInGame.Event_System_No;
             end;
           end;
         end;

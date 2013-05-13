@@ -22,3 +22,8 @@
   * Finish Login Scene (1024 and 800)
   * Finish Select Char Scene (1024 and 800)
   * Fist things for the Create Char Scene (1024 and 800)
+
+:: 12.05.2013 (Coly) ::
+  * Finish Create Char Scene (1024 and 800)
+  * Begin rework of InGame things
+

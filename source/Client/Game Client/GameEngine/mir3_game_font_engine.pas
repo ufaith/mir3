@@ -48,7 +48,7 @@ interface
 uses 
 {Delphi }  Windows, SysUtils ,Classes, 
 {DirectX}  D3DX9, Direct3D9,
-{Game   }  mir3_game_engine, mir3_game_file_manager, mir3_game_file_manager_const;
+{Game   }  mir3_game_engine, mir3_game_file_manager, mir3_game_file_manager_const, mir3_global_config;
 
 //Mir3FontData.mfd
 
@@ -2067,11 +2067,22 @@ begin
       ADrawSetting.dsAX_Offset     := 26;
       ADrawSetting.dsAY_Offset     := 20;
 
-      if ADrawSetting.dsAY + (FTempLines*(dsFontHeight + 1))+FScriptHeight+2 > 585 then
-         ADrawSetting.dsAY := 550 - (FTempLines*(dsFontHeight + 1))+FScriptHeight+2;
+      case FScreen_Width of
+        800  : begin
+          if ADrawSetting.dsAY + (FTempLines*(dsFontHeight + 1))+FScriptHeight+2 > 585 then
+             ADrawSetting.dsAY := 550 - (FTempLines*(dsFontHeight + 1))+FScriptHeight+2;
 
-      if ADrawSetting.dsAX + FWidth > 790 then
-        ADrawSetting.dsAX := 795 - FWidth;
+          if ADrawSetting.dsAX + FWidth > 790 then
+            ADrawSetting.dsAX := 795 - FWidth;
+        end;
+        1024 : begin
+          if ADrawSetting.dsAY + (FTempLines*(dsFontHeight + 1))+FScriptHeight+2 > 753 then
+             ADrawSetting.dsAY := 718 - (FTempLines*(dsFontHeight + 1))+FScriptHeight+2;
+
+          if ADrawSetting.dsAX + FWidth > 1014 then
+            ADrawSetting.dsAX := 1019 - FWidth;
+        end;
+      end;
 
      if dsUseMultiColor then
      begin
@@ -2097,12 +2108,23 @@ begin
       ADrawSetting.dsAX            := AX + 16;
       ADrawSetting.dsAY            := AY + 16;
 
-      if ADrawSetting.dsAY > 585 then
-         ADrawSetting.dsAY := 585;
 
-      if ADrawSetting.dsAX + FWidth > 790 then
-        ADrawSetting.dsAX := 795 - FWidth;
+      case FScreen_Width of
+        800  : begin
+          if ADrawSetting.dsAY > 585 then
+             ADrawSetting.dsAY := 585;
 
+          if ADrawSetting.dsAX + FWidth > 790 then
+            ADrawSetting.dsAX := 795 - FWidth;
+        end;
+        1024 : begin
+          if ADrawSetting.dsAY > 753 then
+             ADrawSetting.dsAY := 753;
+
+          if ADrawSetting.dsAX + FWidth > 1014 then
+            ADrawSetting.dsAX := 1019 - FWidth;
+        end;
+      end;
       (* Red *)
       dsColorMC_1     := $9F0a0a2a;//$9F2a0a0a; 
       dsColorMC_2     := $AF020202;

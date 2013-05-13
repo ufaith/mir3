@@ -79,6 +79,9 @@ const
 
   (* CreateChar Control IDs *)
   {$REGION ' - CreateChar Control IDs             '}
+  GUI_ID_CREATECHAR_INFO_PANEL_TOP                = 147;
+  GUI_ID_CREATECHAR_BACKGROUND                    = 148;
+  GUI_ID_CREATECHAR_ANIMATION                     = 149;
   GUI_ID_CREATECHAR_CHARACTER                     = 150;
   GUI_ID_CREATECHAR_INFO_PANEL                    = 151; //( kann für beides genutzt werden Image und Test Controls)
   GUI_ID_CREATECHAR_CLASS_FLAG                    = 152;
@@ -90,8 +93,15 @@ const
   GUI_ID_CREATECHAR_BUTTON_GENDER_MEN             = 159;
   GUI_ID_CREATECHAR_BUTTON_GENDER_WOMEN           = 160; 
   GUI_ID_CREATECHAR_BUTTON_OK                     = 161;
-  GUI_ID_CREATECHAR_BUTTON_CANCEL                 = 162;  
-  GUI_ID_CREATECHAR_EDIT_CHAR_NAME                = 163;
+  GUI_ID_CREATECHAR_BUTTON_CANCEL                 = 162;
+  GUI_ID_CREATECHAR_BUTTON_GENER_MALE             = 163;
+  GUI_ID_CREATECHAR_BUTTON_GENER_FEMALE           = 164;
+  GUI_ID_CREATECHAR_EDIT_CHAR_NAME                = 165;
+  GUI_ID_CREATECHAR_INFO_CLASS                    = 166;
+  GUI_ID_CREATECHAR_INFO_GENDER                   = 167;
+  GUI_ID_CREATECHAR_INFO_NAME                     = 168;
+  GUI_ID_CREATECHAR_PANEL_CLASS_SHILD             = 169;
+  GUI_ID_CREATECHAR_INFO_CLASS_TEXT               = 170;
   {$ENDREGION}
 
 
@@ -138,7 +148,6 @@ type
       FSelectChar_Dialog_Class_2_800     : TMir3_GUI_Ground_Info;  // Character Class Info
       FSelectChar_Dialog_Class_3_800     : TMir3_GUI_Ground_Info;  // Character Class Info
       FSelectChar_Dialog_Class_4_800     : TMir3_GUI_Ground_Info;  // Character Class Info
-
     ///////////////////////////     
             (* 1024 *) 
     ///////////////////////////
@@ -179,28 +188,55 @@ type
       FSelectChar_Dialog_Class_3_1024    : TMir3_GUI_Ground_Info;  // Character Class Info
       FSelectChar_Dialog_Class_4_1024    : TMir3_GUI_Ground_Info;  // Character Class Info
       
-      
     (* Create Char Scene *)
     ///////////////////////////         
           (* 800x600 *)
     ///////////////////////////
+    FCreateChar_Background_800           : TMir3_GUI_Ground_Info;  //used for Select Char background texture and Contols Placeholder
+      FCreateChar_Animation_1_800        : TMir3_GUI_Ground_Info;  // Fire Animation
+      FCreateChar_Animation_2_800        : TMir3_GUI_Ground_Info;  // Fire Animation
+      FCreateChar_Panel_Top_800          : TMir3_GUI_Ground_Info;  //
       FCreateChar_Info_Field_800         : TMir3_GUI_Ground_Info;  //
       FCreateChar_Setup_Field_800        : TMir3_GUI_Ground_Info;  //
       FCreateChar_Character_800          : TMir3_GUI_Ground_Info;  // Character View Male
-      FCreateChar_Button_Warrior_800     : TMir3_GUI_Ground_Info;  // Button to Select Warrior Class
-      FCreateChar_Button_Wizzard_800     : TMir3_GUI_Ground_Info;  // Button to Select Wizzard Class
-      FCreateChar_Button_Taoist_800      : TMir3_GUI_Ground_Info;  // Button to Select Taoist Class
-      FCreateChar_Button_Assassin_800    : TMir3_GUI_Ground_Info;  // Button to Select Assassin Class
-      FCreateChar_Button_Ok              : TMir3_GUI_Ground_Info;  // Button to Create the Character
-      FCreateChar_Button_Cancel          : TMir3_GUI_Ground_Info;  // Button to Cancel Character Creation
-      FCreateChar_Edit_Char_Name         : TMir3_GUI_Ground_Info;  // Edit field for the Character Name
-      FCreateChar_Information_Field      : TMir3_GUI_Ground_Info;  // View Class Info
+      FCreateChar_Btn_Warrior_800        : TMir3_GUI_Ground_Info;  // Button to Select Warrior Class
+      FCreateChar_Btn_Wizzard_800        : TMir3_GUI_Ground_Info;  // Button to Select Wizzard Class
+      FCreateChar_Btn_Taoist_800         : TMir3_GUI_Ground_Info;  // Button to Select Taoist Class
+      FCreateChar_Btn_Assassin_800       : TMir3_GUI_Ground_Info;  // Button to Select Assassin Class
+      FCreateChar_Btn_Ok_800             : TMir3_GUI_Ground_Info;  // Button to Create the Character
+      FCreateChar_Btn_Cancel_800         : TMir3_GUI_Ground_Info;  // Button to Cancel Character Creation
+      FCreateChar_Btn_Gender_Men_800     : TMir3_GUI_Ground_Info;  //
+      FCreateChar_Btn_Gender_Women_800   : TMir3_GUI_Ground_Info;  //
+      FCreateChar_Edit_Char_Name_800     : TMir3_GUI_Ground_Info;  // Edit field for the Character Name
+      FCreateChar_Info_Class_800         : TMir3_GUI_Ground_Info;  // Class title
+      FCreateChar_Info_Gender_800        : TMir3_GUI_Ground_Info;  // Gender title
+      FCreateChar_Info_Name_800          : TMir3_GUI_Ground_Info;  // Name title
+      FCreateChar_Class_Shild_800        : TMir3_GUI_Ground_Info;  // Class Icon / Shild
+      FCreateChar_Information_Field_800  : TMir3_GUI_Ground_Info;  // View Class Info
     ///////////////////////////     
             (* 1024 *) 
     ///////////////////////////
-      FCreateChar_Character_1024         : TMir3_GUI_Ground_Info;  // Character View
+    FCreateChar_Background_1024          : TMir3_GUI_Ground_Info;  //used for Select Char background texture and Contols Placeholder
+      FCreateChar_Animation_1_1024       : TMir3_GUI_Ground_Info;  // Fire Animation
+      FCreateChar_Animation_2_1024       : TMir3_GUI_Ground_Info;  // Fire Animation
+      FCreateChar_Panel_Top_1024         : TMir3_GUI_Ground_Info;  //
       FCreateChar_Info_Field_1024        : TMir3_GUI_Ground_Info;  //
       FCreateChar_Setup_Field_1024       : TMir3_GUI_Ground_Info;  //
+      FCreateChar_Character_1024         : TMir3_GUI_Ground_Info;  // Character View Male
+      FCreateChar_Btn_Warrior_1024       : TMir3_GUI_Ground_Info;  // Button to Select Warrior Class
+      FCreateChar_Btn_Wizzard_1024       : TMir3_GUI_Ground_Info;  // Button to Select Wizzard Class
+      FCreateChar_Btn_Taoist_1024        : TMir3_GUI_Ground_Info;  // Button to Select Taoist Class
+      FCreateChar_Btn_Assassin_1024      : TMir3_GUI_Ground_Info;  // Button to Select Assassin Class
+      FCreateChar_Btn_Ok_1024            : TMir3_GUI_Ground_Info;  // Button to Create the Character
+      FCreateChar_Btn_Cancel_1024        : TMir3_GUI_Ground_Info;  // Button to Cancel Character Creation
+      FCreateChar_Btn_Gender_Men_1024    : TMir3_GUI_Ground_Info;  //
+      FCreateChar_Btn_Gender_Women_1024  : TMir3_GUI_Ground_Info;  //
+      FCreateChar_Edit_Char_Name_1024    : TMir3_GUI_Ground_Info;  // Edit field for the Character Name
+      FCreateChar_Info_Class_1024        : TMir3_GUI_Ground_Info;  // Class title
+      FCreateChar_Info_Gender_1024       : TMir3_GUI_Ground_Info;  // Gender title
+      FCreateChar_Info_Name_1024         : TMir3_GUI_Ground_Info;  // Name title
+      FCreateChar_Class_Shild_1024       : TMir3_GUI_Ground_Info;  // Class Icon / Shild
+      FCreateChar_Information_Field_1024 : TMir3_GUI_Ground_Info;  // View Class Info
     {$ENDREGION}
   end;
 
@@ -377,32 +413,32 @@ var
                                      {$ENDREGION}
               );
     FSelectChar_Panel_Top_800           : ({$REGION ' - FSelectChar_Panel_Top_800              '}
-                                     gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL_TOP;
-                                     gui_Type                   : ctPanel;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:800; Bottom:80);
-                                     gui_Top                    : 0;
-                                     gui_Left                   : 0;
-                                     gui_Height                 : 80;
-                                     gui_Width                  : 800;
-                                     gui_Strech_Rate_X          : 0.7809;
-                                     gui_Strech_Rate_Y          : 0.7809;
-                                     gui_Blend_Size             : 255;
-                                     gui_Blend_Mode             : BLEND_DEFAULT;
-                                     gui_CaptionID              : 92;                                     
-                                     gui_Font                   : (gui_Font_Use_ID      : 2;
-                                                                   gui_Font_Size        : 21;
-                                                                   gui_Font_Color       : $FFBEA97A;
-                                                                   gui_Font_Text_HAlign : alCenter;
-                                                                   gui_Font_Text_VAlign : avTop;
-                                                                   gui_Font_Setting     : [fsBold]);
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 50);
-                                     gui_Caption_Extra          : (gui_Caption_Offset : 12);
-                                     gui_Use_Strech_Texture     : True;
-                                     gui_Enabled                : True;
-                                     gui_Visible                : True
-                                     {$ENDREGION}
+                                        gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL_TOP;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:800; Bottom:80);
+                                        gui_Top                    : 0;
+                                        gui_Left                   : 0;
+                                        gui_Height                 : 80;
+                                        gui_Width                  : 800;
+                                        gui_Strech_Rate_X          : 0.7809;
+                                        gui_Strech_Rate_Y          : 0.7809;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 92;                                     
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 21;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avTop;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 50);
+                                        gui_Caption_Extra          : (gui_Caption_Offset : 12);
+                                        gui_Use_Strech_Texture     : True;
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
               );
     FSelectChar_Panel_Bottom_800        : ({$REGION ' - FSelectChar_Panel_Bottom_800           '}
                                      gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_INFO_PANEL_BOTTOM;
@@ -910,8 +946,8 @@ var
                                         gui_Unique_Control_Number  : GUI_ID_SELECTCHAR_ANIMATION;
                                         gui_Type                   : ctPanel;
                                         gui_Form_Type              : ftNone;
-                                        gui_Top                    : 22;
-                                        gui_Left                   : 0;
+                                        gui_Top                    : 20;
+                                        gui_Left                   : 25;
                                         gui_Height                 : 768;
                                         gui_Width                  : 1024;
                                         gui_Blend_Size             : 255;
@@ -1468,209 +1504,907 @@ var
     ///////////////////////////         
           (* 800x600 *) 
     ///////////////////////////
-    FCreateChar_Info_Field_800       : ({$REGION ' - FCreateChar_Info_Field_800           '}
-                                     gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_PANEL;
-                                     gui_Type                   : ctPanel;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:244; Bottom:344);
-                                     gui_Top                    : 150;
-                                     gui_Left                   : 30;
-                                     gui_Height                 : 344;
-                                     gui_Width                  : 244;
-                                     //gui_Strech_Rate_X          : 0.79;
-                                     //gui_Strech_Rate_Y          : 0.79;
-                                     gui_Blend_Size             : 255;
-                                     gui_Blend_Mode             : BLEND_DEFAULT;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 99);
-                                     //gui_Use_Strech_Texture     : True;
-                                     gui_Enabled                : True;
-                                     gui_Visible                : false
-                                     {$ENDREGION}
-              );
-    FCreateChar_Setup_Field_800      : ({$REGION ' - FCreateChar_Setup_Field_800           '}
-                                     gui_Unique_Control_Number  : GUI_ID_CREATECHAR_OPTION_PANEL;
-                                     gui_Type                   : ctPanel;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:244; Bottom:344);
-                                     gui_Top                    : 150;
-                                     gui_Left                   : 526;
-                                     gui_Height                 : 344;
-                                     gui_Width                  : 244;
-                                     //gui_Strech_Rate_X          : 0.79;
-                                     //gui_Strech_Rate_Y          : 0.79;
-                                     gui_Blend_Size             : 255;
-                                     gui_Blend_Mode             : BLEND_DEFAULT;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 100);
-                                     //gui_Use_Strech_Texture     : True;
-                                     gui_Enabled                : True;
-                                     gui_Visible                : false
-                                     {$ENDREGION}
-              );
-    FCreateChar_Character_800        : ({$REGION ' - FCreateChar_Character_800            '}
-                                     gui_Unique_Control_Number  : GUI_ID_CREATECHAR_CHARACTER;
-                                     gui_Type                   : ctSelectChar;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:260);
-                                     gui_Top                    : 205;
-                                     gui_Left                   : 185;
-                                     gui_Height                 : 260;
-                                     gui_Width                  : 100;
-                                     gui_Strech_Rate_X          : 0.79;
-                                     gui_Strech_Rate_Y          : 0.79;
+    FCreateChar_Background_800          : ({$REGION ' - FCreateChar_Background_800                '}
+                                     gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BACKGROUND;
+                                     gui_Type                   : ctForm;
+                                     gui_Form_Type              : ftBackground;
+                                     gui_WorkField              : (Left:0; Top:0; Right:1024; Bottom:768);
+                                     gui_Top                    : -82;
+                                     gui_Left                   : -114;
+                                     gui_Height                 : 768;
+                                     gui_Width                  : 1024;
                                      gui_Blend_Size             : 255;
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 299);
-                                     gui_Use_Strech_Texture     : True;
-                                     gui_Enabled                : True;
-                                     gui_Visible                : True
-                                     {$ENDREGION}
-              );
-    FCreateChar_Button_Warrior_800   : ({$REGION ' - FCreateChar_Button_Warrior_800       '}
-                                     gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_WARRIOR;
-                                     gui_Type                   : ctButton;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
-                                     gui_Top                    : 230; 
-                                     gui_Left                   : 560;
-                                     gui_Height                 : 34;
-                                     gui_Width                  : 36;
-                                     gui_Blend_Size             : 255;
-                                     gui_HintID                 : 42;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 121;
-                                                                   gui_Mouse_Over_Texture_ID : 119;
-                                                                   gui_Mouse_Down_Texture_ID : 120);
-                                     gui_Enabled                : True;
-                                     gui_Visible                : False
-                                     {$ENDREGION}
-              );
-    FCreateChar_Button_Wizzard_800   : ({$REGION ' - FCreateChar_Button_Wizzard_800       '}
-                                     gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_WIZZARD;
-                                     gui_Type                   : ctButton;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
-                                     gui_Top                    : 230;
-                                     gui_Left                   : 610;
-                                     gui_Height                 : 34;
-                                     gui_Width                  : 36;
-                                     gui_Blend_Size             : 255;
-                                     gui_HintID                 : 43;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 125;
-                                                                   gui_Mouse_Over_Texture_ID : 125;
-                                                                   gui_Mouse_Down_Texture_ID : 125);
-                                     gui_Enabled                : True;
-                                     gui_Visible                : False
-                                     {$ENDREGION}
-              );
-    FCreateChar_Button_Taoist_800    : ({$REGION ' - FCreateChar_Button_Taoist        '}
-                                     gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_TAOIST;
-                                     gui_Type                   : ctButton;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
-                                     gui_Top                    : 230;
-                                     gui_Left                   : 660;
-                                     gui_Height                 : 34;
-                                     gui_Width                  : 36;
-                                     gui_Blend_Size             : 255;
-                                     gui_HintID                 : 44;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 130;
-                                                                   gui_Mouse_Over_Texture_ID : 130;
-                                                                   gui_Mouse_Down_Texture_ID : 130);
-                                     gui_Enabled                : True;
-                                     gui_Visible                : False
-                                     {$ENDREGION}
-              );
-    FCreateChar_Button_Assassin_800  : ({$REGION ' - FCreateChar_Button_Assassin      '}
-                                     gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_ASSASSIN;
-                                     gui_Type                   : ctButton;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
-                                     gui_Top                    : 230;
-                                     gui_Left                   : 705;
-                                     gui_Height                 : 34;
-                                     gui_Width                  : 36;
-                                     gui_Blend_Size             : 255;
-                                     gui_HintID                 : 45;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 135;
-                                                                   gui_Mouse_Over_Texture_ID : 135;
-                                                                   gui_Mouse_Down_Texture_ID : 135);
-                                     gui_Enabled                : True;
-                                     gui_Visible                : False
-                                     {$ENDREGION}
-              );
-    FCreateChar_Button_Ok            : ({$REGION ' - FCreateChar_Button_Ok            '}
-                                     gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_OK;
-                                     gui_Type                   : ctButton;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:28);
-                                     gui_Top                    : 557;
-                                     gui_Left                   : 563;
-                                     gui_Height                 : 28;
-                                     gui_Width                  : 28;
-                                     gui_Blend_Size             : 255;
-                                     gui_HintID                 : 46;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                   gui_Background_Texture_ID : 86;
-                                                                   gui_Mouse_Over_Texture_ID : 87;
-                                                                   gui_Mouse_Down_Texture_ID : 88);
-                                     gui_Enabled                : True;
-                                     gui_Visible                : False
-                                     {$ENDREGION}
-              );
-    FCreateChar_Button_Cancel        : ({$REGION ' - FCreateChar_Button_Cancel        '}
-                                   gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_CANCEL;
-                                   gui_Type                   : ctButton;
-                                   gui_Form_Type              : ftNone;
-                                   gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:28);
-                                   gui_Top                    : 557;
-                                   gui_Left                   : 603;
-                                   gui_Height                 : 28;
-                                   gui_Width                  : 28;
-                                   gui_Blend_Size             : 255;
-                                   gui_HintID                 : 47;
-                                   gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
-                                                                 gui_Background_Texture_ID : 89;
-                                                                 gui_Mouse_Over_Texture_ID : 90;
-                                                                 gui_Mouse_Down_Texture_ID : 91);
-                                   gui_Enabled                : True;
-                                   gui_Visible                : False
-                                   {$ENDREGION}
-              );
-    FCreateChar_Edit_Char_Name       : ({$REGION ' - FCreateChar_Edit_Char_Name       '}
-                                     gui_Unique_Control_Number  : GUI_ID_CREATECHAR_EDIT_CHAR_NAME;
-                                     gui_Type                   : ctEdit;
-                                     gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:16);
-                                     gui_Top                    : 524;
-                                     gui_Left                   : 355;
-                                     gui_Height                 : 16;
-                                     gui_Width                  : 100;
-                                     gui_Blend_Size             : 240;
-                                     gui_Font                   : (gui_Font_Use_ID      : 13;
-                                                                   gui_Font_Size        : 16;
-                                                                   gui_Font_Color       : $FFF0F0F0;
-                                                                   gui_Font_Text_VAlign : avCenter);
-                                     gui_Password_Char          : '';
-                                     gui_Edit_Max_Length        : 14;
-                                     gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9'];
-                                     gui_Color                  : (gui_ControlColor : $FF312C27;
-                                                                   gui_BorderColor  : $FF946D45);
-                                     gui_ShowBorder             : True;
-                                     gui_ShowPanel              : True;
+                                                                   gui_Background_Texture_ID : 49);
                                      gui_Enabled                : True;
                                      gui_Visible                : True                                   
                                      {$ENDREGION}
               );
+    FCreateChar_Animation_1_800         : ({$REGION ' - FCreateChar_Animation_1_800               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_ANIMATION;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_Top                    : 22;
+                                        gui_Left                   : 20;
+                                        gui_Height                 : 768;
+                                        gui_Width                  : 1024;
+                                        gui_Blend_Size             : 255;
+                                        gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID     : 0);
+                                        gui_Animation              : (gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Animation_Texture_From    : 2899;
+                                                                      gui_Animation_Texture_To      : 2914;
+                                                                      gui_Animation_Blend_Mode      : Blend_Add;
+                                                                      gui_Animation_Interval        : 100;
+                                                                     );
+                                        gui_Use_Animation_Texture  : True;
+                                        gui_Use_Offset_Calc        : True;
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Animation_2_800         : ({$REGION ' - FCreateChar_Animation_2_800               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_ANIMATION;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_Top                    : 20;
+                                        gui_Left                   : 25;
+                                        gui_Height                 : 768;
+                                        gui_Width                  : 1024;
+                                        gui_Blend_Size             : 255;
+                                        gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID     : 0);
+                                        gui_Animation              : (
+                                                                      gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Animation_Texture_From    : 2799;
+                                                                      gui_Animation_Texture_To      : 2815;
+                                                                      gui_Animation_Blend_Mode      : Blend_Add;
+                                                                      gui_Animation_Interval        : 100;
+                                                                     );
+                                        gui_Use_Animation_Texture  : True;
+                                        gui_Use_Strech_Texture     : True;
+                                        gui_Use_Offset_Calc        : True;
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Panel_Top_800           : ({$REGION ' - FCreateChar_Panel_Top_800                 '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_PANEL_TOP;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:800; Bottom:80);
+                                        gui_Top                    : 82;
+                                        gui_Left                   : 114;
+                                        gui_Height                 : 80;
+                                        gui_Width                  : 800;
+                                        gui_Strech_Rate_X          : 0.7809;
+                                        gui_Strech_Rate_Y          : 0.7809;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 38;
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 21;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avTop;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 50);
+                                        gui_Caption_Extra          : (gui_Caption_Offset : 12);
+                                        gui_Use_Strech_Texture     : True;
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Info_Field_800          : ({$REGION ' - FCreateChar_Info_Field_800                '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_PANEL;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:244; Bottom:344);
+                                        gui_Top                    : 240;
+                                        gui_Left                   : 120;
+                                        gui_Height                 : 344;
+                                        gui_Width                  : 244;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 21;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avTop;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 99);
+                                        gui_Caption_Extra          : (gui_Caption_Offset :45);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : false
+                                        {$ENDREGION}
+              );
+    FCreateChar_Setup_Field_800         : ({$REGION ' - FCreateChar_Setup_Field_800               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_OPTION_PANEL;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:244; Bottom:344);
+                                        gui_Top                    : 240;
+                                        gui_Left                   : 665;
+                                        gui_Height                 : 344;
+                                        gui_Width                  : 244;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 34;
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 21;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avTop;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 100);
+                                        gui_Caption_Extra          : (gui_Caption_Offset : 6);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : false
+                                        {$ENDREGION}
+              );
+    FCreateChar_Character_800           : ({$REGION ' - FCreateChar_Character_800                 '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_CHARACTER;
+                                        gui_Type                   : ctSelectChar;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:260);
+                                        gui_Top                    : 100;
+                                        gui_Left                   : 200;
+                                        gui_Height                 : 260;
+                                        gui_Width                  : 100;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 299);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Warrior_800         : ({$REGION ' - FCreateChar_Btn_Warrior_800               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_WARRIOR;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
+                                        gui_Top                    : 320;
+                                        gui_Left                   : 699;
+                                        gui_Height                 : 34;
+                                        gui_Width                  : 36;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_HintID                 : 42;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 121;
+                                                                      gui_Mouse_Over_Texture_ID : 119;
+                                                                      gui_Mouse_Down_Texture_ID : 120);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Wizzard_800         : ({$REGION ' - FCreateChar_Btn_Wizzard_800               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_WIZZARD;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
+                                        gui_Top                    : 320;
+                                        gui_Left                   : 749;
+                                        gui_Height                 : 34;
+                                        gui_Width                  : 36;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_HintID                 : 43;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 126;
+                                                                      gui_Mouse_Over_Texture_ID : 124;
+                                                                      gui_Mouse_Down_Texture_ID : 125);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Taoist_800          : ({$REGION ' - FCreateChar_Btn_Taoist_800                '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_TAOIST;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
+                                        gui_Top                    : 320;
+                                        gui_Left                   : 799;
+                                        gui_Height                 : 34;
+                                        gui_Width                  : 36;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_HintID                 : 44;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 131;
+                                                                      gui_Mouse_Over_Texture_ID : 129;
+                                                                      gui_Mouse_Down_Texture_ID : 130);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Assassin_800        : ({$REGION ' - FCreateChar_Btn_Assassin_800              '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_ASSASSIN;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
+                                        gui_Top                    : 320;
+                                        gui_Left                   : 849;
+                                        gui_Height                 : 34;
+                                        gui_Width                  : 36;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_HintID                 : 45;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 136;
+                                                                      gui_Mouse_Over_Texture_ID : 134;
+                                                                      gui_Mouse_Down_Texture_ID : 135);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Ok_800              : ({$REGION ' - FCreateChar_Btn_Ok_800                    '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_OK;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                        gui_Top                    : 537;
+                                        gui_Left                   : 685;
+                                        gui_Height                 : 26;
+                                        gui_Width                  : 100;
+                                        gui_Blend_Size             : 255;
+                                        gui_CaptionID              : 46;
+                                        gui_HintID                 : 46;
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 18;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avCenter;
+                                                                      gui_Font_Setting     : [fsBold];
+                                                                      gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                      gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                      gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 30;
+                                                                      gui_Mouse_Over_Texture_ID : 29;
+                                                                      gui_Mouse_Down_Texture_ID : 31);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Cancel_800          : ({$REGION ' - FCreateChar_Btn_Cancel_800                '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_CANCEL;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                        gui_Top                    : 537;
+                                        gui_Left                   : 793;
+                                        gui_Height                 : 26;
+                                        gui_Width                  : 100;
+                                        gui_Blend_Size             : 255;
+                                        gui_CaptionID              : 47;
+                                        gui_HintID                 : 47;
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 18;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avCenter;
+                                                                      gui_Font_Setting     : [fsBold];
+                                                                      gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                      gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                      gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 30;
+                                                                      gui_Mouse_Over_Texture_ID : 29;
+                                                                      gui_Mouse_Down_Texture_ID : 31);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Gender_Men_800      : ({$REGION ' - FCreateChar_Btn_Gender_Men_800            '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_GENER_MALE;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:28);
+                                        gui_Top                    : 400;
+                                        gui_Left                   : 749;
+                                        gui_Height                 : 28;
+                                        gui_Width                  : 28;
+                                        gui_Blend_Size             : 255;
+                                        gui_HintID                 : 47;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 116;
+                                                                      gui_Mouse_Over_Texture_ID : 114;
+                                                                      gui_Mouse_Down_Texture_ID : 115);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Gender_Women_800    : ({$REGION ' - FCreateChar_Btn_Gender_Women_800          '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_GENER_FEMALE;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:28);
+                                        gui_Top                    : 400;
+                                        gui_Left                   : 799;
+                                        gui_Height                 : 28;
+                                        gui_Width                  : 28;
+                                        gui_Blend_Size             : 255;
+                                        gui_HintID                 : 47;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 111;
+                                                                      gui_Mouse_Over_Texture_ID : 109;
+                                                                      gui_Mouse_Down_Texture_ID : 110);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Edit_Char_Name_800      : ({$REGION ' - FCreateChar_Edit_Char_Name                '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_EDIT_CHAR_NAME;
+                                        gui_Type                   : ctEdit;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:180; Bottom:16);
+                                        gui_Top                    : 486;
+                                        gui_Left                   : 700;
+                                        gui_Height                 : 16;
+                                        gui_Width                  : 180;
+                                        gui_Blend_Size             : 240;
+                                        gui_Font                   : (gui_Font_Use_ID      : 13;
+                                                                      gui_Font_Size        : 16;
+                                                                      gui_Font_Color       : $FFF0F0F0;
+                                                                      gui_Font_Text_VAlign : avCenter);
+                                        gui_Password_Char          : '';
+                                        gui_Edit_Max_Length        : 14;
+                                        gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9'];
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Info_Class_800          : ({$REGION ' - FCreateChar_Info_Class_800                '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_CLASS;
+                                        gui_Type                   : ctTextLabel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:245; Bottom:20);
+                                        gui_Top                    : 291;
+                                        gui_Left                   : 665;
+                                        gui_Height                 : 20;
+                                        gui_Width                  : 245;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 35;
+                                        gui_Font                   : (gui_Font_Size        : 18;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Info_Gender_800         : ({$REGION ' - FCreateChar_Info_Gender_800               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_GENDER;
+                                        gui_Type                   : ctTextLabel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:245; Bottom:20);
+                                        gui_Top                    : 370;
+                                        gui_Left                   : 665;
+                                        gui_Height                 : 20;
+                                        gui_Width                  : 245;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 36;
+                                        gui_Font                   : (gui_Font_Size        : 18;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Info_Name_800           : ({$REGION ' - FCreateChar_Info_Name_800                 '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_NAME;
+                                        gui_Type                   : ctTextLabel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:245; Bottom:20);
+                                        gui_Top                    : 449;
+                                        gui_Left                   : 665;
+                                        gui_Height                 : 20;
+                                        gui_Width                  : 245;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 37;
+                                        gui_Font                   : (gui_Font_Size        : 18;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Class_Shild_800         : ({$REGION ' - FCreateChar_Class_Shild_800               '}
+                                         gui_Unique_Control_Number  : GUI_ID_CREATECHAR_PANEL_CLASS_SHILD;
+                                         gui_Type                   : ctPanel;
+                                         gui_Form_Type              : ftNone;
+                                         gui_WorkField              : (Left:0; Top:0; Right:64; Bottom:64);
+                                         gui_Top                    : 220;
+                                         gui_Left                   : 209;
+                                         gui_Height                 : 82;
+                                         gui_Width                  : 64;
+                                         gui_Blend_Size             : 255;
+                                         gui_Blend_Mode             : BLEND_DEFAULT;
+                                         gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                       gui_Background_Texture_ID : 139);
+                                         gui_Use_Cut_Rect           : True;
+                                         gui_Enabled                : True;
+                                         gui_Visible                : false
+                                         {$ENDREGION}
+              );
+    FCreateChar_Information_Field_800   : ({$REGION ' - FCreateChar_Information_Field_800         '}
+                                         gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_CLASS_TEXT;
+                                         gui_Type                   : ctPanel;
+                                         gui_Form_Type              : ftNone;
+                                         gui_WorkField              : (Left:0; Top:0; Right:195; Bottom:205);
+                                         gui_Top                    : 325;
+                                         gui_Left                   : 142;
+                                         gui_Height                 : 205;
+                                         gui_Width                  : 195;
+                                         gui_Blend_Size             : 255;
+                                         gui_Blend_Mode             : BLEND_DEFAULT;
+                                         gui_Font                   : (gui_Font_Size        : 15;
+                                                                       gui_Font_Color       : $FFA2A292);
+                                         gui_Enabled                : True;
+                                         gui_Visible                : false
+                                         {$ENDREGION}
+              );
     ///////////////////////////         
           (* 1024x768 *) 
-    ///////////////////////////               
+    ///////////////////////////
+    FCreateChar_Background_1024         : ({$REGION ' - FCreateChar_Background_1024               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BACKGROUND;
+                                        gui_Type                   : ctForm;
+                                        gui_Form_Type              : ftBackground;
+                                        gui_WorkField              : (Left:0; Top:0; Right:1024; Bottom:768);
+                                        gui_Top                    : 0;
+                                        gui_Left                   : 0;
+                                        gui_Height                 : 768;
+                                        gui_Width                  : 1024;
+                                        gui_Blend_Size             : 255;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 49);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True                                   
+                                        {$ENDREGION}
+              );
+    FCreateChar_Animation_1_1024        : ({$REGION ' - FCreateChar_Animation_1_1024              '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_ANIMATION;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_Top                    : 22;
+                                        gui_Left                   : 20;
+                                        gui_Height                 : 768;
+                                        gui_Width                  : 1024;
+                                        gui_Blend_Size             : 255;
+                                        gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID     : 0);
+                                        gui_Animation              : (
+                                                                      gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Animation_Texture_From    : 2899;
+                                                                      gui_Animation_Texture_To      : 2914;
+                                                                      gui_Animation_Blend_Mode      : Blend_Add;
+                                                                      gui_Animation_Interval        : 100;
+                                                                     );
+                                        gui_Use_Animation_Texture  : True;
+                                        gui_Use_Offset_Calc        : True;
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Animation_2_1024        : ({$REGION ' - FCreateChar_Animation_2_1024              '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_ANIMATION;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_Top                    : 20;
+                                        gui_Left                   : 25;
+                                        gui_Height                 : 768;
+                                        gui_Width                  : 1024;
+                                        gui_Blend_Size             : 255;
+                                        gui_Control_Texture        : (gui_Texture_File_ID           : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID     : 0);
+                                        gui_Animation              : (
+                                                                      gui_Animation_Texture_File_ID : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Animation_Texture_From    : 2799;
+                                                                      gui_Animation_Texture_To      : 2815;
+                                                                      gui_Animation_Blend_Mode      : Blend_Add;
+                                                                      gui_Animation_Interval        : 100;
+                                                                     );
+                                        gui_Use_Animation_Texture  : True;
+                                        gui_Use_Offset_Calc        : True;
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Panel_Top_1024          : ({$REGION ' - FCreateChar_Panel_Top_800                 '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_PANEL_TOP;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:1024; Bottom:80);
+                                        gui_Top                    : 0;
+                                        gui_Left                   : 0;
+                                        gui_Height                 : 80;
+                                        gui_Width                  : 1024;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 38;
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 21;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avTop;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 50);
+                                        gui_Caption_Extra          : (gui_Caption_Offset : 12);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Info_Field_1024         : ({$REGION ' - FCreateChar_Info_Field_1024               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_PANEL;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:244; Bottom:344);
+                                        gui_Top                    : 240;
+                                        gui_Left                   : 25;
+                                        gui_Height                 : 344;
+                                        gui_Width                  : 244;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 21;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avTop;
+                                                                      gui_Font_Setting     : [fsBold]);                                     
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 99);
+                                        gui_Caption_Extra          : (gui_Caption_Offset :45);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : false
+                                        {$ENDREGION}
+              );
+    FCreateChar_Setup_Field_1024        : ({$REGION ' - FCreateChar_Setup_Field_1024              '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_OPTION_PANEL;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:244; Bottom:344);
+                                        gui_Top                    : 240;
+                                        gui_Left                   : 750;
+                                        gui_Height                 : 344;
+                                        gui_Width                  : 244;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 34;
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 21;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avTop;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 100);
+                                        gui_Caption_Extra          : (gui_Caption_Offset : 6);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : false
+                                        {$ENDREGION}
+              );
+    FCreateChar_Character_1024          : ({$REGION ' - FCreateChar_Character_1024                '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_CHARACTER;
+                                        gui_Type                   : ctSelectChar;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:260);
+                                        gui_Top                    : 220;
+                                        gui_Left                   : 310;
+                                        gui_Height                 : 260;
+                                        gui_Width                  : 100;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 299);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Warrior_1024        : ({$REGION ' - FCreateChar_Btn_Warrior_1024              '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_WARRIOR;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
+                                        gui_Top                    : 320;
+                                        gui_Left                   : 784;
+                                        gui_Height                 : 34;
+                                        gui_Width                  : 36;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_HintID                 : 42;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 121;
+                                                                      gui_Mouse_Over_Texture_ID : 119;
+                                                                      gui_Mouse_Down_Texture_ID : 120);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Wizzard_1024        : ({$REGION ' - FCreateChar_Btn_Wizzard_1024              '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_WIZZARD;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
+                                        gui_Top                    : 320;
+                                        gui_Left                   : 834;
+                                        gui_Height                 : 34;
+                                        gui_Width                  : 36;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_HintID                 : 43;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 126;
+                                                                      gui_Mouse_Over_Texture_ID : 124;
+                                                                      gui_Mouse_Down_Texture_ID : 125);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Taoist_1024         : ({$REGION ' - FCreateChar_Btn_Taoist_1024               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_TAOIST;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
+                                        gui_Top                    : 320;
+                                        gui_Left                   : 884;
+                                        gui_Height                 : 34;
+                                        gui_Width                  : 36;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_HintID                 : 44;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 131;
+                                                                      gui_Mouse_Over_Texture_ID : 129;
+                                                                      gui_Mouse_Down_Texture_ID : 130);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Assassin_1024       : ({$REGION ' - FCreateChar_Btn_Assassin_1024             '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_ASSASSIN;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:36; Bottom:34);
+                                        gui_Top                    : 320;
+                                        gui_Left                   : 934;
+                                        gui_Height                 : 34;
+                                        gui_Width                  : 36;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_HintID                 : 45;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 136;
+                                                                      gui_Mouse_Over_Texture_ID : 134;
+                                                                      gui_Mouse_Down_Texture_ID : 135);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Ok_1024             : ({$REGION ' - FCreateChar_Btn_Ok_1024                   '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_OK;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                        gui_Top                    : 537;
+                                        gui_Left                   : 770;
+                                        gui_Height                 : 26;
+                                        gui_Width                  : 100;
+                                        gui_Blend_Size             : 255;
+                                        gui_CaptionID              : 46;
+                                        gui_HintID                 : 46;
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 18;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avCenter;
+                                                                      gui_Font_Setting     : [fsBold];
+                                                                      gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                      gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                      gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 30;
+                                                                      gui_Mouse_Over_Texture_ID : 29;
+                                                                      gui_Mouse_Down_Texture_ID : 31);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Cancel_1024         : ({$REGION ' - FCreateChar_Btn_Cancel_1024               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_CANCEL;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                        gui_Top                    : 537;
+                                        gui_Left                   : 878;
+                                        gui_Height                 : 26;
+                                        gui_Width                  : 100;
+                                        gui_Blend_Size             : 255;
+                                        gui_CaptionID              : 47;
+                                        gui_HintID                 : 47;
+                                        gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                      gui_Font_Size        : 18;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Text_VAlign : avCenter;
+                                                                      gui_Font_Setting     : [fsBold];
+                                                                      gui_Font_Script_MouseNormal   : '¦C14F4F4F¦¦C2EFEFEF¦';
+                                                                      gui_Font_Script_MouseOver     : '¦C1A59222¦¦C2EFEFEF¦';
+                                                                      gui_Font_Script_MouseDown     : '¦C14F4F4F¦¦C2EFEFEF¦');
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 30;
+                                                                      gui_Mouse_Over_Texture_ID : 29;
+                                                                      gui_Mouse_Down_Texture_ID : 31);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Gender_Men_1024     : ({$REGION ' - FCreateChar_Btn_Gender_Men_1024           '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_GENER_MALE;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:28);
+                                        gui_Top                    : 400;
+                                        gui_Left                   : 834;
+                                        gui_Height                 : 28;
+                                        gui_Width                  : 28;
+                                        gui_Blend_Size             : 255;
+                                        gui_HintID                 : 47;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 116;
+                                                                      gui_Mouse_Over_Texture_ID : 114;
+                                                                      gui_Mouse_Down_Texture_ID : 115);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Btn_Gender_Women_1024   : ({$REGION ' - FCreateChar_Btn_Gender_Women_1024         '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_BUTTON_GENER_FEMALE;
+                                        gui_Type                   : ctButton;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:28);
+                                        gui_Top                    : 400;
+                                        gui_Left                   : 884;
+                                        gui_Height                 : 28;
+                                        gui_Width                  : 28;
+                                        gui_Blend_Size             : 255;
+                                        gui_HintID                 : 47;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 111;
+                                                                      gui_Mouse_Over_Texture_ID : 109;
+                                                                      gui_Mouse_Down_Texture_ID : 110);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : False
+                                        {$ENDREGION}
+              );
+    FCreateChar_Edit_Char_Name_1024     : ({$REGION ' - FCreateChar_Edit_Char_Name_1024           '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_EDIT_CHAR_NAME;
+                                        gui_Type                   : ctEdit;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:180; Bottom:16);
+                                        gui_Top                    : 486;
+                                        gui_Left                   : 785;
+                                        gui_Height                 : 16;
+                                        gui_Width                  : 180;
+                                        gui_Blend_Size             : 240;
+                                        gui_Font                   : (gui_Font_Use_ID      : 13;
+                                                                      gui_Font_Size        : 16;
+                                                                      gui_Font_Color       : $FFF0F0F0;
+                                                                      gui_Font_Text_VAlign : avCenter);
+                                        gui_Password_Char          : '';
+                                        gui_Edit_Max_Length        : 14;
+                                        gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9'];
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Info_Class_1024         : ({$REGION ' - FCreateChar_Info_Class_1024               '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_CLASS;
+                                        gui_Type                   : ctTextLabel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:245; Bottom:20);
+                                        gui_Top                    : 291;
+                                        gui_Left                   : 750;
+                                        gui_Height                 : 20;
+                                        gui_Width                  : 245;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 35;
+                                        gui_Font                   : (gui_Font_Size        : 18;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Info_Gender_1024        : ({$REGION ' - FCreateChar_Info_Gender_1024              '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_GENDER;
+                                        gui_Type                   : ctTextLabel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:245; Bottom:20);
+                                        gui_Top                    : 370;
+                                        gui_Left                   : 750;
+                                        gui_Height                 : 20;
+                                        gui_Width                  : 245;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 36;
+                                        gui_Font                   : (gui_Font_Size        : 18;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Info_Name_1024          : ({$REGION ' - FCreateChar_Info_Name_1024                '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_NAME;
+                                        gui_Type                   : ctTextLabel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:245; Bottom:20);
+                                        gui_Top                    : 449;
+                                        gui_Left                   : 750;
+                                        gui_Height                 : 20;
+                                        gui_Width                  : 245;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_CaptionID              : 37;
+                                        gui_Font                   : (gui_Font_Size        : 18;
+                                                                      gui_Font_Color       : $FFBEA97A;
+                                                                      gui_Font_Text_HAlign : alCenter;
+                                                                      gui_Font_Setting     : [fsBold]);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : True
+                                        {$ENDREGION}
+              );
+    FCreateChar_Class_Shild_1024        : ({$REGION ' - FCreateChar_Class_Shild_1024              '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_PANEL_CLASS_SHILD;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:64; Bottom:64);
+                                        gui_Top                    : 220;
+                                        gui_Left                   : 115;
+                                        gui_Height                 : 82;
+                                        gui_Width                  : 64;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_INTERFACE1C_INT;
+                                                                      gui_Background_Texture_ID : 139);
+                                        gui_Use_Cut_Rect           : True;
+                                        gui_Enabled                : True;
+                                        gui_Visible                : false
+                                        {$ENDREGION}
+              );
+    FCreateChar_Information_Field_1024  : ({$REGION ' - FCreateChar_Information_Field_1024        '}
+                                        gui_Unique_Control_Number  : GUI_ID_CREATECHAR_INFO_CLASS_TEXT;
+                                        gui_Type                   : ctPanel;
+                                        gui_Form_Type              : ftNone;
+                                        gui_WorkField              : (Left:0; Top:0; Right:195; Bottom:205);
+                                        gui_Top                    : 325;
+                                        gui_Left                   : 48;
+                                        gui_Height                 : 205;
+                                        gui_Width                  : 195;
+                                        gui_Blend_Size             : 255;
+                                        gui_Blend_Mode             : BLEND_DEFAULT;
+                                        gui_Font                   : (gui_Font_Size        : 15;
+                                                                      gui_Font_Color       : $FFA2A292);
+                                        gui_Enabled                : True;
+                                        gui_Visible                : false
+                                        {$ENDREGION}
+              );
     {$ENDREGION}
-
   );
   
 implementation

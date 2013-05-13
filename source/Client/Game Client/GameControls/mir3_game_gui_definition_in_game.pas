@@ -169,14 +169,15 @@ const
 
   GUI_ID_INGAME_BOTTOM_UI_GAUGE_HP                = 450;
   GUI_ID_INGAME_BOTTOM_UI_GAUGE_MP                = 451;
-  GUI_ID_INGAME_BOTTOM_UI_GAUGE_EXP               = 452;
-  GUI_ID_INGAME_BOTTOM_UI_GAUGE_BAG_SIZE          = 453;
+  GUI_ID_INGAME_BOTTOM_UI_GAUGE_SP                = 452;
+  GUI_ID_INGAME_BOTTOM_UI_GAUGE_EXP               = 453;
 
   GUI_ID_INGAME_BOTTOM_UI_AVATAR_BACKGROUND       = 454;
   GUI_ID_INGAME_BOTTOM_UI_AVATAR_LOW_PANEL        = 455;
   GUI_ID_INGAME_BOTTOM_UI_AVATAR_LOW_PANEL_BACK   = 456;
   GUI_ID_INGAME_BOTTOM_UI_AVATAR_HIGH_PANEL       = 457;
   GUI_ID_INGAME_BOTTOM_UI_AVATAR_HIGH_PANEL_BACK  = 458;
+  GUI_ID_INGAME_BOTTOM_UI_EXP_OVERLAY             = 459;
   {$ENDREGION}
 
   {$REGION ' - Menue Bar GUI           (460-479) '}
@@ -638,11 +639,17 @@ type
     {$REGION ' - InGame Scene All                              '}
 
     {$REGION ' - Bottom System               '}
-    FInGame_UI_Bottom_Background              : TMir3_GUI_Ground_Info;  // Bottom UI Form
+    FInGame_UI_Bottom_Background_800          : TMir3_GUI_Ground_Info;  // Bottom UI Form
       // Rigth Button Menue
-      FInGame_UI_Bottom_Button_1_Body         : TMir3_GUI_Ground_Info;  // Button to open/close Body Window
-      FInGame_UI_Bottom_Button_2_Bag          : TMir3_GUI_Ground_Info;  // Button to open/close Bag Window
-      FInGame_UI_Bottom_Button_3_Magic        : TMir3_GUI_Ground_Info;  // Button to open/close Magic Window
+      FInGame_UI_Bottom_Button_1_Body_800     : TMir3_GUI_Ground_Info;  // Button to open/close Body Window
+      FInGame_UI_Bottom_Button_2_Bag_800      : TMir3_GUI_Ground_Info;  // Button to open/close Bag Window
+      FInGame_UI_Bottom_Button_3_Magic_800    : TMir3_GUI_Ground_Info;  // Button to open/close Magic Window
+      FInGame_UI_Bottom_Button_4_Quest_800    : TMir3_GUI_Ground_Info;  // Button to open/close Quest Window
+
+      FInGame_UI_Bottom_Button_6_Belt_800     : TMir3_GUI_Ground_Info;  // Button to open/close Belt Window
+
+      FInGame_UI_Bottom_Button_8_Setting_800  : TMir3_GUI_Ground_Info;  // Button to open/close Setting Window
+
       FInGame_UI_Bottom_Button_4_Trade        : TMir3_GUI_Ground_Info;  // Button to open/close Trade Window
       FInGame_UI_Bottom_Button_5_Belt         : TMir3_GUI_Ground_Info;  // Button to open/close Belt Window
       FInGame_UI_Bottom_Button_6_MiniMap      : TMir3_GUI_Ground_Info;  // Button to open/close MiniMap View
@@ -659,11 +666,22 @@ type
       FInGame_UI_Bottom_TextField_AC          : TMir3_GUI_Ground_Info;  // View Used AC
       FInGame_UI_Bottom_TextField_MA          : TMir3_GUI_Ground_Info;  // View Used MA or BA
 
-      // HP / MP / Exp / BagW Gauge
-      FInGame_UI_Bottom_Gauge_HP              : TMir3_GUI_Ground_Info;  // Show HP
-      FInGame_UI_Bottom_Gauge_MP              : TMir3_GUI_Ground_Info;  // Show MP
-      FInGame_UI_Bottom_Gauge_EXP             : TMir3_GUI_Ground_Info;  // Show Exp
-      FInGame_UI_Bottom_Gauge_Bag_Size        : TMir3_GUI_Ground_Info;  // Show Bag Size
+      // HP / MP / IP / Exp Gauge
+      FInGame_UI_Bottom_Gauge_HP_800          : TMir3_GUI_Ground_Info;  // Show HP
+      FInGame_UI_Bottom_Gauge_MP_800          : TMir3_GUI_Ground_Info;  // Show MP
+      FInGame_UI_Bottom_Gauge_IP_800          : TMir3_GUI_Ground_Info;  // Show SP
+      FInGame_UI_Bottom_Gauge_Exp_800         : TMir3_GUI_Ground_Info;  // Show Exp
+      FInGame_UI_Bottom_Exp_Overlay_800       : TMir3_GUI_Ground_Info;  // Show Exp Overlay
+
+
+    FInGame_UI_Bottom_Background_1024         : TMir3_GUI_Ground_Info;  // Bottom UI Form
+
+
+      // HP / MP / IP / Exp Gauge
+      FInGame_UI_Bottom_Gauge_HP_1024         : TMir3_GUI_Ground_Info;  // Show HP
+      FInGame_UI_Bottom_Gauge_MP_1024         : TMir3_GUI_Ground_Info;  // Show MP
+      FInGame_UI_Bottom_Gauge_IP_1024         : TMir3_GUI_Ground_Info;  // Show SP
+      FInGame_UI_Bottom_Gauge_Exp_1024        : TMir3_GUI_Ground_Info;  // Show Exp
     {$ENDREGION}
 
     {$REGION ' - Avatar System               '}
@@ -1156,81 +1174,140 @@ var
        ///////////////////////////         
              (* 800x600 *) 
        ///////////////////////////      
-      FInGame_UI_Bottom_Background        : ({$REGION ' - FInGame_UI_Bottom_Background    '}
+      FInGame_UI_Bottom_Background_800    : ({$REGION ' - FInGame_UI_Bottom_Background_800    '}
                                           gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BACKGROUND;
                                           gui_Type                   : ctForm;
                                           gui_Form_Type              : ftUIStatic;
-                                          gui_WorkField              : (Left:0; Top:0; Right:708; Bottom:56);
-                                          gui_Top                    : 545;
-                                          gui_Left                   : 94;
-                                          gui_Height                 : 56;
-                                          gui_Width                  : 708;
+                                          gui_WorkField              : (Left:0; Top:0; Right:800; Bottom:68);
+                                          gui_Top                    : 532;
+                                          gui_Left                   : 0;
+                                          gui_Height                 : 68;
+                                          gui_Width                  : 800;
                                           gui_Blend_Size             : 255;
                                           gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Background_Texture_ID : 51);
+                                                                        gui_Background_Texture_ID : 40);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
                 );
-      FInGame_UI_Bottom_Button_1_Body     : ({$REGION ' - FInGame_UI_Bottom_Button_1_Body  '}
+      FInGame_UI_Bottom_Button_1_Body_800 : ({$REGION ' - FInGame_UI_Bottom_Button_1_Body_800  '}
                                           gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_1_BODY;
                                           gui_Type                   : ctButton;
                                           gui_Form_Type              : ftNone;
-                                          gui_Top                    : 16;
-                                          gui_Left                   : 430;
-                                          gui_Height                 : 28;
-                                          gui_Width                  : 28;
+                                          gui_Top                    : 22;
+                                          gui_Left                   : 428;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
                                           gui_Blend_Size             : 255;
                                           gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID : 81;
-                                                                        gui_Mouse_Down_Texture_ID : 82);
+                                                                        gui_Background_Texture_ID : 82;
+                                                                        gui_Mouse_Over_Texture_ID : 83;
+                                                                        gui_Mouse_Down_Texture_ID : 81);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
                 );
-      FInGame_UI_Bottom_Button_2_Bag      : ({$REGION ' - FInGame_UI_Bottom_Button_2_Bag   '}
+      FInGame_UI_Bottom_Button_2_Bag_800  : ({$REGION ' - FInGame_UI_Bottom_Button_2_Bag_800   '}
                                           gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_2_BAG;
                                           gui_Type                   : ctButton;
                                           gui_Form_Type              : ftNone;
-                                          gui_Top                    : 16;
-                                          gui_Left                   : 464;
-                                          gui_Height                 : 28;
-                                          gui_Width                  : 28;
+                                          gui_Top                    : 22;
+                                          gui_Left                   : 467;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
                                           gui_Blend_Size             : 255;
                                           gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID : 83;
-                                                                        gui_Mouse_Down_Texture_ID : 84);
-                                          gui_Enabled                : True;
-                                          gui_Visible                : True
-                                          {$ENDREGION}
-                );
-      FInGame_UI_Bottom_Button_3_Magic    : ({$REGION ' - FInGame_UI_Bottom_Button_3_Magic '}
-                                          gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_3_MAGIC;
-                                          gui_Type                   : ctButton;
-                                          gui_Form_Type              : ftNone;
-                                          gui_Top                    : 16;
-                                          gui_Left                   : 498;
-                                          gui_Height                 : 28;
-                                          gui_Width                  : 28;
-                                          gui_Blend_Size             : 255;
-                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID : 85;
+                                                                        gui_Background_Texture_ID : 87;
+                                                                        gui_Mouse_Over_Texture_ID : 88;
                                                                         gui_Mouse_Down_Texture_ID : 86);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
                 );
+      FInGame_UI_Bottom_Button_3_Magic_800: ({$REGION ' - FInGame_UI_Bottom_Button_3_Magic_800 '}
+                                          gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_3_MAGIC;
+                                          gui_Type                   : ctButton;
+                                          gui_Form_Type              : ftNone;
+                                          gui_Top                    : 22;
+                                          gui_Left                   : 506;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
+                                          gui_Blend_Size             : 255;
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Background_Texture_ID : 92;
+                                                                        gui_Mouse_Over_Texture_ID : 93;
+                                                                        gui_Mouse_Down_Texture_ID : 91);
+                                          gui_Enabled                : True;
+                                          gui_Visible                : True
+                                          {$ENDREGION}
+                );
+      FInGame_UI_Bottom_Button_4_Quest_800: ({$REGION ' - FInGame_UI_Bottom_Button_4_Quest_800  '}
+                                          gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_7_QUEST;
+                                          gui_Type                   : ctButton;
+                                          gui_Form_Type              : ftNone;
+                                          gui_Top                    : 22;
+                                          gui_Left                   : 545;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
+                                          gui_Blend_Size             : 255;
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Background_Texture_ID : 112;
+                                                                        gui_Mouse_Over_Texture_ID : 113;
+                                                                        gui_Mouse_Down_Texture_ID : 111);
+                                          gui_Enabled                : True;
+                                          gui_Visible                : True
+                                          {$ENDREGION}
+                );
+
+      FInGame_UI_Bottom_Button_6_Belt_800 : ({$REGION ' - FInGame_UI_Bottom_Button_6_Belt_800  '}
+                                          gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_5_BELT;
+                                          gui_Type                   : ctButton;
+                                          gui_Form_Type              : ftNone;
+                                          gui_Top                    : 22;
+                                          gui_Left                   : 623;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
+                                          gui_Blend_Size             : 255;
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Background_Texture_ID : 107;
+                                                                        gui_Mouse_Over_Texture_ID : 108;
+                                                                        gui_Mouse_Down_Texture_ID : 106);
+                                          gui_Enabled                : True;
+                                          gui_Visible                : True
+                                          {$ENDREGION}
+                );
+
+      FInGame_UI_Bottom_Button_8_Setting_800  : ({$REGION ' - FInGame_UI_Bottom_Button_8_Setting_800  '}
+                                          gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_8_SETTING;
+                                          gui_Type                   : ctButton;
+                                          gui_Form_Type              : ftNone;
+                                          gui_Top                    : 22;
+                                          gui_Left                   : 701;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
+                                          gui_Blend_Size             : 255;
+                                          gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                        gui_Background_Texture_ID : 117;
+                                                                        gui_Mouse_Over_Texture_ID : 118;
+                                                                        gui_Mouse_Down_Texture_ID : 116);
+                                          gui_Enabled                : True;
+                                          gui_Visible                : True
+                                          {$ENDREGION}
+                );
+
+
       FInGame_UI_Bottom_Button_4_Trade    : ({$REGION ' - FInGame_UI_Bottom_Button_4_Trade '}
                                           gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_4_TRADE;
                                           gui_Type                   : ctButton;
                                           gui_Form_Type              : ftNone;
-                                          gui_Top                    : 16;
-                                          gui_Left                   : 532;
-                                          gui_Height                 : 28;
-                                          gui_Width                  : 28;
+                                          gui_Top                    : 22;
+                                          gui_Left                   : 545;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
                                           gui_Blend_Size             : 255;
                                           gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID : 95;
+                                                                        gui_Background_Texture_ID : 97;
+                                                                        gui_Mouse_Over_Texture_ID : 98;
                                                                         gui_Mouse_Down_Texture_ID : 96);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
@@ -1240,14 +1317,15 @@ var
                                           gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_5_BELT;
                                           gui_Type                   : ctButton;
                                           gui_Form_Type              : ftNone;
-                                          gui_Top                    : 16;
+                                          gui_Top                    : 22;
                                           gui_Left                   : 566;
-                                          gui_Height                 : 28;
-                                          gui_Width                  : 28;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
                                           gui_Blend_Size             : 255;
                                           gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID : 87;
-                                                                        gui_Mouse_Down_Texture_ID : 88);
+                                                                        gui_Background_Texture_ID : 102;
+                                                                        gui_Mouse_Over_Texture_ID : 103;
+                                                                        gui_Mouse_Down_Texture_ID : 101);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -1256,14 +1334,15 @@ var
                                           gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_6_MINIMAP;
                                           gui_Type                   : ctButton;
                                           gui_Form_Type              : ftNone;
-                                          gui_Top                    : 16;
+                                          gui_Top                    : 22;
                                           gui_Left                   : 600;
-                                          gui_Height                 : 28;
-                                          gui_Width                  : 28;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
                                           gui_Blend_Size             : 255;
                                           gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                        gui_Mouse_Over_Texture_ID : 89;
-                                                                        gui_Mouse_Down_Texture_ID : 90);
+                                                                        gui_Background_Texture_ID : 107;
+                                                                        gui_Mouse_Over_Texture_ID : 108;
+                                                                        gui_Mouse_Down_Texture_ID : 106);
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
@@ -1272,10 +1351,10 @@ var
                                           gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_7_QUEST;
                                           gui_Type                   : ctButton;
                                           gui_Form_Type              : ftNone;
-                                          gui_Top                    : 16;
+                                          gui_Top                    : 22;
                                           gui_Left                   : 634;
-                                          gui_Height                 : 28;
-                                          gui_Width                  : 28;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
                                           gui_Blend_Size             : 255;
                                           gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                         gui_Mouse_Over_Texture_ID : 91;
@@ -1283,15 +1362,15 @@ var
                                           gui_Enabled                : True;
                                           gui_Visible                : True
                                           {$ENDREGION}
-                );      
+                );
       FInGame_UI_Bottom_Button_8_Setting  : ({$REGION ' - FInGame_UI_Bottom_Button_8_Setting  '}
                                           gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_BUTTON_8_SETTING;
                                           gui_Type                   : ctButton;
                                           gui_Form_Type              : ftNone;
-                                          gui_Top                    : 16;
+                                          gui_Top                    : 22;
                                           gui_Left                   : 668;
-                                          gui_Height                 : 28;
-                                          gui_Width                  : 28;
+                                          gui_Height                 : 34;
+                                          gui_Width                  : 34;
                                           gui_Blend_Size             : 255;
                                           gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
                                                                         gui_Mouse_Over_Texture_ID : 93;
@@ -1426,95 +1505,114 @@ var
                                             {$ENDREGION}
                 );
 
-      FInGame_UI_Bottom_Gauge_HP            : ({$REGION ' - FInGame_UI_Bottom_Gauge_HP          '}
+      FInGame_UI_Bottom_Gauge_HP_800        : ({$REGION ' - FInGame_UI_Bottom_Gauge_HP_800       '}
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_GAUGE_HP;
                                             gui_Type                   : ctProgress;
                                             gui_Form_Type              : ftNone;
-                                            gui_WorkField              : (Left: 0; Top:0; Right: 180; Bottom: 12);
-                                            gui_Top                    : 17;
-                                            gui_Left                   : 17;
-                                            gui_Height                 : 12;
-                                            gui_Width                  : 180;
+                                            gui_WorkField              : (Left: 0; Top:0; Right: 172; Bottom: 8);
+                                            gui_Top                    : 22;
+                                            gui_Left                   : 35;
+                                            gui_Height                 : 8;
+                                            gui_Width                  : 172;
                                             gui_Blend_Size             : 255;
                                             gui_Font                   : (gui_Font_Size        : 15;
                                                                           gui_Font_Color       : $FFFFFFFF;
                                                                           gui_Font_Text_HAlign : alCenter;
                                                                           gui_Font_Text_VAlign : avCenter);
                                             gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID : 53);
+                                                                          gui_Background_Texture_ID : 42);
                                             gui_Progress_Setup         : (gui_Min   : 0;
                                                                           gui_Max   : 100;
-                                                                          gui_Value : 1;
+                                                                          gui_Value : 100;
                                                                           gui_ShowText : True);
                                             gui_Enabled                : True;
                                             gui_Visible                : True
                                             {$ENDREGION}
                 );
-      FInGame_UI_Bottom_Gauge_MP            : ({$REGION ' - FInGame_UI_Bottom_Gauge_MP          '}
+      FInGame_UI_Bottom_Gauge_MP_800        : ({$REGION ' - FInGame_UI_Bottom_Gauge_MP_800       '}
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_GAUGE_MP;
                                             gui_Type                   : ctProgress;
                                             gui_Form_Type              : ftNone;
-                                            gui_WorkField              : (Left: 0; Top:0; Right: 180; Bottom: 12);
-                                            gui_Top                    : 33;
-                                            gui_Left                   : 17;
-                                            gui_Height                 : 12;
-                                            gui_Width                  : 180;
+                                            gui_WorkField              : (Left: 0; Top:0; Right: 172; Bottom: 8);
+                                            gui_Top                    : 36;
+                                            gui_Left                   : 35;
+                                            gui_Height                 : 8;
+                                            gui_Width                  : 172;
                                             gui_Blend_Size             : 255;
                                             gui_Font                   : (gui_Font_Size        : 15;
                                                                           gui_Font_Color       : $FFFFFFFF;
                                                                           gui_Font_Text_HAlign : alCenter;
                                                                           gui_Font_Text_VAlign : avCenter);                                            
                                             gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID : 55);
+                                                                          gui_Background_Texture_ID : 44);
                                             gui_Progress_Setup         : (gui_Min   : 0;
                                                                           gui_Max   : 100;
-                                                                          gui_Value : 1;
+                                                                          gui_Value : 100;
                                                                           gui_ShowText : True);
                                             gui_Enabled                : True;
                                             gui_Visible                : True
                                             {$ENDREGION}
                 );
-      FInGame_UI_Bottom_Gauge_EXP           : ({$REGION ' - FInGame_UI_Bottom_Gauge_EXP         '}
-                                            gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_GAUGE_EXP;
+      FInGame_UI_Bottom_Gauge_IP_800        : ({$REGION ' - FInGame_UI_Bottom_Gauge_SP_800       '}
+                                            gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_GAUGE_SP;
                                             gui_Type                   : ctProgress;
                                             gui_Form_Type              : ftNone;
-                                            gui_WorkField              : (Left: 0; Top:0; Right: 68; Bottom: 4);
-                                            gui_Top                    : 5;
-                                            gui_Left                   : 2;
-                                            gui_Height                 : 4;
-                                            gui_Width                  : 700; // used full length to have Hint Support on all 10 fields
+                                            gui_WorkField              : (Left: 0; Top:0; Right: 175; Bottom: 8);
+                                            gui_Top                    : 50;
+                                            gui_Left                   : 35;
+                                            gui_Height                 : 8;
+                                            gui_Width                  : 175;
                                             gui_Blend_Size             : 255;
+                                            gui_Font                   : (gui_Font_Size        : 15;
+                                                                          gui_Font_Color       : $FFFFFFFF;
+                                                                          gui_Font_Text_HAlign : alCenter;
+                                                                          gui_Font_Text_VAlign : avCenter);                                            
                                             gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID : 57);
+                                                                          gui_Background_Texture_ID : 48);
                                             gui_Progress_Setup         : (gui_Min   : 0;
                                                                           gui_Max   : 100;
-                                                                          gui_Value : 36;
-                                                                          gui_Progress_Type: ptSpecial);
+                                                                          gui_Value : 100;
+                                                                          gui_ShowText : True);
                                             gui_Enabled                : True;
                                             gui_Visible                : True
                                             {$ENDREGION}
                 );
-      FInGame_UI_Bottom_Gauge_Bag_Size      : ({$REGION ' - FInGame_UI_Bottom_Gauge_Bag_Size    '}
-                                            gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_GAUGE_BAG_SIZE;
+      FInGame_UI_Bottom_Gauge_EXP_800       : ({$REGION ' - FInGame_UI_Bottom_Gauge_EXP_800      '}
+                                            gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_GAUGE_EXP;
                                             gui_Type                   : ctProgress;
                                             gui_Form_Type              : ftNone;
-                                            gui_WorkField              : (Left: 0; Top:0; Right: 4; Bottom: 30);
-                                            gui_Top                    : 16;
-                                            gui_Left                   : 7;
-                                            gui_Height                 : 30;
-                                            gui_Width                  : 4;
+                                            gui_WorkField              : (Left: 0; Top:0; Right: 772; Bottom: 4);
+                                            gui_Top                    : 5;
+                                            gui_Left                   : 17;
+                                            gui_Height                 : 4;
+                                            gui_Width                  : 772; // used full length to have Hint Support on all 10 fields
                                             gui_Blend_Size             : 255;
                                             gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                          gui_Background_Texture_ID : 61);
+                                                                          gui_Background_Texture_ID : 46);
                                             gui_Progress_Setup         : (gui_Min   : 0;
                                                                           gui_Max   : 100;
-                                                                          gui_Value : 1;
-                                                                          gui_Progress_Type: ptVertical);
-                                            gui_ShowHint               : True;
+                                                                          gui_Value : 100;
+                                                                          gui_Progress_Type: ptHorizontal);
                                             gui_Enabled                : True;
-                                            gui_Visible                : False
+                                            gui_Visible                : True
                                             {$ENDREGION}
                 );
+      FInGame_UI_Bottom_Exp_Overlay_800     : ({$REGION ' - FInGame_UI_Bottom_Exp_Overlay_800   '}
+                                            gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_EXP_OVERLAY;
+                                            gui_Type                   : ctPanel;
+                                            gui_Form_Type              : ftNone;
+                                            gui_Top                    : 3;
+                                            gui_Left                   : 14;
+                                            gui_Height                 : 10;
+                                            gui_Width                  : 776;
+                                            gui_Blend_Size             : 255;
+                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                          gui_Background_Texture_ID : 41);
+                                            gui_Enabled                : True;
+                                            gui_Visible                : True
+                                            {$ENDREGION}
+                );
+
 
       FInGame_UI_Bottom_Avatar_Background   : ({$REGION ' - FInGame_UI_Bottom_Avatar_Background    '}
                                             gui_Unique_Control_Number  : GUI_ID_INGAME_BOTTOM_UI_AVATAR_BACKGROUND;
