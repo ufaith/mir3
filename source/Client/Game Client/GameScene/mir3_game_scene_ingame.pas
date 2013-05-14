@@ -213,28 +213,40 @@ uses mir3_misc_ingame, mir3_game_backend;
           800 : begin
             { Create Ingame Static Base UI Forms and Controls }
             FBottomForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Bottom_Background_800,  True));
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_1_Body_800   , True);
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_2_Bag_800    , True);
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_3_Magic_800  , True);
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_4_Quest_800  , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_1_Body_800      , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_2_Bag_800       , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_3_Magic_800     , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_4_Quest_800     , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_5_Community_800 , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_6_Belt_800      , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_7_Unknow_800    , True); //Trading?
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_8_Setting_800   , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_9_IP_Shop_800   , True);
 
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_6_Belt_800   , True);
-
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_8_Setting_800, True);
-
-
-
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_Exp_800       , True);
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_HP_800        , True);
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_MP_800        , True);
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_IP_800        , True);
-            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Exp_Overlay_800     , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_Exp_800          , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_HP_800           , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_MP_800           , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_IP_800           , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Exp_Overlay_800        , True);
           end;
           1024 : begin
             { Create Ingame Static Base UI Forms and Controls }
             FBottomForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Bottom_Background_1024, True));
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_1_Body_1024     , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_2_Bag_1024      , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_3_Magic_1024    , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_4_Quest_1024    , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_5_Community_1024, True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_6_Belt_1024     , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_7_Unknow_1024   , True); //Trading?
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_8_Setting_1024  , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Button_9_IP_Shop_1024  , True);
 
-
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_Exp_1024        , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_HP_1024         , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_MP_1024         , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Gauge_IP_1024         , True);
+            Self.AddControl(FBottomForm, FInGame_UI_Bottom_Exp_Overlay_1024      , True);
           end;
         end;
       end;
@@ -246,18 +258,29 @@ uses mir3_misc_ingame, mir3_game_backend;
     begin
       with FGame_GUI_Definition_InGame do
       begin
-        { Create Ingame Movable Base Menue Bar UI Forms and Controls }
-        FMenueBar  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_InGame.FInGame_UI_Menue_Bar_Background, False));
-        Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Setting  , True);
-        Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Chat     , True);
-        Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Mail     , True);
-        Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Group    , True);
-        Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Guild    , True);
-        Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Avatar   , True);
-        Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Siege    , True);
-        Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Exit     , True);
-        Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Features , True);
-        Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Close    , True);
+        case FScreen_Width of
+          800 : begin
+            { Create Ingame Movable Base Menue Bar UI Forms and Controls }
+            FMenueBar  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_InGame.FInGame_UI_Menue_Bar_Background_800, False));
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_1_Setting_800      , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_2_Group_800        , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_3_Unknow_800       , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_4_HallofFame_800   , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_5_Pet_800          , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_6_Exit_800         , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Close_800          , True);
+          end;
+          1024 : begin
+            FMenueBar  := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_InGame.FInGame_UI_Menue_Bar_Background_1024, False));
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_1_Setting_1024     , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_2_Group_1024       , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_3_Unknow_1024      , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_4_HallofFame_1024  , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_5_Pet_1024         , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_6_Exit_1024        , True);
+            Self.AddControl(FMenueBar, FInGame_UI_Menue_Bar_Btn_Close_1024         , True);
+          end;
+        end;
       end;
     end;     
     
@@ -995,7 +1018,7 @@ uses mir3_misc_ingame, mir3_game_backend;
 //      // Static Elements
 //      Create_Bottm_UI_Interface;
 //      Create_Minimap_UI_Interface;
-//      Create_MenueBar_UI_Interface;
+      Create_MenueBar_UI_Interface;
 //      Create_ExitWindow_UI_Interface;
       (* End Load Game Controls *)
       Create_Bottm_UI_Interface;
@@ -1167,32 +1190,15 @@ uses mir3_misc_ingame, mir3_game_backend;
     end;
 
     procedure TMir3GameSceneInGame.EventBottomWindow(AEventType: Integer; AEventControl: Integer);
-
-      procedure ShowHideAvatarWindow;
-      begin
-        if TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BOTTOM_UI_AVATAR_LOW_PANEL)).Visible then
-        begin
-          TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BOTTOM_UI_AVATAR_LOW_PANEL)).Visible       := False;
-          TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BOTTOM_UI_AVATAR_LOW_PANEL_BACK)).Visible  := False;
-          TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BOTTOM_UI_AVATAR_HIGH_PANEL)).Visible      := True;
-          TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BOTTOM_UI_AVATAR_HIGH_PANEL_BACK)).Visible := True;
-        end else begin
-          TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BOTTOM_UI_AVATAR_LOW_PANEL)).Visible       := True;
-          TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BOTTOM_UI_AVATAR_LOW_PANEL_BACK)).Visible  := True;
-          TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BOTTOM_UI_AVATAR_HIGH_PANEL)).Visible      := False;
-          TMIR3_GUI_Button(GetComponentByID(GUI_ID_INGAME_BOTTOM_UI_AVATAR_HIGH_PANEL_BACK)).Visible := False;
-        end;
-      end;
-
     begin
       case AEventType of
         EVENT_BUTTON_UP   : begin
           case AEventControl of
-            0:; //411..420
+            //411..420
             GUI_ID_INGAME_BOTTOM_UI_BUTTON_1_BODY       : begin
               //Open Own Body View
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BODY_UI_WINDOW)).Visible :=
-              not (TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BODY_UI_WINDOW)).Visible);
+              //TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BODY_UI_WINDOW)).Visible :=
+              //not (TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BODY_UI_WINDOW)).Visible);
             end;
             GUI_ID_INGAME_BOTTOM_UI_BUTTON_2_BAG        : begin
               //Open Own Bag (Base bag)
@@ -1200,7 +1206,6 @@ uses mir3_misc_ingame, mir3_game_backend;
             end;
             GUI_ID_INGAME_BOTTOM_UI_BUTTON_3_MAGIC      : begin
               // Open Magic Window (Look if WAR/WIZ/TAO or Assassin)
-
               TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_WWT_WINDOW)).Visible := not
               TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_WWT_WINDOW)).Visible;
               (*
@@ -1216,55 +1221,34 @@ uses mir3_misc_ingame, mir3_game_backend;
               end; 
               *)
             end;
-            GUI_ID_INGAME_BOTTOM_UI_BUTTON_4_TRADE      : begin
-             //TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_TRADE_UI_WINDOW)).Visible := True;
-
-             {Only for test }
-             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW)).Visible := not
-             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MAGIC_UI_ASS_WINDOW)).Visible;
-
-//             TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BODY_SHOW_UI_WINDOW)).Visible := not
-//             (TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BODY_SHOW_UI_WINDOW)).Visible);
-
-            end;
-            GUI_ID_INGAME_BOTTOM_UI_BUTTON_5_BELT       : begin
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Visible :=
-              not (TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Visible);
-            end;
-            GUI_ID_INGAME_BOTTOM_UI_BUTTON_6_MINIMAP    : begin
-              case TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_2_UI_WINDOW)).Visible of
-                True  : begin
-                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_1_UI_WINDOW)).Visible := True;
-                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_2_UI_WINDOW)).Visible := False;
-                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_3_UI_WINDOW)).Visible := False;
-                end;
-                False : begin
-                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_2_UI_WINDOW)).Visible := True;
-                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_1_UI_WINDOW)).Visible := False;
-                  TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MINIMAP_3_UI_WINDOW)).Visible := False;
-                end;
-              end;
-            end;
-            GUI_ID_INGAME_BOTTOM_UI_BUTTON_7_QUEST      : begin
+            GUI_ID_INGAME_BOTTOM_UI_BUTTON_4_QUEST      : begin
             //TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_QUEST_UI_WINDOW)).Visible := True;
+            end;
+            GUI_ID_INGAME_BOTTOM_UI_BUTTON_5_COMMUNITY  : begin
+              //TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Visible :=
+              //not (TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Visible);
+            end;
+            GUI_ID_INGAME_BOTTOM_UI_BUTTON_6_BELT       : begin
+              //TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Visible :=
+              //not (TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_BELT_UI_BACKGROUND)).Visible);
+            end;
+            GUI_ID_INGAME_BOTTOM_UI_BUTTON_7_UNKNOW    : begin
+              //TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible :=
+              //not(TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible);
             end;
             GUI_ID_INGAME_BOTTOM_UI_BUTTON_8_SETTING    : begin
               TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible :=
               not(TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible);
-            end;   
+            end;
+            GUI_ID_INGAME_BOTTOM_UI_BUTTON_9_IP_SHOP    : begin
+              //TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible :=
+              //not(TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible);
+            end;
             GUI_ID_INGAME_BOTTOM_UI_BUTTON_POWER        : begin
 
             end;
             GUI_ID_INGAME_BOTTOM_UI_BUTTON_BC           : begin
 
-            end;
-            GUI_ID_INGAME_BOTTOM_UI_AVATAR_BACKGROUND      ,
-            GUI_ID_INGAME_BOTTOM_UI_AVATAR_LOW_PANEL       ,
-            GUI_ID_INGAME_BOTTOM_UI_AVATAR_LOW_PANEL_BACK  ,
-            GUI_ID_INGAME_BOTTOM_UI_AVATAR_HIGH_PANEL      ,
-            GUI_ID_INGAME_BOTTOM_UI_AVATAR_HIGH_PANEL_BACK : begin
-              // TODO : add User Avarta or change Pic to Mob or Class...
-              ShowHideAvatarWindow;
             end;
           end;          
         end;
@@ -1461,26 +1445,23 @@ uses mir3_misc_ingame, mir3_game_backend;
       case AEventType of
         EVENT_BUTTON_UP   : begin
           case AEventControl of
-            GUI_ID_INGAME_MENUEBAR_UI_BTN_SETTING : begin
+            GUI_ID_INGAME_MENUEBAR_UI_BTN_1_SETTING : begin
               {Setup Game Setting Window}
               EventGameSettingWindow(EVENT_BUTTON_UP, GUI_ID_INGAME_GAME_SETTING_UI_BTN_BASIC);
               TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).Visible := True;
               TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible     := False;
             end;
-            GUI_ID_INGAME_MENUEBAR_UI_BTN_CHAT    :;
-            GUI_ID_INGAME_MENUEBAR_UI_BTN_MAIL    :;
-            GUI_ID_INGAME_MENUEBAR_UI_BTN_GROUP   : begin
+            GUI_ID_INGAME_MENUEBAR_UI_BTN_2_GROUP_INFO     :;
+            GUI_ID_INGAME_MENUEBAR_UI_BTN_3_UNKNOW         :;
+            GUI_ID_INGAME_MENUEBAR_UI_BTN_4_HALL_OF_FAME   : begin
                TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GROUP_UI_WINDOW)).Visible    := True;
                TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible := False;
             end;
-            GUI_ID_INGAME_MENUEBAR_UI_BTN_GUILD   :;
-            GUI_ID_INGAME_MENUEBAR_UI_BTN_AVATAR  :;
-            GUI_ID_INGAME_MENUEBAR_UI_BTN_SIEGE   :;
-            GUI_ID_INGAME_MENUEBAR_UI_BTN_EXIT    : begin
+            GUI_ID_INGAME_MENUEBAR_UI_BTN_5_PET   :;
+            GUI_ID_INGAME_MENUEBAR_UI_BTN_6_EXIT  : begin
                TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_EXIT_WINDOW_UI_WINDOW)).Visible := True;
                TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible    := False;
             end;
-            GUI_ID_INGAME_MENUEBAR_UI_BTN_FEATURE :;
             GUI_ID_INGAME_MENUEBAR_UI_BTN_CLOSE   : TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible := False;
           end;
         end;
@@ -2211,8 +2192,8 @@ uses mir3_misc_ingame, mir3_game_backend;
 //              216..223   : EventGroupWindow(AEventID, AControl.ControlIdentifier);
 //              { Exit Window UI Events }
 //              402..404   : EventExitWindow(AEventID, AControl.ControlIdentifier);
-//              { Bottom UI Events }
-//              411..458   : EventBottomWindow(AEventID, AControl.ControlIdentifier);
+              { Bottom UI Events }
+              411..458   : EventBottomWindow(AEventID, AControl.ControlIdentifier);
 //              { Menue Bar UI Events }
 //              460..470   : EventMenueBarWindow(AEventID, AControl.ControlIdentifier);
 //              { Belt UI Events }
@@ -2336,7 +2317,15 @@ uses mir3_misc_ingame, mir3_game_backend;
         //FGameMap.UpdateMapPos(GGameActor.ActorTempCurrent_X - 1, GGameActor.ActorTempCurrent_Y - 20);
 
         // Debug
-        FGameMap.CalculateMapRect(C_GAME_800_600, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
+        case FScreen_Width of
+          800  : begin
+            FGameMap.CalculateMapRect(C_GAME_800_600, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
+          end;
+          1024 : begin
+            FGameMap.CalculateMapRect(C_GAME_1024_768, GGameActor.ActorTempCurrent_X, GGameActor.ActorTempCurrent_Y);
+          end;
+        end;
+
         FGameMap.DrawTileMap;
         FGameMap.DrawCellMap;
 

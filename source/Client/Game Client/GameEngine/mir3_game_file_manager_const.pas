@@ -209,7 +209,7 @@ const
   MAGIC_MONSTER_TEXTURE_10        = 'MonMagicEx9';
   MAGIC_MONSTER_TEXTURE_11        = 'MonMagicEx10';
 
-  MAX_MONSTER_FILE                = 49;
+  MAX_MONSTER_FILE                = 50;
   MONSTER_TEXTURE_NORMAL          = 'Mon-%d';
   MONSTER_TEXTURE_SHADOW          = 'MonS-%d';
 

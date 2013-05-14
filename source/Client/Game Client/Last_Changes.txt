@@ -27,3 +27,8 @@
   * Finish Create Char Scene (1024 and 800)
   * Begin rework of InGame things
 
+!!! Please Read : To use this version you need a new files !!!
+
+http://www.world-of-Illusion.net/download/lomcn_interface1c.rar
+http://www.world-of-Illusion.net/download/lomcn_GameInter.rar
+http://www.world-of-Illusion.net/download/Sounds.rar
