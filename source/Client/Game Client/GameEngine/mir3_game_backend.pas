@@ -245,13 +245,20 @@ implementation
 
     function TMIR3_Game_Engine.CreateGameClient: Boolean;
     begin
-      {Load (check/set new file) own game config file}
+      (* Test client phat and fix it *)
+      if not DirectoryExists('.\Map\')        then  MkDir('.\Map\');
+      if not DirectoryExists('.\Lib\')        then  MkDir('.\Lib\');
+      if not DirectoryExists('.\Log\')        then  MkDir('.\Log\');
+      if not DirectoryExists('.\Sound\')      then  MkDir('.\Sound\');
+      if not DirectoryExists('.\ScreenShot\') then  MkDir('.\ScreenShot\');
+
+      (* Load (check/set new file) own game config file *)
       LoadClientServerConfig;
       FServerConnecting := False;
       FServerConnected  := False;
       WorkerThreadCount := 0;
 
-      {check can play start Video}
+      (* check can play start Video *)
       if FGameLauncherSetting.FUseStartVideo then
         GameSceneStep := gsScene_PlayVideo
       else GameSceneStep := gsNone;
@@ -259,10 +266,6 @@ implementation
 
       // Debug without Video
       GameSceneStep := gsNone;
-
-      {$IFDEF DEVELOP_INGAME}
-         SetGameScene(gsScene_SelChar);
-      {$ENDIF}
 
       {$IFDEF DEVELOP_1024x768}
         FScreen_Width  := 1024;
@@ -342,6 +345,10 @@ implementation
       FSceneSelectChar    := TMir3GameSceneSelectChar.Create;
       FSceneInGame        := TMir3GameSceneInGame.Create;
       FSceneEndGame       := TMir3GameSceneEndGame.Create;
+
+      {$IFDEF DEVELOP_INGAME}
+         SetGameScene(gsScene_PlayGame);
+      {$ENDIF}
 
       with FGameNetwork do
       begin

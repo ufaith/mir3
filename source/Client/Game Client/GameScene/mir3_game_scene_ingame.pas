@@ -48,6 +48,7 @@ uses
 
 { Callback Functions }
     procedure InGameGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
+    procedure InGameGUIHotKeyEvent(AChar: LongWord); stdcall;
     function CallbackGamePreProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
     function CallbackGamePostProcessing(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single; ADebugMode: Boolean): HRESULT; stdcall;
 (*
@@ -80,6 +81,7 @@ type
     FMagicASSPageActive : Integer;    // Used for Assassin Magic Window (get active Page back)
   strict private
     procedure Create_LoadGame_UI_Interface;
+    procedure Create_Chat_UI_Interface;
     procedure Create_ExitWindow_UI_Interface;
     procedure Create_Bottom_UI_Interface;
     procedure Create_MenueBar_UI_Interface;
@@ -102,11 +104,12 @@ type
   public
     procedure ResetScene;
     procedure ReceiveMessagePacket(AReceiveData: String);
-    procedure SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
+    procedure SystemMessage(AMessage: WideString; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
     {Event Function}
     procedure Event_System_Ok;
     procedure Event_System_Yes;
     procedure Event_System_No;
+    procedure EventOpenChat;
     procedure EventExitWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventBottomWindow(AEventType: Integer; AEventControl: Integer);
     procedure EventBeltWindow(AEventType: Integer; AEventControl: Integer);
@@ -134,7 +137,7 @@ implementation
 uses mir3_misc_ingame, mir3_game_backend;
 
   {$REGION ' - TMir3GameSceneInGame :: InGame Forms and Controls Constructor '}
-  
+
     procedure TMir3GameSceneInGame.Create_LoadGame_UI_Interface;
     //var
      // FLoadGameForm : TMIR3_GUI_Form;
@@ -153,8 +156,55 @@ uses mir3_misc_ingame, mir3_game_backend;
           end;
         end;
       end;
-    end;  
-  
+    end;
+
+    procedure TMir3GameSceneInGame.Create_Chat_UI_Interface;
+    var
+      FChatForm : TMIR3_GUI_Form;
+    begin
+      with FGame_GUI_Definition_InGame do
+      begin
+        case FScreen_Width of
+          800 : begin
+            FChatForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Chat_Background_800, False));
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Panel_Top_800                , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Panel_Middle_800             , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Panel_Bottom_800             , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Exit_800                 , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_1_800              , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_2_800              , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_3_800              , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_4_800              , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_5_800              , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_6_800              , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_View_Step_800            , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_Type_800           , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Edit_Field_800               , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Scrollbar_800                , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Text_Panel_800               , False);
+          end;
+          1024 : begin
+            FChatForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Chat_Background_1024, False));
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Panel_Top_1024               , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Panel_Middle_1024            , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Panel_Bottom_1024            , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Exit_1024                , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_1_1024             , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_2_1024             , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_3_1024             , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_4_1024             , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_5_1024             , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_6_1024             , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_View_Step_1024           , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Btn_Shout_Type_1024          , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Edit_Field_1024              , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Scrollbar_1024               , False);
+            Self.AddControl(FChatForm, FInGame_UI_Chat_Text_Panel_1024              , False);
+          end;
+        end;
+      end;
+    end;
+
     procedure TMir3GameSceneInGame.Create_ExitWindow_UI_Interface;
     var
       FExitWindow  : TMIR3_GUI_Form;
@@ -350,7 +400,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       with FGame_GUI_Definition_InGame do
       begin
         case FScreen_Width of
-          800 : begin      
+          800 : begin
         { Create Ingame Static Base UI Forms and Controls }
             FBodyForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Body_Window_800, False));
             Self.AddControl(FBodyForm, FInGame_UI_Body_Btn_Close_800 , True);
@@ -454,7 +504,7 @@ uses mir3_misc_ingame, mir3_game_backend;
           Self.AddControl(FBodyForm, FGame_GUI_Definition_InGame.FInGame_UI_Body_Item_Hero         , False);
           }
           end;
-          1024 : begin          
+          1024 : begin
             FBodyForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Body_Window_1024, False));
             Self.AddControl(FBodyForm, FInGame_UI_Body_Btn_Close_1024 , True);
           end;
@@ -561,27 +611,45 @@ uses mir3_misc_ingame, mir3_game_backend;
     
     procedure TMir3GameSceneInGame.Create_GameSetting_UI_Interface;
     var
-      FGameSetting  : TMIR3_GUI_Form;
+      FSettingForm  : TMIR3_GUI_Form;
     begin
       with FGame_GUI_Definition_InGame do
       begin
-        { Create Ingame Static Base UI Forms and Controls }
-        FGameSetting  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_GameSetting_Background, False));
-        Self.AddControl(FGameSetting, FInGame_UI_GameSetting_Btn_Close        , True);
+        case FScreen_Width of
+          800 : begin
+            FSettingForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_GameSetting_Background_800, False));
+            Self.AddControl(FSettingForm, FInGame_UI_GameSetting_Btn_Close_800                , True );
+
+          end;
+          1024 : begin
+            FSettingForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_GameSetting_Background_1024, False));
+            Self.AddControl(FSettingForm, FInGame_UI_GameSetting_Btn_Close_1024                , True );
+
+          end;
+        end;
       end;
     end;
 
     procedure TMir3GameSceneInGame.Create_Trade_UI_Interface;
-    //var
-      //FTradeForm  : TMIR3_GUI_Form;
+    var
+      FTradeForm  : TMIR3_GUI_Form;
     begin
       with FGame_GUI_Definition_InGame do
       begin
-        { Create Ingame Static Base UI Forms and Controls }
-        //FTradeForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Trade_Window, False));
-        //Self.AddControl(FTradeForm, FInGame_UI_ , True);
-        //Self.AddControl(FTradeForm, FInGame_UI_ , True);
-        //Self.AddControl(FTradeForm, FInGame_UI_ , True);
+        case FScreen_Width of
+          800 : begin
+            FTradeForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Trade_Window_800, False));
+            Self.AddControl(FTradeForm, FInGame_UI_Trade_Btn_Close_800            , True );
+            Self.AddControl(FTradeForm, FInGame_UI_Trade_Btn_1_800                , True );
+            Self.AddControl(FTradeForm, FInGame_UI_trade_Btn_2_800                , True );
+          end;
+          1024 : begin
+            FTradeForm  := TMIR3_GUI_Form(Self.AddForm(FInGame_UI_Trade_Window_1024, False));
+            Self.AddControl(FTradeForm, FInGame_UI_Trade_Btn_Close_1024            , True );
+            Self.AddControl(FTradeForm, FInGame_UI_Trade_Btn_1_1024                , True );
+            Self.AddControl(FTradeForm, FInGame_UI_trade_Btn_2_1024                , True );
+          end;
+        end;
       end;
     end;
 
@@ -616,7 +684,7 @@ uses mir3_misc_ingame, mir3_game_backend;
   {$ENDREGION}
 
   {$REGION ' - TMir3GameSceneInGame :: Scene Funtions             '}
-  procedure TMir3GameSceneInGame.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
+  procedure TMir3GameSceneInGame.SystemMessage(AMessage: WideString; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
   begin
     if mbOK in AButtons then
       TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_OK)).Visible := True
@@ -652,7 +720,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible                       := True;
     end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible := False;
 
-    TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SYSINFO_PANEL)).Caption := PWideChar(AMessage);
+    TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Text         := AMessage;
     TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID  := AEventType;
     TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible      := True;
   end;
@@ -666,6 +734,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       inherited Create;
       Self.DebugMode := False;
       Self.SetEventCallback(@InGameGUIEvent);
+      Self.SetHotKeyEventCallback(@InGameGUIHotKeyEvent);
       Self.SetPreProcessingCallback(@CallbackGamePreProcessing);
       Self.SetPostProcessingCallback(@CallbackGamePostProcessing);
 
@@ -692,14 +761,15 @@ uses mir3_misc_ingame, mir3_game_backend;
       (* Set Timer *)
       FMoveTime                 := GetTickCount;
       FRushTime                 := GetTickCount;
-      
+
+      {$REGION ' - Create Ingame UI Intrface        '}
       (* Begin Ingame Controls *)
        // Only ADD here all GUI Forms thats is not a Static UI elemend
       Create_Belt_UI_Interface;
 //      Create_Body_UI_Interface;
 //      Create_Body_Show_UI_Interface;
-//      Create_GameSetting_UI_Interface;
-//      Create_Trade_UI_Interface;
+      Create_GameSetting_UI_Interface;
+      Create_Trade_UI_Interface;
 //      Create_Group_UI_Interface;
 //      Create_Magic_UI_Interface;
       (* End Ingame Controls *)
@@ -708,26 +778,44 @@ uses mir3_misc_ingame, mir3_game_backend;
 //      Create_LoadGame_UI_Interface;
 //      (* End Load Game Controls *)
 //      // Static Elements
-//      Create_Bottom_UI_Interface;
+      Create_Bottom_UI_Interface;
 //      Create_Minimap_UI_Interface;
       Create_MenueBar_UI_Interface;
       Create_ExitWindow_UI_Interface;
+      Create_Chat_UI_Interface;
       (* End Load Game Controls *)
-      Create_Bottom_UI_Interface;
+      {$ENDREGION}
 
-      { Create System Forms and Controls }
+      {$REGION ' - System Forms and Controls        '}
       with FGame_GUI_Definition_System do
       begin
-        FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info, False));
-        Self.AddControl(FSystemForm, FSys_Dialog_Text        , True);
-        Self.AddControl(FSystemForm, FSys_Dialog_Edit_Field  , False);
-        Self.AddControl(FSystemForm, FSys_Button_Ok          , False);
-        Self.AddControl(FSystemForm, FSys_Button_Yes         , False);
-        Self.AddControl(FSystemForm, FSys_Button_No          , False);
-        Self.AddControl(FSystemForm, FSys_Button_Free_Center , False);
-        Self.AddControl(FSystemForm, FSys_Button_Free_Left   , False);
-        Self.AddControl(FSystemForm, FSys_Button_Free_Right  , False);
+        case FScreen_Width of
+           800 : begin
+             { Create System Forms and Controls }
+             FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info_800, False));
+             Self.AddControl(FSystemForm, FSys_Button_Ok_800           , False);
+             Self.AddControl(FSystemForm, FSys_Button_Yes_800          , False);
+             Self.AddControl(FSystemForm, FSys_Button_No_800           , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Center_800  , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Left_800    , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Right_800   , False);
+             Self.AddControl(FSystemForm, FSys_Dialog_Edit_Field_800   , False);
+           end;
+          1024 : begin
+             { Create System Forms and Controls }
+             FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info_1024, False));
+             Self.AddControl(FSystemForm, FSys_Button_Ok_1024          , False);
+             Self.AddControl(FSystemForm, FSys_Button_Yes_1024         , False);
+             Self.AddControl(FSystemForm, FSys_Button_No_1024          , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Center_1024 , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Left_1024   , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Right_1024  , False);
+             Self.AddControl(FSystemForm, FSys_Dialog_Edit_Field_1024  , False);
+           end;
+        end;
       end;
+      {$ENDREGION}
+
       {$IFDEF DEVELOP_INGAME}
       with GGameEngine.GameNetwork do
       begin
@@ -864,6 +952,20 @@ uses mir3_misc_ingame, mir3_game_backend;
         1:;
       end;
       TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := False;
+    end;
+
+    procedure TMir3GameSceneInGame.EventOpenChat;
+    begin
+      //  Test if Chat open and show or send info
+
+      // If Setp 1 then Open / Close with Return if higer Step only open with Return
+      if not TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_CHAT_UI_WINDOW)).Visible then
+      begin
+        // TODO : add check Chat State
+        TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_CHAT_UI_WINDOW)).Visible              := True;
+        TMIR3_GUI_Edit(GetComponentByID(GUI_ID_INGAME_CHAT_UI_EDIT_FIELD)).Visible     := True;
+        //TMIR3_GUI_Edit(GetComponentByID(GUI_ID_INGAME_CHAT_UI_BTN_SHOUT_TYPE)).Visible := True;
+      end;
     end;
 
     procedure TMir3GameSceneInGame.EventExitWindow(AEventType: Integer; AEventControl: Integer);
@@ -1181,9 +1283,9 @@ uses mir3_misc_ingame, mir3_game_backend;
           case AEventControl of
             GUI_ID_INGAME_MENUEBAR_UI_BTN_1_SETTING : begin
               {Setup Game Setting Window}
-//              EventGameSettingWindow(EVENT_BUTTON_UP, GUI_ID_INGAME_GAME_SETTING_UI_BTN_BASIC);
-//              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).Visible := True;
-//              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible     := False;
+              EventGameSettingWindow(EVENT_BUTTON_UP, GUI_ID_INGAME_GAME_SETTING_UI_BTN_BASIC);
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).Visible := True;
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_MENUEBAR_UI_WINDOW)).Visible     := False;
             end;
             GUI_ID_INGAME_MENUEBAR_UI_BTN_2_GROUP_INFO     :;
             GUI_ID_INGAME_MENUEBAR_UI_BTN_3_UNKNOW         :;
@@ -1304,35 +1406,35 @@ uses mir3_misc_ingame, mir3_game_backend;
             GUI_ID_INGAME_GAME_SETTING_UI_BTN_CLOSE    : TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).Visible := False;
             GUI_ID_INGAME_GAME_SETTING_UI_BTN_BASIC    : begin
               // Show Page 1  -- Hide Page 2-4
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(291);
-              ChangeVisiblePage2(False);
-              ChangeVisiblePage3(False);
-              ChangeVisiblePage4(False);
-              ChangeVisiblePage1(True);
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(4700);
+//              ChangeVisiblePage2(False);
+//              ChangeVisiblePage3(False);
+//              ChangeVisiblePage4(False);
+//              ChangeVisiblePage1(True);
             end;
             GUI_ID_INGAME_GAME_SETTING_UI_BTN_PERMIT   : begin
               // Show Page 2  -- Hide Page 1,3-4
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(292);
-              ChangeVisiblePage1(False);
-              ChangeVisiblePage3(False);
-              ChangeVisiblePage4(False);
-              ChangeVisiblePage2(True);
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(4700);
+//              ChangeVisiblePage1(False);
+//              ChangeVisiblePage3(False);
+//              ChangeVisiblePage4(False);
+//              ChangeVisiblePage2(True);
             end;
             GUI_ID_INGAME_GAME_SETTING_UI_BTN_CHATTING : begin
               // Show Page 3  -- Hide Page 1-2,4
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(293);
-              ChangeVisiblePage1(False);
-              ChangeVisiblePage2(False);
-              ChangeVisiblePage4(False);
-              ChangeVisiblePage3(True);
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(4700);
+//              ChangeVisiblePage1(False);
+//              ChangeVisiblePage2(False);
+//              ChangeVisiblePage4(False);
+//              ChangeVisiblePage3(True);
             end;
             GUI_ID_INGAME_GAME_SETTING_UI_BTN_VISUAL   : begin
               // Show Page 4  -- Hide Page 1-3
-              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(294);
-              ChangeVisiblePage1(False);
-              ChangeVisiblePage2(False);
-              ChangeVisiblePage3(False);
-              ChangeVisiblePage4(True);
+              TMIR3_GUI_Form(GetFormByID(GUI_ID_INGAME_GAME_SETTING_UI_WINDOW)).SetTextureID(4700);
+//              ChangeVisiblePage1(False);
+//              ChangeVisiblePage2(False);
+//              ChangeVisiblePage3(False);
+//              ChangeVisiblePage4(True);
             end;
           end;          
         end;
@@ -1935,8 +2037,8 @@ uses mir3_misc_ingame, mir3_game_backend;
               460..470   : EventMenueBarWindow(AEventID, AControl.ControlIdentifier);
               { Belt UI Events }
               481..488   : EventBeltWindow(AEventID, AControl.ControlIdentifier);
-//              { Game Setting UI Events }
-//              601..647   : EventGameSettingWindow(AEventID, AControl.ControlIdentifier);
+              { Game Setting UI Events }
+              601..647   : EventGameSettingWindow(AEventID, AControl.ControlIdentifier);
 //              { Free }
 //              750..820   : ;
 //              { Body UI Events }
@@ -1946,9 +2048,9 @@ uses mir3_misc_ingame, mir3_game_backend;
 //              { Magic Windows (WWT and ASS) }
 //              2000..2500 : EventMagicWindow(AEventID, AControl.ControlIdentifier);
 //              (* System Buttons *)
-//              GUI_ID_SYSINFO_BUTTON_OK   : GGameEngine.SceneInGame.Event_System_Ok;
-//              GUI_ID_SYSINFO_BUTTON_YES  : GGameEngine.SceneInGame.Event_System_Yes;
-//              GUI_ID_SYSINFO_BUTTON_NO   : GGameEngine.SceneInGame.Event_System_No;
+              GUI_ID_SYSINFO_BUTTON_OK   : GGameEngine.SceneInGame.Event_System_Ok;
+              GUI_ID_SYSINFO_BUTTON_YES  : GGameEngine.SceneInGame.Event_System_Yes;
+              GUI_ID_SYSINFO_BUTTON_NO   : GGameEngine.SceneInGame.Event_System_No;
             end;
           end;
         end;
@@ -1968,6 +2070,17 @@ uses mir3_misc_ingame, mir3_game_backend;
 	    end;
     end;
 
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Key Event handling
+    //..............................................................................
+    procedure InGameGUIHotKeyEvent(AChar: LongWord); stdcall;
+    begin
+      case Chr(AChar) of
+        #13 : GGameEngine.SceneInGame.EventOpenChat;
+      end;
+    end;
+
     ////////////////////////////////////////////////////////////////////////////////
     // It is for Pre Processing things / Map, Item, Magic, Ators things etc.
     //..............................................................................
@@ -1984,7 +2097,7 @@ uses mir3_misc_ingame, mir3_game_backend;
       Result := FGameEngine.SceneInGame.GamePostProcessing(AD3DDevice, AElapsedTime, ADebugMode);
       //Render Ingame things after Controls rendered
       //like Text or Outblend (Mapchange) or other things
-    end;      
+    end;
   {$ENDREGION}
 
   (* Game Internal Functions *)
@@ -2020,7 +2133,7 @@ uses mir3_misc_ingame, mir3_game_backend;
                   Inc(I);
                   Continue;
                 end;
-          
+
               FActor.ExecuteActor; //aka Run
               *)
               if FActor <> GGameActor then

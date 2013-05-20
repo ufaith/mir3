@@ -43,8 +43,6 @@ uses
 
 { Callback Functions }
 procedure LogonInfoGUIEvent(AEventID: LongWord; AControlID: Cardinal; AControl: PMIR3_GUI_Default); stdcall;
-procedure LogonInfoGUIHotKeyEvent(AChar: LongWord); stdcall;
-
 
 type
   TMir3GameSceneLogonInfo = class(TMIR3_GUI_Manager)
@@ -56,7 +54,7 @@ type
     destructor Destroy; override;
   public
     procedure ResetScene;
-    procedure SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+    procedure SystemMessage(AMessage: WideString; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
     {Event Function}
     procedure Event_System_Ok;
     procedure Event_System_Yes;
@@ -77,30 +75,42 @@ uses mir3_game_backend;
       inherited Create;
       Self.DebugMode := False;
       Self.SetEventCallback(@LogonInfoGUIEvent);
-      Self.SetHotKeyEventCallback(@LogonInfoGUIHotKeyEvent);
 
-      { Create Logon Info Forms and Controls }
-      with FGame_GUI_Definition_LogonInfo do
+
+      with FGame_GUI_Definition_LogonInfo, FGame_GUI_Definition_System do
       begin
         case FScreen_Width of
            800 : begin
+             { Create Logon Info Forms and Controls }
              FLogonForm  := TMIR3_GUI_Form(Self.AddForm(FLogonInfo_Background_800, True));
              Self.AddControl(FLogonForm, FLogon_Information_Field_800, True);
+
+             { Create System Forms and Controls }
+             FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info_800, False));
+             Self.AddControl(FSystemForm, FSys_Button_Ok_800           , False);
+             Self.AddControl(FSystemForm, FSys_Button_Yes_800          , False);
+             Self.AddControl(FSystemForm, FSys_Button_No_800           , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Center_800  , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Left_800    , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Right_800   , False);
            end;
           1024 : begin
+             { Create Logon Info Forms and Controls }
              FLogonForm  := TMIR3_GUI_Form(Self.AddForm(FLogonInfo_Background_1024, True));
              Self.AddControl(FLogonForm, FLogon_Information_Field_1024, True);
+
+             { Create System Forms and Controls }
+             FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info_1024, False));
+             Self.AddControl(FSystemForm, FSys_Button_Ok_1024           , False);
+             Self.AddControl(FSystemForm, FSys_Button_Yes_1024          , False);
+             Self.AddControl(FSystemForm, FSys_Button_No_1024           , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Center_1024  , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Left_1024    , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Right_1024   , False);
            end;
         end;
         Self.AddControl(FLogonForm, FLogon_Info_Timer, True);
       end;
-
-      { Create System Forms and Controls }
-      FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_System.FSys_Dialog_Info, False));
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Dialog_Text , True);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Ok   , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Yes  , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_No   , False);
 
       // later use Config file
       TMIR3_GUI_Panel(GetComponentByID(GUI_ID_LOGON_PANEL_INFO)).Caption := 'This is the new LomCN Client / Server System for Mir3.\'+
@@ -125,7 +135,7 @@ uses mir3_game_backend;
   {$ENDREGION}
 
   {$REGION ' - TMir3GameSceneLogonInfo :: Scene Funtions             '}
-  procedure TMir3GameSceneLogonInfo.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+  procedure TMir3GameSceneLogonInfo.SystemMessage(AMessage: WideString; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
   begin
     if mbOK in AButtons then
       TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_OK)).Visible := True
@@ -139,10 +149,24 @@ uses mir3_game_backend;
       TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_NO)).Visible := True
     else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_NO)).Visible := False;
 
+    if mbExtraText_C in AButtons then
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).Visible := True
+    else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_CENTER)).Visible := False;
+
+    if mbExtraText_L in AButtons then
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).Visible := True
+    else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_LEFT)).Visible := False;
+
+    if mbExtraText_R in AButtons then
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible := True
+    else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible := False;
+
+
+
     SetZOrder(TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)));
-    TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SYSINFO_PANEL)).Caption := PWideChar(AMessage);
+    TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Text         := AMessage;
     TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID  := AEventType;
-    TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := True;
+    TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible      := True;
   end;
   {$ENDREGION}
 
@@ -175,13 +199,15 @@ uses mir3_game_backend;
       TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := False;
     end;
 
-     procedure TMir3GameSceneLogonInfo.Event_Timer_Expire;
-     begin
-       TMIR3_GUI_Timer(GetComponentByID(GUI_ID_LOGON_TIMER)).SetTimerEnabled(False);
-       GGameEngine.SceneLogon.ResetScene;
-       GGameEngine.SetGameScene(gsScene_PlayGame);
-       //GGameEngine.FGame_Scene_Step := gsScene_SelServer;//gsScene_Login; gsScene_SelChar gsScene_SelServer gsScene_EndGame
-     end;
+    procedure TMir3GameSceneLogonInfo.Event_Timer_Expire;
+    begin
+      TMIR3_GUI_Timer(GetComponentByID(GUI_ID_LOGON_TIMER)).SetTimerEnabled(False);
+
+      //GGameEngine.SceneLogonInfo.SystemMessage('This is a Test Window.',[mbExtraText_C], 1);
+      //SceneInGame.SystemMessage(GameLanguage.GetTextFromLangSystem(11),[mbOK], 1);
+      GGameEngine.SceneLogon.ResetScene;
+      GGameEngine.SetGameScene(gsScene_Login); // for Debug ://gsScene_Login; gsScene_SelChar gsScene_SelServer gsScene_EndGame
+    end;
 
   {$ENDREGION}
 
@@ -207,14 +233,7 @@ uses mir3_game_backend;
           end;
           {$ENDREGION}
         end;
-	  end;
-    end;
-
-    procedure LogonInfoGUIHotKeyEvent(AChar: LongWord); stdcall;
-    begin
-      //case Chr(AChar) of
-        //'N' : BrowseURL(DeCodeString(GGameEngine.GameLauncherSetting.FRegister_URL));
-      //end;
+	    end;
     end;
   {$ENDREGION}
 

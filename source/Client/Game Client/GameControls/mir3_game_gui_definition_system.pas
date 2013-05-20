@@ -67,23 +67,35 @@ const
   GUI_ID_SYSINFO_BUTTON_YES                       = 14;   // Yes Button
   GUI_ID_SYSINFO_BUTTON_NO                        = 15;   // No Button
   GUI_ID_SYSINFO_BUTTON_FREE_CENTER               = 16;   // Free Center Buttons
-  GUI_ID_SYSINFO_BUTTON_FREE_LEFT                 = 17;   // Free Left Buttons
-  GUI_ID_SYSINFO_BUTTON_FREE_RIGHT                = 18;   // Free Right Buttons
+  GUI_ID_SYSINFO_BUTTON_FREE_LEFT                 = 27;   // Free Left Buttons
+  GUI_ID_SYSINFO_BUTTON_FREE_RIGHT                = 28;   // Free Right Buttons
   {$ENDREGION}
 
 type
   TMir3_GUI_Definition_System    = record
-    (* System Info Dialoge *)
     {$REGION ' - System Dialog                                 '}
-    FSys_Dialog_Info                     : TMir3_GUI_Ground_Info;  //basic Dialog Info Window
-      FSys_Dialog_Text                   : TMir3_GUI_Ground_Info;  //Static Text field
-      FSys_Dialog_Edit_Field             : TMir3_GUI_Ground_Info;  //Edit Field for some things 
-      FSys_Button_Ok                     : TMir3_GUI_Ground_Info;  //Dialog OK Button
-      FSys_Button_Yes                    : TMir3_GUI_Ground_Info;  //Dialog Yes Button
-      FSys_Button_No                     : TMir3_GUI_Ground_Info;  //Dialog No Button
-      FSys_Button_Free_Center            : TMir3_GUI_Ground_Info;  //Dialog Free Center Button
-      FSys_Button_Free_Left              : TMir3_GUI_Ground_Info;  //Dialog Free Left Button
-      FSys_Button_Free_Right             : TMir3_GUI_Ground_Info;  //Dialog Free Right Button
+    ///////////////////////////         
+          (* 800x600 *)
+    ///////////////////////////
+    FSys_Dialog_Info_800                 : TMir3_GUI_Ground_Info;  // basic Dialog Info Window
+      FSys_Dialog_Edit_Field_800         : TMir3_GUI_Ground_Info;  // Edit Field for some things
+      FSys_Button_Ok_800                 : TMir3_GUI_Ground_Info;  // Dialog OK Button
+      FSys_Button_Yes_800                : TMir3_GUI_Ground_Info;  // Dialog Yes Button
+      FSys_Button_No_800                 : TMir3_GUI_Ground_Info;  // Dialog No Button
+      FSys_Button_Free_Center_800        : TMir3_GUI_Ground_Info;  // Dialog Free Center Button
+      FSys_Button_Free_Left_800          : TMir3_GUI_Ground_Info;  // Dialog Free Left Button
+      FSys_Button_Free_Right_800         : TMir3_GUI_Ground_Info;  // Dialog Free Right Button
+    ///////////////////////////
+            (* 1024 *)
+    ///////////////////////////
+    FSys_Dialog_Info_1024                : TMir3_GUI_Ground_Info;  // basic Dialog Info Window
+      FSys_Dialog_Edit_Field_1024        : TMir3_GUI_Ground_Info;  // Edit Field for some things
+      FSys_Button_Ok_1024                : TMir3_GUI_Ground_Info;  // Dialog OK Button
+      FSys_Button_Yes_1024               : TMir3_GUI_Ground_Info;  // Dialog Yes Button
+      FSys_Button_No_1024                : TMir3_GUI_Ground_Info;  // Dialog No Button
+      FSys_Button_Free_Center_1024       : TMir3_GUI_Ground_Info;  // Dialog Free Center Button
+      FSys_Button_Free_Left_1024         : TMir3_GUI_Ground_Info;  // Dialog Free Left Button
+      FSys_Button_Free_Right_1024        : TMir3_GUI_Ground_Info;  // Dialog Free Right Button    ///
     {$ENDREGION}
   end;
 
@@ -98,45 +110,220 @@ var
     {$REGION ' - System Info Controls   '}
     ///////////////////////////         
           (* 800x600 *) 
-    ///////////////////////////     
-    FSys_Dialog_Info                 : ({$REGION ' - FSys_Dialog_Info                 '}
-                                     //gui_DragMode               : Boolean;              
+    ///////////////////////////
+    FSys_Dialog_Info_800             : ({$REGION ' - FSys_Dialog_Info_800                 '}
+                                     //gui_DragMode               : Boolean;
                                      gui_Unique_Control_Number  : GUI_ID_SYSINFO_DIALOG;
                                      gui_Type                   : ctForm;       
                                      gui_Form_Type              : ftMoving;
-                                     gui_WorkField              : (Left:0; Top:0; Right:306; Bottom:226);
-                                     gui_Top                    : 105;
-                                     gui_Left                   : 246;
+                                     gui_Top                    : 187;
+                                     gui_Left                   : 252;
                                      gui_Height                 : 226;
-                                     gui_Width                  : 308;
-                                     gui_Blend_Size             : 245;
-                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID : 421);
+                                     gui_Width                  : 298;
+                                     gui_Repeat_Count           : 18;
+                                     gui_Blend_Size             : 250;
+                                     gui_Control_Texture        : (gui_Texture_File_ID            : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID      : 420;
+                                                                   gui_Repeat_Texture_ID          : 421;
+                                                                   gui_ExtraBackground_Texture_ID : 422);
+                                     gui_Use_Repeat_Texture     : True;
                                      gui_Modal_Event            : True;
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FSys_Dialog_Text                 : ({$REGION ' - FSys_Dialog_Text                 '}
-                                     //gui_DragMode               : Boolean;              
-                                     gui_Unique_Control_Number  : GUI_ID_SYSINFO_PANEL;
-                                     gui_Type                   : ctPanel;       
-                                     gui_Form_Type              : ftNone;               
-                                     gui_Top                    : 27;
-                                     gui_Left                   : 22;
-                                     gui_Height                 : 108;
-                                     gui_Width                  : 263;
+    FSys_Dialog_Edit_Field_800       : ({$REGION ' - FSys_Dialog_Edit_Field_800           '}
+                                     gui_Unique_Control_Number  : GUI_ID_SYSINFO_EDIT_FIELD;
+                                     gui_Type                   : ctEdit;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:2; Top:0; Right:238; Bottom:26);
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 30;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 238;
+                                     gui_Blend_Size             : 245;
+                                     gui_Font                   : (gui_Font_Use_ID      : 15;
+                                                                   gui_Font_Size        : 21;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Use_Kerning : False;
+                                                                   gui_Font_Text_VAlign : avCenter);
+                                     gui_Edit_Max_Length        : 25;
+                                     gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9'];
+                                     gui_Color                  : (gui_ControlColor : $F5050505;
+                                                                   gui_BorderColor  : $FF717171);
+                                     gui_ShowPanel              : True;
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True                                   
+                                     {$ENDREGION}
+              );
+    FSys_Button_Ok_800               : ({$REGION ' - FSys_Button_Ok_800                   '}
+                                     gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_OK;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 113;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
-                                     gui_Font                   : (gui_Font_Size        : 16;
-                                                                   gui_Font_Color       : $FFF2F2F2;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 424;
+                                                                   gui_Mouse_Over_Texture_ID : 424;
+                                                                   gui_Mouse_Down_Texture_ID : 425);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True 
+                                     {$ENDREGION}
+              );
+    FSys_Button_Yes_800              : ({$REGION ' - FSys_Button_Yes_800                  '}
+                                     gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_YES;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 47;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 80;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 424;
+                                                                   gui_Mouse_Over_Texture_ID : 424;
+                                                                   gui_Mouse_Down_Texture_ID : 425);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True 
+                                     {$ENDREGION}
+              );
+    FSys_Button_No_800               : ({$REGION ' - FSys_Button_No_800                   '}
+                                     gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_NO;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 158;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 80;
+                                     gui_Blend_Size             : 255;
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 424;
+                                                                   gui_Mouse_Over_Texture_ID : 424;
+                                                                   gui_Mouse_Down_Texture_ID : 425);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : True 
+                                     {$ENDREGION}
+              );
+    FSys_Button_Free_Center_800      : ({$REGION ' - FSys_Button_Free_Center_800          '}
+                                     gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_FREE_CENTER;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 99;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 100;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
                                                                    gui_Font_Use_Kerning : False;
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 462;
+                                                                   gui_Mouse_Over_Texture_ID : 460;
+                                                                   gui_Mouse_Down_Texture_ID : 461);
+                                     gui_Btn_Font_Color         : (gui_ColorSelect      : $FFFFFFFF;
+                                                                   gui_ColorPress       : $FFA0A0A0;
+                                                                   gui_ColorDisabled    : $FF808080);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False 
+                                     {$ENDREGION}
+              );
+    FSys_Button_Free_Left_800        : ({$REGION ' - FSys_Button_Free_Left_800            '}
+                                     gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_FREE_LEFT;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 37;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 100;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Use_Kerning : False;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 462;
+                                                                   gui_Mouse_Over_Texture_ID : 460;
+                                                                   gui_Mouse_Down_Texture_ID : 461);
+                                     gui_Btn_Font_Color         : (gui_ColorSelect      : $FFFFFFFF;
+                                                                   gui_ColorPress       : $FFA0A0A0;
+                                                                   gui_ColorDisabled    : $FF808080);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False 
+                                     {$ENDREGION}
+              );
+    FSys_Button_Free_Right_800       : ({$REGION ' - FSys_Button_Free_Right_800           '}
+                                     gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_FREE_RIGHT;
+                                     gui_Type                   : ctButton;
+                                     gui_Form_Type              : ftNone;
+                                     gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 158;
+                                     gui_Height                 : 26;
+                                     gui_Width                  : 100;
+                                     gui_Blend_Size             : 255;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Use_Kerning : False;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter);
+                                     gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID : 462;
+                                                                   gui_Mouse_Over_Texture_ID : 460;
+                                                                   gui_Mouse_Down_Texture_ID : 461);
+                                     gui_Btn_Font_Color         : (gui_ColorSelect      : $FFFFFFFF;
+                                                                   gui_ColorPress       : $FFA0A0A0;
+                                                                   gui_ColorDisabled    : $FF808080);
+                                     gui_Enabled                : True;
+                                     gui_Visible                : False 
+                                   {$ENDREGION}
+              );
+    ///////////////////////////     
+            (* 1024 *)
+    ///////////////////////////
+    FSys_Dialog_Info_1024            : ({$REGION ' - FSys_Dialog_Info_1024                '}
+                                     gui_Unique_Control_Number  : GUI_ID_SYSINFO_DIALOG;
+                                     gui_Type                   : ctForm;       
+                                     gui_Form_Type              : ftMoving;
+                                     gui_Top                    : 271;
+                                     gui_Left                   : 363;
+                                     gui_Height                 : 226;
+                                     gui_Width                  : 298;
+                                     gui_Repeat_Count           : 18;
+                                     gui_Blend_Size             : 250;
+                                     gui_CaptionID              : 22;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFd6c39c;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter;
+                                                                   gui_Font_Setting     : [fsBold]);
+                                     gui_Control_Texture        : (gui_Texture_File_ID            : GAME_TEXTURE_GAMEINTER_INT;
+                                                                   gui_Background_Texture_ID      : 420;
+                                                                   gui_Repeat_Texture_ID          : 421;
+                                                                   gui_ExtraBackground_Texture_ID : 422);
+                                     gui_Caption_Extra          : (gui_Caption_Offset : 10;
+                                                                   gui_Text_Offset    : 45;
+                                                                   gui_Extra_Font     : (gui_Font_Size        : 16;
+                                                                                         gui_Font_Color       : $FFF2F2F2;
+                                                                                         gui_Font_Text_HAlign : alCenter));
+                                     gui_Use_Repeat_Texture     : True;
+                                     gui_Modal_Event            : True;
+
                                      gui_Enabled                : True;
                                      gui_Visible                : True
                                      {$ENDREGION}
               );
-    FSys_Dialog_Edit_Field           : ({$REGION ' - FSys_Dialog_Edit_Field           '}
+    FSys_Dialog_Edit_Field_1024      : ({$REGION ' - FSys_Dialog_Edit_Field_1024          '}
                                      gui_Unique_Control_Number  : GUI_ID_SYSINFO_EDIT_FIELD;
                                      gui_Type                   : ctEdit;
                                      gui_Form_Type              : ftNone;
@@ -161,69 +348,87 @@ var
                                      gui_Visible                : True                                   
                                      {$ENDREGION}
               );
-    FSys_Button_Ok                   : ({$REGION ' - FSys_Button_Ok                   '}
+    FSys_Button_Ok_1024              : ({$REGION ' - FSys_Button_Ok_1024                  '}
                                      gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_OK;
                                      gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
-                                     gui_Top                    : 145;
+                                     gui_Top                    : 147;
                                      gui_Left                   : 113;
                                      gui_Height                 : 26;
                                      gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
+                                     gui_CaptionID              : 23;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Use_Kerning : False;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter);                                     
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID : 424;
+                                                                   gui_Background_Texture_ID : 425;
                                                                    gui_Mouse_Over_Texture_ID : 424;
-                                                                   gui_Mouse_Down_Texture_ID : 425);
+                                                                   gui_Mouse_Down_Texture_ID : 426);
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
               );
-    FSys_Button_Yes                  : ({$REGION ' - FSys_Button_Yes                  '}
+    FSys_Button_Yes_1024             : ({$REGION ' - FSys_Button_Yes_1024                 '}
                                      gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_YES;
                                      gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
-                                     gui_Top                    : 145;
+                                     gui_Top                    : 147;
                                      gui_Left                   : 47;
                                      gui_Height                 : 26;
                                      gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
+                                     gui_CaptionID              : 24;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Use_Kerning : False;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter);
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID : 422;
-                                                                   gui_Mouse_Over_Texture_ID : 422;
-                                                                   gui_Mouse_Down_Texture_ID : 423);
+                                                                   gui_Background_Texture_ID : 425;
+                                                                   gui_Mouse_Over_Texture_ID : 424;
+                                                                   gui_Mouse_Down_Texture_ID : 426);
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
               );
-    FSys_Button_No                   : ({$REGION ' - FSys_Button_No                   '}
+    FSys_Button_No_1024              : ({$REGION ' - FSys_Button_No_1024                  '}
                                      gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_NO;
                                      gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
                                      gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
-                                     gui_Top                    : 145;
-                                     gui_Left                   : 180;
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 158;
                                      gui_Height                 : 26;
                                      gui_Width                  : 80;
                                      gui_Blend_Size             : 255;
+                                     gui_CaptionID              : 25;
+                                     gui_Font                   : (gui_Font_Size        : 18;
+                                                                   gui_Font_Color       : $FFF0F0F0;
+                                                                   gui_Font_Use_Kerning : False;
+                                                                   gui_Font_Text_HAlign : alCenter;
+                                                                   gui_Font_Text_VAlign : avCenter);
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID : 426;
-                                                                   gui_Mouse_Over_Texture_ID : 426;
-                                                                   gui_Mouse_Down_Texture_ID : 427);
+                                                                   gui_Background_Texture_ID : 425;
+                                                                   gui_Mouse_Over_Texture_ID : 424;
+                                                                   gui_Mouse_Down_Texture_ID : 426);
                                      gui_Enabled                : True;
                                      gui_Visible                : True 
                                      {$ENDREGION}
               );
-    FSys_Button_Free_Center          : ({$REGION ' - FSys_Button_Free_Center          '}
+    FSys_Button_Free_Center_1024     : ({$REGION ' - FSys_Button_Free_Center_1024         '}
                                      gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_FREE_CENTER;
                                      gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
-                                     gui_Top                    : 145;
-                                     gui_Left                   : 113;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 99;
                                      gui_Height                 : 26;
-                                     gui_Width                  : 80;
+                                     gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
                                      gui_Font                   : (gui_Font_Size        : 18;
                                                                    gui_Font_Color       : $FFF0F0F0;
@@ -231,9 +436,9 @@ var
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter);
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID : 3612;
-                                                                   gui_Mouse_Over_Texture_ID : 3612;
-                                                                   gui_Mouse_Down_Texture_ID : 3613);
+                                                                   gui_Background_Texture_ID : 462;
+                                                                   gui_Mouse_Over_Texture_ID : 460;
+                                                                   gui_Mouse_Down_Texture_ID : 461);
                                      gui_Btn_Font_Color         : (gui_ColorSelect      : $FFFFFFFF;
                                                                    gui_ColorPress       : $FFA0A0A0;
                                                                    gui_ColorDisabled    : $FF808080);
@@ -241,15 +446,15 @@ var
                                      gui_Visible                : False 
                                      {$ENDREGION}
               );
-    FSys_Button_Free_Left            : ({$REGION ' - FSys_Button_Free_Left            '}
+    FSys_Button_Free_Left_1024       : ({$REGION ' - FSys_Button_Free_Left_1024           '}
                                      gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_FREE_LEFT;
                                      gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
-                                     gui_Top                    : 145;
-                                     gui_Left                   : 47;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 37;
                                      gui_Height                 : 26;
-                                     gui_Width                  : 80;
+                                     gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
                                      gui_Font                   : (gui_Font_Size        : 18;
                                                                    gui_Font_Color       : $FFF0F0F0;
@@ -257,9 +462,9 @@ var
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter);
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID : 3612;
-                                                                   gui_Mouse_Over_Texture_ID : 3612;
-                                                                   gui_Mouse_Down_Texture_ID : 3613);
+                                                                   gui_Background_Texture_ID : 462;
+                                                                   gui_Mouse_Over_Texture_ID : 460;
+                                                                   gui_Mouse_Down_Texture_ID : 461);
                                      gui_Btn_Font_Color         : (gui_ColorSelect      : $FFFFFFFF;
                                                                    gui_ColorPress       : $FFA0A0A0;
                                                                    gui_ColorDisabled    : $FF808080);
@@ -267,15 +472,15 @@ var
                                      gui_Visible                : False 
                                      {$ENDREGION}
               );
-    FSys_Button_Free_Right           : ({$REGION ' - FSys_Button_Free_Right           '}
+    FSys_Button_Free_Right_1024      : ({$REGION ' - FSys_Button_Free_Right_1024          '}
                                      gui_Unique_Control_Number  : GUI_ID_SYSINFO_BUTTON_FREE_RIGHT;
                                      gui_Type                   : ctButton;
                                      gui_Form_Type              : ftNone;
-                                     gui_WorkField              : (Left:0; Top:0; Right:80; Bottom:26);
-                                     gui_Top                    : 145;
-                                     gui_Left                   : 180;
+                                     gui_WorkField              : (Left:0; Top:0; Right:100; Bottom:26);
+                                     gui_Top                    : 147;
+                                     gui_Left                   : 158;
                                      gui_Height                 : 26;
-                                     gui_Width                  : 80;
+                                     gui_Width                  : 100;
                                      gui_Blend_Size             : 255;
                                      gui_Font                   : (gui_Font_Size        : 18;
                                                                    gui_Font_Color       : $FFF0F0F0;
@@ -283,18 +488,17 @@ var
                                                                    gui_Font_Text_HAlign : alCenter;
                                                                    gui_Font_Text_VAlign : avCenter);
                                      gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                   gui_Background_Texture_ID : 3612;
-                                                                   gui_Mouse_Over_Texture_ID : 3612;
-                                                                   gui_Mouse_Down_Texture_ID : 3613);
+                                                                   gui_Background_Texture_ID : 462;
+                                                                   gui_Mouse_Over_Texture_ID : 460;
+                                                                   gui_Mouse_Down_Texture_ID : 461);
                                      gui_Btn_Font_Color         : (gui_ColorSelect      : $FFFFFFFF;
                                                                    gui_ColorPress       : $FFA0A0A0;
                                                                    gui_ColorDisabled    : $FF808080);
                                      gui_Enabled                : True;
                                      gui_Visible                : False 
                                    {$ENDREGION}
-              );                
+              );
     {$ENDREGION}
-
   );
 
   

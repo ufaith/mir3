@@ -56,7 +56,7 @@ type
   public
     procedure ResetScene;
     procedure ReceiveMessagePacket(AReceiveData: String);
-    procedure SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+    procedure SystemMessage(AMessage: WideString; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
     {Event Function}
     procedure Event_System_Ok;
     procedure Event_System_Yes;
@@ -83,11 +83,11 @@ uses mir3_game_backend;
       Self.SetEventCallback(@SelectServerGUIEvent);
       Self.SetHotKeyEventCallback(@SelectServerGUIHotKeyEvent);
 
-      { Create Logon Info Forms and Controls }
-      with FGame_GUI_Definition_SelectServer do
+      with FGame_GUI_Definition_SelectServer, FGame_GUI_Definition_System do
       begin
         case FScreen_Width of
            800 : begin
+             { Create Select Server Forms and Controls }
              FSelectServerForm  := TMIR3_GUI_Form(Self.AddForm(FSelectServer_Background_800, True));
              Self.AddControl(FSelectServerForm, FSelectServer_Animation_1_800,  True);
              Self.AddControl(FSelectServerForm, FSelectServer_MIR3_Logo_1_800 , True);             
@@ -99,8 +99,15 @@ uses mir3_game_backend;
              Self.AddControl(FSelectServerForm, FSelectServer_Btn_Server_2_800, True);
              Self.AddControl(FSelectServerForm, FSelectServer_Btn_Server_3_800, True);
              Self.AddControl(FSelectServerForm, FSelectServer_Btn_Server_4_800, True);
+
+             { Create System Forms and Controls }
+             FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info_800, False));
+             Self.AddControl(FSystemForm, FSys_Button_Ok_800   , False);
+             Self.AddControl(FSystemForm, FSys_Button_Yes_800  , False);
+             Self.AddControl(FSystemForm, FSys_Button_No_800   , False);
            end;
           1024 : begin
+             { Create Select Server Forms and Controls }
              FSelectServerForm  := TMIR3_GUI_Form(Self.AddForm(FSelectServer_Background_1024, True));
              Self.AddControl(FSelectServerForm, FSelectServer_Animation_1_1024,  True);
              Self.AddControl(FSelectServerForm, FSelectServer_MIR3_Logo_1_1024 , True);
@@ -112,21 +119,21 @@ uses mir3_game_backend;
              Self.AddControl(FSelectServerForm, FSelectServer_Btn_Server_2_1024, True);
              Self.AddControl(FSelectServerForm, FSelectServer_Btn_Server_3_1024, True);
              Self.AddControl(FSelectServerForm, FSelectServer_Btn_Server_4_1024, True);
+
+             { Create System Forms and Controls }
+             FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info_1024, False));
+             Self.AddControl(FSystemForm, FSys_Button_Ok_1024   , False);
+             Self.AddControl(FSystemForm, FSys_Button_Yes_1024  , False);
+             Self.AddControl(FSystemForm, FSys_Button_No_1024   , False);
            end;
         end;
       end;
 
+      // TODO : use Information from Server
       TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_1)).Caption := 'Test Server 1';
       TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_2)).Caption := 'Test Server 2';
       TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_3)).Caption := 'Test Server 3';
-      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_4)).Caption := 'Test Server 4';
-
-      { Create System Forms and Controls }
-      FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_System.FSys_Dialog_Info, False));
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Dialog_Text , True);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Ok   , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Yes  , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_No   , False);                                                                           ;
+      TMIR3_GUI_Button(GetComponentByID(GUI_ID_SEL_SERVER_BTN_SERVER_4)).Caption := 'Test Server 4';                                                                      ;
     end;
     
     destructor TMir3GameSceneSelectServer.Destroy;
@@ -169,7 +176,7 @@ uses mir3_game_backend;
   {$ENDREGION}  
 
   {$REGION ' - TMir3GameSceneSelectServer :: Scene Funtions                 '}
-  procedure TMir3GameSceneSelectServer.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+  procedure TMir3GameSceneSelectServer.SystemMessage(AMessage: WideString; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
   begin
     if mbOK in AButtons then
       TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_OK)).Visible := True
@@ -184,7 +191,7 @@ uses mir3_game_backend;
     else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_NO)).Visible := False;
 
     SetZOrder(TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)));
-    TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SYSINFO_PANEL)).Caption := PWideChar(AMessage);
+    TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Text         := AMessage;
     TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID  := AEventType;
     TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible      := True;
   end;

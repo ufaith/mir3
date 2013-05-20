@@ -58,7 +58,7 @@ type
   public
     procedure ResetScene;
     procedure ReceiveMessagePacket(AReceiveData: String);
-    procedure SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
+    procedure SystemMessage(AMessage: WideString; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
     procedure ResetCreateCharScene;
     procedure TestAndSetNewSelection;
     function GetCharacterCount: Integer;
@@ -93,33 +93,6 @@ uses mir3_game_backend;
       Self.DebugMode := False;
       Self.SetEventCallback(@SelectCharGUIEvent);
       Self.SetHotKeyEventCallback(@SelectCharGUIHotKeyEvent);
-
-//      {$REGION ' - Create Char Forms and Controls   '}
-//      FCrateForm   := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_SelChar.FCreateChar_Background, False));
-//      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Information_Field   , True);
-//      FCharControl := TMIR3_GUI_SelectChar(Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Character_Male  , True));
-//      FCharControl.Selected        := True;
-//      FCharControl.CharacterSystem := csCreateChar;
-//      FCharInfo.Char_Job           := C_WARRIOR;
-//      FCharInfo.Char_Gender        := C_MALE;
-//      FCharControl.CharacterInfo   := FCharInfo;
-//      FCharControl  := TMIR3_GUI_SelectChar(Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Character_Female , True));
-//      FCharControl.CharacterSystem := csCreateChar;
-//      FCharInfo.Char_Job           := C_WARRIOR;
-//      FCharInfo.Char_Gender        := C_FEMALE;
-//      FCharControl.CharacterInfo   := FCharInfo;
-//      with GGameEngine.GameLanguage do
-//        TMIR3_GUI_Panel(GetComponentByID(GUI_ID_CREATECHAR_INFO)).Caption := PWideChar(Format(GetTextFromLangSystem(61), [GetTextFromLangSystem(55)]));
-//      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Panel_Stone_Shadow  , True);
-//      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Panel_Stone         , True);
-//      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Warrior      , True);
-//      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Wizzard      , True);
-//      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Taoist       , True);
-//      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Assassin     , True);
-//      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Ok           , True);
-//      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Button_Cancel       , True);
-//      Self.AddControl(FCrateForm,  FGame_GUI_Definition_SelChar.FCreateChar_Edit_Char_Name      , True);
-//      {$ENDREGION}
 
       {$REGION ' - Select Char Forms and Controls   '}
       { Select Char / Create Char Forms and Controls }
@@ -253,16 +226,35 @@ uses mir3_game_backend;
         FCharControl.CharacterInfo   := FCharInfo;
       end;
       {$ENDREGION}
+
       {$REGION ' - System Forms and Controls        '}
-      FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_System.FSys_Dialog_Info, False));
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Dialog_Text        , True);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Ok          , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Yes         , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_No          , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Free_Center , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Free_Left   , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Free_Right  , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Dialog_Edit_Field  , False);
+      with FGame_GUI_Definition_System do
+      begin
+        case FScreen_Width of
+           800 : begin
+             { Create System Forms and Controls }
+             FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info_800, False));
+             Self.AddControl(FSystemForm, FSys_Button_Ok_800           , False);
+             Self.AddControl(FSystemForm, FSys_Button_Yes_800          , False);
+             Self.AddControl(FSystemForm, FSys_Button_No_800           , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Center_800  , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Left_800    , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Right_800   , False);
+             Self.AddControl(FSystemForm, FSys_Dialog_Edit_Field_800   , False);
+           end;
+          1024 : begin
+             { Create System Forms and Controls }
+             FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info_1024, False));
+             Self.AddControl(FSystemForm, FSys_Button_Ok_1024          , False);
+             Self.AddControl(FSystemForm, FSys_Button_Yes_1024         , False);
+             Self.AddControl(FSystemForm, FSys_Button_No_1024          , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Center_1024 , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Left_1024   , False);
+             Self.AddControl(FSystemForm, FSys_Button_Free_Right_1024  , False);
+             Self.AddControl(FSystemForm, FSys_Dialog_Edit_Field_1024  , False);
+           end;
+        end;
+      end;
       {$ENDREGION}
 
     end;
@@ -283,7 +275,7 @@ uses mir3_game_backend;
   {$ENDREGION}
 
   {$REGION ' - TMir3GameSceneSelectChar :: Scene Funtions               '}
-    procedure TMir3GameSceneSelectChar.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
+    procedure TMir3GameSceneSelectChar.SystemMessage(AMessage: WideString; AButtons: TMIR3_DLG_Buttons; AEventType: Integer; AButtonTextID1: Integer = 0; AButtonTextID2: Integer = 0);
     begin
       if mbOK in AButtons then
         TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_OK)).Visible := True
@@ -321,7 +313,7 @@ uses mir3_game_backend;
         TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible                       := True;
       end else TMIR3_GUI_Edit(GetComponentByID(GUI_ID_SYSINFO_BUTTON_FREE_RIGHT)).Visible := False;
 
-      TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SYSINFO_PANEL)).Caption := PWideChar(AMessage);
+      TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Text         := AMessage;
       TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID  := AEventType;
       TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible      := True;
 

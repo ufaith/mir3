@@ -111,7 +111,7 @@ const
   {$ENDREGION}
 
   {$REGION ' - Trade GUI               (201-215) '}
-  GUI_ID_INGAME_TRADE_UI_WINDOW                   = 201;
+  GUI_ID_INGAME_TRADE_UI_BACKGROUND               = 201;
   GUI_ID_INGAME_TRADE_UI_EDIT_GOLD_FROM           = 202;
   GUI_ID_INGAME_TRADE_UI_EDIT_GOLD_TO             = 203;
   GUI_ID_INGAME_TRADE_UI_GRID_FROM                = 204;
@@ -223,8 +223,9 @@ const
   GUI_ID_INGAME_GAME_SETTING_UI_BTN_PERMIT        = 603;
   GUI_ID_INGAME_GAME_SETTING_UI_BTN_CHATTING      = 604;
   GUI_ID_INGAME_GAME_SETTING_UI_BTN_VISUAL        = 605;
+  GUI_ID_INGAME_GAME_SETTING_UI_BTN_DEVICE        = 606;//!!
   { Page 1 Basic }
-  GUI_ID_INGAME_GAME_SETTING_UI_BTN_1_P1          = 606;
+  GUI_ID_INGAME_GAME_SETTING_UI_BTN_1_P1          = 606;//!!
   GUI_ID_INGAME_GAME_SETTING_UI_BTN_2_P1          = 607;
   GUI_ID_INGAME_GAME_SETTING_UI_BTN_3_P1          = 608;
   GUI_ID_INGAME_GAME_SETTING_UI_BTN_4_P1          = 609;
@@ -317,7 +318,24 @@ const
 
   {$ENDREGION}
 
-  // 750 - 899 is Free now
+  {$REGION ' - Game Setting GUI        (750-800) '}
+  GUI_ID_INGAME_CHAT_UI_WINDOW                    = 750;
+  GUI_ID_INGAME_CHAT_UI_PANEL_TOP                 = 751;
+  GUI_ID_INGAME_CHAT_UI_PANEL_MIDDLE              = 752;
+  GUI_ID_INGAME_CHAT_UI_PANEL_BOTTOM              = 753;
+  GUI_ID_INGAME_CHAT_UI_BTN_EXIT                  = 754;
+  GUI_ID_INGAME_CHAT_UI_BTN_SHOUT_1               = 755;
+  GUI_ID_INGAME_CHAT_UI_BTN_SHOUT_2               = 756;
+  GUI_ID_INGAME_CHAT_UI_BTN_SHOUT_3               = 757;
+  GUI_ID_INGAME_CHAT_UI_BTN_SHOUT_4               = 758;
+  GUI_ID_INGAME_CHAT_UI_BTN_SHOUT_5               = 759;
+  GUI_ID_INGAME_CHAT_UI_BTN_SHOUT_6               = 760;
+  GUI_ID_INGAME_CHAT_UI_BTN_VIEW_STEP             = 761;
+  GUI_ID_INGAME_CHAT_UI_BTN_SHOUT_TYPE            = 762;
+  GUI_ID_INGAME_CHAT_UI_EDIT_FIELD                = 763;
+  GUI_ID_INGAME_CHAT_UI_SCROLLBAR                 = 764;
+  GUI_ID_INGAME_CHAT_UI_PANEL_TEXT                = 765;
+  {$ENDREGION}
 
   {$REGION ' - Body Base GUI           (900-990) '}
   {Body Base GUI}
@@ -844,12 +862,13 @@ type
     ///////////////////////////         
           (* 800x600 *) 
     ///////////////////////////
-    FInGame_UI_GameSetting_Background         : TMir3_GUI_Ground_Info;  // Game Setting UI Form
-      FInGame_UI_GameSetting_Btn_Close        : TMir3_GUI_Ground_Info;  // Window Clos Button (used for all 4 Pages)
-      FInGame_UI_GameSetting_Btn_Basic        : TMir3_GUI_Ground_Info;  // Page 1 Basic Option
-      FInGame_UI_GameSetting_Btn_Permit       : TMir3_GUI_Ground_Info;  // Page 2 Permit Option
-      FInGame_UI_GameSetting_Btn_Chatting     : TMir3_GUI_Ground_Info;  // Page 3 Chatting Option
-      FInGame_UI_GameSetting_Btn_Visual       : TMir3_GUI_Ground_Info;  // Page 4 Visual Option
+    FInGame_UI_GameSetting_Background_800     : TMir3_GUI_Ground_Info;  // Game Setting UI Form
+      FInGame_UI_GameSetting_Btn_Close_800    : TMir3_GUI_Ground_Info;  // Window Clos Button 
+      FInGame_UI_GameSetting_Btn_Basic_800    : TMir3_GUI_Ground_Info;  // Page 1 Basic Option
+      FInGame_UI_GameSetting_Btn_Permit_800   : TMir3_GUI_Ground_Info;  // Page 2 Permit Option
+      FInGame_UI_GameSetting_Btn_Chatting_800 : TMir3_GUI_Ground_Info;  // Page 3 Chatting Option
+      FInGame_UI_GameSetting_Btn_Visual_800   : TMir3_GUI_Ground_Info;  // Page 4 Visual Option
+      FInGame_UI_GameSetting_Btn_Device_800   : TMir3_GUI_Ground_Info;  // Page 5 Device Option
       (* Page 1 *)
       FInGame_UI_GameSetting_Btn_1_P1         : TMir3_GUI_Ground_Info;  // Attack Mode
       FInGame_UI_GameSetting_TextField_1_P1   : TMir3_GUI_Ground_Info;
@@ -909,9 +928,22 @@ type
       FInGame_UI_GameSetting_TextField_9_P4   : TMir3_GUI_Ground_Info;
       FInGame_UI_GameSetting_Btn_10_P4        : TMir3_GUI_Ground_Info;  // Display Monster HP
       FInGame_UI_GameSetting_TextField_10_P4  : TMir3_GUI_Ground_Info;
+      (* Page 5 *)      
     ///////////////////////////         
           (* 1024x768 *) 
     ///////////////////////////
+    FInGame_UI_GameSetting_Background_1024    : TMir3_GUI_Ground_Info;  // Game Setting UI Form
+      FInGame_UI_GameSetting_Btn_Close_1024   : TMir3_GUI_Ground_Info;  // Window Clos Button 
+      FInGame_UI_GameSetting_Btn_Basic_1024   : TMir3_GUI_Ground_Info;  // Page 1 Basic Option
+      FInGame_UI_GameSetting_Btn_Permit_1024  : TMir3_GUI_Ground_Info;  // Page 2 Permit Option
+      FInGame_UI_GameSetting_Btn_Chatting_1024: TMir3_GUI_Ground_Info;  // Page 3 Chatting Option
+      FInGame_UI_GameSetting_Btn_Visual_1024  : TMir3_GUI_Ground_Info;  // Page 4 Visual Option
+      FInGame_UI_GameSetting_Btn_Device_1024  : TMir3_GUI_Ground_Info;  // Page 5 Device Option   
+      (* Page 1 *)
+      (* Page 2 *)
+      (* Page 3 *)
+      (* Page 4 *)
+      (* Page 5 *)      
       {$ENDREGION}
 
     {$REGION ' - Body Window UI System        '}
@@ -1191,7 +1223,6 @@ type
           (* 800x600 *)
     ///////////////////////////    
     FInGame_UI_Group_Window                   : TMir3_GUI_Ground_Info;  //
-
       FInGame_UI_Group_Text_Group_Leader      : TMir3_GUI_Ground_Info;  //
       FInGame_UI_Group_Btn_Close              : TMir3_GUI_Ground_Info;  //
       FInGame_UI_Group_Btn_Add_Member         : TMir3_GUI_Ground_Info;  //
@@ -1222,16 +1253,65 @@ type
     {$ENDREGION}
 
     {$REGION ' - Trade Window UI System       '}
+    //TODO : Add 4 Text fields (Char Names, added Gold info fields) 
+    //TODO : Add Item Grid
     ///////////////////////////         
           (* 800x600 *)
     ///////////////////////////    
     FInGame_UI_Trade_Window_800               : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Trade_Btn_1_800                : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_trade_Btn_2_800                : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Trade_Btn_Close_800            : TMir3_GUI_Ground_Info;  //
     ///////////////////////////
          (* 1024x768 *)
     ///////////////////////////
     FInGame_UI_Trade_Window_1024              : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Trade_Btn_1_1024               : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_trade_Btn_2_1024               : TMir3_GUI_Ground_Info;  //
+    FInGame_UI_Trade_Btn_Close_1024           : TMir3_GUI_Ground_Info;  //
     {$ENDREGION}
 
+    {$REGION ' - Chat Window UI System        '}
+    ///////////////////////////         
+          (* 800x600 *)
+    ///////////////////////////
+    FInGame_UI_Chat_Background_800            : TMir3_GUI_Ground_Info;  // Chat Window UI Form
+      FInGame_UI_Chat_Panel_Top_800           : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Panel_Middle_800        : TMir3_GUI_Ground_Info;  // Repitable Image
+      FInGame_UI_Chat_Panel_Bottom_800        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Exit_800            : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_1_800         : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_2_800         : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_3_800         : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_4_800         : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_5_800         : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_6_800         : TMir3_GUI_Ground_Info;  //   
+      FInGame_UI_Chat_Btn_View_Step_800       : TMir3_GUI_Ground_Info;  // Up / Down 
+      FInGame_UI_Chat_Btn_Shout_Type_800      : TMir3_GUI_Ground_Info;  //  
+      FInGame_UI_Chat_Edit_Field_800          : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Scrollbar_800           : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Text_Panel_800          : TMir3_GUI_Ground_Info;  // Use String Buffer for this one
+    ///////////////////////////
+         (* 1024x768 *)
+    ///////////////////////////
+    FInGame_UI_Chat_Background_1024           : TMir3_GUI_Ground_Info;  // Chat Window UI Form
+      FInGame_UI_Chat_Panel_Top_1024          : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Panel_Middle_1024       : TMir3_GUI_Ground_Info;  // Repitable Image
+      FInGame_UI_Chat_Panel_Bottom_1024       : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Exit_1024           : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_1_1024        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_2_1024        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_3_1024        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_4_1024        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_5_1024        : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Btn_Shout_6_1024        : TMir3_GUI_Ground_Info;  //   
+      FInGame_UI_Chat_Btn_View_Step_1024      : TMir3_GUI_Ground_Info;  // Up / Down 
+      FInGame_UI_Chat_Btn_Shout_Type_1024     : TMir3_GUI_Ground_Info;  //  
+      FInGame_UI_Chat_Edit_Field_1024         : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Scrollbar_1024          : TMir3_GUI_Ground_Info;  //
+      FInGame_UI_Chat_Text_Panel_1024         : TMir3_GUI_Ground_Info;  // Use String Buffer for this one
+    {$ENDREGION}
+    
     {$ENDREGION}
   end;
 
@@ -1992,9 +2072,9 @@ var
                                            gui_Width                  : 30;
                                            gui_Blend_Size             : 255;
                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                         gui_Background_Texture_ID : 1222;
+                                                                         gui_Background_Texture_ID : 1221;
                                                                          gui_Mouse_Over_Texture_ID : 1220;
-                                                                         gui_Mouse_Down_Texture_ID : 1221);
+                                                                         gui_Mouse_Down_Texture_ID : 1222);
                                            gui_Enabled                : True;
                                            gui_Visible                : True
                                            {$ENDREGION}
@@ -2125,9 +2205,9 @@ var
                                            gui_Width                  : 30;
                                            gui_Blend_Size             : 255;
                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                         gui_Background_Texture_ID : 1222;
+                                                                         gui_Background_Texture_ID : 1221;
                                                                          gui_Mouse_Over_Texture_ID : 1220;
-                                                                         gui_Mouse_Down_Texture_ID : 1221);
+                                                                         gui_Mouse_Down_Texture_ID : 1222);
                                            gui_Enabled                : True;
                                            gui_Visible                : True
                                            {$ENDREGION}
@@ -2257,9 +2337,9 @@ var
                                            gui_Width                  : 30;
                                            gui_Blend_Size             : 255;
                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                         gui_Background_Texture_ID : 1222;
+                                                                         gui_Background_Texture_ID : 1221;
                                                                          gui_Mouse_Over_Texture_ID : 1220;
-                                                                         gui_Mouse_Down_Texture_ID : 1221);
+                                                                         gui_Mouse_Down_Texture_ID : 1222);
                                            gui_Enabled                : True;
                                            gui_Visible                : True
                                            {$ENDREGION}
@@ -2390,9 +2470,9 @@ var
                                            gui_Width                  : 30;
                                            gui_Blend_Size             : 255;
                                            gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                         gui_Background_Texture_ID : 1222;
+                                                                         gui_Background_Texture_ID : 1221;
                                                                          gui_Mouse_Over_Texture_ID : 1220;
-                                                                         gui_Mouse_Down_Texture_ID : 1221);
+                                                                         gui_Mouse_Down_Texture_ID : 1212);
                                            gui_Enabled                : True;
                                            gui_Visible                : True
                                            {$ENDREGION}
@@ -3482,7 +3562,7 @@ var
 
       {$ENDREGION}     
 
-      {$REGION ' - Menu Bar UI System             '}
+      {$REGION ' - Menu Bar UI System              '}
     /////////////////////////// 
          (* 800x600 *)
     ///////////////////////////      
@@ -3740,15 +3820,15 @@ var
                                                 gui_Unique_Control_Number  : GUI_ID_INGAME_MENUEBAR_UI_BTN_CLOSE;
                                                 gui_Type                   : ctButton;
                                                 gui_Form_Type              : ftNone;
-                                                gui_Top                    : 4;
-                                                gui_Left                   : 122;
+                                                gui_Top                    : 0;
+                                                gui_Left                   : 120;
                                                 gui_Height                 : 30;
                                                 gui_Width                  : 30;
                                                 gui_Blend_Size             : 255;
                                                 gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                              gui_Background_Texture_ID : 1222;
+                                                                              gui_Background_Texture_ID : 1221;
                                                                               gui_Mouse_Over_Texture_ID : 1220;
-                                                                              gui_Mouse_Down_Texture_ID : 1221);                                                                             
+                                                                              gui_Mouse_Down_Texture_ID : 1222);                                                                             
                                                 gui_Enabled                : True;
                                                 gui_Visible                : True
                                                 {$ENDREGION}
@@ -4010,15 +4090,15 @@ var
                                                 gui_Unique_Control_Number  : GUI_ID_INGAME_MENUEBAR_UI_BTN_CLOSE;
                                                 gui_Type                   : ctButton;
                                                 gui_Form_Type              : ftNone;
-                                                gui_Top                    : 4;
-                                                gui_Left                   : 122;
+                                                gui_Top                    : 0;
+                                                gui_Left                   : 120;
                                                 gui_Height                 : 30;
                                                 gui_Width                  : 30;
                                                 gui_Blend_Size             : 255;
                                                 gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                              gui_Background_Texture_ID : 1222;
+                                                                              gui_Background_Texture_ID : 1221;
                                                                               gui_Mouse_Over_Texture_ID : 1220;
-                                                                              gui_Mouse_Down_Texture_ID : 1221);                                                                              
+                                                                              gui_Mouse_Down_Texture_ID : 1222);                                                                              
                                                 gui_Enabled                : True;
                                                 gui_Visible                : True
                                                 {$ENDREGION}
@@ -4026,47 +4106,51 @@ var
       {$ENDREGION}
 
       {$REGION ' - Game Setting UI System          '}
-      FInGame_UI_GameSetting_Background       : ({$REGION ' - FInGame_UI_GameSetting_Background    '}
+    /////////////////////////// 
+         (* 800x600 *)
+    ///////////////////////////      
+      FInGame_UI_GameSetting_Background_800   : ({$REGION ' - FInGame_UI_GameSetting_Background_800    '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_WINDOW;
                                               gui_Type                   : ctForm;
                                               gui_Form_Type              : ftMoving;
-                                              gui_WorkField              : (Left:110; Top:60; Right:290; Bottom:390);
-                                              gui_Top                    : 80;
-                                              gui_Left                   : 200;
-                                              gui_Height                 : 512;
-                                              gui_Width                  : 512;
+                                              gui_WorkField              : (Left:0; Top:0; Right:364; Bottom:416);
+                                              gui_Top                    : 24;
+                                              gui_Left                   : 218;
+                                              gui_Height                 : 416;
+                                              gui_Width                  : 364;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 291);
+                                                                            gui_Background_Texture_ID : 4700);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
-      FInGame_UI_GameSetting_Btn_Close        : ({$REGION ' - FInGame_UI_GameSetting_Btn_Close  '}
+      FInGame_UI_GameSetting_Btn_Close_800    : ({$REGION ' - FInGame_UI_GameSetting_Btn_Close_800     '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_CLOSE;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_Top                    : 406;
-                                              gui_Left                   : 351;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 331;
                                               gui_Height                 : 30;
-                                              gui_Width                  : 32;
+                                              gui_Width                  : 30;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Mouse_Over_Texture_ID : 1222;
-                                                                            gui_Mouse_Down_Texture_ID : 1223);
+                                                                            gui_Background_Texture_ID : 1221;
+                                                                            gui_Mouse_Over_Texture_ID : 1220;
+                                                                            gui_Mouse_Down_Texture_ID : 1222);                                                                             
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
-                );
-      FInGame_UI_GameSetting_Btn_Basic        : ({$REGION ' - FInGame_UI_GameSetting_Btn_Basic       '}
+                );    
+      FInGame_UI_GameSetting_Btn_Basic_800    : ({$REGION ' - FInGame_UI_GameSetting_Btn_Basic_800     '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_BASIC;
-                                              gui_Type                   : ctTextButton;
+                                              gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:12);
-                                              gui_Top                    : 74;
-                                              gui_Left                   : 127;
-                                              gui_Height                 : 23;
-                                              gui_Width                  : 60;
+                                              gui_WorkField              : (Left:0; Top:0; Right:67; Bottom:21);
+                                              gui_Top                    : 38;
+                                              gui_Left                   : 9;
+                                              gui_Height                 : 21;
+                                              gui_Width                  : 67;
                                               gui_Blend_Size             : 255;
                                               gui_CaptionID              : 101;
                                               gui_Font                   : (gui_Font_Size        : 18;
@@ -4074,20 +4158,22 @@ var
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter;
                                                                             gui_Font_Setting     : [fsBold]);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 4705);                                                                             
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFBDBDFF;
                                                                             gui_ColorPress       : $FF9595AD);                              
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
-      FInGame_UI_GameSetting_Btn_Permit       : ({$REGION ' - FInGame_UI_GameSetting_Btn_Permit       '}
+      FInGame_UI_GameSetting_Btn_Permit_800   : ({$REGION ' - FInGame_UI_GameSetting_Btn_Permit_800       '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_PERMIT;
                                               gui_Type                   : ctTextButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:12);
-                                              gui_Top                    : 74;
-                                              gui_Left                   : 187;
-                                              gui_Height                 : 23;
+                                              gui_WorkField              : (Left:0; Top:0; Right:67; Bottom:21);
+                                              gui_Top                    : 38;
+                                              gui_Left                   : 78;
+                                              gui_Height                 : 21;
                                               gui_Width                  : 67;
                                               gui_Blend_Size             : 255;
                                               gui_CaptionID              : 102;
@@ -4096,20 +4182,22 @@ var
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter;
                                                                             gui_Font_Setting     : [fsBold]);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 4706);                                                                             
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFBDBDFF;
                                                                             gui_ColorPress       : $FF9595AD);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
-      FInGame_UI_GameSetting_Btn_Chatting     : ({$REGION ' - FInGame_UI_GameSetting_Btn_Chatting     '}
+      FInGame_UI_GameSetting_Btn_Chatting_800 : ({$REGION ' - FInGame_UI_GameSetting_Btn_Chatting_800     '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_CHATTING;
                                               gui_Type                   : ctTextButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:12);
-                                              gui_Top                    : 74;
-                                              gui_Left                   : 256;
-                                              gui_Height                 : 23;
+                                              gui_WorkField              : (Left:0; Top:0; Right:67; Bottom:21);
+                                              gui_Top                    : 38;
+                                              gui_Left                   : 147;
+                                              gui_Height                 : 21;
                                               gui_Width                  : 67;
                                               gui_Blend_Size             : 255;
                                               gui_CaptionID              : 103;
@@ -4118,21 +4206,23 @@ var
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter;
                                                                             gui_Font_Setting     : [fsBold]);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 4707);                                                                             
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFBDBDFF;
                                                                             gui_ColorPress       : $FF9595AD);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
-      FInGame_UI_GameSetting_Btn_Visual       : ({$REGION ' - FInGame_UI_GameSetting_Btn_Visual     '}
+      FInGame_UI_GameSetting_Btn_Visual_800   : ({$REGION ' - FInGame_UI_GameSetting_Btn_Visual_800     '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_VISUAL;
                                               gui_Type                   : ctTextButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_WorkField              : (Left:0; Top:0; Right:28; Bottom:12);
-                                              gui_Top                    : 74;
-                                              gui_Left                   : 325;
-                                              gui_Height                 : 23;
-                                              gui_Width                  : 60;
+                                              gui_WorkField              : (Left:0; Top:0; Right:67; Bottom:21);
+                                              gui_Top                    : 38;
+                                              gui_Left                   : 216;
+                                              gui_Height                 : 21;
+                                              gui_Width                  : 67;
                                               gui_Blend_Size             : 255;
                                               gui_CaptionID              : 104;                 
                                               gui_Font                   : (gui_Font_Size        : 18;
@@ -4140,12 +4230,38 @@ var
                                                                             gui_Font_Text_HAlign : alCenter;
                                                                             gui_Font_Text_VAlign : avCenter;
                                                                             gui_Font_Setting     : [fsBold]);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 4708);                                                                             
                                               gui_Btn_Font_Color         : (gui_ColorSelect      : $FFBDBDFF;
                                                                             gui_ColorPress       : $FF9595AD);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );
+      FInGame_UI_GameSetting_Btn_Device_800   : ({$REGION ' - FInGame_UI_GameSetting_Btn_Device_800     '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_DEVICE;
+                                              gui_Type                   : ctTextButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_WorkField              : (Left:0; Top:0; Right:67; Bottom:21);
+                                              gui_Top                    : 38;
+                                              gui_Left                   : 285;
+                                              gui_Height                 : 21;
+                                              gui_Width                  : 67;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 104;                 
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFF0F0F0;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 4709);                                                                             
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFBDBDFF;
+                                                                            gui_ColorPress       : $FF9595AD);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );                
       {$REGION ' - Page 1 (Basic)    '}
       { Attack Mode }
       FInGame_UI_GameSetting_Btn_1_P1         : ({$REGION ' - FInGame_UI_GameSetting_Btn_1_P1  '}
@@ -5211,6 +5327,166 @@ var
                 );
       {$ENDREGION}
 
+      {$REGION ' - Page 5 (Device)   '}
+      
+      {$ENDREGION} 
+    
+    /////////////////////////// 
+         (* 1024x768 *)
+    ///////////////////////////      
+      FInGame_UI_GameSetting_Background_1024  : ({$REGION ' - FInGame_UI_GameSetting_Background_1024   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_WINDOW;
+                                              gui_Type                   : ctForm;
+                                              gui_Form_Type              : ftMoving;
+                                              gui_WorkField              : (Left:0; Top:0; Right:364; Bottom:416);
+                                              gui_Top                    : 24;
+                                              gui_Left                   : 218;
+                                              gui_Height                 : 416;
+                                              gui_Width                  : 364;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 4700);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_GameSetting_Btn_Close_1024   : ({$REGION ' - FInGame_UI_GameSetting_Btn_Close_1024    '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_CLOSE;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 331;
+                                              gui_Height                 : 30;
+                                              gui_Width                  : 30;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 1221;
+                                                                            gui_Mouse_Over_Texture_ID : 1220;
+                                                                            gui_Mouse_Down_Texture_ID : 1222);                                                                             
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      FInGame_UI_GameSetting_Btn_Basic_1024   : ({$REGION ' - FInGame_UI_GameSetting_Btn_Basic_1024    '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_BASIC;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_WorkField              : (Left:0; Top:0; Right:67; Bottom:21);
+                                              gui_Top                    : 38;
+                                              gui_Left                   : 9;
+                                              gui_Height                 : 21;
+                                              gui_Width                  : 67;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 101;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFF0F0F0;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 4705);                                                                             
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFBDBDFF;
+                                                                            gui_ColorPress       : $FF9595AD);                              
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_GameSetting_Btn_Permit_1024  : ({$REGION ' - FInGame_UI_GameSetting_Btn_Permit_1024   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_PERMIT;
+                                              gui_Type                   : ctTextButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_WorkField              : (Left:0; Top:0; Right:67; Bottom:21);
+                                              gui_Top                    : 38;
+                                              gui_Left                   : 78;
+                                              gui_Height                 : 21;
+                                              gui_Width                  : 67;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 102;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFF0F0F0;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 4706);                                                                             
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFBDBDFF;
+                                                                            gui_ColorPress       : $FF9595AD);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_GameSetting_Btn_Chatting_1024: ({$REGION ' - FInGame_UI_GameSetting_Btn_Chatting_1024 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_CHATTING;
+                                              gui_Type                   : ctTextButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_WorkField              : (Left:0; Top:0; Right:67; Bottom:21);
+                                              gui_Top                    : 38;
+                                              gui_Left                   : 147;
+                                              gui_Height                 : 21;
+                                              gui_Width                  : 67;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 103;
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFF0F0F0;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 4707);                                                                             
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFBDBDFF;
+                                                                            gui_ColorPress       : $FF9595AD);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_GameSetting_Btn_Visual_1024  : ({$REGION ' - FInGame_UI_GameSetting_Btn_Visual_1024   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_VISUAL;
+                                              gui_Type                   : ctTextButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_WorkField              : (Left:0; Top:0; Right:67; Bottom:21);
+                                              gui_Top                    : 38;
+                                              gui_Left                   : 216;
+                                              gui_Height                 : 21;
+                                              gui_Width                  : 67;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 104;                 
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFF0F0F0;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 4708);                                                                             
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFBDBDFF;
+                                                                            gui_ColorPress       : $FF9595AD);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_GameSetting_Btn_Device_1024  : ({$REGION ' - FInGame_UI_GameSetting_Btn_Device_1024   '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_GAME_SETTING_UI_BTN_DEVICE;
+                                              gui_Type                   : ctTextButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_WorkField              : (Left:0; Top:0; Right:67; Bottom:21);
+                                              gui_Top                    : 38;
+                                              gui_Left                   : 285;
+                                              gui_Height                 : 21;
+                                              gui_Width                  : 67;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 104;                 
+                                              gui_Font                   : (gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFF0F0F0;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter;
+                                                                            gui_Font_Setting     : [fsBold]);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Mouse_Over_Texture_ID : 4709);                                                                             
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFBDBDFF;
+                                                                            gui_ColorPress       : $FF9595AD);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );       
       {$ENDREGION}    
 
       {$REGION ' - Body Window UI System           '}
@@ -5245,9 +5521,9 @@ var
                                               gui_Width                  : 30;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1222;
+                                                                            gui_Background_Texture_ID : 1221;
                                                                             gui_Mouse_Over_Texture_ID : 1220;
-                                                                            gui_Mouse_Down_Texture_ID : 1221); 
+                                                                            gui_Mouse_Down_Texture_ID : 1222); 
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -6925,8 +7201,8 @@ var
       {$ENDREGION}
 
     ///////////////////////////         
-          (* 1024x768 *) 
-    /////////////////////////// 
+          (* 1024x768 *)
+    ///////////////////////////
       FInGame_UI_Body_Window_1024             : ({$REGION ' - FInGame_UI_Body_Window_1024     '}
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_BODY_UI_WINDOW;
                                               gui_Type                   : ctForm;
@@ -6947,19 +7223,19 @@ var
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_BODY_UI_BTN_CLOSE;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_Top                    : 4;
-                                              gui_Left                   : 290;
+                                              gui_Top                    : 2;
+                                              gui_Left                   : 288;
                                               gui_Height                 : 30;
                                               gui_Width                  : 30;
                                               gui_Blend_Size             : 255;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1222;
+                                                                            gui_Background_Texture_ID : 1221;
                                                                             gui_Mouse_Over_Texture_ID : 1220;
-                                                                            gui_Mouse_Down_Texture_ID : 1221); 
+                                                                            gui_Mouse_Down_Texture_ID : 1222);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
-                );         
+                );      
       {$ENDREGION}
       
       {$REGION ' - Body Show Window UI System      '}
@@ -10233,7 +10509,7 @@ var
       {$REGION ' - Quest Window UI System          '}
       
       {$ENDREGION}       
-      
+
       {$REGION ' - Bag Window UI System            '}
       
       {$ENDREGION}        
@@ -10362,28 +10638,12 @@ var
       {$REGION ' - Guild Window UI System          '}
       
       {$ENDREGION}        
-      
-      {$REGION ' - Trade Window UI System          '}
-      
-      {$ENDREGION}        
 
       {$REGION ' - Target Window UI System         '}
         // New Control (Top Center and show Selected Target and HP of this Target)
       {$ENDREGION}        
-                        
-      {$REGION ' - Auto Features Window UI System  '}
-      
-      {$ENDREGION}
-      
-      {$REGION ' - Avatar Setup Window UI System   '}
-      
-      {$ENDREGION}
 
-      {$REGION ' - Siege (WAR) Window UI System    '}
-      
-      {$ENDREGION}      
-      
-      {$REGION ' - Mail/Message Window UI System   '}
+      {$REGION ' - Friend/Mail/Message Window UI System   '}
       
       {$ENDREGION}      
 
@@ -10423,8 +10683,8 @@ var
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_EXIT_BTN_UI_EXIT;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_Top                    : 70;
-                                              gui_Left                   : 16;
+                                              gui_Top                    : 75;
+                                              gui_Left                   : 66;
                                               gui_Height                 : 26;
                                               gui_Width                  : 120;
                                               gui_Blend_Size             : 255;
@@ -10450,8 +10710,8 @@ var
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_EXIT_BTN_UI_LOGOUT;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_Top                    : 40;
-                                              gui_Left                   : 16;
+                                              gui_Top                    : 45;
+                                              gui_Left                   : 66;
                                               gui_Height                 : 26;
                                               gui_Width                  : 120;
                                               gui_Blend_Size             : 255;
@@ -10477,16 +10737,16 @@ var
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_EXIT_BTN_UI_CLOSE;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_Top                    : 4;
-                                              gui_Left                   : 218;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 221;
                                               gui_Height                 : 30;
                                               gui_Width                  : 30;
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 195;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1222;
+                                                                            gui_Background_Texture_ID : 1221;
                                                                             gui_Mouse_Over_Texture_ID : 1220;
-                                                                            gui_Mouse_Down_Texture_ID : 1221); 
+                                                                            gui_Mouse_Down_Texture_ID : 1222);
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
@@ -10514,8 +10774,8 @@ var
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_EXIT_BTN_UI_EXIT;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_Top                    : 70;
-                                              gui_Left                   : 16;
+                                              gui_Top                    : 75;
+                                              gui_Left                   : 66;
                                               gui_Height                 : 26;
                                               gui_Width                  : 120;
                                               gui_Blend_Size             : 255;
@@ -10541,8 +10801,8 @@ var
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_EXIT_BTN_UI_LOGOUT;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_Top                    : 40;
-                                              gui_Left                   : 16;
+                                              gui_Top                    : 45;
+                                              gui_Left                   : 66;
                                               gui_Height                 : 26;
                                               gui_Width                  : 120;
                                               gui_Blend_Size             : 255;
@@ -10568,20 +10828,328 @@ var
                                               gui_Unique_Control_Number  : GUI_ID_INGAME_EXIT_BTN_UI_CLOSE;
                                               gui_Type                   : ctButton;
                                               gui_Form_Type              : ftNone;
-                                              gui_Top                    : 4;
-                                              gui_Left                   : 218;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 221;
                                               gui_Height                 : 30;
                                               gui_Width                  : 30;
                                               gui_Blend_Size             : 255;
                                               gui_HintID                 : 195;
                                               gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
-                                                                            gui_Background_Texture_ID : 1222;
+                                                                            gui_Background_Texture_ID : 1221;
                                                                             gui_Mouse_Over_Texture_ID : 1220;
-                                                                            gui_Mouse_Down_Texture_ID : 1221); 
+                                                                            gui_Mouse_Down_Texture_ID : 1222); 
                                               gui_Enabled                : True;
                                               gui_Visible                : True
                                               {$ENDREGION}
                 );    
+      {$ENDREGION}
+
+      {$REGION ' - Trade Window UI System           '}
+    /////////////////////////// 
+         (* 800x600 *)
+    ///////////////////////////  
+      FInGame_UI_Trade_Window_800             : ({$REGION ' - FInGame_UI_Trade_Window_800           '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_TRADE_UI_BACKGROUND;
+                                              gui_Type                   : ctForm;
+                                              gui_Form_Type              : ftUIStatic;
+                                              gui_WorkField              : (Left:0; Top:0; Right:428; Bottom:244);
+                                              gui_Top                    : 110;
+                                              gui_Left                   : 186;
+                                              gui_Height                 : 244;
+                                              gui_Width                  : 428;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER2_INT;
+                                                                            gui_Background_Texture_ID : 1000);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Trade_Btn_1_800              : ({$REGION ' - FInGame_UI_Trade_Btn_1_800            '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_TRADE_UI_BTN_TRADE;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 202;
+                                              gui_Left                   : 60;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 80;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 190;
+                                              gui_HintID                 : 191;
+                                              gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                            gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFBEA97A;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER2_INT;
+                                                                            gui_Background_Texture_ID : 1012;
+                                                                            gui_Mouse_Over_Texture_ID : 1010;
+                                                                            gui_Mouse_Down_Texture_ID : 1011);                                                                              
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Trade_Btn_2_800              : ({$REGION ' - FInGame_UI_Trade_Btn_2_800            '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_TRADE_UI_BTN_CLOSE;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 202;
+                                              gui_Left                   : 280;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 80;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 192;
+                                              gui_HintID                 : 193;
+                                              gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                            gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFBEA97A;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER2_INT;
+                                                                            gui_Background_Texture_ID : 1017;
+                                                                            gui_Mouse_Over_Texture_ID : 1015;
+                                                                            gui_Mouse_Down_Texture_ID : 1016);                                                                              
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Trade_Btn_Close_800          : ({$REGION ' - FInGame_UI_Trade_Btn_Close_800        '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_TRADE_UI_BTN_CLOSE;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 398;
+                                              gui_Height                 : 30;
+                                              gui_Width                  : 30;
+                                              gui_Blend_Size             : 255;
+                                              gui_HintID                 : 195;
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 1221;
+                                                                            gui_Mouse_Over_Texture_ID : 1220;
+                                                                            gui_Mouse_Down_Texture_ID : 1222);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+    /////////////////////////// 
+         (* 1024x768 *)
+    ///////////////////////////
+      FInGame_UI_Trade_Window_1024            : ({$REGION ' - FInGame_UI_Trade_Window_1024          '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_TRADE_UI_BACKGROUND;
+                                              gui_Type                   : ctForm;
+                                              gui_Form_Type              : ftUIStatic;
+                                              gui_WorkField              : (Left:0; Top:0; Right:428; Bottom:244);
+                                              gui_Top                    : 194;
+                                              gui_Left                   : 298;
+                                              gui_Height                 : 244;
+                                              gui_Width                  : 428;
+                                              gui_Blend_Size             : 255;
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER2_INT;
+                                                                            gui_Background_Texture_ID : 1000);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Trade_Btn_1_1024             : ({$REGION ' - FInGame_UI_Trade_Btn_Exit_1024        '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_TRADE_UI_BTN_TRADE;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 202;
+                                              gui_Left                   : 60;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 80;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 190;
+                                              gui_HintID                 : 191;
+                                              gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                            gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFBEA97A;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER2_INT;
+                                                                            gui_Background_Texture_ID : 1012;
+                                                                            gui_Mouse_Over_Texture_ID : 1010;
+                                                                            gui_Mouse_Down_Texture_ID : 1011);                                                                              
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Trade_Btn_2_1024             : ({$REGION ' - FInGame_UI_Trade_Btn_Logout_1024      '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_TRADE_UI_BTN_CLOSE;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 202;
+                                              gui_Left                   : 280;
+                                              gui_Height                 : 26;
+                                              gui_Width                  : 80;
+                                              gui_Blend_Size             : 255;
+                                              gui_CaptionID              : 192;
+                                              gui_HintID                 : 193;
+                                              gui_Font                   : (gui_Font_Use_ID      : 2;
+                                                                            gui_Font_Size        : 18;
+                                                                            gui_Font_Color       : $FFBEA97A;
+                                                                            gui_Font_Text_HAlign : alCenter;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER2_INT;
+                                                                            gui_Background_Texture_ID : 1017;
+                                                                            gui_Mouse_Over_Texture_ID : 1015;
+                                                                            gui_Mouse_Down_Texture_ID : 1016);                                                                              
+                                              gui_Btn_Font_Color         : (gui_ColorSelect      : $FFAF9400;
+                                                                            gui_ColorPress       : $FFF0F0F0;
+                                                                            gui_ColorDisabled    : $FF808080);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Trade_Btn_Close_1024         : ({$REGION ' - FInGame_UI_Trade_Btn_Close_1024       '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_TRADE_UI_BTN_CLOSE;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 0;
+                                              gui_Left                   : 398;
+                                              gui_Height                 : 30;
+                                              gui_Width                  : 30;
+                                              gui_Blend_Size             : 255;
+                                              gui_HintID                 : 195;
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 1221;
+                                                                            gui_Mouse_Over_Texture_ID : 1220;
+                                                                            gui_Mouse_Down_Texture_ID : 1222);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );    
+      {$ENDREGION}
+         
+      {$REGION ' - Chat Window UI System           '}
+    /////////////////////////// 
+         (* 800x600 *)
+    ///////////////////////////
+      FInGame_UI_Chat_Background_800          : ({$REGION ' - FInGame_UI_Chat_Background_800  '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_CHAT_UI_WINDOW;
+                                              gui_Type                   : ctForm;
+                                              gui_Form_Type              : ftUIStatic;
+                                              gui_WorkField              : (Left:0; Top:0; Right:380; Bottom:38);
+                                              gui_Top                    : 495;
+                                              gui_Left                   : 0;
+                                              gui_Height                 : 38;
+                                              gui_Width                  : 380;
+                                              gui_Blend_Size             : 225;
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 3503);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+                
+                
+      FInGame_UI_Chat_Btn_Exit_800            : ({$REGION ' - FInGame_UI_Chat_Btn_Exit_800          '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_CHAT_UI_BTN_EXIT;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 5;
+                                              gui_Left                   : 150;
+                                              gui_Height                 : 18;
+                                              gui_Width                  : 16;
+                                              gui_Blend_Size             : 255;
+                                              gui_HintID                 : 191;
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 3545;
+                                                                            gui_Mouse_Down_Texture_ID : 3546);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Chat_Edit_Field_800          : ({$REGION ' - FInGame_UI_Chat_Edit_Field_800    '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_CHAT_UI_EDIT_FIELD;
+                                              gui_Type                   : ctEdit;
+                                              gui_Form_Type              : ftNone;
+                                              gui_WorkField              : (Left:2; Top:0; Right:182; Bottom:16);
+                                              gui_Top                    : 20;
+                                              gui_Left                   : 50;
+                                              gui_Height                 : 18;
+                                              gui_Width                  : 184;
+                                              gui_Blend_Size             : 245;
+                                              gui_Font                   : (gui_Font_Use_ID      : 13;
+                                                                            gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFF0F0F0;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Password_Char          : '';
+                                              gui_Edit_Max_Length        : 25;
+                                              gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+    ///////////////////////////
+         (* 1024x768 *)
+    ///////////////////////////
+      FInGame_UI_Chat_Background_1024         : ({$REGION ' - FInGame_UI_Chat_Background_1024 '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_CHAT_UI_WINDOW;
+                                              gui_Type                   : ctForm;
+                                              gui_Form_Type              : ftUIStatic;
+                                              gui_WorkField              : (Left:2; Top:9; Right:252; Bottom:128);
+                                              gui_Top                    : 663;
+                                              gui_Left                   : 0;
+                                              gui_Height                 : 38;
+                                              gui_Width                  : 380;
+                                              gui_Blend_Size             : 225;
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                            gui_Background_Texture_ID : 3503);
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+                
+                
+      FInGame_UI_Chat_Btn_Exit_1024           : ({$REGION ' - FInGame_UI_Chat_Btn_Exit_1024         '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_CHAT_UI_BTN_EXIT;
+                                              gui_Type                   : ctButton;
+                                              gui_Form_Type              : ftNone;
+                                              gui_Top                    : 5;
+                                              gui_Left                   : 150;
+                                              gui_Height                 : 18;
+                                              gui_Width                  : 16;
+                                              gui_Blend_Size             : 255;
+                                              gui_HintID                 : 191;
+                                              gui_Control_Texture        : (gui_Texture_File_ID       : GAME_TEXTURE_GAMEINTER_INT;
+                                                                           gui_Background_Texture_ID : 3545;
+                                                                           gui_Mouse_Down_Texture_ID : 3546);   
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
+      FInGame_UI_Chat_Edit_Field_1024        : ({$REGION ' - FInGame_UI_Chat_Edit_Field_1024    '}
+                                              gui_Unique_Control_Number  : GUI_ID_INGAME_CHAT_UI_EDIT_FIELD;
+                                              gui_Type                   : ctEdit;
+                                              gui_Form_Type              : ftNone;
+                                              gui_WorkField              : (Left:2; Top:0; Right:250; Bottom:16);
+                                              gui_Top                    : 9;
+                                              gui_Left                   : 52;
+                                              gui_Height                 : 18;
+                                              gui_Width                  : 300;
+                                              gui_Blend_Size             : 245;
+                                              gui_Font                   : (gui_Font_Use_ID      : 13;
+                                                                            gui_Font_Size        : 16;
+                                                                            gui_Font_Color       : $FFF0F0F0;
+                                                                            gui_Font_Text_VAlign : avCenter);
+                                              gui_Password_Char          : '';
+                                              gui_Edit_Max_Length        : 25;
+                                              gui_Edit_Using_ASCII       : [#8..#9, #13, #46, 'a'..'z','A'..'Z', '0'..'9','_','-'];
+                                              gui_Color                  : (gui_BorderColor : $FFF0F000);
+                                              gui_ShowBorder             : True;
+                                              gui_Enabled                : True;
+                                              gui_Visible                : True
+                                              {$ENDREGION}
+                );
       {$ENDREGION}
 
     {$ENDREGION}

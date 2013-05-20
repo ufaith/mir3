@@ -221,6 +221,7 @@ type
     gui_Texture_File_ID           : Integer;
     // Texture ID
     gui_Background_Texture_ID     : Integer;           {Control Basis Texture}
+    gui_Repeat_Texture_ID         : Integer;           {Repeat Basis Texture}
     // Mouse Texture ID
     gui_Mouse_Over_Texture_ID     : Integer;           {for Buttons and class inheritance}
     gui_Mouse_Down_Texture_ID     : Integer;           {for Buttons and class inheritance}
@@ -292,6 +293,7 @@ type
 
   TMIR3_UI_Extra_Text             = record
     gui_Caption_Offset            : Integer;
+    gui_Text_Offset               : Integer;
     gui_Extra_Font                : TMIR3_UI_Fonts;
     gui_CaptionExtraID            : Integer;
   end;
@@ -437,7 +439,7 @@ type
     procedure SetHotKeyEventCallback(ACallback: PCallbackHotKeyEvent);
     procedure SetEventCallback(ACallback: PCallBackEventNotify);
     procedure SetPreProcessingCallback(ACallback: PCallBackPreProcessing);
-    procedure SetPostProcessingCallback(ACallback: PCallBackPostProcessing);    
+    procedure SetPostProcessingCallback(ACallback: PCallBackPostProcessing);
     procedure SendEvent(AEvent: LongWord; ATriggerByUser: Boolean; AControl: PMIR3_GUI_Default);
     procedure SetZOrder(AGUIForm: TObject);
     function OnRender(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single): HRESULT;
@@ -475,8 +477,13 @@ type
   private
     function GetVisible: Boolean;
     procedure SetVisible(AValue: Boolean);
+    procedure SetCaption(ACaption: WideString);
+    function GetCaption: WideString;
+    procedure SetText(AText: WideString);
+    function GetText: WideString;
   protected
-    FCaption            : WideString;                // Window Caption Text
+    FText               : WideString;                // Windows Inner Text
+    FCaption            : WideString;                // Window Caption
     FVisibleCaption     : Boolean;                   // Show  / Hidde Caption
     FEnabled            : Boolean;                   // Enabled / Disabled Control
     FVisible            : Boolean;                   // Shown   / Hidden   Control
@@ -504,11 +511,13 @@ type
     procedure SetTextureID(ATextureID: Integer; AType: Integer=0);
     function GetControlAtPoint(AMousePoint: TPoint): TMIR3_GUI_Default;
   public
-    property EventTypeID       : Integer  read FEventTypeID       write FEventTypeID;
-    property ControlIdentifier : Cardinal read FControlIdentifier write FControlIdentifier;
-    property Top               : Integer  read FTop               write FTop;
-    property Left              : Integer  read FLeft              write FLeft;
-    property Visible           : Boolean  read GetVisible         write SetVisible;
+    property EventTypeID       : Integer    read FEventTypeID       write FEventTypeID;
+    property ControlIdentifier : Cardinal   read FControlIdentifier write FControlIdentifier;
+    property Top               : Integer    read FTop               write FTop;
+    property Left              : Integer    read FLeft              write FLeft;
+    property Caption           : WideString read GetCaption         write SetCaption;
+    property Text              : WideString read GetText            write SetText;
+    property Visible           : Boolean    read GetVisible         write SetVisible;
   end;
   
   (* class TMIR3_GUI_Default *)
@@ -2232,6 +2241,28 @@ var
       end;
     end;
 
+    procedure TMIR3_GUI_Form.SetCaption(ACaption: WideString);
+    begin
+      if ACaption <> FCaption then
+        FCaption := ACaption;
+    end;
+
+    function TMIR3_GUI_Form.GetCaption: WideString;
+    begin
+      Result := FCaption;
+    end;
+
+    procedure TMIR3_GUI_Form.SetText(AText: WideString);
+    begin
+      if AText <> FText then
+        FText := AText;
+    end;
+
+    function TMIR3_GUI_Form.GetText: WideString;
+    begin
+      Result := FText;
+    end;
+
   {$ENDREGION}
 
   {$REGION ' - TMIR3_GUI_Form :: functions   '}
@@ -2241,6 +2272,10 @@ var
     procedure TMIR3_GUI_Form.OnRenderControl(AD3DDevice: IDirect3DDevice9; AElapsedTime: Single);
     var
       I : Integer;
+      FDrawSetting      : TDrawSetting;
+      FTempImage_Top    : PImageHeaderD3D;
+      FTempImage_Middle : PImageHeaderD3D;
+      FTempImage_Bottom : PImageHeaderD3D;
     begin
 	    if not (Self.FMinimized) then
       begin
@@ -2258,7 +2293,7 @@ var
           GRenderEngine.Rectangle(FLeft, FTop, FWidth, FHeight, $FFFF0000, True);
         end else begin
 		      (* Render Form with given Texture *)
-          with FGUI_Definition, gui_Control_Texture, GGameEngine.FGameFileManger do
+          with FGUI_Definition, gui_Control_Texture, gui_Caption_Extra, gui_Font, GGameEngine.FGameFileManger, GGameEngine.FontManager do
           begin
             if gui_Texture_File_ID <> 0 then
             begin
@@ -2266,8 +2301,79 @@ var
               begin
                 DrawTextureStretch(gui_Background_Texture_ID, gui_Texture_File_ID, FLeft, FTop, gui_Strech_Rate_X, gui_Strech_Rate_Y, 2{BLEND_DEFAULT}, gui_Blend_Size);
               end else begin
-                DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FLeft, FTop, 2{BLEND_DEFAULT}, gui_Blend_Size);
+                if gui_Use_Repeat_Texture then
+                begin
+                  FTempImage_Top    := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Background_Texture_ID     , gui_Texture_File_ID);
+                  FTempImage_Middle := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_Repeat_Texture_ID         , gui_Texture_File_ID);
+                  FTempImage_Bottom := GGameEngine.FGameFileManger.GetImageD3DDirect(gui_ExtraBackground_Texture_ID, gui_Texture_File_ID);
+
+                  if Assigned(FTempImage_Top) then
+                  begin
+                    DrawTexture(FTempImage_Top.ihD3DTexture, FLeft, FTop, gui_Blend_Mode, gui_Blend_Size);
+                  end;
+
+                  for I := 0 to gui_Repeat_Count-1 do
+                  begin
+                    if Assigned(FTempImage_Middle) then                    
+                    begin
+                      DrawTexture(FTempImage_Middle.ihD3DTexture, FLeft, FTop + ((FTempImage_Middle.ihORG_Height-1) * I) + FTempImage_Top.ihORG_Height, gui_Blend_Mode, gui_Blend_Size);
+                    end;
+                  end;
+
+                  if Assigned(FTempImage_Bottom) then
+                  begin
+                    DrawTexture(FTempImage_Bottom.ihD3DTexture, FLeft, FTop + ((FTempImage_Middle.ihORG_Height-1) * gui_Repeat_Count)+ FTempImage_Top.ihORG_Height , gui_Blend_Mode, gui_Blend_Size);
+                  end;
+                  (* Auto Adjust Control Hight *)
+                  FHeight    := ((FTempImage_Middle.ihORG_Height-1) * gui_Repeat_Count) + FTempImage_Top.ihORG_Height + FTempImage_Bottom.ihORG_Height;
+                  gui_Height := FHeight;
+                end else DrawTexture(gui_Background_Texture_ID, gui_Texture_File_ID, FLeft, FTop, gui_Blend_Mode, gui_Blend_Size);
               end;
+            end;
+            if (gui_CaptionID > 0) or (Trim(FCaption) <> '') then
+            begin
+              with FDrawSetting do
+              begin
+                dsControlWidth  := FWidth;
+                dsControlHeigth := FHeight;
+                dsAX            := FLeft;
+                dsAY            := FTop  + 1 + gui_Caption_Offset;
+                dsFontHeight    := gui_Font_Size;
+                dsFontSetting   := gui_Font_Setting;
+                dsFontType      := 0;
+                dsFontSpacing   := 0;
+                dsUseKerning    := gui_Font_Use_Kerning;
+                dsColor         := gui_Font_Color;
+                dsHAlign        := gui_Font_Text_HAlign;
+                dsVAlign        := avTop;
+                dsMagicUse      := False;
+              end;
+              if gui_CaptionID > 0 then
+              begin
+                DrawText(GGameEngine.GameLanguage.GetTextFromLangSystem(gui_CaptionID), @FDrawSetting);
+              end else begin
+                DrawText(FCaption, @FDrawSetting);
+              end;
+            end;
+            if (Trim(FText) <> '') then
+            begin
+              with FDrawSetting do
+              begin
+                dsControlWidth  := FWidth;
+                dsControlHeigth := FHeight;
+                dsAX            := FLeft;
+                dsAY            := FTop  + 1 + gui_Text_Offset;
+                dsFontHeight    := gui_Extra_Font.gui_Font_Size;
+                dsFontSetting   := gui_Extra_Font.gui_Font_Setting;
+                dsFontType      := 0;
+                dsFontSpacing   := 0;
+                dsUseKerning    := gui_Extra_Font.gui_Font_Use_Kerning;
+                dsColor         := gui_Extra_Font.gui_Font_Color;
+                dsHAlign        := gui_Extra_Font.gui_Font_Text_HAlign;
+                dsVAlign        := avTop;
+                dsMagicUse      := False;
+              end;
+              DrawText(FText, @FDrawSetting);
             end;
           end;
         end;

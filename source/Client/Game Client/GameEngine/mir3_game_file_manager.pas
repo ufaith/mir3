@@ -1,47 +1,51 @@
-(*******************************************************************
- *   LomCN Mir3 file manager core File 2012                        *
- *                                                                 *
- *   Web       : http://www.lomcn.co.uk                            *
- *   Version   : 0.0.0.5                                           *
- *                                                                 *
- *   - File Info -                                                 *
- *                                                                 *
- *   This file holds all Texture loading things and ..             *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- * Change History                                                  *
- *                                                                 *
- *  - 0.0.0.1 [2012-09-11] Coly : fist init                        *
- *  - 0.0.0.2 [2012-10-10] Coly : cleanup code                     *
- *  - 0.0.0.3 [2013-03-27] Coly : change img reading and cliping   *
- *  - 0.0.0.4 [2013-03-27] Coly : add more WTL and LMT code        *
- *  - 0.0.0.5 [2013-05-08] Coly : Change Draw function and add more*  
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *                                                                 *
- *******************************************************************
- *  - TODO List for this *.pas file -                              *
- *-----------------------------------------------------------------*
- *  if a todo finished, then delete it here...                     *
- *  if you find a global TODO thats need to do, then add it here.. *
- *-----------------------------------------------------------------*
- *                                                                 *
- *  - TODO : -all -fill *.pas header information                   *
- *                 (how to need this file etc.)                    *
- *                                                                 *
- *  Splitt in WIL Class and WTL Class                              *
- *******************************************************************)
+(*****************************************************************************************
+ *   LomCN Mir3 file manager core File 2012                                              *
+ *                                                                                       *
+ *   Web       : http://www.lomcn.org                                                    *
+ *   Version   : 0.0.0.6                                                                 *
+ *                                                                                       *
+ *   - File Info -                                                                       *
+ *                                                                                       *
+ *   This file holds all Texture loading things and ..                                   *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ * Change History                                                                        *
+ *                                                                                       *
+ *  - 0.0.0.1 [2012-09-11] Coly : fist init                                              *
+ *  - 0.0.0.2 [2012-10-10] Coly : cleanup code                                           *
+ *  - 0.0.0.3 [2013-03-27] Coly : change img reading and cliping                         *
+ *  - 0.0.0.4 [2013-03-27] Coly : add more WTL and LMT code                              *
+ *  - 0.0.0.5 [2013-05-08] Coly : Change Draw function and add more                      *
+ *  - 0.0.0.6 [2013-05-17] Coly : remap texture file for more texture suport             *  
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************
+ *  - TODO List for this *.pas file -                                                    *
+ *---------------------------------------------------------------------------------------*                     
+ *  if a todo finished, then delete it here...                                           *
+ *  if you find a global TODO thats need to do, then add it here..                       *
+ *---------------------------------------------------------------------------------------*                      
+ *                                                                                       *
+ *  - TODO : -all -fill *.pas header information                                         *
+ *                 (how to need this file etc.)                                          *
+ *                                                                                       *
+ *                                                                                       *
+ *****************************************************************************************)
  unit mir3_game_file_manager;
 
 interface
 
 {$I DevelopmentDefinition.inc}
 
-uses Windows, SysUtils, Math, Graphics, Classes, D3DX9, Direct3D9, DirectShow9, ActiveX,
-     mir3_game_file_manager_const, mir3_global_config, mir3_misc_utils, mir3_game_engine_def, mir3_game_engine ;     
+uses 
+{Delphi }  Windows, SysUtils, Math, Graphics, Classes, ActiveX, 
+{DirectX}  D3DX9, Direct3D9, DirectShow9, 
+{Game   }  mir3_game_file_manager_const, mir3_global_config, mir3_misc_utils, 
+{Game   }  mir3_game_engine_def, mir3_game_engine;     
      
 type
   { Forweard declaration }
@@ -156,7 +160,7 @@ type
     end;
   {$ENDREGION}
 
-{$REGION ' - Classes  '}
+  {$REGION ' - Classes  '}
 
   { TMir3_Texture }
   TMir3_Texture = class
@@ -272,23 +276,23 @@ type
   public //Video
     procedure RenderVideo(AType: Byte);
   public
-    function GetImageD3DDirect(var AImageID, AFileID: Integer): PImageHeaderD3D;
+    function GetImageD3DDirect(const AImageID, AFileID: Integer): PImageHeaderD3D;
     function GetFileMapping : TMir3_FileMapping;
 
     procedure DrawColor(AImage: TMir3_Texture; AX, AY: Integer; AColor: Cardinal);
     //V2.0
-    procedure DrawTexture(ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
-    procedure DrawTexture(ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
-    procedure DrawTextureStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
-    procedure DrawTextureStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;    
-    procedure DrawTextureClipRect(ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
-    procedure DrawTextureClipRect(ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
-    procedure DrawTextureClipRectStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
-    procedure DrawTextureClipRectStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
-    procedure DrawTextureGrayScale(ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
-    procedure DrawTextureGrayScale(ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
-    procedure DrawTextureGrayScaleStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
-    procedure DrawTextureGrayScaleStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTexture(const ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTexture(const ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureStretch(const ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureStretch(const ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;    
+    procedure DrawTextureClipRect(const ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureClipRect(const ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureClipRectStretch(const ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureClipRectStretch(const ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureGrayScale(const ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureGrayScale(const ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureGrayScaleStretch(const ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
+    procedure DrawTextureGrayScaleStretch(const ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255); overload;
   end;
 
   TMir3_FileCashManager = class(TThread)
@@ -298,7 +302,7 @@ type
     procedure WatchCachLogic;
     procedure Execute; override;
   public
-    constructor Create(ASpawnObject: TObject); overload;
+    constructor Create(const ASpawnObject: TObject); overload;
     destructor Destroy; override;
   end;
 {$ENDREGION}
@@ -794,7 +798,7 @@ var
             {$ENDREGION}
           end;
           LIB_TYPE_4 : begin //LMT
-            {$REGION ' - Get DX Image from LMT '}
+            {$REGION ' - Get DX Image from LMT       '}
             if (FLMT = nil) then Exit;
             // Copy Image Position from LMT file (use Type check)
             CopyMemory(@FPosition, PInteger(Integer(FLMT) + (((AFrame)* 4) + GetLibTypeWixOffset(FHeaderLMTInfo.lhLib_Type))), SizeOf(FPosition));
@@ -1066,36 +1070,38 @@ var
     
     procedure TMir3_Texture.ColorToGray; 
     var
-      OldColP : PLongWord;
-      TmpColP : PLongWord;
-      I, J    : Integer;
-      g       : byte;
+      FOldColor : PLongWord;
+      FTmpColor : PLongWord;
+      I, J      : Integer;
+      FGray     : byte;
     begin
       if Assigned(FStaticImage) then
       begin
+        // If no Gray Image set in FGrayScaleImage then create new one
+        // If FGrayScaleImage set, then do nothing and go out here
         If not Assigned(FGrayScaleImage) then
         begin
           FGrayScaleImage := GRenderEngine.Texture_Create(Self.FTexWidth, Self.FTexHeight);
-          OldColP := FStaticImage.Lock(False);
-          TmpColP := FGrayScaleImage.Lock(True);
+          FOldColor := FStaticImage.Lock(False);
+          FTmpColor := FGrayScaleImage.Lock(True);
           for I := 0 to FHeight - 1 do
           begin
             for J := 0 to FWidth - 1 do
             begin
-              if OldColP^ = 0 then
+              if FOldColor^ = 0 then
               begin
-                Inc(OldColP);
-                Inc(tmpColP);
+                Inc(FOldColor);
+                Inc(FTmpColor);
                 Continue;
               end else begin
-                g := GetG(OldColp^);
-                tmpColP^ := ARGB(255, g, g, g);
+                FGray      := GetG(FOldColor^);
+                FTmpColor^ := ARGB(255, FGray, FGray, FGray);
               end;
-              Inc(OldColP);
-              inc(tmpColP);
+              Inc(FOldColor);
+              inc(FTmpColor);
             end;
-            Inc(OldColP, FTexWidth - FWidth);
-            Inc(TmpColP, FTexWidth - FWidth);
+            Inc(FOldColor, FTexWidth - FWidth);
+            Inc(FTmpColor, FTexWidth - FWidth);
           end;
           FStaticImage.Unlock;
           FGrayScaleImage.Unlock;
@@ -1128,12 +1134,16 @@ var
     begin
       if Assigned(FStaticImage) then
       begin
+        // Test has color change or not (get more speed up)
         if (FLastR <> R) or (FLastG <> G) or (FLastB <> B) then
         begin
+          // if the color changed then cleanup here
           if Assigned(FColorImage) then
             FColorImage.Handle := nil;
           FColorImage := nil;  
         end;
+        // If no Image set with color in FColorImage then create new one
+        // If FColorImage set, then do nothing and go out here
         if not Assigned(FColorImage) then
         begin      
           FLastR := R; FLastG := G; FLastB := B;
@@ -1265,12 +1275,25 @@ end;
 function TMir3_FileManager.TestIfInList(AType: Byte; AFileID: Integer; AUsingLibType: TFileLibType = LIB_TYPE_2) : PFileInformation;
 var
   FFileInfo : PFileInformation;
+  
+  function GetUnloadInfo: Boolean;
+  begin
+    Result := True;
+    case AFileID of
+      0..79 :;
+      // Hold in Memory
+      GAME_TEXTURE_GAMEINTER_INT  ,  
+      GAME_TEXTURE_GAMEINTER1_INT , 
+      GAME_TEXTURE_GAMEINTER2_INT : Result := False;       
+    end;
+  end;
+  
 begin
   new(FFileInfo);
   FFileInfo.fiFileID          := AFileID;
   FFileInfo.fiImageOpenCount  := 0;
   FFileInfo.fiImageMemoryUsag := 0;
-  FFileInfo.fiUnloadFile      := True;
+  FFileInfo.fiUnloadFile      := GetUnloadInfo;
   FFileInfo.fiImageLib        := TMir3_TextureLibrary.Create(AUsingLibType);
   FFileInfo.fiImageLib.Open(GetFileNameByID(AFileID, AUsingLibType));
   FFileInfo.fiLastUseTick     := GetTickCount;
@@ -1377,131 +1400,139 @@ begin
     85: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_NPC;
     86: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_NPCFACE;
     87: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_MICON;
-    88: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_MAPICON;
-    89: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_MMAP;
-    90: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_FMMAP;
-    91: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_INVENTORY;
-    92: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_STOREITEM;
-    93: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_EQUIP;
-    94: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_GROUND;
-    95: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_PEQUIPH1;
-    96: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_PEQUIPB1;
+    88: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_CBICONS;
+    89: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_MAPICON;
+    90: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_MMAP;
+    91: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_FMMAP;
+    92: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_INVENTORY;
+    93: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_STOREITEM;
+    94: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_SALEITEM;
+    95: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_EQUIP; 
+    96: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_EQUIP_EFFECT_FULL;    
+    97: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_EQUIP_EFFECT_FULL_EX1;
+    98: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_EQUIP_EFFECT_PART;
+    99: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_EQUIP_EFFECT_UI;     
+   100: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_GROUND;
+   101: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_PEQUIPH1;
+   102: Result := MAP_TEXTURE_PHAT_DATA + GAME_TEXTURE_PEQUIPB1;
     {$ENDREGION}
     {$REGION ' - Human Texture               '}
-   100: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_1;
-   101: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_1;
-   102: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_2;
-   103: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_2;
-   104: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_3;
-   105: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_3;
-   106: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_4;
-   107: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_4;
-   108: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_5;
-   109: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_5;
-   110: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_6;
-   111: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_6;
+   150: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_1;
+   151: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_1;
+   152: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_2;
+   153: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_2;
+   154: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_3;
+   155: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_3;
+   156: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_4;
+   157: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_4;
+   158: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_5;
+   159: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_5;
+   160: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HUM_6;
+   161: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HUM_6;
   { Human Wings }
-   112: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_SHUM_1;
-   113: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_SHUM_1;
-   114: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_SHUM_2;
-   115: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_SHUM_2;
+   180: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_SHUM_1;
+   181: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_SHUM_1;
+   182: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_SHUM_2;
+   183: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_SHUM_2;
   { Human Hair }
-   116: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HAIR_1;
-   117: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HAIR_1;
-   118: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HAIR_2;
-   119: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HAIR_2;
-   120: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HAIR_3;
-   121: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HAIR_3;
-   122: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HAIR_4;
-   123: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HAIR_4;
+   190: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HAIR_1;
+   191: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HAIR_1;
+   192: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HAIR_2;
+   193: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HAIR_2;
+   194: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HAIR_3;
+   195: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HAIR_3;
+   196: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HAIR_4;
+   197: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HAIR_4;
   { Human Helmet }
-   124: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_1;
-   125: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_1;
-   126: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_2;
-   127: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_2;
-   128: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_3;
-   129: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_3;
-   130: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_4;
-   131: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_4;
-   132: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_5;
-   133: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_5;
-   134: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_6;
-   135: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_6;
+   200: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_1;
+   201: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_1;
+   202: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_2;
+   203: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_2;
+   204: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_3;
+   205: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_3;
+   206: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_4;
+   207: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_4;
+   208: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_5;
+   209: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_5;
+   210: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_HELMET_6;
+   211: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_HELMET_6;
   { Human Weapon }
-   136: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_1;
-   137: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_1;
-   138: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_2;
-   139: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_2;
-   140: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_3;
-   141: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_3;
-   142: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_4;
-   143: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_4;
-   144: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_5;
-   145: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_5;
-   146: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_6;
-   147: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_6;
-   148: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_7;
-   149: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_7;
-   150: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_8;
-   151: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_8;
-   152: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_9;
-   153: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_9;
-   154: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_10;
-   155: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_10;
-   156: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_11;
-   157: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_11;
-   158: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_12;
-   159: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_12;
+   220: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_1;
+   221: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_1;
+   222: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_2;
+   223: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_2;
+   224: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_3;
+   225: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_3;
+   226: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_4;
+   227: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_4;
+   228: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_5;
+   229: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_5;
+   230: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_6;
+   231: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_6;
+   232: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_7;
+   233: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_7;
+   234: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_8;
+   235: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_8;
+   236: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_9;
+   237: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_9;
+   238: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_10;
+   239: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_10;
+   240: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_11;
+   241: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_11;
+   242: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_12;
+   243: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_12;
   { Human Weapon Assassin }
-   160: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_A1;
-   161: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_A1;
-   162: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_A2;
-   163: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_A2;
-   164: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_ADL1;
-   165: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_ADL1;
-   166: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_ADL2;
-   167: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_ADL2;
-   168: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_ADR1;
-   169: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_ADR1;
-   170: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_ADR2;
-   171: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_ADR2;
-   172: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_AOH1;
-   173: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_AOH1;
-   174: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_AOH2;
-   175: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_AOH2;
-   176: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_AOH3;
-   177: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_AOH3;
+   250: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_A1;
+   251: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_A1;
+   252: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_A2;
+   253: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_A2;
+   254: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_ADL1;
+   255: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_ADL1;
+   256: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_ADL2;
+   257: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_ADL2;
+   258: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_ADR1;
+   259: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_ADR1;
+   260: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_ADR2;
+   261: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_ADR2;
+   262: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_AOH1;
+   263: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_AOH1;
+   264: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_AOH2;
+   265: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_AOH2;
+   266: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_M_WEAPON_AOH3;
+   267: Result := MAP_TEXTURE_PHAT_DATA + HUMAN_TEXTURE_WM_WEAPON_AOH3;
     {$ENDREGION}
     {$REGION ' - Human Monster Horse         '}
-   180: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_Shadow;
-   181: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_1;
-   182: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_2;
-   183: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_3;
-   184: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_4;
+   281: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_SHADOW;
+   282: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_DARK_EFFECT;
+   283: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_1;
+   284: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_2;
+   285: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_3;
+   286: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_4;
+   287: Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_HORSE_5;
     {$ENDREGION}
     {$REGION ' - Human Magic                 '}
-   190: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_1;
-   191: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_2;
-   192: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_3;
-   193: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_4;
-   194: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_5;
-   195: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_6;
+   290: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_1;
+   291: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_2;
+   292: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_3;
+   293: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_4;
+   294: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_5;
+   295: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_TEXTURE_6;
     {$ENDREGION}
     {$REGION ' - Human Monster Magic         '}
-   200: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_1;
-   201: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_2;
-   202: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_3;
-   203: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_4;
-   204: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_5;
-   205: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_6;
-   206: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_7;
-   207: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_8;
-   208: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_9;
-   209: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_10;
-   210: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_11;
+   300: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_1;
+   301: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_2;
+   302: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_3;
+   303: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_4;
+   304: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_5;
+   305: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_6;
+   306: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_7;
+   307: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_8;
+   308: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_9;
+   309: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_10;
+   310: Result := MAP_TEXTURE_PHAT_DATA + MAGIC_MONSTER_TEXTURE_11;
     {$ENDREGION}
-   250..299 : Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_NORMAL;
-   300..349 : Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_SHADOW;
+   330..429 : Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_NORMAL;
+   430..529 : Result := MAP_TEXTURE_PHAT_DATA + MONSTER_TEXTURE_SHADOW;
   end;
   case AUsingLibType of
     LIB_TYPE_1,
@@ -1516,7 +1547,7 @@ begin
   Result := FTextureManager;
 end;
 
-function TMir3_FileManager.GetImageD3DDirect(var AImageID, AFileID: Integer): PImageHeaderD3D;
+function TMir3_FileManager.GetImageD3DDirect(const AImageID, AFileID: Integer): PImageHeaderD3D;
 var
   FFileInfo : PFileInformation;
   FImageID  : Integer;
@@ -1559,7 +1590,8 @@ begin
       Result := FFileInfo.fiImageList[FImageID];
     end;
   except
-    GRenderEngine.System_Log('ERROR:Draw:IMAGEID('+IntToStr(AImageID)+')-FILEID('+ IntToStr(AFileID) +')');
+    Result := nil;
+    GRenderEngine.System_Log('ERROR:DRAW::DIRECT::IMAGEID('+IntToStr(AImageID)+')-FILEID('+ IntToStr(AFileID) +')');
   end;
 end;
 
@@ -1639,7 +1671,7 @@ end;
 
 ///////////// V2.0 ///////////////////////////////////
  
-procedure TMir3_FileManager.DrawTexture(ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTexture(const ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad : THGEQuad;
   FImage   : TMir3_Texture;
@@ -1670,7 +1702,7 @@ begin
   end;
 end;
 
-procedure TMir3_FileManager.DrawTexture(ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTexture(const ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad : THGEQuad;
 begin
@@ -1699,7 +1731,7 @@ begin
   end;
 end;
 
-procedure TMir3_FileManager.DrawTextureStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTextureStretch(const ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad : THGEQuad;
   FImage   : TMir3_Texture;
@@ -1730,7 +1762,7 @@ begin
   end;  
 end;
 
-procedure TMir3_FileManager.DrawTextureStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTextureStretch(const ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad : THGEQuad;
 begin
@@ -1759,7 +1791,7 @@ begin
   end;  
 end;
 
-procedure TMir3_FileManager.DrawTextureClipRect(ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTextureClipRect(const ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad    : THGEQuad;
   FImage      : TMir3_Texture;
@@ -1810,7 +1842,7 @@ begin
   end;  
 end;
 
-procedure TMir3_FileManager.DrawTextureClipRect(ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTextureClipRect(const ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad    : THGEQuad;
   FTX1, FTY1  : Single;
@@ -1859,7 +1891,7 @@ begin
   end;  
 end;
 
-procedure TMir3_FileManager.DrawTextureClipRectStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTextureClipRectStretch(const ATextureID, AFileID: Integer; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad    : THGEQuad;
   FImage      : TMir3_Texture;
@@ -1910,7 +1942,7 @@ begin
   end;  
 end;
 
-procedure TMir3_FileManager.DrawTextureClipRectStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTextureClipRectStretch(const ATexture: TMir3_Texture; AX, AY: Integer; ARect: TRect; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad    : THGEQuad;
   FTX1, FTY1  : Single;
@@ -1959,7 +1991,7 @@ begin
   end;
 end;
 
-procedure TMir3_FileManager.DrawTextureGrayScale(ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTextureGrayScale(const ATextureID, AFileID: Integer; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad : THGEQuad;
   FImage   : TMir3_Texture;
@@ -1992,7 +2024,7 @@ begin
   end;
 end;
 
-procedure TMir3_FileManager.DrawTextureGrayScale(ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTextureGrayScale(const ATexture: TMir3_Texture; AX, AY: Integer; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad : THGEQuad;
 begin
@@ -2023,7 +2055,7 @@ begin
   end;
 end;
 
-procedure TMir3_FileManager.DrawTextureGrayScaleStretch(ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
+procedure TMir3_FileManager.DrawTextureGrayScaleStretch(const ATextureID, AFileID: Integer; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);
 var
   FOldQuad : THGEQuad;
   FImage   : TMir3_Texture;
@@ -2056,7 +2088,7 @@ begin
   end;  
 end;
 
-procedure TMir3_FileManager.DrawTextureGrayScaleStretch(ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);  
+procedure TMir3_FileManager.DrawTextureGrayScaleStretch(const ATexture: TMir3_Texture; AX, AY: Integer; ARateX, ARateY: Single; ABlendMode: Word = BLEND_DEFAULT; AAlpha: Byte = 255);  
 var
   FOldQuad : THGEQuad;
 begin
@@ -2094,7 +2126,7 @@ end;
 
  { TMir3_FileCashManager }
 
-constructor TMir3_FileCashManager.Create(ASpawnObject: TObject);
+constructor TMir3_FileCashManager.Create(const ASpawnObject: TObject);
 begin
   inherited Create(True);
   FreeOnTerminate := False;
@@ -2140,6 +2172,7 @@ begin
           end;
         end;
         SetLength(FF.fiImageList, 0);
+        FF.fiImageList := nil;
       end;
 
       if Assigned(FF.fiImageLib) then

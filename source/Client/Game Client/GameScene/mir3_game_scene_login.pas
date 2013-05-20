@@ -57,7 +57,7 @@ type
   public
     procedure ResetScene;
     procedure ReceiveMessagePacket(AReceiveData: String);
-    procedure SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+    procedure SystemMessage(AMessage: WideString; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
     {Event Function}
     procedure Event_Logon_Check_Login_Data;
     procedure Event_System_Ok;
@@ -80,11 +80,12 @@ uses mir3_game_backend;
       Self.SetEventCallback(@LoginGUIEvent);
       Self.SetHotKeyEventCallback(@LoginGUIHotKeyEvent);
 
-      { Create Login Forms and Controls }
-      with FGame_GUI_Definition_Login do
+
+      with FGame_GUI_Definition_Login, FGame_GUI_Definition_System do
       begin
         case FScreen_Width of
            800 : begin
+             { Create Login Forms and Controls }
              FLoginForm  := TMIR3_GUI_Form(Self.AddForm(FLogin_Background_800, True));
              Self.AddControl(FLoginForm, FLogin_Animation_2_800       , True);
              Self.AddControl(FLoginForm, FLogin_Animation_1_800       , True);
@@ -98,8 +99,15 @@ uses mir3_game_backend;
              Self.AddControl(FLoginForm, FLogin_Button_Login_800      , True);
              Self.AddControl(FLoginForm, FLogin_Button_URL_1_800      , True);
              Self.AddControl(FLoginForm, FLogin_Button_URL_2_800      , True);
+
+             { Create System Forms and Controls }
+             FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info_800, False));
+             Self.AddControl(FSystemForm, FSys_Button_Ok_800           , False);
+             Self.AddControl(FSystemForm, FSys_Button_Yes_800          , False);
+             Self.AddControl(FSystemForm, FSys_Button_No_800           , False);
            end;
           1024 : begin
+             { Create Login Forms and Controls }
              FLoginForm  := TMIR3_GUI_Form(Self.AddForm(FLogin_Background_1024, True));
              Self.AddControl(FLoginForm, FLogin_Animation_2_1024       , True);
              Self.AddControl(FLoginForm, FLogin_Animation_1_1024       , True);
@@ -113,16 +121,15 @@ uses mir3_game_backend;
              Self.AddControl(FLoginForm, FLogin_Button_Login_1024      , True);
              Self.AddControl(FLoginForm, FLogin_Button_URL_1_1024      , True);
              Self.AddControl(FLoginForm, FLogin_Button_URL_2_1024      , True);
+
+             { Create System Forms and Controls }
+             FSystemForm := TMIR3_GUI_Form(Self.AddForm(FSys_Dialog_Info_1024, False));
+             Self.AddControl(FSystemForm, FSys_Button_Ok_1024           , False);
+             Self.AddControl(FSystemForm, FSys_Button_Yes_1024          , False);
+             Self.AddControl(FSystemForm, FSys_Button_No_1024           , False);
            end;
         end;
-      end;
-      
-      { Create System Forms and Controls }
-      FSystemForm := TMIR3_GUI_Form(Self.AddForm(FGame_GUI_Definition_System.FSys_Dialog_Info, False));
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Dialog_Text , True);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Ok   , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_Yes  , False);
-      Self.AddControl(FSystemForm, FGame_GUI_Definition_System.FSys_Button_No   , False);                                                                            ;
+      end;                                                                         
     end;
     
     destructor TMir3GameSceneLogon.Destroy;
@@ -139,7 +146,7 @@ uses mir3_game_backend;
   {$ENDREGION}
 
   {$REGION ' - TMir3GameSceneLogon :: Scene Funtions             '}
-  procedure TMir3GameSceneLogon.SystemMessage(AMessage: String; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
+  procedure TMir3GameSceneLogon.SystemMessage(AMessage: WideString; AButtons: TMIR3_DLG_Buttons; AEventType: Integer);
   begin
     if mbOK in AButtons then
       TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_OK)).Visible := True
@@ -154,7 +161,7 @@ uses mir3_game_backend;
     else TMIR3_GUI_Button(GetComponentByID(GUI_ID_SYSINFO_BUTTON_NO)).Visible := False;
 
     SetZOrder(TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)));
-    TMIR3_GUI_Panel(GetComponentByID(GUI_ID_SYSINFO_PANEL)).Caption := PWideChar(AMessage);
+    TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Text         := AMessage;
     TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).EventTypeID  := AEventType;
     TMIR3_GUI_Form(GetFormByID(GUI_ID_SYSINFO_DIALOG)).Visible := True;
   end;

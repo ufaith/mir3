@@ -80,9 +80,9 @@ begin
     20: Value := 'Your game subscription has expired.\Please visit www.lomcn.org\for more information.';
     21: Value := 'Unknown errors have occurred!\Please visit www.lomcn.org\for more information.';
     22: Value := 'Reserved';
-    23: Value := 'Reserved';
-    24: Value := 'Reserved';
-    25: Value := 'Reserved';
+    23: Value := 'OK';
+    24: Value := 'YES';
+    25: Value := 'NO';
     { SM_LOGIN_PASSWORD_OK Verify Subscription }
     26: Value := 'Your subscription expires today!\Please visit http://www.lomcn.org\for more information.';
     27: Value := 'Your subscription will expire in\ %d days.';

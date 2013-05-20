@@ -53,7 +53,6 @@ const
 type
   TMir3_GUI_Definition_LogonInfo = record
     {$REGION ' - Logon Info Dialog                            '}
-    (* LogonInfo Scene *)
     ///////////////////////////         
           (* 800x600 *) 
     ///////////////////////////
