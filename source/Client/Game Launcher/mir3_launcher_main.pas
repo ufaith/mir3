@@ -3,67 +3,52 @@ unit mir3_launcher_main;
 interface
 
 uses
-  { Delphi }
-  Windows,
-  Messages,
-  SysUtils,
-  Variants,
-  Classes,
-  Graphics,
-  Controls,
-  Forms,
-  Dialogs,
-  StdCtrls,
-  ExtCtrls,
-  { Raize }
-  RzCmboBx,
-  RzButton,
-  RzTabs,
-  RzStatus,
-  RzRadChk;
+{ Delphi }
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls,
+  Forms, Dialogs, StdCtrls, ExtCtrls, OleCtrls, SHDocVw, MSHTML,
+{ Raize }
+  RzCmboBx, RzButton,RzTabs, RzStatus, RzRadChk, RzBmpBtn, RzPanel,
+{ Game }
+  mir3_game_config_definition, mir3_launcher_language, mir3_game_en_decode;
 
 type
-  PMir3_GameClientSetting = ^TMir3_GameClientSetting;
-  TMir3_GameClientSetting = record
-    { Server Part }
-    FServer_1_Name : String[30];
-    FServer_1_IP   : String[15];
-    FServer_1_Port : Integer;
-    FServer_2_Name : String[30];
-    FServer_2_IP   : String[15];
-    FServer_2_Port : Integer;
-    { Client Part }
-    FFull_Screen   : Boolean;
-    FUseStartVideo : Boolean;
-    FVideoVolume   : Integer;
-    FLanguageId    : Integer;
-  end;
-
   { TfrmLauncherMain }
   TfrmLauncherMain = class(TForm)
-    Panel1: TPanel;
-    RzPageControl1: TRzPageControl;
-    laVerInfo: TRzVersionInfoStatus;
     verInfo: TRzVersionInfo;
-    TabSheet1: TRzTabSheet;
-    TabSheet2: TRzTabSheet;
-    TabSheet3: TRzTabSheet;
-    TabSheet4: TRzTabSheet;
+    laVerInfo: TRzVersionInfoStatus;
+    imgBackground: TImage;
+    btnClose: TRzBmpButton;
+    wbGameServerNews: TWebBrowser;
+    btnStartGame: TRzBmpButton;
+    Image1: TImage;
+    Image2: TImage;
     Label1: TLabel;
     Label2: TLabel;
+    Image3: TImage;
+    Image4: TImage;
     Label3: TLabel;
+    imgLogo: TImage;
     Label4: TLabel;
-    btnStartGame: TRzBitBtn;
-    btnAccountManager: TRzBitBtn;
-    btnExitGame: TRzBitBtn;
-    btnGameOptions: TRzBitBtn;
-    RzComboBox1: TRzComboBox;
-    RzCheckBox1: TRzCheckBox;
-    RzCheckBox2: TRzCheckBox;
-    procedure btnExitGameClick(Sender: TObject);
+    btnGameOption: TRzBmpButton;
+    RzBmpButton2: TRzBmpButton;
+    RzBmpButton3: TRzBmpButton;
+    plGameOption: TRzPanel;
+    cbLanguage: TRzComboBox;
     procedure btnStartGameClick(Sender: TObject);
+    procedure btnCloseClick(Sender: TObject);
+    procedure wbGameServerNewsDocumentComplete(ASender: TObject; const pDisp: IDispatch; var URL: OleVariant);
+    procedure FormCreate(Sender: TObject);
+    procedure btnGameOptionClick(Sender: TObject);
+    procedure imgBackgroundMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure cbLanguageChange(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
-    { Private - Declarations }
+    FLib_Path                : String;
+    FGameSystemConfig        : TMir3_GameSystemConfig;
+    FGameSystemConfigVersion : TMir3_GameSystemConfigVersion;
+    FLanguageEngine          : TMir3_LauncherLanguageEngine;
+  private
+    procedure ProcessConfigFile;
   public
     { Public - Declarations }
   end;
@@ -75,9 +60,169 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmLauncherMain.btnExitGameClick(Sender: TObject);
+uses ActiveX;
+
+
+  {$REGION ' - Help functions '}
+    procedure TfrmLauncherMain.ProcessConfigFile;
+    var
+      FTempMem : TMemoryStream;
+
+      procedure CreateDefaultFile;
+      begin
+        ZeroMemory(@FGameSystemConfig       , SizeOf(TMir3_GameSystemConfig));
+        ZeroMemory(@FGameSystemConfigVersion, SizeOf(TMir3_GameSystemConfigVersion));
+
+        with FGameSystemConfigVersion do
+        begin
+          FFileTypeInfo      := FILE_TYPE_INFO;
+          FConfigFileVersion := 1;
+        end;
+        FTempMem.WriteBuffer(FGameSystemConfigVersion, SizeOf(TMir3_GameSystemConfigVersion));
+
+        with FGameSystemConfig do
+        begin
+          FServer_Count                := 1;
+          FServer_1_Name               := EncodeString('TestServer');  //EncodeString('LomCNTitanBeta');
+          FServer_1_Caption            := EncodeString('Test Server'); //EncodeString('LomCN Titan Beta');
+          FServer_1_IP                 := EncodeString('127.0.0.1');
+          FServer_1_Port               := 7000;
+          FServer_2_Name               := EncodeString('-');
+          FServer_2_Caption            := EncodeString('-');
+          FServer_2_IP                 := EncodeString('0.0.0.0');
+          FServer_2_Port               := 0;
+          FServer_3_Name               := EncodeString('-');
+          FServer_3_Caption            := EncodeString('-');
+          FServer_3_IP                 := EncodeString('0.0.0.0');
+          FServer_3_Port               := 0;
+          FServer_4_Name               := EncodeString('-');
+          FServer_4_Caption            := EncodeString('-');
+          FServer_4_IP                 := EncodeString('0.0.0.0');
+          FServer_4_Port               := 0;
+          { Update System }
+          FUpdateServer_Host           := EncodeString('-');
+          FUpdateServer_Port           := 0;
+          FUpdateServer_Protocol       := 1;
+          FUpdateServer_User           := EncodeString('-');
+          FUpdateServer_Password       := EncodeString('-');
+          FUpdateBaseDirectory         := EncodeString('-');
+          FUpdate_Passive_Mode         := True;
+          FUpdate_List_File            := '!lomcn_mir3_list.lst.gz';
+          { Fallback System }
+          FFallbackServer_Host         := EncodeString('-');
+          FFallbackServer_Port         := 0;
+          FFallbackServer_Protocol     := 1;
+          FFallbackServer_User         := EncodeString('-');
+          FFallbackServer_Password     := EncodeString('-');
+          FFallbackServerBaseDirectory := EncodeString('-');
+          FFallbackServer_Passive_Mode := True;
+          FFallbackServer_List_File    := EncodeString('!lomcn_mir3_fallback.fbs.gz');
+          FFallbackServer_As_Update    := False;
+          { Option System }
+          FUse_Update_Service          := True;
+          FUse_Fallback_Service        := True;
+          FUse_HomePage_Btn            := True;
+          FUse_Account_Btn             := True;
+          FUse_ChangePassword_Btn      := True;
+          FUse_Option_Btn              := True;
+          FUse_News_Page               := True;
+          { Page Set System }
+          FPageSetCount                := 0;
+        end;
+        FTempMem.WriteBuffer(FGameSystemConfig, SizeOf(TMir3_GameSystemConfig));
+        FTempMem.Seek(0,0);
+        FTempMem.SaveToFile(FLib_Path + 'Mir3.conf');
+      end;
+
+    begin
+      FTempMem := TMemoryStream.Create;
+      try
+        if FileExists(FLib_Path + 'Mir3.conf') then
+        begin
+          ZeroMemory(@FGameSystemConfig       , SizeOf(TMir3_GameSystemConfig));
+          ZeroMemory(@FGameSystemConfigVersion, SizeOf(TMir3_GameSystemConfigVersion));
+          FTempMem.LoadFromFile(FLib_Path + 'Mir3.conf');
+          FTempMem.Seek(0,0);
+          FTempMem.ReadBuffer(FGameSystemConfigVersion, SizeOf(TMir3_GameSystemConfigVersion));
+          if FGameSystemConfigVersion.FConfigFileVersion <> 1 then
+          begin
+            CreateDefaultFile;
+          end;
+
+          FTempMem.ReadBuffer(FGameSystemConfig, SizeOf(TMir3_GameSystemConfig));
+          if FGameSystemConfig.FUse_Account_Btn then
+          begin
+            btnGameOption.Visible := False;
+          end;
+        end else begin
+          CreateDefaultFile;
+        end;
+      finally
+        FTempMem.Clear;
+        FreeAndNil(FTempMem);
+      end;
+    end;
+  {$ENDREGION}
+
+  {$REGION ' - WebBrowser functions '}
+    procedure WB_Set3DBorderStyle(Sender: TObject; bValue: Boolean);
+    var
+      FDocument       : IHTMLDocument2;
+      FElement        : IHTMLElement;
+      FStrBorderStyle : String;
+    begin
+      FDocument := TWebBrowser(Sender).Document as IHTMLDocument2;
+      if Assigned(FDocument) then
+      begin
+        FElement := FDocument.Body;
+        if FElement <> nil then
+        begin
+          case BValue of
+            False : FStrBorderStyle := 'none';
+            True  : FStrBorderStyle := '';
+          end;
+          FElement.Style.BorderStyle := FStrBorderStyle;
+        end;
+      end;
+    end;
+
+    procedure WB_LoadHTML(WebBrowser: TWebBrowser; HTMLCode: string);
+    var
+      sl: TStringList;
+      ms: TMemoryStream;
+    begin
+      WebBrowser.Navigate('http://www.world-of-illusion.net/launch/LomCN/launcherpage.html');
+      //WebBrowser.Navigate('http://www.mir3.co.kr/notice/client_frm_brdlist_ad_new.asp');
+      WebBrowser.Left   := 3;
+      WebBrowser.Top    := 22;
+      WebBrowser.Width  := 794;
+      WebBrowser.Height := 413;
+      while WebBrowser.ReadyState < READYSTATE_INTERACTIVE do
+        Application.ProcessMessages;
+    end;
+
+    procedure TfrmLauncherMain.wbGameServerNewsDocumentComplete(ASender: TObject; const pDisp: IDispatch; var URL: OleVariant);
+    begin
+      WB_Set3DBorderStyle(ASender, False);
+    end;
+  {$ENDREGION}
+
+procedure TfrmLauncherMain.btnCloseClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmLauncherMain.btnGameOptionClick(Sender: TObject);
+begin
+  if plGameOption.Visible then
+  begin
+    plGameOption.Visible     := False;
+    wbGameServerNews.Visible := True;
+    //TODO : Save Option
+  end else begin
+    wbGameServerNews.Visible := False;
+    plGameOption.Visible     := True;
+  end;
 end;
 
 procedure TfrmLauncherMain.btnStartGameClick(Sender: TObject);
@@ -96,87 +241,45 @@ begin
 //  end;
 end;
 
-(*
-function HidingFile: Integer;
-var
-  dwPEB_LDR_DATA : Integer;
+// Option Page
+procedure TfrmLauncherMain.cbLanguageChange(Sender: TObject);
 begin
-
-asm
-
-pushad;
-pushfd;
-mov eax, fs:[30h] // PEB
-mov eax, [eax+0Ch] // PEB->ProcessModuleInfo
-mov dwPEB_LDR_DATA, eax // Save ProcessModuleInfo
-
-InLoadOrderModuleList:
-mov esi, [eax+0Ch] // ProcessModuleInfo->InLoadOrderModuleList[FORWARD]
-mov edx, [eax+10h] // ProcessModuleInfo->InLoadOrderModuleList[BACKWARD]
-
-LoopInLoadOrderModuleList:
-lodsd // Load First Module
-mov esi, eax // ESI points to Next Module
-mov ecx, [eax+18h] // LDR_MODULE->BaseAddress
-cmp ecx, hModule // Is it Our Module ?
-jne SkipA // If Not, Next Please (@f jumps to nearest Unamed Lable @@:)
-mov ebx, [eax] // [FORWARD] Module
-mov ecx, [eax+4] // [BACKWARD] Module
-mov [ecx], ebx // Previous Module's [FORWARD] Notation, Points to us, Replace it with, Module++
-mov [ebx+4], ecx // Next Modules, [BACKWARD] Notation, Points to us, Replace it with, Module--
-jmp InMemoryOrderModuleList // Hidden, so Move onto Next Set
-SkipA:
-cmp edx, esi // Reached End of Modules ?
-jne LoopInLoadOrderModuleList // If Not, Re Loop
-
-InMemoryOrderModuleList:
-mov eax, dwPEB_LDR_DATA // PEB->ProcessModuleInfo
-mov esi, [eax+14h] // ProcessModuleInfo->InMemoryOrderModuleList[START]
-mov edx, [eax+18h] // ProcessModuleInfo->InMemoryOrderModuleList[FINISH]
-
-LoopInMemoryOrderModuleList:
-lodsd
-mov esi, eax
-mov ecx, [eax+10h]
-cmp ecx, hModule
-jne SkipB
-mov ebx, [eax]
-mov ecx, [eax+4]
-mov [ecx], ebx
-mov [ebx+4], ecx
-jmp InInitializationOrderModuleList
-SkipB:
-cmp edx, esi
-jne LoopInMemoryOrderModuleList
-
-InInitializationOrderModuleList:
-mov eax, dwPEB_LDR_DATA // PEB->ProcessModuleInfo
-mov esi, [eax+1Ch] // ProcessModuleInfo->InInitializationOrderModuleList[START]
-mov edx, [eax+20h] // ProcessModuleInfo->InInitializationOrderModuleList[FINISH]
-
-LoopInInitializationOrderModuleList:
-lodsd
-mov esi, eax
-mov ecx, [eax+08h]
-cmp ecx, hModule
-jne SkipC
-mov ebx, [eax]
-mov ecx, [eax+4]
-mov [ecx], ebx
-mov [ebx+4], ecx
-jmp Finished
-SkipC:
-cmp edx, esi
-jne LoopInInitializationOrderModuleList
-
-Finished:
-popfd;
-popad;
-
+  //TODO : Change Language
 end;
-end;
-end.
-*)
 
+  {$REGION ' - Form functions '}
+    procedure TfrmLauncherMain.FormClose(Sender: TObject; var Action: TCloseAction);
+    begin
+      FreeAndNil(FLanguageEngine);
+    end;
+
+    procedure TfrmLauncherMain.FormCreate(Sender: TObject);
+    begin
+      FLib_Path := ExtractFilePath(ParamStr(0))+'lib\';
+
+      if FileExists(FLib_Path + 'Mir3_Logo.bmp') then
+      begin
+        imgLogo.Picture.LoadFromFile(FLib_Path + 'Mir3_Logo.bmp');
+      end;
+
+      ProcessConfigFile;
+
+      FLanguageEngine := TMir3_LauncherLanguageEngine.Create('English.lgu');
+      cbLanguage.Items.Clear;
+      FLanguageEngine.FindLanguageFile(FLib_Path, cbLanguage.Items, '.LGU', True);
+      WB_LoadHTML(wbGameServerNews, '');
+    end;
+
+    procedure TfrmLauncherMain.imgBackgroundMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    const
+      SC_DRAGMOVE = $F012;
+    begin
+      if Button = mbleft then
+      begin
+        ReleaseCapture;
+        frmLauncherMain.Perform(WM_SYSCOMMAND, SC_DRAGMOVE, 0);
+      end;
+    end;
+  {$ENDREGION}
 
 end.

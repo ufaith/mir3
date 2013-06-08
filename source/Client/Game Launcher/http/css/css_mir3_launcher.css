@@ -1,0 +1,42 @@
+
+/* Mir3 css */
+
+body {margin:0;padding:0;}
+img {border:0;vertical-align:middle;}
+ul, li, dl, dt, dd {margin:0;padding:0;list-style:none;}
+
+
+.launcher_content {position:relative;background:url('http://www.world-of-Illusion.net/launch/LomCN/bg_contentBody.jpg') no-repeat; width:794px;height:413px;}
+.launcher_body .launcher_content {top:22px;left:3px;}
+.launcher_content .game_info {position:absolute;top:17px;left:13px;width:364px;font:normal 11px/14px dotum;letter-spacing:-1px;}
+.launcher_content table {clear:both;width:360px;border-collapse:collapse;margin-left:2px;height:297px;}
+.launcher_content table .field {border:1px solid #7a624c;background-color:#5b4229;width:32px;}
+.launcher_content table .field_col_2 {border:1px solid #7a624c;background-color:#483423;width:238px;color:#b8a472;padding-left:6px;}
+.launcher_content table .field_col_3 {border:1px solid #7a624c;background-color:#483423;width:238px;color:#b9ae93;padding:2px 0 0 6px;}
+.launcher_content table .field_col_3 strong, .launcher_content table .dungeons_col_3 strong {color:#ce8712;}
+.launcher_content table .dungeons {border:1px solid #7a624c;background-color:#4f3219;width:32px;}
+.launcher_content table .dungeons_col_2 {border:1px solid #7a624c;background-color:#39220e;width:238px;color:#b8a472;padding-left:6px;}
+.launcher_content table .dungeons_col_3 {border:1px solid #7a624c;background-color:#39220e;width:238px;color:#b9ae93;padding:2px 0 0 6px;}
+.launcher_content .search {color:#9f9179;}
+.launcher_content .search .options {padding:5px 0 7px 0;}
+.launcher_content .search .keyword {border:3px solid #988b74;color:#857a6e; font:normal 12px/19px dotum;width:300px;height:19px;vertical-align:middle;}
+.launcher_content .search .btn_search {vertical-align:middle;margin-top:5px;margin-left:6px;width:50px;height:28px;}
+
+
+.launcher_content .notice {position:absolute;top:17px;left:394px;width:385px;font:normal 12px/18px dotum;letter-spacing:-1px;}
+
+.flash_banner .reposition {position:absolute;top:3px;left:4px;}
+
+.notice_list {margin-top:6px;border-top:1px solid #685e55;color:#b5ada3;height:110px;}
+.notice_list a:link{color:#92876f; text-decoration:none}
+
+.notice_list li {border-bottom:1px solid #685e55;padding:3px 0 2px 47px;}
+.notice_list li.event {background-position:1px 5px;}
+.notice_list li p {display:none;position:relative;margin:0;font:normal 12px/17px dotum;color:#dfd3c5;}
+.notice_list li p span {position:absolute;top:-21px;right:2px;font-weight:normal;color:#c9b990;font-size:11px;}
+.notice_list li.view {background-position:1px 8px;padding:6px 0 4px 47px;font-weight:bold;}
+.notice_list li.view p {display:block;}
+
+.etc_link {margin-top:8px;}
+
+.launcher_body .movie {position:absolute;top:444px;left:16px;}

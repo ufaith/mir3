@@ -1,3 +1,3 @@
 @echo off
 REM Used to delete not used file
-if exist ..\..\..\release\client\LMTTextureManager.map del ..\..\..\release\client\LMTTextureManager.map
+if exist ..\..\..\release\server\Mir3ServerTools\LMTTextureManager.map del ..\..\..\release\server\Mir3ServerTools\LMTTextureManager.map

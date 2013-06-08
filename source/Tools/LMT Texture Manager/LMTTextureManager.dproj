@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
-    <DCC_DependencyCheckOutputName>..\..\..\release\client\LMTTextureManager.exe</DCC_DependencyCheckOutputName>
+    <DCC_DependencyCheckOutputName>..\..\..\release\server\Mir3ServerTools\LMTTextureManager.exe</DCC_DependencyCheckOutputName>
     <MainSource>LMTTextureManager.dpr</MainSource>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -34,8 +34,8 @@
     <DCC_ResourcePath>..\..\component\png\;..\..\Client\Game Client\GameEngine\DirectX\</DCC_ResourcePath>
     <DCC_ObjPath>..\..\component\png\;..\..\Client\Game Client\GameEngine\DirectX\</DCC_ObjPath>
     <DCC_IncludePath>..\..\component\png\;..\..\Client\Game Client\GameEngine\DirectX\</DCC_IncludePath>
-    <DCC_Define>DEBUG;DEBUG;DEBUG;DEBUG;DEBUG</DCC_Define>
-    <DCC_ExeOutput>..\..\..\release\client</DCC_ExeOutput>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_ExeOutput>..\..\..\release\server\Mir3ServerTools\</DCC_ExeOutput>
     <DCC_DcuOutput>..\..\dcu</DCC_DcuOutput>
     <DCC_ObjOutput>..\..\dcu</DCC_ObjOutput>
     <DCC_HppOutput>..\..\dcu</DCC_HppOutput>
@@ -45,6 +45,10 @@
     <Borland.ProjectType />
     <BorlandProject>
 <BorlandProject><Delphi.Personality><Parameters><Parameters Name="HostApplication">G:\ESE_Entwicklung\ESE_CLCTool\ESECLC.exe</Parameters><Parameters Name="DebugSourceDirs">G:\ESE_Entwicklung\ESE_CLCTool</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="DebugCWD">G:\ESE_Entwicklung\ESE_CLCTool</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">0</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">30</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">2057</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">0.0.0.30</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">0.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      
+      
+      
+      
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\Mir3Components2012.bpl">LomCN Map Editor Komponenten Pack 2012</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\D7WinNetworkSocket.bpl">WinSocket Server / Client</Excluded_Packages>
       <Excluded_Packages Name="C:\Dokumente und Einstellungen\All Users\Dokumente\RAD Studio\5.0\Bpl\dclsdac105.bpl">SQL Server Data Access Components</Excluded_Packages>

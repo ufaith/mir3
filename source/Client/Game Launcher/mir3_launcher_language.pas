@@ -26,14 +26,16 @@ type
     FGetLangFileAutor      : TGetLangFileAutor;
     FGetLangLauncherLine   : TGetLangLauncherLine;
     FGetLangLauncherString : TGetLangLauncherString;
+    FLanguageFiles         : TStringList;
     FLang_Handle           : Integer;
     FLangLauncherFileCols  : Integer;
     function GetLangLauncherFileTextCols: Integer;
     function GetLangFileVersion: Integer;
     function GetLangAutor: String;
   public
-    constructor Create(ALanguage: Integer);
+    constructor Create(ALanguage: String);
     destructor Destroy; override;
+    procedure FindLanguageFile(Path: string; FileList: TStrings; AExtType: String; ACutExt: Boolean);
     function GetTextFromLangSystem(ATextID: Integer): String;
   end;
 
@@ -45,39 +47,26 @@ var
 ////////////////////////////////////////////////////////////////////////////////
 // TMir3_LauncherLanguageEngine Constructor
 //..............................................................................
-constructor TMir3_LauncherLanguageEngine.Create(ALanguage: Integer);
+constructor TMir3_LauncherLanguageEngine.Create(ALanguage: String);
 begin
   inherited Create;
 
   FLang_Handle           := 0;
   FLangLauncherFileCols  := 0;
+  FLanguageFiles         := TStringList.Create;
+  FindLanguageFile(ExtractFilePath(ParamStr(0))+'lib\',FLanguageFiles,'.LGU',False);
 
-  // TODO : Search for language file in lib\
+  FLang_Handle    := LoadLibrary(PChar('lib\English.lgu'));
+  if FLang_Handle = 0 then
+  begin
+// TODO : add Log Handler
+//    if Assigned(GRenderEngine) then
+//    begin
+//      GRenderEngine.System_Log('No english language file found..');
+//      GRenderEngine.System_Log('Initialize language engine fail..');
+//    end;
+  end;
 
-//  case ALanguage of
-//    C_LANGUAGE_GERMAN  : begin
-//      FLang_Handle  := LoadLibrary(PChar('lib/German.lgu'));
-//      if FLang_Handle = 0 then
-//      begin
-//        if Assigned(GRenderEngine) then
-//        begin
-//          GRenderEngine.System_Log('No german language file found..');
-//          GRenderEngine.System_Log('Initialize language engine fail..');
-//        end;
-//      end;
-//    end;
-//    C_LANGUAGE_ENGLISH  : begin
-//      FLang_Handle    := LoadLibrary(PChar('lib/English.lgu'));
-//      if FLang_Handle = 0 then
-//      begin
-//        if Assigned(GRenderEngine) then
-//        begin
-//          GRenderEngine.System_Log('No english language file found..');
-//          GRenderEngine.System_Log('Initialize language engine fail..');
-//        end;
-//      end;
-//    end;
-//  end;
 //
 //  if FLang_Handle <> 0 then                          
 //  begin
@@ -102,10 +91,36 @@ begin
   if FLang_Handle <> 0 then
     FreeLibrary(FLang_Handle);
 
-//  if Assigned(GRenderEngine) then
-//    GRenderEngine.System_Log('Language engine destroy success');
+  if Assigned(FLanguageFiles) then
+  begin
+    FLanguageFiles.Clear;
+    FreeAndNil(FLanguageFiles);
+  end;
 
   inherited Destroy;
+end;
+
+////////////////////////////////////////////////////////////////////////////////
+// TMir3_LauncherLanguageEngine Search for all language files in lib folder
+//..............................................................................
+procedure TMir3_LauncherLanguageEngine.FindLanguageFile(Path: string; FileList: TStrings; AExtType: String; ACutExt: Boolean);
+var
+  SR: TSearchRec;
+begin
+  (* We search here for all language file in the lib folder *)
+  FileList.Clear;
+  if FindFirst(Path + '*.*', faAnyFile, SR) = 0 then
+  begin
+    repeat
+      if (SR.Attr <> faDirectory) and (UpperCase(ExtractFileExt(SR.Name)) = AExtType) then
+      begin
+        if ACutExt then
+          FileList.Add(Copy(SR.Name,0,Length(SR.Name)-4))
+        else FileList.Add(SR.Name);
+      end;
+    until FindNext(SR) <> 0;
+    FindClose(SR);
+  end;
 end;
 
 ////////////////////////////////////////////////////////////////////////////////
