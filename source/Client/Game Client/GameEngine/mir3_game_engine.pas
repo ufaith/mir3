@@ -6162,10 +6162,8 @@ end;
 
 function THGEImpl.Timer_GetFPSStrW: PWideChar;
 begin
-  Result := StringToOleStr('FPS: ' + FloatToStrF(DX9State.FFPS, ffNumber,8, 2));
+  Result := PWideChar(WideString('FPS: ' + FloatToStrF(DX9State.FFPS, ffNumber,8, 2)));
 end;
-
-
 
 function THGEImpl.Timer_GetTime: Single;
 begin
